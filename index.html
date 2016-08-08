@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Text Twist JS</title>
+</head>
+<body>
+<h2 id="word-header"></h2>
+<button id="scramble">Scramble</button>
+<!-- <form>
+	<input type="text" id="guess-word" placeholder="Type a Word">
+	<input type="submit" value="Go">
+</form> -->
+
+<script>
+	var wordStatic = 'window';
+	var wordScramble = document.getElementById('scramble');
+
+		wordStatic = wordStatic.split('');
+		wordScramble.addEventListener('click', function(){
+
+		});
+		//console.log(wordStatic.reverse().join(''));
+
+	// function scramble(){
+	// 	wordScrambled = wordStatic[Math.round(Math.random() * (wordStatic.length))];
+	// 	return wordScrambled.join('');
+	// 	console.log(wordJoined);
+	// }; scramble(wordStatic);
+
+	Array.prototype.scramble = function() {
+	  var i = this.length, j, temp;
+	  if ( i == 0 ) return this;
+	  while ( --i ) {
+	     j = Math.floor( Math.random() * ( i + 1 ) );
+	     temp = this[i];
+	     this[i] = this[j];
+	     this[j] = temp;
+	  }
+	  return this;
+	}
+
+	//console.log( wordStatic.scramble() );
+
+	var wordHeader = document.getElementById('word-header');
+		wordHeader.innerHTML= wordStatic.scramble().join('');
+
+</script>
+</body>
+</html>
