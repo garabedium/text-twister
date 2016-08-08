@@ -12,21 +12,15 @@
 </form> -->
 
 <script>
-	var wordStatic = 'window';
-	var wordScramble = document.getElementById('scramble');
+
+	// Declare some vars
+	var wordStatic = 'window',
+		wordScramble = document.getElementById('scramble'),
+		wordHeader = document.getElementById('word-header');
 
 		wordStatic = wordStatic.split('');
-		wordScramble.addEventListener('click', function(){
 
-		});
-		//console.log(wordStatic.reverse().join(''));
-
-	// function scramble(){
-	// 	wordScrambled = wordStatic[Math.round(Math.random() * (wordStatic.length))];
-	// 	return wordScrambled.join('');
-	// 	console.log(wordJoined);
-	// }; scramble(wordStatic);
-
+	// Shuffle word array
 	Array.prototype.scramble = function() {
 	  var i = this.length, j, temp;
 	  if ( i == 0 ) return this;
@@ -39,10 +33,13 @@
 	  return this;
 	}
 
-	//console.log( wordStatic.scramble() );
+	// Add scrambled word to the DOM
+	wordHeader.innerHTML= wordStatic.scramble().join('');
 
-	var wordHeader = document.getElementById('word-header');
+	// Allow user to rescramble the letters
+	wordScramble.addEventListener('click', function(){
 		wordHeader.innerHTML= wordStatic.scramble().join('');
+	});
 
 </script>
 </body>
