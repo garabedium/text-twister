@@ -14,7 +14,7 @@
 <script>
 
 	// Declare some vars
-	var wordStatic = 'window',
+	var wordStatic = 'bar',
 		wordScramble = document.getElementById('scramble'),
 		wordHeader = document.getElementById('word-header');
 
@@ -23,6 +23,9 @@
 	// Shuffle word array
 	Array.prototype.scramble = function() {
 	  var i = this.length, j, temp;
+	  var original = this.join('');
+
+	  //console.log(test.join(''));
 	  if ( i == 0 ) return this;
 	  while ( --i ) {
 	     j = Math.floor( Math.random() * ( i + 1 ) );
@@ -30,16 +33,22 @@
 	     this[i] = this[j];
 	     this[j] = temp;
 	  }
-	  return this;
+	  	//return this.join('');
+	  	if ((this.join('')) == 'bar'){
+	  		//alert("match");
+	  		return this.join('') + " matched";
+	  	} else {
+	  		return this.join('');
+	  	}
 	}
 
 	// Add scrambled word to the DOM
-	wordHeader.innerHTML= wordStatic.scramble().join('');
+	function scrambleHeader(){
+		wordHeader.innerHTML= wordStatic.scramble()
+	}; scrambleHeader();
 
 	// Allow user to rescramble the letters
-	wordScramble.addEventListener('click', function(){
-		wordHeader.innerHTML= wordStatic.scramble().join('');
-	});
+	wordScramble.addEventListener('click', scrambleHeader);
 
 </script>
 </body>
