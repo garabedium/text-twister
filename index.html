@@ -39,8 +39,13 @@
 	        array[counter] = array[index];
 	        array[index] = temp;
 	    }
-
-	    return array.join('');
+	    //return array.join('');
+	    if (array.join('') == wordOriginal){
+	    	console.log('match - ' + array.join(''));
+	    	return array.join('') + ' - matched'
+	    } else {
+	    	return array.join('');
+	    }
 	}
 
 	  	// if ((this.join('')) == wordOriginal){
