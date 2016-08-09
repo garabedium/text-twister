@@ -6,10 +6,12 @@
 <body>
 <h2 id="word-header"></h2>
 <button id="scramble">Scramble</button>
-<!-- <form>
+<br/>
+<br/>
+<form id="guess-form">
 	<input type="text" id="guess-word" placeholder="Type a Word">
-	<input type="submit" value="Go">
-</form> -->
+	<input type="submit" value="Guess Word" id="guess">
+</form>
 
 <script>
 
@@ -17,14 +19,19 @@
 	var wordStatic = 'bar',
 		wordOriginal = '',
 		wordScramble = document.getElementById('scramble'),
-		wordHeader = document.getElementById('word-header');
+		wordHeader = document.getElementById('word-header'),
+		guessForm = document.getElementById('guess-form'),
+		guessWord = document.getElementById('guess-word'),
+		guessSubmit = document.getElementById('guess');
 
 		wordOriginal = wordStatic;
 		wordStatic = wordStatic.split('');
 
 	// Shuffle word array
-	function shuffle(array) {
-	    var counter = array.length;
+	function scramble(array) {
+
+	    var counter = array.length,
+	    	word = '';
 
 	    // While there are elements in the array
 	    while (counter > 0) {
@@ -39,32 +46,39 @@
 	        array[counter] = array[index];
 	        array[index] = temp;
 	    }
-	    //return array.join('');
-	    if (array.join('') == wordOriginal){
-	    	console.log('match - ' + array.join(''));
-	    	return array.join('') + ' - matched'
-	    } else {
+
+	   	word = array.join('');
+	    // Validation: If scramble is original word, scramble again
+	    if ( word != wordOriginal ){
 	    	return array.join('');
+	    } else {
+	    	console.log(word + " " + wordStatic);
+	    	//scrambleHeader(wordStatic);
+	    	//reset();
 	    }
-	}
-
-	  	// if ((this.join('')) == wordOriginal){
-	  	// 	//return this.join('') + " - matched";
-	  	// 	console.log('matched: ' + this.join(''));
-	  	// 	//wordStatic.scramble();
-	  	// 	return false;
-	  	// } else {
-	  	// 	return this.join('');
-	  	// }
-
+	};
 
 	// Add scrambled word to the DOM
-	function scrambleHeader(){
-		wordHeader.innerHTML= shuffle(wordStatic);
+	var scrambleHeader = function(){
+		wordHeader.innerHTML= scramble(wordStatic);
 	}; scrambleHeader();
 
-	// Allow user to rescramble the letters
+	// User scramble event handler
 	wordScramble.addEventListener('click', scrambleHeader);
+
+	// User Guess form
+	// Take guessWord and compare to originalWord
+	guessForm.addEventListener('submit', function(e){
+		e.preventDefault();
+		var userInput = guessWord.value;
+		if (userInput == wordOriginal){
+			alert('you won');
+		} else {
+			alert('keep tryin');
+		}
+	});
+
+
 
 </script>
 </body>
