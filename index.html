@@ -14,6 +14,22 @@
 </form>
 <h2 id="guess-display"></h2>
 <script>
+	// Pearson API: http://developer.pearson.com/apis/dictionaries
+	// Ex: http://api.pearson.com/v2/dictionaries/ldoce5/entries?part_of_speech=noun%2Cverb&offset=2&limit=20
+
+// Call dictionary api, get some words
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?part_of_speech=noun%2Cverb&offset=2&limit=20');
+xhr.onload = function() {
+    if (xhr.status === 200) {
+        var data = JSON.parse(xhr.responseText);
+        console.log(data.results[0].headword);
+    }
+    else {
+        alert('Request failed.  Returned status of ' + xhr.status);
+    }
+};
+xhr.send();
 
 	// Declare some vars
 	var wordStatic = 'window',
