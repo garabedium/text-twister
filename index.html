@@ -28,7 +28,8 @@
 		wordStatic = wordStatic.split('');
 
 	// Shuffle word array
-	function scramble(array) {
+	var scramble = function(array) {
+		var array = wordStatic;
 
 	    var counter = array.length,
 	    	word = '';
@@ -48,23 +49,28 @@
 	    }
 
 	   	word = array.join('');
+
 	    // Validation: If scramble is original word, scramble again
 	    if ( word != wordOriginal ){
-	    	return array.join('');
+	    	//console.log(word);
+	    	return showHeader(word);
 	    } else {
-	    	console.log(word + " " + wordStatic);
-	    	//scrambleHeader(wordStatic);
-	    	//reset();
+	    	console.log('match:' + word);
+	    	//return someAlert();
+	    	return scramble();
 	    }
-	};
+	}; scramble();
 
-	// Add scrambled word to the DOM
-	var scrambleHeader = function(){
-		wordHeader.innerHTML= scramble(wordStatic);
-	}; scrambleHeader();
+	function showHeader(input){
+		wordHeader.innerHTML=input;
+	}
+
+	function someAlert(){
+		alert('match');
+	}
 
 	// User scramble event handler
-	wordScramble.addEventListener('click', scrambleHeader);
+	wordScramble.addEventListener('click', scramble);
 
 	// User Guess form
 	// Take guessWord and compare to originalWord
@@ -72,9 +78,9 @@
 		e.preventDefault();
 		var userInput = guessWord.value;
 		if (userInput == wordOriginal){
-			alert('you won');
+			//alert('you won');
 		} else {
-			alert('keep tryin');
+			//alert('keep tryin');
 		}
 	});
 

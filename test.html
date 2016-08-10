@@ -1,0 +1,53 @@
+<h2 id="word-header"></h2>
+<button id="scramble">Scramble</button>
+
+<script>
+
+	// Declare some vars
+	var wordStatic = 'bar',
+		wordOriginal = '',
+		wordScramble = document.getElementById('scramble'),
+		wordHeader = document.getElementById('word-header');
+
+		wordOriginal = wordStatic;
+		wordStatic = wordStatic.split('');
+
+	// Shuffle word array
+	var scramble = (function(array){
+
+	    var counter = array.length,
+	    	word = '';
+
+	    while (counter > 0) {
+	        var index = Math.floor(Math.random() * counter);
+	        counter--;
+
+	        var temp = array[counter];
+	        array[counter] = array[index];
+	        array[index] = temp;
+	    }
+
+	    // Validation:
+	    // Check if scramble is original word
+	    // If not, return, if same, run scramble() again
+	   	word = array.join('');
+
+	    if ( word != wordOriginal ){
+	    	return array.join('');
+	    } else {
+	    // Returns Undefined in both instances:
+	    	//scramble(wordStatic);
+	    	scrambleHeader;
+	    }
+
+	});
+
+	// Add scrambled word to the DOM
+	var scrambleHeader = function(){
+		wordHeader.innerHTML= scramble(wordStatic);
+	}; scrambleHeader();
+
+	// User scramble event handler
+	wordScramble.addEventListener('click', scrambleHeader);
+
+</script>
