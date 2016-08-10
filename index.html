@@ -9,21 +9,25 @@
 <br/>
 <br/>
 <form id="guess-form">
-	<input type="text" id="guess-word" placeholder="Type a Word">
+	<input type="text" id="guess-word" maxlength="6" placeholder="Type a Word">
 	<input type="submit" value="Guess Word" id="guess">
 </form>
-
+<h2 id="guess-display"></h2>
 <script>
 
 	// Declare some vars
-	var wordStatic = 'bar',
+	var wordStatic = 'window',
 		wordOriginal = '',
 		wordScramble = document.getElementById('scramble'),
+		scrambleHistory = [],
 		wordHeader = document.getElementById('word-header'),
 		guessForm = document.getElementById('guess-form'),
 		guessWord = document.getElementById('guess-word'),
+		guessDisplay = document.getElementById('guess-display'),
 		guessSubmit = document.getElementById('guess');
 
+	// Copy original word
+	// Convert wordStatic to array
 		wordOriginal = wordStatic;
 		wordStatic = wordStatic.split('');
 
@@ -49,14 +53,14 @@
 	    }
 
 	   	word = array.join('');
+	   	scrambleHistory.push(word);
 
-	    // Validation: If scramble is original word, scramble again
+	    // Validation:
+	    // Make sure solved word isn't shown
 	    if ( word != wordOriginal ){
-	    	//console.log(word);
 	    	return showHeader(word);
 	    } else {
 	    	console.log('match:' + word);
-	    	//return someAlert();
 	    	return scramble();
 	    }
 	}; scramble();
@@ -77,14 +81,18 @@
 	guessForm.addEventListener('submit', function(e){
 		e.preventDefault();
 		var userInput = guessWord.value;
+
 		if (userInput == wordOriginal){
-			//alert('you won');
+			// Get points
 		} else {
-			//alert('keep tryin');
+			// Animate and clear display
+			guessDisplay.innerHTML='';
 		}
 	});
 
-
+	guessWord.onkeyup = function(){
+		guessDisplay.innerHTML= guessWord.value;
+	}
 
 </script>
 </body>
