@@ -2,17 +2,25 @@
 <html>
 <head>
 	<title>Text Twist JS</title>
+	<link rel="stylesheet" type="text/css" href="app.css">
 </head>
 <body>
-<h2 id="word-header"></h2>
-<button id="re-scramble">Scramble</button>
-<br/>
-<br/>
-<form id="guess-form">
-	<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off">
-	<input type="submit" value="Guess" id="guess">
-</form>
-<h2 id="guess-display"></h2>
+<main id="app">
+	<h1>Word Warp</h1>
+	<section>
+		<h2 id="word-header"></h2>
+	</section>
+	<br/>
+	<br/>
+	<form id="guess-form">
+		<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off">
+		<button id="re-scramble" type="button">Scramble</button>
+		<button id="guess" type="submit" id="guess">Guess</button>
+	</form>
+	<section>
+		<h2 id="guess-display"></h2>
+	</section>
+</main>
 <script src='app.js'></script>
 </body>
 </html>

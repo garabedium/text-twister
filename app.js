@@ -22,6 +22,7 @@ var control = {
 		userView.init();
 		this.getData();
 		this.guessWord();
+		this.buttonControls();
 	},
 	getData: function(){
 		var xhr = new XMLHttpRequest();
@@ -116,6 +117,13 @@ var control = {
 			// This should call a view
 		}
 	},
+	buttonControls: function(){
+		document.body.onkeyup = function(e){
+		    if(e.keyCode == 32){
+		    	control.scramble(model.history[0]);
+		    }
+		}
+	},
 };
 // userView displays: scrambled word header,
 var userView = {
@@ -126,11 +134,12 @@ var userView = {
 		//var wordScramble = document.getElementById('re-scramble');
 		//wordScramble.addEventListener('click', function(){ control.scramble(model.history) });
 		//wordScramble.addEventListener('click', function(){alert('lorem')} );
+		var wordScramble = document.getElementById('re-scramble');
+		wordScramble.addEventListener('click', function(){ control.scramble(model.history[0]) } );
 	},
 };
 
 // Initialize Control
 control.init();
 
-		var wordScramble = document.getElementById('re-scramble');
-		wordScramble.addEventListener('click', function(){ control.scramble(model.history[0]) } );
+
