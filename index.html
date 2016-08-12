@@ -5,12 +5,12 @@
 </head>
 <body>
 <h2 id="word-header"></h2>
-<button id="scramble">Scramble</button>
+<button id="re-scramble">Scramble</button>
 <br/>
 <br/>
 <form id="guess-form">
-	<input type="text" id="guess-word" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word">
-	<input type="submit" value="Guess Word" id="guess">
+	<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off">
+	<input type="submit" value="Guess" id="guess">
 </form>
 <h2 id="guess-display"></h2>
 <script src='app.js'></script>
