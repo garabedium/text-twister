@@ -97,6 +97,14 @@ var control = {
 			guessInput = document.getElementById('guess-input'),
 			guessDisplay = document.getElementById('guess-display');
 
+		// Prevent spaces in input
+		guessInput.onkeypress = function(e){
+			//this.value = this.value.replace(/\s/gi,'');
+			if (e.keyCode === 32){
+				e.preventDefault();
+			}
+		};
+
 		guessForm.addEventListener('submit', function(e){
 			e.preventDefault();
 			var solve = model.history;
@@ -108,21 +116,33 @@ var control = {
 				guessInput.value='';
 			} else {
 				// No points, clear displays
-				guessDisplay.innerHTML='';
+				//guessDisplay.innerHTML='';
 				guessInput.value='';
 			}
+
+// prevent typing space
+// $('input').keypress(function( e ) {
+//     if(e.which === 32)
+//         return false;
+// })​​​​​;​
+
+
 		});
-		guessInput.onkeyup = function(){
-			guessDisplay.innerHTML= guessInput.value;
-			// This should call a view
-		}
+		// guessInput.onkeyup = function(){ // Mirrors input
+		// 	guessDisplay.innerHTML= guessInput.value;
+		// 	// This should call a view
+		// }
 	},
 	buttonControls: function(){
+		// Scramble with Spacebar, though not inside input
 		document.body.onkeyup = function(e){
-		    if(e.keyCode == 32){
+		    if(e.keyCode === 32 && e.target != document.getElementById('guess-input')){
 		    	control.scramble(model.history[0]);
+		    } else {
+		    	return false;
 		    }
 		}
+		//
 	},
 };
 // userView displays: scrambled word header,
@@ -134,7 +154,7 @@ var userView = {
 		//var wordScramble = document.getElementById('re-scramble');
 		//wordScramble.addEventListener('click', function(){ control.scramble(model.history) });
 		//wordScramble.addEventListener('click', function(){alert('lorem')} );
-		var wordScramble = document.getElementById('re-scramble');
+		var wordScramble = document.getElementById('scramble');
 		wordScramble.addEventListener('click', function(){ control.scramble(model.history[0]) } );
 	},
 };

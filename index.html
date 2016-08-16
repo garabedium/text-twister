@@ -6,20 +6,24 @@
 </head>
 <body>
 <main id="app">
-	<h1>Word Warp</h1>
+	<h1>Text Twist</h1>
 	<section>
 		<h2 id="word-header"></h2>
 	</section>
-	<br/>
-	<br/>
 	<form id="guess-form">
 		<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off">
-		<button id="re-scramble" type="button">Scramble</button>
-		<button id="guess" type="submit" id="guess">Guess</button>
+		<button id="scramble" type="button">Scramble</button>
+		<button id="guess" type="submit" id="guess">Solve</button>
 	</form>
-	<section>
+<!-- 	<section>
 		<h2 id="guess-display"></h2>
+	</section> -->
+<!-- 	<section>
+		Score
 	</section>
+	<section>
+		Timer
+	</section> -->
 </main>
 <script src='app.js'></script>
 </body>
