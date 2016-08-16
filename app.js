@@ -26,7 +26,13 @@ var control = {
 	},
 	getData: function(){
 		var xhr = new XMLHttpRequest();
-		xhr.open('GET', 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?part_of_speech=noun%2Cverb&offset=2&limit=20');
+
+		var apiBase = 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?part_of_speech=noun%2Cverb&offset=';
+		var apiOffsetLimit = 33486;
+		var apiRandomOffset = Math.floor(Math.random() * (apiOffsetLimit - 0) + 0);
+		var apiResultLimit = 100;
+
+		xhr.open('GET', ''+ apiBase + apiRandomOffset +'&limit='+ apiResultLimit +'');
 		xhr.onload = function() {
 		    if (xhr.status === 200) {
 		        var data = JSON.parse(xhr.responseText);
@@ -99,7 +105,6 @@ var control = {
 
 		// Prevent spaces in input
 		guessInput.onkeypress = function(e){
-			//this.value = this.value.replace(/\s/gi,'');
 			if (e.keyCode === 32){
 				e.preventDefault();
 			}
@@ -112,37 +117,28 @@ var control = {
 			if (guessInput.value == solve){
 				// Get points, clear displays
 				console.log('good job');
-				guessDisplay.innerHTML='';
-				guessInput.value='';
 			} else {
 				// No points, clear displays
-				//guessDisplay.innerHTML='';
 				guessInput.value='';
 			}
 
-// prevent typing space
-// $('input').keypress(function( e ) {
-//     if(e.which === 32)
-//         return false;
-// })​​​​​;​
-
-
 		});
-		// guessInput.onkeyup = function(){ // Mirrors input
-		// 	guessDisplay.innerHTML= guessInput.value;
-		// 	// This should call a view
-		// }
 	},
 	buttonControls: function(){
-		// Scramble with Spacebar, though not inside input
+		// Scramble with Spacebar
 		document.body.onkeyup = function(e){
-		    if(e.keyCode === 32 && e.target != document.getElementById('guess-input')){
+			//if(e.keyCode === 32 && e.target != document.getElementById('guess-input')){
+		    if(e.keyCode === 32){
 		    	control.scramble(model.history[0]);
 		    } else {
 		    	return false;
 		    }
 		}
-		//
+	},
+	checkWord: function(){
+		// Check if word exists in dictionary
+		// entries?headword=bir&part_of_speech=noun%2Cverb
+
 	},
 };
 // userView displays: scrambled word header,
