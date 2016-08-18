@@ -1,19 +1,10 @@
 	// Pearson API: http://developer.pearson.com/apis/dictionaries
 	// Ex: http://api.pearson.com/v2/dictionaries/ldoce5/entries?part_of_speech=noun%2Cverb&offset=2&limit=20
 
-// Text Twist Readme:
-/*
-	Basic App Flow:
-		- Call Dictionary API, get a list of words
-		- Choose a single word, shuffle and display it to user
-		- User guesses
-	Future:
-		- This version stores the original word instead of re-querying the API
-		- Would need to requery the API for other 6 letter solves
-*/
 var model = {
 	dictionary:[],
 	history:[],
+	solved:[],
 };
 var control = {
 	// Initiate Views & Get Data (API Call)
@@ -27,9 +18,9 @@ var control = {
 	getData: function(){
 		var xhr = new XMLHttpRequest();
 
-		var apiBase = 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?part_of_speech=noun%2Cverb&offset=';
+		var apiBase = 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?';
 		var apiOffsetLimit = 33486;
-		var apiRandomOffset = Math.floor(Math.random() * (apiOffsetLimit - 0) + 0);
+		var apiRandomOffset = '&offset=' + Math.floor(Math.random() * (apiOffsetLimit - 0) + 0);
 		var apiResultLimit = 100;
 
 		xhr.open('GET', ''+ apiBase + apiRandomOffset +'&limit='+ apiResultLimit +'');
@@ -88,7 +79,6 @@ var control = {
 	        array[counter] = array[index];
 	        array[index] = temp;
 	    }
-
 	    	word = array.join('');
 
 	    // Make sure scrambled word isn't solved word
@@ -103,25 +93,25 @@ var control = {
 			guessInput = document.getElementById('guess-input'),
 			guessDisplay = document.getElementById('guess-display');
 
-		// Prevent spaces in input
+		// Only accept letters in the word and Enter
 		guessInput.onkeypress = function(e){
-			if (e.keyCode === 32){
+			var char = e.key;
+			var word = model.history[0];
+
+			if ( word.indexOf(char) === -1 && e.keyCode !== 13){
 				e.preventDefault();
 			}
 		};
 
 		guessForm.addEventListener('submit', function(e){
 			e.preventDefault();
-			//console.log(guessInput.value);
 			guessValue = guessInput.value;
 			control.checkWord(guessValue);
-
 		});
 	},
 	buttonControls: function(){
-		// Scramble with Spacebar
+		// Scramble word with [spacebar]
 		document.body.onkeyup = function(e){
-			//if(e.keyCode === 32 && e.target != document.getElementById('guess-input')){
 		    if(e.keyCode === 32){
 		    	control.scramble(model.history[0]);
 		    } else {
@@ -130,27 +120,21 @@ var control = {
 		}
 	},
 	checkWord: function(input){
-		// Check if word exists in dictionary
-
 		var xhr = new XMLHttpRequest();
-
 		var apiHeadWord = input;
 		var apiBase = 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?headword=';
-		var apiPartSpeech = '&part_of_speech=noun%2Cverb%2Cadjective';
 
-		xhr.open('GET', ''+ apiBase + apiHeadWord + apiPartSpeech +'');
+		xhr.open('GET', ''+ apiBase + apiHeadWord +'');
 		xhr.onload = function() {
 
 		    if (xhr.status === 200) {
 		    	var data = JSON.parse(xhr.responseText);
 		        data = data.results;
 		        if (data.length > 0) {
-		        // do something
-		        // [] display word below form
-		        // [] award points based on length of word
-		        //
-		        	console.log(apiHeadWord + ' is a word');
+		        	// Show solved word, push to solved array, clear guess input
 		        	userView.renderSolved(apiHeadWord);
+		        	model.solved.push(apiHeadWord);
+		        	document.getElementById('guess-input').value = '';
 		        } else {
 		        	console.log(apiHeadWord + ' is not a word. byatch');
 		        }
