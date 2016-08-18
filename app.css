@@ -20,9 +20,6 @@ button {
 	border: 0;
 	font-size: 18px;
 }
-#scramble {
-
-}
-#guess {
-
+#solved-words {
+	text-align: left;
 }

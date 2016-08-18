@@ -112,15 +112,9 @@ var control = {
 
 		guessForm.addEventListener('submit', function(e){
 			e.preventDefault();
-			var solve = model.history;
-
-			if (guessInput.value == solve){
-				// Get points, clear displays
-				console.log('good job');
-			} else {
-				// No points, clear displays
-				guessInput.value='';
-			}
+			//console.log(guessInput.value);
+			guessValue = guessInput.value;
+			control.checkWord(guessValue);
 
 		});
 	},
@@ -135,24 +129,56 @@ var control = {
 		    }
 		}
 	},
-	checkWord: function(){
+	checkWord: function(input){
 		// Check if word exists in dictionary
-		// entries?headword=bir&part_of_speech=noun%2Cverb
 
+		var xhr = new XMLHttpRequest();
+
+		var apiHeadWord = input;
+		var apiBase = 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?headword=';
+		var apiPartSpeech = '&part_of_speech=noun%2Cverb%2Cadjective';
+
+		xhr.open('GET', ''+ apiBase + apiHeadWord + apiPartSpeech +'');
+		xhr.onload = function() {
+
+		    if (xhr.status === 200) {
+		    	var data = JSON.parse(xhr.responseText);
+		        data = data.results;
+		        if (data.length > 0) {
+		        // do something
+		        // [] display word below form
+		        // [] award points based on length of word
+		        //
+		        	console.log(apiHeadWord + ' is a word');
+		        	userView.renderSolved(apiHeadWord);
+		        } else {
+		        	console.log(apiHeadWord + ' is not a word. byatch');
+		        }
+		    }
+		    else {
+		        alert('Request failed.  Returned status of ' + xhr.status);
+		    }
+		};
+		xhr.send();
 	},
 };
-// userView displays: scrambled word header,
 var userView = {
 	init: function(){
-		this.render();
+		this.renderScramble();
 	},
-	render: function(){
-		//var wordScramble = document.getElementById('re-scramble');
-		//wordScramble.addEventListener('click', function(){ control.scramble(model.history) });
-		//wordScramble.addEventListener('click', function(){alert('lorem')} );
+	// Display scrambled word
+	renderScramble: function(){
 		var wordScramble = document.getElementById('scramble');
 		wordScramble.addEventListener('click', function(){ control.scramble(model.history[0]) } );
 	},
+	// Display solved words
+	renderSolved: function(input){
+		var solvedList = document.getElementById('solved-words'),
+			wordItem = document.createElement('li');
+			wordItem.innerHTML = input;
+
+		solvedList.appendChild(wordItem);
+	}
 };
 
 // Initialize Control
