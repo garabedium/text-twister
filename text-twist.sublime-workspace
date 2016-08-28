@@ -1,0 +1,1020 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"app",
+				"appendTo	.appendTo()"
+			],
+			[
+				"user",
+				"userView"
+			],
+			[
+				"mat",
+				"Math"
+			],
+			[
+				"js",
+				"js-mvc	js-mvc"
+			],
+			[
+				"candid",
+				"wordCandidates"
+			],
+			[
+				"xh",
+				"XMLHttpRequest"
+			],
+			[
+				"inner",
+				"innerHTML"
+			],
+			[
+				"scramble",
+				"scrambleHeader"
+			],
+			[
+				"scram",
+				"scrambleHeader"
+			],
+			[
+				"word",
+				"wordScramble"
+			],
+			[
+				"for",
+				"forEach"
+			],
+			[
+				"al",
+				"addEventListener"
+			],
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"gi",
+				"gi	getElementById"
+			],
+			[
+				"set",
+				"setCurrentCatId"
+			],
+			[
+				"catList",
+				"catListItem"
+			],
+			[
+				"featured",
+				"featuredCatId"
+			],
+			[
+				"fea",
+				"featuredCatId"
+			],
+			[
+				"click",
+				"clickCount"
+			],
+			[
+				"add",
+				"addEventListener"
+			],
+			[
+				"g",
+				"gi	getElementById"
+			],
+			[
+				"curr",
+				"currentCatImg"
+			],
+			[
+				"current",
+				"currentCatID"
+			],
+			[
+				"ce",
+				"cel	createElement"
+			],
+			[
+				"clic",
+				"click"
+			],
+			[
+				"random",
+				"randomCatName"
+			],
+			[
+				"fun",
+				"fun	Function"
+			],
+			[
+				"iife",
+				"iife	immediately-invoked function expression"
+			],
+			[
+				"gc",
+				"getElementsByClassName"
+			],
+			[
+				"equ",
+				"equalString"
+			],
+			[
+				"if",
+				"iife	immediately-invoked function expression"
+			],
+			[
+				"nyt",
+				"nytAPIparams"
+			],
+			[
+				"addr",
+				"addressStr"
+			],
+			[
+				"sen",
+				"senLength"
+			],
+			[
+				"str",
+				"strLength"
+			],
+			[
+				"create",
+				"createEnemies"
+			],
+			[
+				"HTML",
+				"HTMLprojectImageRotator"
+			],
+			[
+				"medium",
+				"hide-for-medium"
+			],
+			[
+				"html",
+				"HTMLprojectURL"
+			],
+			[
+				"recipe",
+				"recipeEntry"
+			],
+			[
+				"field",
+				"fieldIngredients"
+			],
+			[
+				"reci",
+				"recipe-entry"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app.js",
+			"settings":
+			{
+				"buffer_size": 4759,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 658,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 647,
+				"line_ending": "Unix",
+				"name": "README.md"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"preferences",
+				"Preferences: Settings - User"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"browse",
+				"Preferences: Browse Packages"
+			],
+			[
+				"package install",
+				"Package Control: Install Package"
+			],
+			[
+				"package control install",
+				"Package Control: Install Package"
+			],
+			[
+				"package control",
+				"Package Control: Install Package"
+			],
+			[
+				"expressionen",
+				"Set Syntax: ExpressionEngine"
+			],
+			[
+				"php",
+				"Set Syntax: PHP"
+			],
+			[
+				"express",
+				"Set Syntax: ExpressionEngine"
+			],
+			[
+				"expressione",
+				"Set Syntax: ExpressionEngine"
+			],
+			[
+				"",
+				"Clipboard Manager: Show History"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"unor",
+				"Snippet: unordered-list"
+			],
+			[
+				"lorem",
+				"Snippet: lorem-ipsum-text"
+			],
+			[
+				"border radius",
+				"Snippet: CSS for border radius."
+			],
+			[
+				"border raius",
+				"Snippet: CSS for border radius."
+			],
+			[
+				"save",
+				"Project: Save As"
+			],
+			[
+				"add",
+				"Project: Add Folder"
+			],
+			[
+				"open",
+				"View: Toggle Open Files in Side Bar"
+			]
+		],
+		"width": 431.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/greg/Sites/udacity/javascript/text-twist"
+	],
+	"file_history":
+	[
+		"/Users/greg/Sites/udacity/javascript/text-twist/text-twist.sublime-project",
+		"/Users/greg/Sites/udacity/javascript-mvc/cat-clicker/src/js/app-premium.js",
+		"/Users/greg/Sites/udacity/javascript/text-twist/app.css",
+		"/Users/greg/Sites/udacity/udacity.sublime-project",
+		"/Users/greg/Sites/udacity/javascript/text-twist/app.js",
+		"/Users/greg/Sites/udacity/javascript/text-twist/index.html",
+		"/Users/greg/Sites/udacity/ajax/js/script.js",
+		"/Users/greg/Sites/udacity/javascript/practice-files/practice-strings.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/cat-clicker/meow.html",
+		"/Users/greg/Sites/udacity/map-project/README.md",
+		"/Users/greg/Sites/udacity/javascript/frogger/README.md",
+		"/Users/greg/Sites/udacity/javascript/frogger/js/app.js",
+		"/Users/greg/Sites/udacity/maps/geocode-starter.html",
+		"/Users/greg/Sites/udacity/javascript/resume/js/resumeBuilder.js",
+		"/Users/greg/Sites/udacity/javascript/resume/js/helper.js",
+		"/Users/greg/Library/Application Support/Sublime Text 3/Packages/User/js-random-index.sublime-snippet",
+		"/Users/greg/Library/Application Support/Sublime Text 3/Packages/User/js-mvc.sublime-snippet",
+		"/Users/greg/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/greg/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/greg/Sites/udacity/ajax/index.html",
+		"/Users/greg/Sites/udacity/javascript/text-twist/test.html",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/index.html",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/js/views/todo-view.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/js/models/todo.js",
+		"/Users/greg/Sites/udacity/javascript/practice-files/practice.js",
+		"/Users/greg/Sites/udacity/performance/hacker-news/gulpfile.js",
+		"/Users/greg/Sites/udacity/knockoutjs/cat-clicker/js/app.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/bower_components/jquery/jquery.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/bower_components/todomvc-common/base.css",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/bower.json",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/js/routers/router.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/js/collections/todos.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/js/views/app-view.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/todo-app/js/app.js",
+		"/Users/greg/Sites/udacity/knockoutjs/cat-clicker/index.html",
+		"/Users/greg/Sites/udacity/performance/hacker-news/src/js/_app.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/school-attendance/index.html",
+		"/Users/greg/Sites/udacity/javascript-mvc/school-attendance/js/app.js",
+		"/Users/greg/Sites/harrington-agency/jarganator/confirm.html",
+		"/Users/greg/Sites/udacity/javascript-mvc/cat-clicker/src/js/app.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/retain/css/retain.css",
+		"/Users/greg/Sites/harrington-agency/jarganator/js/app.js",
+		"/Users/greg/Sites/bornthisway-foundation/bsd-wrapper-files/rdesign-main-07-16.css",
+		"/Users/greg/Sites/udacity/javascript-mvc/retain/index.html",
+		"/Users/greg/Sites/udacity/javascript-mvc/retain/README.md",
+		"/Users/greg/Sites/udacity/javascript/practice-files/object-prototypes.js",
+		"/Users/greg/Sites/garabedium/assets/js/helper.js",
+		"/Users/greg/Sites/garabedium/assets/js/app.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/cat-clicker/_refactor.html",
+		"/Users/greg/Sites/udacity/javascript-mvc/cat-clicker/m1.html",
+		"/Users/greg/Sites/udacity/javascript/frogger/js/engine.js",
+		"/Users/greg/Sites/udacity/javascript/practice-files/closures.js",
+		"/Users/greg/Sites/udacity/javascript/practice-files/closure-fail.html",
+		"/Users/greg/Sites/udacity/javascript/practice-files/hoisting.js",
+		"/Users/greg/Sites/udacity/performance/pizza/js/main.js",
+		"/Users/greg/Sites/udacity/portfolio-mobile/src/js/main.js",
+		"/Users/greg/Sites/udacity/portfolio/_foundation/js/app.js",
+		"/Users/greg/Sites/udacity/javascript-mvc/cat-clicker/app.js",
+		"/Users/greg/Sites/udacity/ajax/css/style.css",
+		"/Users/greg/Sites/udacity/gulp-start/js/app.js",
+		"/Users/greg/Sites/terrapower/public_html/templates/default_site/news.group/index.html",
+		"/Users/greg/Sites/terrapower/terrapower.sublime-project",
+		"/Users/greg/Sites/udacity/javascript/frogger/js/resources.js",
+		"/Users/greg/Sites/udacity/javascript/practice-files/prototype-class.js",
+		"/Users/greg/Sites/terrapower/public_html/templates/default_site/includes.group/.sidebar-pages.html",
+		"/Users/greg/Downloads/chrome/CustomFileInputs/js/jquery.custom-file-input.js",
+		"/Users/greg/Downloads/chrome/CustomFileInputs/index.html",
+		"/Users/greg/Sites/udacity/javascript/frogger/index.html",
+		"/Users/greg/Sites/udacity/javascript/frogger/css/style.css",
+		"/Users/greg/Sites/udacity/javascript/meme/index.html",
+		"/Users/greg/Sites/udacity/javascript/canvas.html",
+		"/Users/greg/Sites/udacity/javascript/js-object-oriented.js",
+		"/Users/greg/Sites/udacity/javascript/frogger/js/app_original.js",
+		"/Users/greg/Sites/garabedium/dist/js/app.min.js",
+		"/Users/greg/Sites/garabedium/README.md",
+		"/Users/greg/Sites/garabedium/index.html",
+		"/Users/greg/Sites/garabedium/portfolio.html",
+		"/Users/greg/Sites/garabedium/gulpfile.js",
+		"/Users/greg/Sites/garabedium/dist/css/app.min.css",
+		"/Users/greg/Sites/garabedium/assets/scss/js/app.js",
+		"/Users/greg/Sites/garabedium/gruntfile.js",
+		"/Users/greg/Sites/garabedium/orbit.html",
+		"/Users/greg/Sites/garabedium/assets/scss/scss/_custom.scss",
+		"/Users/greg/Sites/garabedium/resume.html",
+		"/Users/greg/Sites/garabedium/assets/scss/js/testjs/foundation.core.js",
+		"/Users/greg/Sites/garabedium/dist/js/app.js",
+		"/Users/greg/Sites/garabedium/assets/scss/scss/app.scss",
+		"/Users/greg/Sites/garabedium/assets/scss/scss/_settings.scss",
+		"/Users/greg/Sites/garabedium/assets/scss/bower_components/foundation-sites/scss/util/_breakpoint.scss",
+		"/Users/greg/Sites/garabedium/assets/scss/scss/_mixins.scss",
+		"/Users/greg/Sites/garabedium/assets/scss/index.html",
+		"/Users/greg/Documents/clients/beekeeper group/BTWF/wrappers/kindness-cake/xml-entries-recipes-experimental.html",
+		"/Users/greg/Documents/clients/beekeeper group/BTWF/wrappers/kindness-cake/xml-entries-testing.js",
+		"/Users/greg/Documents/clients/beekeeper group/BTWF/wrappers/kindness-cake/xml-entries-recipes-label-filter.html",
+		"/Users/greg/Documents/clients/beekeeper group/BTWF/wrappers/kindness-cake/xml-entries-testing.html",
+		"/Users/greg/Documents/clients/beekeeper group/BTWF/wrappers/kindness-cake/xml-entries-recipes copy.html",
+		"/Users/greg/Documents/clients/beekeeper group/BTWF/wrappers/kindness-cake/xml-entries-recipes.html",
+		"/Users/greg/Sites/garabedium/assets/js/resumeBuilder.js",
+		"/Users/greg/Sites/garabedium/resume2.html",
+		"/Users/greg/Sites/garabedium/config.codekit",
+		"/Users/greg/Sites/jts/prophets/prophets.sublime-project",
+		"/Users/greg/Downloads/chrome/Lesson 2 Subtitles/02 - What Makes a Repository a Repository.srt",
+		"/Users/greg/Documents/personal/Studies/udacity/FEND/udacity-fend-git.rtf",
+		"/Users/greg/Desktop/test.html",
+		"/Users/greg/Sites/garabedium-dev/angular/index.html",
+		"/Users/greg/Sites/garabedium-dev/angular/angular-app.js",
+		"/Users/greg/Documents/personal/Studies/codeschool/ANGULAR/angular-app.js",
+		"/Users/greg/Sites/garabedium-dev/index.html",
+		"/Users/greg/Documents/personal/Studies/codeschool/ANGULAR/learn-angular.html",
+		"/Users/greg/Documents/clients/beekeeper group/TerraPower/backups/db/dev_terrapower_ee-5-2-13.sql",
+		"/Users/greg/Sites/sampahousing/sampa-corretores/corretores/asts/_foundation/config.codekit",
+		"/Users/greg/Sites/jts/aeras/site-ee/config/config.env.php",
+		"/Users/greg/Sites/jts/aeras/site-ee/config/config.master.php",
+		"/Users/greg/Sites/jts/aeras/site-ee/config/config.local.php",
+		"/Users/greg/Downloads/chrome/ee-master-config-master/readme.textile",
+		"/Users/greg/Documents/clients/sampahousing/api/ZAP - Integration Format/ZapProject.exe",
+		"/Users/greg/Documents/clients/sampahousing/api/ZAP - Integration Format/ZapProject.exe.config",
+		"/Users/greg/Sites/jts/prophets/site-wp/wordpress/wp-content/themes/timber/views/home.twig",
+		"/Users/greg/Downloads/chrome/Coda EE2.sss",
+		"/Users/greg/Sites/jts/prophets/timber/home.php",
+		"/Users/greg/Sites/jts/prophets/timber/assets/scss/component/_rotator.scss",
+		"/Users/greg/Sites/jts/prophets/timber/assets/scss/partials/_mixins.scss",
+		"/Users/greg/Sites/jts/prophets/timber/assets/scss/partials/_footer.scss",
+		"/Users/greg/Sites/jts/prophets/site-wp/config/config.local.php",
+		"/Users/greg/Sites/jts/prophets/timber/assets/scss/component/_type.scss",
+		"/Users/greg/Sites/jts/prophets/timber/views/layout.twig",
+		"/Users/greg/Sites/jts/prophets/timber/assets/scss/_custom.scss",
+		"/Users/greg/Sites/jts/prophets/timber/assets/scss/modules/_breakpoints.scss"
+	],
+	"find":
+	{
+		"height": 70.0
+	},
+	"find_in_files":
+	{
+		"height": 223.0,
+		"where_history":
+		[
+			"<current file>",
+			"/Users/greg/Sites/terrapower/public_html/templates/default_site",
+			"<current file>",
+			"speedMax",
+			"<current file>",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"maxLength",
+			"solved",
+			"checkWord",
+			"buttonControls",
+			"checkWord",
+			"#cats",
+			"readme",
+			");\n",
+			"re-scramble",
+			"which",
+			"guessInput",
+			"wordScramble",
+			".scramble",
+			"wordOriginal",
+			"guessWord",
+			"displayWord",
+			"wordHeader",
+			"showHeader",
+			"userView",
+			"words",
+			"scrambleHistory",
+			"console.log",
+			"InfoWindow",
+			"priority",
+			"edit",
+			"completed",
+			"label",
+			"completed",
+			"$el",
+			"completed",
+			"ajax",
+			"catList",
+			"<p>•",
+			"createCats",
+			"saveAdminData",
+			"this.",
+			".push",
+			"limit",
+			"custom-1668",
+			"custom-",
+			"getCurrentCat",
+			"value",
+			"catData",
+			"catList",
+			"countClicks",
+			"click",
+			"octopus",
+			"catID",
+			"clickCounter",
+			"currentView",
+			"octopus",
+			"currentCat",
+			"catBtn.",
+			"catlIST",
+			"clickCounter",
+			"currentCatId",
+			"current-view",
+			"catWrap",
+			"currentCat",
+			"catwrap",
+			"currentCatImg",
+			"current-cat",
+			"html",
+			"cat.",
+			"newNoteForm",
+			"content",
+			"newNoteContent",
+			"notestr",
+			"create",
+			"toUpper",
+			"random",
+			"catItem",
+			"count",
+			"doc.",
+			"numCopy",
+			"window",
+			"class",
+			"load",
+			">\n",
+			"favicon",
+			"alert",
+			"und",
+			"undefined",
+			"document.",
+			"classlist",
+			"class",
+			"randomName",
+			"random",
+			"enemyCols",
+			"querySelector",
+			"determineDx",
+			"PizzaSizes",
+			"changePizzaSizes",
+			"determineDx",
+			"Index",
+			"forEach",
+			".replace",
+			"0",
+			".push",
+			"for l",
+			".pop",
+			"pop",
+			"lastNumber",
+			"last",
+			"string",
+			"last",
+			"pop",
+			"speedMax",
+			"allEnemies",
+			"sidebar_option",
+			"collisions",
+			"allEnemies",
+			"reset",
+			"app.",
+			"allEnemies",
+			"app.",
+			"allEnemies",
+			"app.",
+			"enemy.",
+			"app.allEnemies",
+			"allEnemies",
+			"allEnemies.",
+			"app.speedMin",
+			"app.speedMax",
+			"240",
+			"speed",
+			"app.speedMax",
+			"global."
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"<li>",
+			"custom-2057",
+			"octo",
+			"document.",
+			"doc.",
+			"app.allEnemies",
+			"",
+			"speedMin",
+			"speedMax",
+			"inputfile",
+			".label + inputfile",
+			"assets/images/",
+			"",
+			"'",
+			"",
+			"id=\"fill-",
+			"",
+			"sans-medium",
+			"<li>",
+			"- ",
+			"<li>",
+			"$sans-black",
+			"$sans-medium",
+			"$sans-black",
+			"$sans-medium",
+			"sans-medium",
+			"",
+			"width=\"200\"",
+			"aside.top-stories",
+			"",
+			"</h5>",
+			"<h5>",
+			"",
+			"col-md-8",
+			"\ncol-md-8",
+			"",
+			"col-md-3",
+			"left: 25px",
+			"-webkit-font-smoothing: antialiased;",
+			"4\"",
+			"",
+			"/*-webkit-font-smoothing: antialiased;*/",
+			"col-md-6 col-md-offset-3",
+			"col-md-offset-1",
+			"offset-2",
+			"col-md-3 col-md-offset2",
+			"col-md-3",
+			"col-sm-3",
+			"col-md-3",
+			"col-md-",
+			"col-sm-4",
+			"col-sm-3",
+			"col-md-3"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4759,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								855,
+								855
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 219.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 658,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 647,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								565,
+								565
+							]
+						],
+						"settings":
+						{
+							"auto_name": "README.md",
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 129.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.clipboard_manager":
+	{
+		"height": 100.0
+	},
+	"output.exec":
+	{
+		"height": 243.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 120.0
+	},
+	"pinned_build_system": "Packages/User/nodeJS.sublime-build",
+	"project": "text-twist.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"prototype",
+				"javascript/practice-files/object-prototypes.js"
+			],
+			[
+				"app.",
+				"gulp-start/js/app.js"
+			],
+			[
+				"canvas",
+				"javascript/canvas.html"
+			],
+			[
+				"canva",
+				"javascript/canvas.html"
+			],
+			[
+				"app",
+				"javascript/frogger/js/app.js"
+			],
+			[
+				"canvas.html",
+				"javascript/canvas.html"
+			],
+			[
+				"gulp",
+				"gulpfile.js"
+			],
+			[
+				"port",
+				"portfolio.html"
+			],
+			[
+				"custom",
+				"assets/scss/scss/_custom.scss"
+			],
+			[
+				"helper",
+				"assets/js/helper.js"
+			],
+			[
+				"index.html",
+				"index.html"
+			],
+			[
+				"resume",
+				"resume.html"
+			],
+			[
+				"portfo",
+				"portfolio.html"
+			],
+			[
+				"appscss",
+				"assets/scss/scss/app.scss"
+			],
+			[
+				"settings",
+				"assets/scss/scss/_settings.scss"
+			],
+			[
+				"breakpoints",
+				"assets/scss/bower_components/foundation-sites/scss/util/_breakpoint.scss"
+			],
+			[
+				"mixins",
+				"assets/scss/scss/_mixins.scss"
+			],
+			[
+				"helper.js",
+				"assets/js/helper.js"
+			],
+			[
+				"app.js",
+				"assets/scss/js/app.js"
+			],
+			[
+				"portfolio",
+				"portfolio.html"
+			],
+			[
+				"resume.html",
+				"resume.html"
+			],
+			[
+				"custom.",
+				"assets/scss/scss/_custom.scss"
+			],
+			[
+				"resume2.",
+				"resume2.html"
+			],
+			[
+				"",
+				"~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "map project",
+		"selected_items":
+		[
+			[
+				"map project",
+				"~/Sites/udacity/map-project/neighborhood-map.sublime-project"
+			],
+			[
+				"terrapower",
+				"~/Sites/terrapower/terrapower.sublime-project"
+			],
+			[
+				"tera",
+				"~/Sites/terrapower/terrapower.sublime-project"
+			],
+			[
+				"udacity",
+				"~/Sites/udacity/udacity.sublime-project"
+			],
+			[
+				"text",
+				"~/Sites/udacity/javascript/text-twist/text-twist.sublime-project"
+			],
+			[
+				"harring",
+				"~/Sites/harrington-agency/harrington.sublime-project"
+			],
+			[
+				"g",
+				"~/Sites/garabedium/garabedium.sublime-project"
+			],
+			[
+				"gara",
+				"~/Sites/garabedium/garabedium.sublime-project"
+			],
+			[
+				"",
+				"~/Sites/garabedium/garabedium.sublime-project"
+			],
+			[
+				"garabedium",
+				"~/Sites/garabedium/garabedium.sublime-project"
+			],
+			[
+				"terra",
+				"~/Sites/terrapower/terrapower.sublime-project"
+			],
+			[
+				"amobikes",
+				"~/Sites/amobikes/amobikes.sublime-project"
+			],
+			[
+				"udac",
+				"~/Sites/udacity/udacity.sublime-project"
+			],
+			[
+				"uda",
+				"~/Sites/udacity/untitled.sublime-workspace"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 354.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 674.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 215.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

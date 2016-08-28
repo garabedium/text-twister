@@ -1,14 +1,12 @@
-	// Pearson API: http://developer.pearson.com/apis/dictionaries
-	// Ex: http://api.pearson.com/v2/dictionaries/ldoce5/entries?part_of_speech=noun%2Cverb&offset=2&limit=20
 
+// Store data
 var model = {
 	dictionary:[],
 	history:[],
-	solved:[],
+	solvedWords:[],
 };
 var control = {
 	// Initiate Views & Get Data (API Call)
-	// Call select word which contains getData? Or call getData outright?
 	init: function(){
 		userView.init();
 		this.getData();
@@ -21,9 +19,9 @@ var control = {
 		var apiBase = 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?';
 		var apiOffsetLimit = 33486;
 		var apiRandomOffset = '&offset=' + Math.floor(Math.random() * (apiOffsetLimit - 0) + 0);
-		var apiResultLimit = 100;
+		var apiResultLimit = '&limit=' + 100;
 
-		xhr.open('GET', ''+ apiBase + apiRandomOffset +'&limit='+ apiResultLimit +'');
+		xhr.open('GET', ''+ apiBase + apiRandomOffset + apiResultLimit +'');
 		xhr.onload = function() {
 		    if (xhr.status === 200) {
 		        var data = JSON.parse(xhr.responseText);
@@ -31,19 +29,29 @@ var control = {
 
 					data.forEach(function(item) {
 						item = item.headword;
-						maxLength = 6;
-						// Only pull words that meet length requirement
-						if (item.length === maxLength){
-							model.dictionary.push(item);
-						}
+
+						control.validateWords(item);
+
 					});
 					control.selectWord();
 		    }
 		    else {
-		        alert('Request failed.  Returned status of ' + xhr.status);
+		        alert('Request failed. Returned status of ' + xhr.status);
 		    }
 		};
 		xhr.send();
+	},
+	validateWords: function(input){
+		// Make sure words meet the minmax length and character restrictions
+		// If they meet the requirements, push to dictionary
+		var checkMinMax = 6;
+		var checkCase = input.search(/^[a-z]+$/);
+
+		// Only save words that meet length and case requirements
+		if (input.length === checkMinMax && checkCase >= 0){
+			model.dictionary.push(input);
+		}
+
 	},
 	selectWord: function(){
 		// Select random word from dictionary array
@@ -52,7 +60,6 @@ var control = {
 		// Save original word for future use
 		model.history.push(randomWord);
 		control.scramble(randomWord);
-
 	},
 	displayWord: function(input){
 		var wordHeader = document.getElementById('word-header');
@@ -103,10 +110,16 @@ var control = {
 			}
 		};
 
+		// Check if string has already been solved
+		// If it hasn't, make sure it's a word
 		guessForm.addEventListener('submit', function(e){
 			e.preventDefault();
 			guessValue = guessInput.value;
-			control.checkWord(guessValue);
+			if (model.solvedWords.indexOf(guessValue) === -1){
+				control.checkWord(guessValue);
+			} else {
+				alert(guessValue + ' you already solved this word');
+			}
 		});
 	},
 	buttonControls: function(){
@@ -133,7 +146,7 @@ var control = {
 		        if (data.length > 0) {
 		        	// Show solved word, push to solved array, clear guess input
 		        	userView.renderSolved(apiHeadWord);
-		        	model.solved.push(apiHeadWord);
+		        	model.solvedWords.push(apiHeadWord);
 		        	document.getElementById('guess-input').value = '';
 		        } else {
 		        	console.log(apiHeadWord + ' is not a word. byatch');
