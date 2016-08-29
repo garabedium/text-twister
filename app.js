@@ -5,7 +5,8 @@ var model = {
 	//currentWord:[],
 	currentWord: {
 		word:'',
-		letters: [],
+		letters:[],
+		removed:[],
 	},
 	solvedWords:[],
 };
@@ -113,14 +114,35 @@ var control = {
 			var char = e.key;
 			var word = model.currentWord.word;
 			var letters = model.currentWord.letters;
+			var lettersRemoved = model.currentWord.removed;
 
+			// If char pressed isn't part of the word, do nothing
+			// Else, remove that char from the letters array and add it to removed
 			if ( letters.indexOf(char) === -1 && e.keyCode !== 13){
 				e.preventDefault();
 			} else {
 				index = letters.indexOf(char);
 				letters.splice(index,1);
+				lettersRemoved.push(char);
 			}
+
 		};
+
+		guessInput.onkeydown = function(e){
+			if (e.keyCode === 8 || e.keyCode === 46){
+				array = guessInput.value;
+			// If the last index of the guessInput value array exists in removed
+			// Then, remove it from model.removed
+			// Add it back to letters
+				if( model.currentWord.removed.indexOf(array.slice(-1)) >= 0){
+					//model.currentWord.word.push(array.slice(-1));
+					//alert(array.slice(-1) + " exists in " + model.currentWord.removed);
+					index = array.indexOf(array.slice(-1));
+					model.currentWord.removed.splice(index,1);
+					model.currentWord.letters.push(array.slice(-1));
+				}
+			}
+		}
 
 		// Check if string has already been solved
 		// If it hasn't, make sure it's a word
@@ -143,7 +165,6 @@ var control = {
 		    	return false;
 		    }
 		}
-
 	},
 	checkWord: function(input){
 		var xhr = new XMLHttpRequest();
