@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"vali",
+				"validateWords"
+			],
+			[
 				"text",
 				"text-align"
 			],
@@ -183,7 +187,15 @@
 			"file": "app.js",
 			"settings":
 			{
-				"buffer_size": 4759,
+				"buffer_size": 5033,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "{\n	\"bio\": {\n		\"name\": \"Greg\",\n		\"role\": \"Web Developer\",\n		\"skills\": [\"HTML5\", \"SASS\", \"Javascript\", \"jQuery\", \"Bootstrap\",\"CSS3\",\"Foundation\", \"Git\", \"Gulp\", \"Grunt\", \"ExpressionEngine\", \"Wordpress\", \"CraftCMS\"],\n		\"welcomeMessage\": \"<p>Once upon a time I built websites with framesets and lots of help from Macromedia: Dreamweaver, Fireworks and Flash.</p><p>The web has evolved a great deal since those days and thankfully, so have my skills.</p> \",\n		\"biopic\": \"assets/images/greg.jpg\",\n		\"contacts\": {\n			\"mobile\": \"tel:+55.11.96026.5146\",\n			\"email\": \"mailto:garabedium@gmail.com\",\n			\"github\": \"http://github.com/garabedium\",\n			\"linkedin\": \"http://linkedin.com/in/garabedium\",\n			\"location\": \"Sao Paulo, Brazil\"\n		}\n	}",
+			"settings":
+			{
+				"buffer_size": 726,
 				"line_ending": "Unix"
 			}
 		},
@@ -199,7 +211,7 @@
 			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 647,
+				"buffer_size": 782,
 				"line_ending": "Unix",
 				"name": "README.md"
 			}
@@ -480,6 +492,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"model.history",
+			"MODEL.DICTIONARY",
 			"maxLength",
 			"solved",
 			"checkWord",
@@ -605,9 +619,7 @@
 			"app.speedMin",
 			"app.speedMax",
 			"240",
-			"speed",
-			"app.speedMax",
-			"global."
+			"speed"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -615,6 +627,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"model.currentWord",
 			"<li>",
 			"custom-2057",
 			"octo",
@@ -687,15 +700,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4759,
+						"buffer_size": 5033,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								855,
-								855
+								81,
+								81
 							]
 						],
 						"settings":
@@ -704,7 +717,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 219.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -712,6 +725,34 @@
 				},
 				{
 					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 726,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								726,
+								726
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 8.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "index.html",
 					"semi_transient": false,
 					"settings":
@@ -736,24 +777,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "README.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 647,
+						"buffer_size": 782,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								565,
-								565
+								302,
+								377
 							]
 						],
 						"settings":
@@ -933,9 +974,17 @@
 	"select_project":
 	{
 		"height": 500.0,
-		"last_filter": "map project",
+		"last_filter": "udacity",
 		"selected_items":
 		[
+			[
+				"udacity",
+				"~/Sites/udacity/udacity.sublime-project"
+			],
+			[
+				"nei",
+				"~/Sites/udacity/map-project/neighborhood-map.sublime-project"
+			],
 			[
 				"map project",
 				"~/Sites/udacity/map-project/neighborhood-map.sublime-project"
@@ -947,10 +996,6 @@
 			[
 				"tera",
 				"~/Sites/terrapower/terrapower.sublime-project"
-			],
-			[
-				"udacity",
-				"~/Sites/udacity/udacity.sublime-project"
 			],
 			[
 				"text",

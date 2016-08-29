@@ -5,9 +5,13 @@
 - Fork or download X, open index.html
 - Or, go to garabedium.com/js/text-twist
 
+## Caveats
+- Yes, the solved word is stored, and accessible via the console.
+- Thinking about adding a local dictionary to avoid querying the API at the start
+
 ## Roadmap
-	[] - Validation: Select words that are only a-z: no periods, dashes, accents, capital letters etc
-[] - Validation: Remove letters from scrambled word that have already been taken
+[X] - Validation: Select words that are only a-z: no periods, dashes, accents, capital letters etc
+	[] - Validation: Remove letters from scrambled word that have already been taken
 [] - Game: Award points based on word size.
 [] - Game: Levels: Advance automatically to next level if you solve a 6 letter word
 [] - Game: Set 90 second timer

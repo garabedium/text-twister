@@ -2,7 +2,11 @@
 // Store data
 var model = {
 	dictionary:[],
-	history:[],
+	//currentWord:[],
+	currentWord: {
+		word:'',
+		letters: [],
+	},
 	solvedWords:[],
 };
 var control = {
@@ -58,7 +62,10 @@ var control = {
 		var randomWord = model.dictionary[Math.round( Math.random() * (model.dictionary.length-1))];
 		// Pass random word to be scrambled
 		// Save original word for future use
-		model.history.push(randomWord);
+		//model.currentWord.push(randomWord);
+		model.currentWord.word = randomWord;
+		model.currentWord.letters = model.currentWord.word.split('');
+
 		control.scramble(randomWord);
 	},
 	displayWord: function(input){
@@ -71,7 +78,7 @@ var control = {
 
 	    var counter = array.length,
 	    	word = '',
-	    	wordOriginal = model.history[0];
+	    	wordOriginal = model.currentWord.word;
 
 	    // While there are elements in the array
 	    while (counter > 0) {
@@ -100,13 +107,18 @@ var control = {
 			guessInput = document.getElementById('guess-input'),
 			guessDisplay = document.getElementById('guess-display');
 
-		// Only accept letters in the word and Enter
+		// Only accept letters in the word, and Enter key
 		guessInput.onkeypress = function(e){
-			var char = e.key;
-			var word = model.history[0];
 
-			if ( word.indexOf(char) === -1 && e.keyCode !== 13){
+			var char = e.key;
+			var word = model.currentWord.word;
+			var letters = model.currentWord.letters;
+
+			if ( letters.indexOf(char) === -1 && e.keyCode !== 13){
 				e.preventDefault();
+			} else {
+				index = letters.indexOf(char);
+				letters.splice(index,1);
 			}
 		};
 
@@ -126,11 +138,12 @@ var control = {
 		// Scramble word with [spacebar]
 		document.body.onkeyup = function(e){
 		    if(e.keyCode === 32){
-		    	control.scramble(model.history[0]);
+		    	control.scramble(model.currentWord.word);
 		    } else {
 		    	return false;
 		    }
 		}
+
 	},
 	checkWord: function(input){
 		var xhr = new XMLHttpRequest();
@@ -166,12 +179,13 @@ var userView = {
 	// Display scrambled word
 	renderScramble: function(){
 		var wordScramble = document.getElementById('scramble');
-		wordScramble.addEventListener('click', function(){ control.scramble(model.history[0]) } );
+		wordScramble.addEventListener('click', function(){ control.scramble(model.currentWord.word) } );
 	},
 	// Display solved words
 	renderSolved: function(input){
 		var solvedList = document.getElementById('solved-words'),
 			wordItem = document.createElement('li');
+
 			wordItem.innerHTML = input;
 
 		solvedList.appendChild(wordItem);
