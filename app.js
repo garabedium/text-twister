@@ -116,30 +116,31 @@ var control = {
 			var letters = model.currentWord.letters;
 			var lettersRemoved = model.currentWord.removed;
 
-			// If char pressed isn't part of the word, do nothing
-			// Else, remove that char from the letters array and add it to removed
-			if ( letters.indexOf(char) === -1 && e.keyCode !== 13){
+			// If character pressed isn't part of the word, do nothing
+			// Else, remove that character from the letters array and add it to removed array
+			if (letters.indexOf(char) === -1 && e.keyCode !== 13){
 				e.preventDefault();
-			} else {
+			} else if (e.keyCode !== 13){
 				index = letters.indexOf(char);
 				letters.splice(index,1);
 				lettersRemoved.push(char);
 			}
-
 		};
 
+		// If the last index of the guessInput value array exists in removed
+		// Then, remove it from model.removed
+		// Add it back to letters
+
 		guessInput.onkeydown = function(e){
-			if (e.keyCode === 8 || e.keyCode === 46){
+			// On backspace get input value
+			if (e.keyCode === 8){
 				array = guessInput.value;
-			// If the last index of the guessInput value array exists in removed
-			// Then, remove it from model.removed
-			// Add it back to letters
-				if( model.currentWord.removed.indexOf(array.slice(-1)) >= 0){
-					//model.currentWord.word.push(array.slice(-1));
-					//alert(array.slice(-1) + " exists in " + model.currentWord.removed);
-					index = array.indexOf(array.slice(-1));
+				lastInputChar = array.slice(-1);
+
+				if(model.currentWord.removed.indexOf(lastInputChar) >= 0){
+					index = array.indexOf(lastInputChar);
 					model.currentWord.removed.splice(index,1);
-					model.currentWord.letters.push(array.slice(-1));
+					model.currentWord.letters.push(lastInputChar);
 				}
 			}
 		}
@@ -154,6 +155,12 @@ var control = {
 			} else {
 				alert(guessValue + ' you already solved this word');
 			}
+		});
+	},
+	returnRemoved: function(){
+		// If there's a valid word, return the removed characters to letters array
+		model.currentWord.removed.forEach(function(item){
+			model.currentWord.letters.push(item);
 		});
 	},
 	buttonControls: function(){
@@ -178,7 +185,10 @@ var control = {
 		    	var data = JSON.parse(xhr.responseText);
 		        data = data.results;
 		        if (data.length > 0) {
+
 		        	// Show solved word, push to solved array, clear guess input
+		        	// Run returnRemoved
+		        	control.returnRemoved();
 		        	userView.renderSolved(apiHeadWord);
 		        	model.solvedWords.push(apiHeadWord);
 		        	document.getElementById('guess-input').value = '';

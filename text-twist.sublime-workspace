@@ -187,15 +187,15 @@
 			"file": "app.js",
 			"settings":
 			{
-				"buffer_size": 5033,
+				"buffer_size": 6228,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "{\n	\"bio\": {\n		\"name\": \"Greg\",\n		\"role\": \"Web Developer\",\n		\"skills\": [\"HTML5\", \"SASS\", \"Javascript\", \"jQuery\", \"Bootstrap\",\"CSS3\",\"Foundation\", \"Git\", \"Gulp\", \"Grunt\", \"ExpressionEngine\", \"Wordpress\", \"CraftCMS\"],\n		\"welcomeMessage\": \"<p>Once upon a time I built websites with framesets and lots of help from Macromedia: Dreamweaver, Fireworks and Flash.</p><p>The web has evolved a great deal since those days and thankfully, so have my skills.</p> \",\n		\"biopic\": \"assets/images/greg.jpg\",\n		\"contacts\": {\n			\"mobile\": \"tel:+55.11.96026.5146\",\n			\"email\": \"mailto:garabedium@gmail.com\",\n			\"github\": \"http://github.com/garabedium\",\n			\"linkedin\": \"http://linkedin.com/in/garabedium\",\n			\"location\": \"Sao Paulo, Brazil\"\n		}\n	}",
+			"contents": "{\n	\"bio\": {\n		\"name\": \"Greg\",\n		\"role\": \"Web Developer\",\n		\"skills\": [\"HTML5\", \"SASS\", \"Javascript\", \"jQuery\", \"Bootstrap\",\"CSS3\",\"Foundation\", \"Git\", \"Gulp\", \"Grunt\", \"ExpressionEngine\", \"Wordpress\", \"CraftCMS\"],\n		\"welcomeMessage\": \"<p>Once upon a time I built websites with framesets and lots of help from Macromedia: Dreamweaver, Fireworks and Flash.</p><p>The web has evolved a great deal since those days and thankfully, so have my skills.</p> \",\n		\"biopic\": \"assets/images/greg.jpg\",\n		\"contacts\": {\n			\"mobile\": \"tel:+55.11.96026.5146\",\n			\"email\": \"mailto:garabedium@gmail.com\",\n			\"github\": \"http://github.com/garabedium\",\n			\"linkedin\": \"http://linkedin.com/in/garabedium\",\n			\"location\": \"Sao Paulo, Brazil\"\n		}\n	}\n\n	var initialCats = [\n	{\n		clickCount: 0,\n		name: 'Tabbie',\n		lastName: 'Catz',\n		imgSrc: 'img/cat-1.jpg',\n		nicknames:['Tabs','Tabones','T$','Tablerone']\n	},",
 			"settings":
 			{
-				"buffer_size": 726,
+				"buffer_size": 885,
 				"line_ending": "Unix"
 			}
 		},
@@ -211,7 +211,7 @@
 			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 782,
+				"buffer_size": 942,
 				"line_ending": "Unix",
 				"name": "README.md"
 			}
@@ -492,6 +492,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			".push",
+			"guessWord",
+			"buttonControls",
+			"currentword",
+			"');\n",
+			"currentWord",
 			"model.history",
 			"MODEL.DICTIONARY",
 			"maxLength",
@@ -613,13 +619,7 @@
 			"allEnemies",
 			"app.",
 			"enemy.",
-			"app.allEnemies",
-			"allEnemies",
-			"allEnemies.",
-			"app.speedMin",
-			"app.speedMax",
-			"240",
-			"speed"
+			"app.allEnemies"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -700,15 +700,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5033,
+						"buffer_size": 6228,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								81,
-								81
+								3545,
+								3545
 							]
 						],
 						"settings":
@@ -717,7 +717,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1930.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -728,15 +728,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 726,
+						"buffer_size": 885,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								726,
-								726
+								885,
+								885
 							]
 						],
 						"settings":
@@ -748,7 +748,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -786,15 +786,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 782,
+						"buffer_size": 942,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								302,
-								377
+								537,
+								537
 							]
 						],
 						"settings":
@@ -806,7 +806,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -974,9 +974,13 @@
 	"select_project":
 	{
 		"height": 500.0,
-		"last_filter": "udacity",
+		"last_filter": "amobikes",
 		"selected_items":
 		[
+			[
+				"amobikes",
+				"~/Sites/amobikes/amobikes.sublime-project"
+			],
 			[
 				"udacity",
 				"~/Sites/udacity/udacity.sublime-project"
@@ -1024,10 +1028,6 @@
 			[
 				"terra",
 				"~/Sites/terrapower/terrapower.sublime-project"
-			],
-			[
-				"amobikes",
-				"~/Sites/amobikes/amobikes.sublime-project"
 			],
 			[
 				"udac",
