@@ -7,17 +7,30 @@
 <body>
 <main id="app">
 	<h1>Text Twist</h1>
-	<section>
-		<h2 id="word-header"></h2>
-	</section>
+	<h2 id="word-header"></h2>
+<!-- 	<section>
+		<h3>Controls</h3>
+		<ul>
+			<li>spacebar: scramble letters</li>
+			<li>enter: solve word</li>
+			<li>shift: clear input</li>
+		</ul>
+	</section> -->
 	<form id="guess-form">
 		<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off">
 		<button id="scramble" type="button">Scramble</button>
 		<button id="guess" type="submit" id="guess">Solve</button>
 	</form>
+	<section id="score"></section>
 	<section id ="solved">
 		<ul id="solved-words"></ul>
 	</section>
+
+<!-- 	<section id="feedback">
+		- You already solved "{word}".<br/>
+		- "{word}" was not found in the dictionary.<br/>
+		- Awesome! You solved the 6 letter word! You qualify for the next level! <br/>
+	</section> -->
 </main>
 <script src='app.js'></script>
 </body>

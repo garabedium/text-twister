@@ -2,8 +2,8 @@
 - Recreating the classic Text Twist game using javascript and APIs
 
 ## How to Run
-- Fork or download X, open index.html
-- Or, go to garabedium.com/js/text-twist
+- Fork or download, open index.html
+- Or, play online at garabedium.com/js/text-twist
 
 ## Caveats
 - Yes, the solved word is stored, and accessible via the console.
@@ -11,7 +11,7 @@
 
 ## Roadmap
 [X] - Validation: Select words that are only a-z: no periods, dashes, accents, capital letters etc
-	[] - Validation: Remove letters from scrambled word that have already been taken
+[X] - Validation: Remove letters from scrambled word that have already been taken
 [] - Game: Award points based on word size.
 [] - Game: Levels: Advance automatically to next level if you solve a 6 letter word
 [] - Game: Set 90 second timer

@@ -2,13 +2,16 @@
 // Store data
 var model = {
 	dictionary:[],
-	//currentWord:[],
 	currentWord: {
 		word:'',
 		letters:[],
 		removed:[],
 	},
 	solvedWords:[],
+	user:{
+		score: 0,
+		level: 1,
+	},
 };
 var control = {
 	// Initiate Views & Get Data (API Call)
@@ -165,13 +168,15 @@ var control = {
 	},
 	buttonControls: function(){
 		// Scramble word with [spacebar]
+		// Clear input on shift
 		document.body.onkeyup = function(e){
 		    if(e.keyCode === 32){
 		    	control.scramble(model.currentWord.word);
 		    } else {
 		    	return false;
 		    }
-		}
+		};
+
 	},
 	checkWord: function(input){
 		var xhr = new XMLHttpRequest();
@@ -192,6 +197,10 @@ var control = {
 		        	userView.renderSolved(apiHeadWord);
 		        	model.solvedWords.push(apiHeadWord);
 		        	document.getElementById('guess-input').value = '';
+
+		        	// Award points
+		        	control.addScore(apiHeadWord);
+
 		        } else {
 		        	console.log(apiHeadWord + ' is not a word. byatch');
 		        }
@@ -202,10 +211,34 @@ var control = {
 		};
 		xhr.send();
 	},
+	addScore: function(input){
+
+		// Points awarded based on word length
+		wordLength = input.length;
+		scoreMultiplier = [10,15,20,25];
+
+		switch (wordLength) {
+		  case 3: model.user.score += wordLength * scoreMultiplier[0]
+		  break;
+
+		  case 4: model.user.score += wordLength * scoreMultiplier[1]
+		  break;
+
+		  case 5: model.user.score += wordLength * scoreMultiplier[2]
+		  break;
+
+		  case 6: model.user.score += wordLength * scoreMultiplier[3]
+		  break;
+		}
+
+		// Display score to user
+		userView.renderScore();
+	},
 };
 var userView = {
 	init: function(){
 		this.renderScramble();
+		this.renderScore();
 	},
 	// Display scrambled word
 	renderScramble: function(){
@@ -220,7 +253,14 @@ var userView = {
 			wordItem.innerHTML = input;
 
 		solvedList.appendChild(wordItem);
-	}
+	},
+	renderFeedback: function(){
+
+	},
+	renderScore: function(){
+		var score = document.getElementById('score');
+		score.innerHTML=model.user.score;
+	},
 };
 
 // Initialize Control
