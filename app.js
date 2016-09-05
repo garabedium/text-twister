@@ -16,7 +16,6 @@ var model = {
 var control = {
 	// Initiate Views & Get Data (API Call)
 	init: function(){
-		userView.init();
 		this.getData();
 		this.guessWord();
 		this.buttonControls();
@@ -66,11 +65,12 @@ var control = {
 		var randomWord = model.dictionary[Math.round( Math.random() * (model.dictionary.length-1))];
 		// Pass random word to be scrambled
 		// Save original word for future use
-		//model.currentWord.push(randomWord);
 		model.currentWord.word = randomWord;
 		model.currentWord.letters = model.currentWord.word.split('');
 
 		control.scramble(randomWord);
+		// Start View
+		userView.init();
 	},
 	displayWord: function(input){
 		var wordHeader = document.getElementById('word-header');
@@ -239,6 +239,7 @@ var userView = {
 	init: function(){
 		this.renderScramble();
 		this.renderScore();
+		this.renderTimer();
 	},
 	// Display scrambled word
 	renderScramble: function(){
@@ -261,9 +262,32 @@ var userView = {
 		var score = document.getElementById('score');
 		score.innerHTML=model.user.score;
 	},
+	renderTimer: function(){
+
+		function startTimer(duration,display){
+
+		 	var	timer = duration;
+
+			var countdown = setInterval(function(){
+
+		      display.innerHTML=timer--;
+
+		      if (timer === 0){
+		      	display.innerHTML='Time is up';
+		        clearInterval(countdown);
+		      } else {
+
+		      }
+			}, 1000);
+
+		};
+
+		display = document.getElementById('timer');
+		startTimer(90,display);
+
+	},
 };
 
 // Initialize Control
 control.init();
-
 

@@ -12,9 +12,9 @@
 ## Roadmap
 [X] - Validation: Select words that are only a-z: no periods, dashes, accents, capital letters etc
 [X] - Validation: Remove letters from scrambled word that have already been taken
-[] - Game: Award points based on word size.
+[X] - Game: Award points based on word size.
+[] - Game: Set 90 second timer, hide game and offer reset when time runs out, or advance to next level
 [] - Game: Levels: Advance automatically to next level if you solve a 6 letter word
-[] - Game: Set 90 second timer
 [] - UI: Feedback if string isn't a valid word
 
 ## APIs
