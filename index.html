@@ -2,36 +2,33 @@
 <html>
 <head>
 	<title>Text Twist JS</title>
-	<link rel="stylesheet" type="text/css" href="app.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="/dist/css/normalize.css">
+	<link rel="stylesheet" href="/dist/css/app.min.css">
 </head>
 <body>
 <main id="app">
-	<h1>Text Twist</h1>
+
+	<h1>TextTwister <sup>JS</sup></h1>
+
+	<section id="score-timer">
+		<i class="material-icons">timer</i> <span id="timer"></span> / <i class="material-icons">stars</i> <span id="score"></span> / Level: <span id="level"></span>
+	</section>
+
 	<h2 id="word-header"></h2>
-<!-- 	<section>
-		<h3>Controls</h3>
-		<ul>
-			<li>spacebar: scramble letters</li>
-			<li>enter: solve word</li>
-			<li>shift: clear input</li>
-		</ul>
-	</section> -->
+
 	<form id="guess-form">
 		<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off">
+
+			<div id="feedback-message"></div>
+
 		<button id="scramble" type="button">Scramble</button>
 		<button id="guess" type="submit" id="guess">Solve</button>
 	</form>
-	<section id="score"></section>
-	<section id="timer"></section>
-	<section id ="solved">
-		<ul id="solved-words"></ul>
-	</section>
 
-<!-- 	<section id="feedback">
-		- You already solved "{word}".<br/>
-		- "{word}" was not found in the dictionary.<br/>
-		- Awesome! You solved the 6 letter word! You qualify for the next level! <br/>
-	</section> -->
+	<ul id="solved-words"></ul>
+
 </main>
 <script src='app.js'></script>
 </body>

@@ -14,7 +14,7 @@ var model = {
 	},
 };
 var control = {
-	// Initiate Views & Get Data (API Call)
+	// Initiate Views & Get Data via API
 	init: function(){
 		this.getData();
 		this.guessWord();
@@ -156,7 +156,8 @@ var control = {
 			if (model.solvedWords.indexOf(guessValue) === -1){
 				control.checkWord(guessValue);
 			} else {
-				alert(guessValue + ' you already solved this word');
+				//alert(guessValue + ' you already solved this word');
+				userView.renderFeedback('duplicate');
 			}
 		});
 	},
@@ -195,6 +196,7 @@ var control = {
 		        	// Run returnRemoved
 		        	control.returnRemoved();
 		        	userView.renderSolved(apiHeadWord);
+		        	userView.renderFeedback('solved');
 		        	model.solvedWords.push(apiHeadWord);
 		        	document.getElementById('guess-input').value = '';
 
@@ -202,7 +204,7 @@ var control = {
 		        	control.addScore(apiHeadWord);
 
 		        } else {
-		        	console.log(apiHeadWord + ' is not a word. byatch');
+		        	userView.renderFeedback('invalid');
 		        }
 		    }
 		    else {
@@ -239,7 +241,7 @@ var userView = {
 	init: function(){
 		this.renderScramble();
 		this.renderScore();
-		this.renderTimer();
+		//this.renderTimer();
 	},
 	// Display scrambled word
 	renderScramble: function(){
@@ -255,7 +257,24 @@ var userView = {
 
 		solvedList.appendChild(wordItem);
 	},
-	renderFeedback: function(){
+	renderFeedback: function(input){
+
+		var messageType = input,
+			feedbackMessage = document.getElementById('feedback-message');
+
+		switch (messageType) {
+		  case "duplicate": feedbackMessage.innerHTML='<i class="material-icons">error_outline</i> You already solved that word.';
+		  break;
+
+		  case "invalid": feedbackMessage.innerHTML='<i class="material-icons">error_outline</i> Not in our dictionary.';
+		  break;
+
+		  case "solved": feedbackMessage.innerHTML='<i class="material-icons">stars</i> Points! Keep solving!';
+		  break;
+
+		  case "levelup": feedbackMessage.innerHTML='<i class="material-icons">check_circle</i> Congrats! You solved the six letter word!';
+		  break;
+		}
 
 	},
 	renderScore: function(){
