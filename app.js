@@ -130,9 +130,9 @@ var control = {
 			}
 		};
 
-		// If the last index of the guessInput value array exists in removed
+		// If the last index of the guessInput value array exists in model.removed
 		// Then, remove it from model.removed
-		// Add it back to letters
+		// Add it back to model.letters
 
 		guessInput.onkeydown = function(e){
 			// On backspace get input value
@@ -156,16 +156,17 @@ var control = {
 			if (model.solvedWords.indexOf(guessValue) === -1){
 				control.checkWord(guessValue);
 			} else {
-				//alert(guessValue + ' you already solved this word');
 				userView.renderFeedback('duplicate');
 			}
 		});
 	},
-	returnRemoved: function(){
-		// If there's a valid word, return the removed characters to letters array
+	recycleRemoved: function(){
+		// If there's a valid word
+		// Return the removed characters to letters array and reset currentWord.removed
 		model.currentWord.removed.forEach(function(item){
 			model.currentWord.letters.push(item);
 		});
+			model.currentWord.removed = [];
 	},
 	buttonControls: function(){
 		// Scramble word with [spacebar]
@@ -192,12 +193,17 @@ var control = {
 		        data = data.results;
 		        if (data.length > 0) {
 
-		        	// Show solved word, push to solved array, clear guess input
-		        	// Run returnRemoved
-		        	control.returnRemoved();
+		        	// Return solved letters to model.letters, remove from model.removed
+		        	control.recycleRemoved();
+
+		        	//Show solved word to user and store in our model
 		        	userView.renderSolved(apiHeadWord);
-		        	userView.renderFeedback('solved');
 		        	model.solvedWords.push(apiHeadWord);
+
+		        	// Display feedback
+		        	userView.renderFeedback('solved');
+
+		        	// Clear guess input
 		        	document.getElementById('guess-input').value = '';
 
 		        	// Award points

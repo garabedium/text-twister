@@ -28,7 +28,7 @@
 [X] - Remove six letter word from dictionary if solved
 [] - Game: Levels: Advance automatically to next level if you solve a 6 letter word
 [X] - UI: Feedback if string isn't a valid word
-[] - If input is cleared, return letters
+[X] - If a word is solved, reset removed letters
 
 ## APIs
 [Pearson Dictionary API](http://developer.pearson.com/apis/dictionaries)
