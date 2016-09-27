@@ -21,14 +21,21 @@
 - If you control + a, command + a and clear the input, you'll be "locked out", those letters won't be available.
 
 ## Roadmap / Bugs
+[] - API: Can't split undefined (line:69)
+[] - Case: control/command + a + backspace: letters removed and never added back
+	-- Check if input is blank.
+[] - API: error handling
+[X] - If a word is solved, reset removed letters
+
+## Roadmap
+[] - Game: Levels: Advance automatically to next level if you solve a 6 letter word
+[] - Sort solved words
 [X] - Validation: Select words that are only a-z: no periods, dashes, accents, capital letters etc
 [X] - Validation: Remove letters from scrambled word that have already been taken
 [X] - Game: Award points based on word size.
 [X] - Game: Set 90 second timer
 [X] - Remove six letter word from dictionary if solved
-[] - Game: Levels: Advance automatically to next level if you solve a 6 letter word
 [X] - UI: Feedback if string isn't a valid word
-[X] - If a word is solved, reset removed letters
 
 ## APIs
 [Pearson Dictionary API](http://developer.pearson.com/apis/dictionaries)

@@ -3,6 +3,9 @@
 	[
 		{
 			"path": "."
+		},
+		{
+			"path": "/Users/greg/Sites/angular"
 		}
 	]
 }

@@ -26,29 +26,45 @@ var control = {
 		var apiBase = 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?';
 		var apiOffsetLimit = 33486;
 		var apiRandomOffset = '&offset=' + Math.floor(Math.random() * (apiOffsetLimit - 0) + 0);
-		var apiResultLimit = '&limit=' + 100;
+		var apiResultLimit = '&limit=' + 25;
 
 		xhr.open('GET', ''+ apiBase + apiRandomOffset + apiResultLimit +'');
 		xhr.onload = function() {
-		    if (xhr.status === 200) {
+
+		    if (xhr.readyState == 4 && xhr.status == 200){
 		        var data = JSON.parse(xhr.responseText);
 		        	data = data.results;
 
-					data.forEach(function(item) {
+		        function processData(dataInput, callbackFunction){
+
+					dataInput.forEach(function(item) {
 						item = item.headword;
 
-						control.validateWords(item);
+							control.validateWords(item);
 
+						//control.validateWords(item);
+						// need a callback or promise? here to selectWord once there are no more words to validate
+						//callback();
 					});
+					callbackFunction();
+				}
+
+				processData(data, function(){
+					//alert('loop done: ' + model.dictionary);
 					control.selectWord();
+				});
+
+				//control.selectWord();
 		    }
 		    else {
 		        alert('Request failed. Returned status of ' + xhr.status);
 		    }
+
 		};
 		xhr.send();
 	},
 	validateWords: function(input){
+
 		// Make sure words meet the minmax length and character restrictions
 		// If they meet the requirements, push to dictionary
 		var checkMinMax = 6;
@@ -63,12 +79,14 @@ var control = {
 	selectWord: function(){
 		// Select random word from dictionary array
 		var randomWord = model.dictionary[Math.round( Math.random() * (model.dictionary.length-1))];
+
 		// Pass random word to be scrambled
 		// Save original word for future use
 		model.currentWord.word = randomWord;
 		model.currentWord.letters = model.currentWord.word.split('');
 
 		control.scramble(randomWord);
+
 		// Start View
 		userView.init();
 	},
@@ -76,6 +94,7 @@ var control = {
 		var wordHeader = document.getElementById('word-header');
 		wordHeader.innerHTML=input;
 	},
+	//sortSolved: function(){ model.solvedWords.sort();},
 	scramble: function(array){
 		// Convert word to array
 		array = array.split('');
@@ -256,6 +275,9 @@ var userView = {
 	},
 	// Display solved words
 	renderSolved: function(input){
+
+		//control.sortSolved();
+
 		var solvedList = document.getElementById('solved-words'),
 			wordItem = document.createElement('li');
 
