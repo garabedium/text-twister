@@ -23,38 +23,28 @@ var control = {
 	getData: function(){
 		var xhr = new XMLHttpRequest();
 
-		var apiBase = 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?';
-		var apiOffsetLimit = 33486;
-		var apiRandomOffset = '&offset=' + Math.floor(Math.random() * (apiOffsetLimit - 0) + 0);
-		var apiResultLimit = '&limit=' + 25;
+		var apiBase = 'http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&',
+			apiCorpusCount = 'minCorpusCount=9999&',
+			apiMinDictCount = 'minDictionaryCount=5&',
+			apiLetterLength = 'minLength=6&maxLength=6&',
+			apiResultsLimit = 'limit=25&',
+			apiKey = 'api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61',
+			apiCall = apiBase + apiCorpusCount + apiMinDictCount + apiLetterLength + apiResultsLimit + apiKey;
 
-		xhr.open('GET', ''+ apiBase + apiRandomOffset + apiResultLimit +'');
+		xhr.open('GET', ''+ apiCall +'');
 		xhr.onload = function() {
 
 		    if (xhr.readyState == 4 && xhr.status == 200){
 		        var data = JSON.parse(xhr.responseText);
 		        	data = data.results;
 
-		        function processData(dataInput, callbackFunction){
+		 		var data = JSON.parse(xhr.responseText);
 
-					dataInput.forEach(function(item) {
-						item = item.headword;
+		 		data.forEach(function(item){
+		 			control.validateWords(item.word);
+		 		});
 
-							control.validateWords(item);
-
-						//control.validateWords(item);
-						// need a callback or promise? here to selectWord once there are no more words to validate
-						//callback();
-					});
-					callbackFunction();
-				}
-
-				processData(data, function(){
-					//alert('loop done: ' + model.dictionary);
-					control.selectWord();
-				});
-
-				//control.selectWord();
+				control.selectWord();
 		    }
 		    else {
 		        alert('Request failed. Returned status of ' + xhr.status);
@@ -65,13 +55,13 @@ var control = {
 	},
 	validateWords: function(input){
 
-		// Make sure words meet the minmax length and character restrictions
-		// If they meet the requirements, push to dictionary
-		var checkMinMax = 6;
+		// Check if word is lowercase and contains no special characters
+		// If checkCase passes, push word to dictionary
+
 		var checkCase = input.search(/^[a-z]+$/);
 
 		// Only save words that meet length and case requirements
-		if (input.length === checkMinMax && checkCase >= 0){
+		if (checkCase >= 0){
 			model.dictionary.push(input);
 		}
 
@@ -94,7 +84,6 @@ var control = {
 		var wordHeader = document.getElementById('word-header');
 		wordHeader.innerHTML=input;
 	},
-	//sortSolved: function(){ model.solvedWords.sort();},
 	scramble: function(array){
 		// Convert word to array
 		array = array.split('');
@@ -167,6 +156,18 @@ var control = {
 			}
 		}
 
+		// If the input field is blank (ctrl + a + backspace)
+		// Recycle letters: run recycleRemoved
+		guessInput.onkeyup = function(e){
+			if (e.keyCode === 8){
+				inputArray = guessInput.value;
+				if (inputArray === ''){
+					console.log("blank now");
+					control.recycleRemoved();
+				}
+			}
+		}
+
 		// Check if string has already been solved
 		// If it hasn't, make sure it's a word
 		guessForm.addEventListener('submit', function(e){
@@ -201,32 +202,37 @@ var control = {
 	},
 	checkWord: function(input){
 		var xhr = new XMLHttpRequest();
-		var apiHeadWord = input;
-		var apiBase = 'http://api.pearson.com/v2/dictionaries/ldoce5/entries?headword=';
+		var apiWord = input;
+		var apiCall = 'http://api.wordnik.com:80/v4/word.json/' + input + '/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61';
 
-		xhr.open('GET', ''+ apiBase + apiHeadWord +'');
+		xhr.open('GET', ''+ apiCall +'');
 		xhr.onload = function() {
 
 		    if (xhr.status === 200) {
 		    	var data = JSON.parse(xhr.responseText);
-		        data = data.results;
+		        //data = data.results;
 		        if (data.length > 0) {
 
 		        	// Return solved letters to model.letters, remove from model.removed
 		        	control.recycleRemoved();
 
 		        	//Show solved word to user and store in our model
-		        	userView.renderSolved(apiHeadWord);
-		        	model.solvedWords.push(apiHeadWord);
+		        	userView.renderSolved(apiWord);
+		        	model.solvedWords.push(apiWord);
 
 		        	// Display feedback
-		        	userView.renderFeedback('solved');
+		        	if (apiWord.length == 6){
+		        		control.incrementLevel();
+		        		userView.renderFeedback('levelup');
+		        	} else {
+		        		userView.renderFeedback('solved');
+		        	}
 
 		        	// Clear guess input
 		        	document.getElementById('guess-input').value = '';
 
 		        	// Award points
-		        	control.addScore(apiHeadWord);
+		        	control.incrementScore(apiWord);
 
 		        } else {
 		        	userView.renderFeedback('invalid');
@@ -238,7 +244,7 @@ var control = {
 		};
 		xhr.send();
 	},
-	addScore: function(input){
+	incrementScore: function(input){
 
 		// Points awarded based on word length
 		wordLength = input.length;
@@ -261,11 +267,18 @@ var control = {
 		// Display score to user
 		userView.renderScore();
 	},
+	incrementLevel: function(){
+		model.user.level += 1;
+
+			console.log(model.user.level);
+		userView.renderLevel();
+	},
 };
 var userView = {
 	init: function(){
 		this.renderScramble();
 		this.renderScore();
+		this.renderLevel();
 		//this.renderTimer();
 	},
 	// Display scrambled word
@@ -308,6 +321,10 @@ var userView = {
 	renderScore: function(){
 		var score = document.getElementById('score');
 		score.innerHTML=model.user.score;
+	},
+	renderLevel: function(){
+		var level = document.getElementById('level');
+			level.innerHTML = model.user.level;
 	},
 	renderTimer: function(){
 
