@@ -30,6 +30,10 @@ h1 {
 #word-header {
 	margin: 20px 0;
 	font-size: 28px;
+	&.solved {
+		text-transform: uppercase;
+		color: darken($red, 15%);
+	}
 }
 #guess-form {
 	margin-bottom: 20px;
@@ -68,4 +72,8 @@ h1 {
 	padding: 0;
 	column-count: 2;
 	list-style-type: none;
+}
+.hide {
+	//display: none;
+	visibility: hidden;
 }

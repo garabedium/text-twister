@@ -2,16 +2,9 @@
 // Store data
 var model = {
 	dictionary:[],
-	currentWord: {
-		word:'',
-		letters:[],
-		removed:[],
-	},
+	currentWord:{ word:'', letters:[], removed:[] },
 	solvedWords:[],
-	user:{
-		score: 0,
-		level: 1,
-	},
+	user:{ score: 0, level: 1, solved: false },
 };
 var control = {
 	// Initiate Views & Get Data via API
@@ -222,7 +215,8 @@ var control = {
 
 		        	// Display feedback
 		        	if (apiWord.length == 6){
-		        		control.incrementLevel();
+		        		control.levelUp(true);
+		        		control.removeLevelWord(apiWord);
 		        		userView.renderFeedback('levelup');
 		        	} else {
 		        		userView.renderFeedback('solved');
@@ -267,19 +261,47 @@ var control = {
 		// Display score to user
 		userView.renderScore();
 	},
+	levelUp: function(input){
+		model.user.solved = input;
+		//return model.user.solved;
+	},
 	incrementLevel: function(){
 		model.user.level += 1;
-
-			console.log(model.user.level);
 		userView.renderLevel();
 	},
+	removeLevelWord: function(input){
+		var word = input;
+		console.log(word);
+		if (model.dictionary.indexOf(word) >= 0){
+			wordIndex = model.dictionary.indexOf(word);
+			model.dictionary.splice(wordIndex, 1);
+		}
+	},
+	startEndGame: function(){
+		if (model.user.solved === true){
+			control.selectWord();
+			// Button to start next game, or set 10 second timer?
+		} else {
+			//console.log("game over");
+			header = document.getElementById('word-header');
+			form = document.getElementById('guess-form');
+			word = model.currentWord.word;
+
+			form.className = 'hide';
+			header.className='solved';
+			control.displayWord(word);
+
+			// Play again?
+
+		}
+	}
 };
 var userView = {
 	init: function(){
 		this.renderScramble();
 		this.renderScore();
 		this.renderLevel();
-		//this.renderTimer();
+		this.renderTimer();
 	},
 	// Display scrambled word
 	renderScramble: function(){
@@ -315,6 +337,7 @@ var userView = {
 
 		  case "levelup": feedbackMessage.innerHTML='<i class="material-icons">check_circle</i> Congrats! You solved the six letter word!';
 		  break;
+
 		}
 
 	},
@@ -337,17 +360,20 @@ var userView = {
 		      display.innerHTML=timer--;
 
 		      if (timer === 0){
-		      	display.innerHTML='Time is up';
+		      	// check if a 6 letter word has been solved
+		      	// If model.user.solved is false - game ends
+		      	// If true, select another word, and start the timer again
+		      	display.innerHTML='--';
+		      	control.startEndGame();
 		        clearInterval(countdown);
-		      } else {
-
 		      }
+
 			}, 1000);
 
 		};
 
 		display = document.getElementById('timer');
-		startTimer(90,display);
+		startTimer(10,display);
 
 	},
 };
