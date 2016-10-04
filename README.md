@@ -25,6 +25,7 @@
 [] - Case: control/command + a + backspace: letters removed and never added back
 	-- Check if input is blank.
 [] - API: error handling
+[] - Disable scramble while game is paused (between levels or about to reset)
 [X] - If a word is solved, reset removed letters
 
 ## Roadmap

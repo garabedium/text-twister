@@ -49,7 +49,7 @@ var control = {
 	validateWords: function(input){
 
 		// Check if word is lowercase and contains no special characters
-		// If checkCase passes, push word to dictionary
+		// If valid, push word to dictionary
 
 		var checkCase = input.search(/^[a-z]+$/);
 
@@ -183,7 +183,7 @@ var control = {
 	},
 	buttonControls: function(){
 		// Scramble word with [spacebar]
-		// Clear input on shift
+		// (implement: Clear input on shift)
 		document.body.onkeyup = function(e){
 		    if(e.keyCode === 32){
 		    	control.scramble(model.currentWord.word);
@@ -240,7 +240,7 @@ var control = {
 	},
 	incrementScore: function(input){
 
-		// Points awarded based on word length
+		// Award points based on word length
 		wordLength = input.length;
 		scoreMultiplier = [10,15,20,25];
 
@@ -278,21 +278,75 @@ var control = {
 		}
 	},
 	startEndGame: function(){
+
+	var resetNext = document.getElementById('reset-next'),
+		btnContinue = 'Continue <i class="material-icons">play_arrow</i>',
+		btnReset = 'Play Again <i class="material-icons">replay</i>';
+
+		header = document.getElementById('word-header');
+		form = document.getElementById('guess-form');
+		word = model.currentWord.word;
+
+		form.className = 'hide-visibility';
+		header.className = 'solved';
+		control.removeLevelWord(word);
+		control.displayWord(word);
+
 		if (model.user.solved === true){
-			control.selectWord();
-			// Button to start next game, or set 10 second timer?
+
+			// Reset level status
+			control.levelUp(false);
+
+			resetNext.innerHTML = btnContinue;
+			resetNext.className= '';
+
+			resetNext.addEventListener('click', function(){
+
+				// Select a new word, increment level
+				control.selectWord();
+				control.incrementLevel();
+
+				// Reset solved words
+				model.solvedWords = [];
+				solvedList = document.getElementById('solved-words'),
+				feedbackMessage = document.getElementById('feedback-message');
+
+				solvedList.innerHTML = '';
+				feedbackMessage.innerHTML = '';
+
+				// Show form and reset header
+				form.className = '';
+				header.className = '';
+
+				resetNext.className= 'hide';
+			});
+
 		} else {
-			//console.log("game over");
-			header = document.getElementById('word-header');
-			form = document.getElementById('guess-form');
-			word = model.currentWord.word;
 
-			form.className = 'hide';
-			header.className='solved';
-			control.displayWord(word);
+			resetNext.innerHTML = btnReset;
+			resetNext.className= '';
 
-			// Play again?
+			resetNext.addEventListener('click', function(){
 
+				form.className = '';
+				header.className = '';
+
+				control.selectWord();
+
+				// Reset solved words
+				model.solvedWords = [];
+				solvedList = document.getElementById('solved-words'),
+				feedbackMessage = document.getElementById('feedback-message');
+
+				solvedList.innerHTML = '';
+				feedbackMessage.innerHTML = '';
+
+				model.user.score = 0;
+				model.user.level = 1;
+
+				resetNext.className= 'hide';
+
+			});
 		}
 	}
 };
