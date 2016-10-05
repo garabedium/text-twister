@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Text Twist JS</title>
+	<title>Text Twister - Javascript | Garabedium.com</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="/dist/css/normalize.css">
@@ -18,13 +18,7 @@
 
 	<h2 id="word-header"></h2>
 
-	<!-- <section id="reset-continue"> -->
 		<button id="reset-next" type="button" class="hide"></button>
-		<!--
-		Play Again <i class="material-icons">replay</i>
-		Continue <i class="material-icons">play_arrow</i>
-		<button id="continue" type="button" class="hide"></button> -->
-	<!-- </section> -->
 
 	<form id="guess-form">
 		<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off">
@@ -37,6 +31,9 @@
 
 	<ul id="solved-words"></ul>
 
+	<footer>
+		<a href="http://developer.wordnik.com/docs.html" target="_blank">Dictionary by Wordnik</a>
+	</footer>
 </main>
 <script src='app.js'></script>
 </body>

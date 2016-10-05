@@ -269,6 +269,12 @@ var control = {
 		model.user.level += 1;
 		userView.renderLevel();
 	},
+	resetScoreLevel: function(){
+		model.user.score = 0;
+		model.user.level = 1;
+		userView.renderScore();
+		userView.renderLevel();
+	},
 	removeLevelWord: function(input){
 		var word = input;
 		console.log(word);
@@ -280,7 +286,7 @@ var control = {
 	startEndGame: function(){
 
 	var resetNext = document.getElementById('reset-next'),
-		btnContinue = 'Continue <i class="material-icons">play_arrow</i>',
+		btnContinue = 'Next Level <i class="material-icons">play_arrow</i>',
 		btnReset = 'Play Again <i class="material-icons">replay</i>';
 
 		header = document.getElementById('word-header');
@@ -294,13 +300,13 @@ var control = {
 
 		if (model.user.solved === true){
 
-			// Reset level status
-			control.levelUp(false);
-
 			resetNext.innerHTML = btnContinue;
 			resetNext.className= '';
 
 			resetNext.addEventListener('click', function(){
+
+				// Reset level status
+				control.levelUp(false);
 
 				// Select a new word, increment level
 				control.selectWord();
@@ -341,8 +347,7 @@ var control = {
 				solvedList.innerHTML = '';
 				feedbackMessage.innerHTML = '';
 
-				model.user.score = 0;
-				model.user.level = 1;
+				control.resetScoreLevel();
 
 				resetNext.className= 'hide';
 
@@ -355,7 +360,7 @@ var userView = {
 		this.renderScramble();
 		this.renderScore();
 		this.renderLevel();
-		this.renderTimer();
+		//this.renderTimer();
 	},
 	// Display scrambled word
 	renderScramble: function(){
@@ -427,7 +432,7 @@ var userView = {
 		};
 
 		display = document.getElementById('timer');
-		startTimer(10,display);
+		startTimer(60,display);
 
 	},
 };
