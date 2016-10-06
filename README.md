@@ -28,6 +28,9 @@
 [X] - If a word is solved, reset removed letters
 
 ## Roadmap
+[] - Convert xmlhttprequests to fetch requests, pass URL and parameters into these requests
+[] - Clean up startEndGame (resetContinue)
+[] - Figure out promises
 [] - If dictionary runs low, requery API
 [] - Include word definitions
 [X] - Game: Levels: Advance automatically to next level if you solve a 6 letter word

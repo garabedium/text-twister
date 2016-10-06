@@ -1,10 +1,32 @@
 
 // Store data
 var model = {
-	dictionary:[],
-	currentWord:{ word:'', letters:[], removed:[] },
-	solvedWords:[],
-	user:{ score: 0, level: 1, solved: false },
+	"dictionary": [],
+	"currentWord": { "word":"", "letters":[], "removed":[] },
+	"solvedWords": [],
+	"user": { "score":0, "level":1, "solved":false },
+	"api": {
+		"getWords": {
+			"apiType":"words.json/randomWords?hasDictionaryDef=true&",
+			"params": {
+				"minCorpusCount":9999,
+				"minDictionaryCount":5,
+				"minLength":6,
+				"maxLength":6,
+				"limit":25
+			}
+		},
+		"checkWord": {
+			"apiType":"word.json/",
+			"apiLimit":"definitions?limit=1&",
+			"params":{
+				"includeRelated":"true",
+				"sourceDictionaries":"all",
+				"useCanonical":"false",
+				"includeTags":"false"
+			}
+		}
+	}
 };
 var control = {
 	// Initiate Views & Get Data via API
@@ -14,37 +36,67 @@ var control = {
 		this.buttonControls();
 	},
 	getData: function(){
-		var xhr = new XMLHttpRequest();
 
-		var apiBase = 'http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&',
-			apiCorpusCount = 'minCorpusCount=9999&',
-			apiMinDictCount = 'minDictionaryCount=5&',
-			apiLetterLength = 'minLength=6&maxLength=6&',
-			apiResultsLimit = 'limit=25&',
+		var apiBase = 'http://api.wordnik.com:80/v4/',
+			apiType = 'words.json/randomWords?hasDictionaryDef=true&',
+			apiParameters = 'minCorpusCount=9999&minDictionaryCount=5&minLength=6&maxLength=6&limit=25&',
 			apiKey = 'api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61',
-			apiCall = apiBase + apiCorpusCount + apiMinDictCount + apiLetterLength + apiResultsLimit + apiKey;
+			apiRequest = apiBase + apiType + apiParameters + apiKey;
 
-		xhr.open('GET', ''+ apiCall +'');
-		xhr.onload = function() {
+		fetch(apiRequest)
+		  .then(
 
-		    if (xhr.readyState == 4 && xhr.status == 200){
-		        var data = JSON.parse(xhr.responseText);
-		        	data = data.results;
+		    function(response) {
 
-		 		var data = JSON.parse(xhr.responseText);
-
+		      if (response.status !== 200) {
+		        console.log('Oops. Houston, where is Texas?: ' + response.status);
+		        return;
+		      }
+		      // Handle the results
+		      response.json().then(function(data) {
 		 		data.forEach(function(item){
 		 			control.validateWords(item.word);
 		 		});
-
-				control.selectWord();
+		 		control.selectWord();
+		      });
 		    }
-		    else {
-		        alert('Request failed. Returned status of ' + xhr.status);
-		    }
+		  )
+		  .catch(function(err) {
+		    console.log(err);
+		  });
 
-		};
-		xhr.send();
+
+		// var xhr = new XMLHttpRequest();
+
+		// var apiBase = 'http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&',
+		// 	apiCorpusCount = 'minCorpusCount=9999&',
+		// 	apiMinDictCount = 'minDictionaryCount=5&',
+		// 	apiLetterLength = 'minLength=6&maxLength=6&',
+		// 	apiResultsLimit = 'limit=25&',
+		// 	apiKey = 'api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61',
+		// 	apiCall = apiBase + apiCorpusCount + apiMinDictCount + apiLetterLength + apiResultsLimit + apiKey;
+
+		// xhr.open('GET', ''+ apiCall +'');
+		// xhr.onload = function() {
+
+		//     if (xhr.readyState == 4 && xhr.status == 200){
+		//         var data = JSON.parse(xhr.responseText);
+		//         	data = data.results;
+
+		//  		var data = JSON.parse(xhr.responseText);
+
+		//  		data.forEach(function(item){
+		//  			control.validateWords(item.word);
+		//  		});
+
+		// 		control.selectWord();
+		//     }
+		//     else {
+		//         alert('Request failed. Returned status of ' + xhr.status);
+		//     }
+
+		// };
+		// xhr.send();
 	},
 	validateWords: function(input){
 
@@ -194,49 +246,102 @@ var control = {
 
 	},
 	checkWord: function(input){
-		var xhr = new XMLHttpRequest();
-		var apiWord = input;
-		var apiCall = 'http://api.wordnik.com:80/v4/word.json/' + input + '/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61';
 
-		xhr.open('GET', ''+ apiCall +'');
-		xhr.onload = function() {
+	var apiWord = input;
+	var request = 'http://api.wordnik.com:80/v4/word.json/' + input + '/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61';
 
-		    if (xhr.status === 200) {
-		    	var data = JSON.parse(xhr.responseText);
-		        //data = data.results;
-		        if (data.length > 0) {
+	fetch(request)
+	  .then(
 
-		        	// Return solved letters to model.letters, remove from model.removed
-		        	control.recycleRemoved();
+	    function(response) {
 
-		        	//Show solved word to user and store in our model
-		        	userView.renderSolved(apiWord);
-		        	model.solvedWords.push(apiWord);
+	      if (response.status !== 200) {
+	        console.log('Oops. Houston, where is Texas?: ' +
+	          response.status);
+	        return;
+	      }
+	      // Examine the text in the response
+	      response.json().then(function(data) {
 
-		        	// Display feedback
-		        	if (apiWord.length == 6){
-		        		control.levelUp(true);
-		        		control.removeLevelWord(apiWord);
-		        		userView.renderFeedback('levelup');
-		        	} else {
-		        		userView.renderFeedback('solved');
-		        	}
+	        if (data.length > 0) {
 
-		        	// Clear guess input
-		        	document.getElementById('guess-input').value = '';
+	        	// Return solved letters to model.letters, remove from model.removed
+	        	control.recycleRemoved();
 
-		        	// Award points
-		        	control.incrementScore(apiWord);
+	        	//Show solved word to user and store in our model
+	        	userView.renderSolved(apiWord);
+	        	model.solvedWords.push(apiWord);
 
-		        } else {
-		        	userView.renderFeedback('invalid');
-		        }
-		    }
-		    else {
-		        alert('Request failed.  Returned status of ' + xhr.status);
-		    }
-		};
-		xhr.send();
+	        	// Display feedback
+	        	if (apiWord.length == 6){
+	        		control.levelUp(true);
+	        		control.removeLevelWord(apiWord);
+	        		userView.renderFeedback('levelup');
+	        	} else {
+	        		userView.renderFeedback('solved');
+	        	}
+
+	        	// Clear guess input
+	        	document.getElementById('guess-input').value = '';
+
+	        	// Award points
+	        	control.incrementScore(apiWord);
+
+	        } else {
+	        	userView.renderFeedback('invalid');
+	        }
+
+	      });
+	    }
+	  )
+	  .catch(function(err) {
+	    console.log(err);
+	  });
+
+		// var xhr = new XMLHttpRequest();
+		// var apiWord = input;
+		// var apiCall = 'http://api.wordnik.com:80/v4/word.json/' + input + '/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61';
+
+		// xhr.open('GET', ''+ apiCall +'');
+		// xhr.onload = function() {
+
+		//     if (xhr.status === 200) {
+		//     	var data = JSON.parse(xhr.responseText);
+		//         //data = data.results;
+		//         if (data.length > 0) {
+
+		//         	// Return solved letters to model.letters, remove from model.removed
+		//         	control.recycleRemoved();
+
+		//         	//Show solved word to user and store in our model
+		//         	userView.renderSolved(apiWord);
+		//         	model.solvedWords.push(apiWord);
+
+		//         	// Display feedback
+		//         	if (apiWord.length == 6){
+		//         		control.levelUp(true);
+		//         		control.removeLevelWord(apiWord);
+		//         		userView.renderFeedback('levelup');
+		//         	} else {
+		//         		userView.renderFeedback('solved');
+		//         	}
+
+		//         	// Clear guess input
+		//         	document.getElementById('guess-input').value = '';
+
+		//         	// Award points
+		//         	control.incrementScore(apiWord);
+
+		//         } else {
+		//         	userView.renderFeedback('invalid');
+		//         }
+		//     }
+		//     else {
+		//         alert('Request failed.  Returned status of ' + xhr.status);
+		//     }
+		// };
+		// xhr.send();
+
 	},
 	incrementScore: function(input){
 

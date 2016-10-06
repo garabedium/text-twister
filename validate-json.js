@@ -11,25 +11,42 @@ var validWords = [];
 	apiCall = apiBase + apiCorpusCount + apiMinDictCount + apiLetterLength + apiResultsLimit + apiKey;
 	//apiCall = 'http://api.wordnik.com:80/v4/word.json/kibblzenbit/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61';
 
+function getData(request){
 
-	fetch('/src/json/sample-words.json')
+	return fetch(request)
 	  .then(
-	    function(response) {
-	      if (response.status !== 200) {
-	        console.log('Looks like there was a problem. Status Code: ' +
-	          response.status);
-	        return;
-	      }
 
+	    function(response) {
+// Error Conditional
+	      // if (response.status !== 200) {
+	      //   console.log('Looks like there was a problem. Status Code: ' +
+	      //     response.status);
+	      //   return;
+	      // }
 	      // Examine the text in the response
 	      response.json().then(function(data) {
-	        ///console.log(data.results);
+	        //console.log(data.results);
+	        return data.results;
 	      });
 	    }
 	  )
 	  .catch(function(err) {
 	    console.log(err);
 	  });
+
+}
+var someVar = getData('/src/json/sample-words.json').then();
+
+
+// function firstApiCall(){
+// 	var url = '/src/json/sample-words.json';
+// 	var parameters = [];
+
+// 	console.log( getData(url) );
+// }
+
+// firstApiCall();
+
 
 
 
