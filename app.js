@@ -1,11 +1,11 @@
 
 // Store data
 var model = {
-	"dictionary": [],
-	"currentWord": { "word":"", "letters":[], "removed":[] },
-	"solvedWords": [],
-	"user": { "score":0, "level":1, "solved":false },
-	"api": {
+	"dictionary":[],
+	"currentWord":{"word":"", "letters":[], "removed":[]},
+	"solvedWords":[],
+	"user":{"score":0, "level":1, "solved":false},
+	"api":{
 		"getWords": {
 			"apiType":"words.json/randomWords?hasDictionaryDef=true&",
 			"params": {
@@ -18,8 +18,9 @@ var model = {
 		},
 		"checkWord": {
 			"apiType":"word.json/",
-			"apiLimit":"definitions?limit=1&",
+			//"apiLimit":"definitions?limit=1&",
 			"params":{
+				"definitions?limit":1,
 				"includeRelated":"true",
 				"sourceDictionaries":"all",
 				"useCanonical":"false",
@@ -35,15 +36,39 @@ var control = {
 		this.guessWord();
 		this.buttonControls();
 	},
-	getData: function(){
+	getData: function(input){
 
+		// Shared values for api calls
 		var apiBase = 'http://api.wordnik.com:80/v4/',
-			apiType = 'words.json/randomWords?hasDictionaryDef=true&',
-			apiParameters = 'minCorpusCount=9999&minDictionaryCount=5&minLength=6&maxLength=6&limit=25&',
 			apiKey = 'api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61',
-			apiRequest = apiBase + apiType + apiParameters + apiKey;
+			apiParams = '',
+			apiCall = '';
 
-		fetch(apiRequest)
+		function apiRequest(){
+			var params, apiType, word;
+				params = apiType = word = '';
+
+			if (input === '' || input === undefined){
+				params = model.api.getWords.params,
+				apiType = model.api.getWords.apiType;
+			} else {
+				params = model.api.checkWord.params,
+				apiType = model.api.checkWord.apiType,
+				word = input + "/";
+			}
+
+			for(var key in params) {
+				if(params.hasOwnProperty(key)){
+					apiParams += key + "=" + params[key] + "&";
+				}
+			}
+
+			apiCall = apiBase + apiType + word + apiParams + apiKey;
+
+			return apiCall;
+		}
+
+		fetch(apiRequest())
 		  .then(
 
 		    function(response) {
@@ -54,10 +79,47 @@ var control = {
 		      }
 		      // Handle the results
 		      response.json().then(function(data) {
-		 		data.forEach(function(item){
-		 			control.validateWords(item.word);
-		 		});
-		 		control.selectWord();
+
+		      	if (input === '' || input === undefined){
+			      	// Get words:
+			 		data.forEach(function(item){
+			 			control.validateWords(item.word);
+			 		});
+			 		control.selectWord();
+			 	}
+			 	else {
+
+			        if (data.length > 0) {
+
+			        	// Return solved letters to model.letters, remove from model.removed
+			        	control.recycleRemoved();
+
+			        	//Show solved word to user and store in our model
+			        	userView.renderSolved(input);
+			        	model.solvedWords.push(input);
+
+			        	// Display feedback
+			        	if (input.length == 6){
+			        		control.levelUp(true);
+			        		control.removeLevelWord(input);
+			        		userView.renderFeedback('levelup');
+			        	} else {
+			        		userView.renderFeedback('solved');
+			        	}
+
+			        	// Clear guess input
+			        	document.getElementById('guess-input').value = '';
+
+			        	// Award points
+			        	control.incrementScore(input);
+
+			        } else {
+			        	userView.renderFeedback('invalid');
+			        }
+
+			 	}
+
+
 		      });
 		    }
 		  )
@@ -65,38 +127,6 @@ var control = {
 		    console.log(err);
 		  });
 
-
-		// var xhr = new XMLHttpRequest();
-
-		// var apiBase = 'http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&',
-		// 	apiCorpusCount = 'minCorpusCount=9999&',
-		// 	apiMinDictCount = 'minDictionaryCount=5&',
-		// 	apiLetterLength = 'minLength=6&maxLength=6&',
-		// 	apiResultsLimit = 'limit=25&',
-		// 	apiKey = 'api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61',
-		// 	apiCall = apiBase + apiCorpusCount + apiMinDictCount + apiLetterLength + apiResultsLimit + apiKey;
-
-		// xhr.open('GET', ''+ apiCall +'');
-		// xhr.onload = function() {
-
-		//     if (xhr.readyState == 4 && xhr.status == 200){
-		//         var data = JSON.parse(xhr.responseText);
-		//         	data = data.results;
-
-		//  		var data = JSON.parse(xhr.responseText);
-
-		//  		data.forEach(function(item){
-		//  			control.validateWords(item.word);
-		//  		});
-
-		// 		control.selectWord();
-		//     }
-		//     else {
-		//         alert('Request failed. Returned status of ' + xhr.status);
-		//     }
-
-		// };
-		// xhr.send();
 	},
 	validateWords: function(input){
 
@@ -219,7 +249,7 @@ var control = {
 			e.preventDefault();
 			guessValue = guessInput.value;
 			if (model.solvedWords.indexOf(guessValue) === -1){
-				control.checkWord(guessValue);
+				control.getData(guessValue);
 			} else {
 				userView.renderFeedback('duplicate');
 			}
@@ -243,104 +273,6 @@ var control = {
 		    	return false;
 		    }
 		};
-
-	},
-	checkWord: function(input){
-
-	var apiWord = input;
-	var request = 'http://api.wordnik.com:80/v4/word.json/' + input + '/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61';
-
-	fetch(request)
-	  .then(
-
-	    function(response) {
-
-	      if (response.status !== 200) {
-	        console.log('Oops. Houston, where is Texas?: ' +
-	          response.status);
-	        return;
-	      }
-	      // Examine the text in the response
-	      response.json().then(function(data) {
-
-	        if (data.length > 0) {
-
-	        	// Return solved letters to model.letters, remove from model.removed
-	        	control.recycleRemoved();
-
-	        	//Show solved word to user and store in our model
-	        	userView.renderSolved(apiWord);
-	        	model.solvedWords.push(apiWord);
-
-	        	// Display feedback
-	        	if (apiWord.length == 6){
-	        		control.levelUp(true);
-	        		control.removeLevelWord(apiWord);
-	        		userView.renderFeedback('levelup');
-	        	} else {
-	        		userView.renderFeedback('solved');
-	        	}
-
-	        	// Clear guess input
-	        	document.getElementById('guess-input').value = '';
-
-	        	// Award points
-	        	control.incrementScore(apiWord);
-
-	        } else {
-	        	userView.renderFeedback('invalid');
-	        }
-
-	      });
-	    }
-	  )
-	  .catch(function(err) {
-	    console.log(err);
-	  });
-
-		// var xhr = new XMLHttpRequest();
-		// var apiWord = input;
-		// var apiCall = 'http://api.wordnik.com:80/v4/word.json/' + input + '/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61';
-
-		// xhr.open('GET', ''+ apiCall +'');
-		// xhr.onload = function() {
-
-		//     if (xhr.status === 200) {
-		//     	var data = JSON.parse(xhr.responseText);
-		//         //data = data.results;
-		//         if (data.length > 0) {
-
-		//         	// Return solved letters to model.letters, remove from model.removed
-		//         	control.recycleRemoved();
-
-		//         	//Show solved word to user and store in our model
-		//         	userView.renderSolved(apiWord);
-		//         	model.solvedWords.push(apiWord);
-
-		//         	// Display feedback
-		//         	if (apiWord.length == 6){
-		//         		control.levelUp(true);
-		//         		control.removeLevelWord(apiWord);
-		//         		userView.renderFeedback('levelup');
-		//         	} else {
-		//         		userView.renderFeedback('solved');
-		//         	}
-
-		//         	// Clear guess input
-		//         	document.getElementById('guess-input').value = '';
-
-		//         	// Award points
-		//         	control.incrementScore(apiWord);
-
-		//         } else {
-		//         	userView.renderFeedback('invalid');
-		//         }
-		//     }
-		//     else {
-		//         alert('Request failed.  Returned status of ' + xhr.status);
-		//     }
-		// };
-		// xhr.send();
 
 	},
 	incrementScore: function(input){
