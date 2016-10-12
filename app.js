@@ -131,7 +131,6 @@ var control = {
 
 		// Check if word is lowercase and contains no special characters
 		// If valid, push word to dictionary
-
 		var checkCase = input.search(/^[a-z]+$/);
 
 		// Only save words that meet length and case requirements
@@ -302,17 +301,7 @@ var control = {
 		//return model.user.solved;
 	},
 	incrementLevel: function(){
-
-		//var currentLevel = model.user.level;
-			model.user.level += 1;
-		//alert("next level:" + currentLevel);
-			//model.user.level = model.user.level + 1;
-			//console.log(currentLevel);
-
-
-		// var level = document.getElementById('level');
-		// 	level.innerHTML = model.user.level;
-
+		model.user.level += 1;
 		userView.renderLevel();
 	},
 	resetScoreLevel: function(){
@@ -320,6 +309,9 @@ var control = {
 		model.user.level = 1;
 		userView.renderScore();
 		userView.renderLevel();
+	},
+	resetSolvedWords: function(){
+		model.solvedWords = [];
 	},
 	removeLevelWord: function(input){
 		var word = input;
@@ -329,17 +321,36 @@ var control = {
 			model.dictionary.splice(wordIndex, 1);
 		}
 	},
+	resetButton: function(){
+		var resetNext = document.getElementById('reset-next'),
+			btnContinue = 'Next Level',
+			btnReset = 'Play Again';
+
+		if (model.user.solved === true){
+			// Update reset button & move to next level
+			resetNext.innerHTML = btnContinue;
+			control.incrementLevel();
+		} else {
+			// Update reset button & reset score/level
+			resetNext.innerHTML = btnReset;
+			control.resetScoreLevel();
+		}
+
+		resetNext.className= '';
+		return resetNext.addEventListener('click', control.resetContinue);
+	},
 	resetContinue: function(){
 
-			model.solvedWords = [];
+		// Empty solved words array
+		control.resetSolvedWords();
 
-			// Select a new word
-			control.selectWord();
+		// Select a new word
+		control.selectWord();
 
-			//Reset user level status
-			control.levelUp(false);
+		// Reset user level status
+		control.levelUp(false);
 
-			userView.renderReset('show');
+		userView.renderReset('show');
 
 	},
 
@@ -435,6 +446,8 @@ var userView = {
 			resetNext.className= 'hide';
 		}
 
+		guessInput.focus();
+
 	},
 	renderScore: function(){
 		var score = document.getElementById('score');
@@ -446,10 +459,7 @@ var userView = {
 	},
 	renderTimer: function(){
 
-		var resetNext = document.getElementById('reset-next'),
-			btnContinue = 'Next Level',
-			btnReset = 'Play Again',
-			display = document.getElementById('timer'),
+		var display = document.getElementById('timer'),
 			interval = 1000;
 
 		function startTimer(duration,display){
@@ -464,22 +474,11 @@ var userView = {
 
 		        clearInterval(countdown);
 
-		        // Check if user advances, or restarts: how can I improve this?
 		        // Hide header and form
 				userView.renderReset('hide');
 
-				if (model.user.solved === true){
-					// Update reset button
-					resetNext.innerHTML = btnContinue;
-					control.incrementLevel();
-				} else {
-					// Update reset button
-					resetNext.innerHTML = btnReset;
-					control.resetScoreLevel();
-				}
-
-				resetNext.className= '';
-				resetNext.addEventListener('click', control.resetContinue);
+				// Add Reset or Next button
+				control.resetButton();
 
 		      }
 
