@@ -1,8 +1,19 @@
 var gulp    = require('gulp'),
     sass    = require('gulp-sass'),
     cleanCSS    = require('gulp-clean-css'),
+    svgSprite = require('gulp-svg-sprite'),
     rename  = require('gulp-rename');
     //uglify    = require('gulp-uglify');
+
+var svgConfig  = {
+    mode                : {
+        css             : {     // Activate the «css» mode
+            render      : {
+                css     : true  // Activate CSS output (with default options)
+            }
+        }
+    }
+};
 
 // Compile SASS
 gulp.task('styles', function() {
@@ -11,6 +22,16 @@ gulp.task('styles', function() {
         .pipe(cleanCSS())
         .pipe(rename({suffix:'.min'}))
         .pipe(gulp.dest('./dist/css/'))
+});
+
+// SVG
+gulp.task('svg', function() {
+    gulp.src( './src/svg/**/**/*.svg' )
+        .pipe(svgSprite(svgConfig))
+        .on('error', function(error){
+            /* Do some awesome error handling ... */
+        })
+        .pipe(gulp.dest('./dist/svg/'))
 });
 
 // Minify JS
@@ -33,5 +54,5 @@ gulp.task('styles', function() {
 // Watch Tasks
 gulp.task('default',function() {
     gulp.watch('./src/scss/**/*.scss',['styles']);
-    // gulp.watch('./assets/js/*.*',['scripts']);
+    gulp.watch('./src/svg/**/*.svg',['svg']);
 });

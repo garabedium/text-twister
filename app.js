@@ -18,7 +18,6 @@ var model = {
 		},
 		"checkWord": {
 			"apiType":"word.json/",
-			//"apiLimit":"definitions?limit=1&",
 			"params":{
 				"definitions?limit":1,
 				"includeRelated":"true",
@@ -278,8 +277,8 @@ var control = {
 	incrementScore: function(input){
 
 		// Award points based on word length
-		wordLength = input.length;
-		scoreMultiplier = [10,15,20,25];
+		var wordLength = input.length,
+		scoreMultiplier = [10,15,20,50];
 
 		switch (wordLength) {
 		  case 3: model.user.score += wordLength * scoreMultiplier[0]
@@ -303,7 +302,17 @@ var control = {
 		//return model.user.solved;
 	},
 	incrementLevel: function(){
-		model.user.level += 1;
+
+		//var currentLevel = model.user.level;
+			model.user.level += 1;
+		//alert("next level:" + currentLevel);
+			//model.user.level = model.user.level + 1;
+			//console.log(currentLevel);
+
+
+		// var level = document.getElementById('level');
+		// 	level.innerHTML = model.user.level;
+
 		userView.renderLevel();
 	},
 	resetScoreLevel: function(){
@@ -320,84 +329,27 @@ var control = {
 			model.dictionary.splice(wordIndex, 1);
 		}
 	},
-	startEndGame: function(){
+	resetContinue: function(){
 
-	var resetNext = document.getElementById('reset-next'),
-		btnContinue = 'Next Level <i class="material-icons">play_arrow</i>',
-		btnReset = 'Play Again <i class="material-icons">replay</i>';
+			model.solvedWords = [];
 
-		header = document.getElementById('word-header');
-		form = document.getElementById('guess-form');
-		word = model.currentWord.word;
+			// Select a new word
+			control.selectWord();
 
-		form.className = 'hide-visibility';
-		header.className = 'solved';
-		control.removeLevelWord(word);
-		control.displayWord(word);
+			//Reset user level status
+			control.levelUp(false);
 
-		if (model.user.solved === true){
+			userView.renderReset('show');
 
-			resetNext.innerHTML = btnContinue;
-			resetNext.className= '';
+	},
 
-			resetNext.addEventListener('click', function(){
-
-				// Reset level status
-				control.levelUp(false);
-
-				// Select a new word, increment level
-				control.selectWord();
-				control.incrementLevel();
-
-				// Reset solved words
-				model.solvedWords = [];
-				solvedList = document.getElementById('solved-words'),
-				feedbackMessage = document.getElementById('feedback-message');
-
-				solvedList.innerHTML = '';
-				feedbackMessage.innerHTML = '';
-
-				// Show form and reset header
-				form.className = '';
-				header.className = '';
-
-				resetNext.className= 'hide';
-			});
-
-		} else {
-
-			resetNext.innerHTML = btnReset;
-			resetNext.className= '';
-
-			resetNext.addEventListener('click', function(){
-
-				form.className = '';
-				header.className = '';
-
-				control.selectWord();
-
-				// Reset solved words
-				model.solvedWords = [];
-				solvedList = document.getElementById('solved-words'),
-				feedbackMessage = document.getElementById('feedback-message');
-
-				solvedList.innerHTML = '';
-				feedbackMessage.innerHTML = '';
-
-				control.resetScoreLevel();
-
-				resetNext.className= 'hide';
-
-			});
-		}
-	}
 };
 var userView = {
 	init: function(){
 		this.renderScramble();
 		this.renderScore();
 		this.renderLevel();
-		//this.renderTimer();
+		this.renderTimer();
 	},
 	// Display scrambled word
 	renderScramble: function(){
@@ -422,18 +374,65 @@ var userView = {
 			feedbackMessage = document.getElementById('feedback-message');
 
 		switch (messageType) {
-		  case "duplicate": feedbackMessage.innerHTML='<i class="material-icons">error_outline</i> You already solved that word.';
+		  case "duplicate":
+		  	feedbackMessage.innerHTML='You already solved that word.';
+		  	feedbackMessage.className='svg-bg ic-error';
 		  break;
 
-		  case "invalid": feedbackMessage.innerHTML='<i class="material-icons">error_outline</i> Not in our dictionary.';
+		  case "invalid":
+		  	feedbackMessage.innerHTML='Not in our dictionary.';
+		  	feedbackMessage.className='svg-bg ic-error';
 		  break;
 
-		  case "solved": feedbackMessage.innerHTML='<i class="material-icons">stars</i> Points! Keep solving!';
+		  case "solved":
+		  	feedbackMessage.innerHTML='Points! Keep solving!';
+		  	feedbackMessage.className='svg-bg ic-star';
 		  break;
 
-		  case "levelup": feedbackMessage.innerHTML='<i class="material-icons">check_circle</i> Congrats! You solved the six letter word!';
+		  case "levelup":
+		  	feedbackMessage.innerHTML='Congrats! <br/> You solved the six letter word!';
+		  	feedbackMessage.className='svg-bg ic-trending';
 		  break;
+		}
 
+	},
+	renderReset: function(input){
+
+		var resetNext = document.getElementById('reset-next'),
+			header = document.getElementById('word-header'),
+			form = document.getElementById('guess-form'),
+			guessInput = document.getElementById('guess-input'),
+			word = model.currentWord.word,
+			solvedWords = document.getElementById('solved-words'),
+			feedbackMessage = document.getElementById('feedback-message');
+
+		if (input === 'hide'){
+
+			// Show 6 letter word, hide form
+			form.className = 'hide-visibility';
+			header.className = 'solved';
+
+			control.removeLevelWord(word);
+			control.displayWord(word);
+
+			// Reset solved words, guess input
+			solvedWords.innerHTML = '';
+			feedbackMessage.innerHTML = '';
+			guessInput.value = '';
+
+		} else {
+
+			// Show form and reset header
+			form.className = '';
+			header.className = '';
+
+			// Show form and reset header
+			form.className = '';
+			header.className = '';
+			feedbackMessage.className = '';
+
+			// Hide the reset-next button
+			resetNext.className= 'hide';
 		}
 
 	},
@@ -447,6 +446,12 @@ var userView = {
 	},
 	renderTimer: function(){
 
+		var resetNext = document.getElementById('reset-next'),
+			btnContinue = 'Next Level',
+			btnReset = 'Play Again',
+			display = document.getElementById('timer'),
+			interval = 1000;
+
 		function startTimer(duration,display){
 
 		 	var	timer = duration;
@@ -455,25 +460,37 @@ var userView = {
 
 		      display.innerHTML=timer--;
 
-		      if (timer === 0){
-		      	// check if a 6 letter word has been solved
-		      	// If model.user.solved is false - game ends
-		      	// If true, select another word, and start the timer again
-		      	display.innerHTML='--';
-		      	control.startEndGame();
+		      if (timer === -1){
+
 		        clearInterval(countdown);
+
+		        // Check if user advances, or restarts: how can I improve this?
+		        // Hide header and form
+				userView.renderReset('hide');
+
+				if (model.user.solved === true){
+					// Update reset button
+					resetNext.innerHTML = btnContinue;
+					control.incrementLevel();
+				} else {
+					// Update reset button
+					resetNext.innerHTML = btnReset;
+					control.resetScoreLevel();
+				}
+
+				resetNext.className= '';
+				resetNext.addEventListener('click', control.resetContinue);
+
 		      }
 
-			}, 1000);
+			}, interval);
 
 		};
 
-		display = document.getElementById('timer');
-		startTimer(60,display);
+		startTimer(5,display);
 
 	},
 };
 
 // Initialize Control
 control.init();
-

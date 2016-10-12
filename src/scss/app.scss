@@ -1,9 +1,14 @@
-/* vars */
-$blue: #00d3ff;
-$red: #df744a;
-$white: #ffffff;
-$black: #000000;
+// Partials
+@import
+'_normalize',
+'_variables.scss',
+'_material_icons.scss';
 
+// Styles
+html {
+	position: relative;
+    min-height: 100%;
+}
 body {
 	background: $blue;
 	text-align: center;
@@ -11,7 +16,7 @@ body {
 h1 {
 	font-family: 'Dancing Script', cursive;
 	font-size: 35px;
-	margin: 0;
+	margin: 0 0 20px 0;
 	padding: 13px 0;
 	background: $red;
 	color: $white;
@@ -34,15 +39,43 @@ button {
 	}
 }
 #score-timer {
-	padding: 20px 0;
+	padding: 25px 0 15px 0;
 	margin: 0 auto;
 	max-width: 320px;
 	border-bottom: solid 1px rgba(255,255,255,.35);
-	// margin-bottom: 10px;
+	list-style-type: none;
+	li {
+		position: relative;
+		display: inline-block;
+		width: 35px;
+		text-align: center;
+		&::before {
+			background-image: url('/dist/svg/sprite.css-f1bfeacc.svg');
+			background-repeat: no-repeat;
+			width: 24px;
+			height: 24px;
+			position: absolute;
+			top: -28px;
+			left: 7px;
+			content:'';
+		}
+		&.ic-stars::before {
+			background-position: $icon-star;
+		}
+		&.ic-timer::before {
+			background-position: $icon-timer;
+		}
+		&.ic-timer-off::before {
+			background-position: $icon-timeroff;
+		}
+		&.ic-trending::before {
+			background-position: $icon-trending;
+		}
+	}
 }
 #word-header {
 	margin: 20px 0;
-	font-size: 28px;
+	font-size: 32px;
 	&.solved {
 		text-transform: uppercase;
 		color: darken($red, 15%);
@@ -63,11 +96,38 @@ button {
 			color: #cfcfcf;
 		}
 	}
-	#feedback-message {
-		min-height: 50px;
-		max-width: 320px;
-		padding: 10px 0;
+	#user-feedback {
+		width: 320px;
+		padding: 20px 0;
 		margin: 0 auto;
+		#feedback-message {
+			display: inline-block;
+			position: relative;
+			padding-left: 28px;
+			font-weight: 800;
+			&.svg-bg::before {
+				background-image: url('/dist/svg/sprite.css-f1bfeacc.svg');
+				background-repeat: no-repeat;
+				width: 24px;
+				height: 24px;
+				position: absolute;
+				content: '';
+				left: 0;
+				top: -4px;
+			}
+			&.ic-error::before {
+				background-position: $icon-error;
+			}
+			&.ic-check::before {
+				background-position: $icon-check;
+			}
+			&.ic-stars::before {
+				background-position: $icon-star;
+			}
+			&.ic-trending::before {
+				background-position: $icon-trending;
+			}
+		}
 	}
 }
 #solved-words {
@@ -83,4 +143,15 @@ button {
 .hide-visibility {
 	//display: none;
 	visibility: hidden;
+}
+footer {
+	position: absolute;
+    bottom: 0;
+    height: 30px;
+    text-align: center;
+    width: 100%;
+    a {
+    	font-size: 12px;
+    	color: $black;
+    }
 }

@@ -1,0 +1,24 @@
+.svg-ic {
+	background-image: url('/dist/svg/sprite.css-f1bfeacc.svg');
+	background-repeat: no-repeat;
+	width: 24px;
+	height: 24px;
+}
+.ic-check {
+	background-position: $icon-check;
+}
+.ic-error-outline {
+	background-position: $icon-error;
+}
+.ic-stars {
+	background-position: $icon-star;
+}
+.ic-timer {
+	background-position: $icon-timer;
+}
+.ic-timer-off {
+	background-position: $icon-timeroff;
+}
+.ic-trending {
+	background-position: $icon-trending;
+}

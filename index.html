@@ -3,8 +3,6 @@
 <head>
 	<title>Text Twister - Javascript | Garabedium.com</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="/dist/css/normalize.css">
 	<link rel="stylesheet" href="/dist/css/app.min.css">
 </head>
 <body>
@@ -12,18 +10,22 @@
 
 	<h1>TextTwister <sup>JS</sup></h1>
 
-	<section id="score-timer">
-		<i class="material-icons">timer</i> <span id="timer"></span> / <i class="material-icons">stars</i> <span id="score"></span> / Level: <span id="level"></span>
-	</section>
+	<ul id="score-timer">
+		<li class="ic-timer"><span id="timer"></span></li>
+		<li class="ic-stars"><span id="score"></span></li>
+		<li class="ic-trending"><span id="level"></span></li>
+	</ul>
 
 	<h2 id="word-header"></h2>
 
 		<button id="reset-next" type="button" class="hide"></button>
 
 	<form id="guess-form">
-		<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off">
+		<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off" autofocus>
 
+		<div id="user-feedback">
 			<div id="feedback-message"></div>
+		</div>
 
 		<button id="scramble" type="button">Scramble</button>
 		<button id="guess" type="submit" id="guess">Solve</button>
@@ -32,7 +34,8 @@
 	<ul id="solved-words"></ul>
 
 	<footer>
-		<a href="http://developer.wordnik.com/docs.html" target="_blank">Dictionary by Wordnik</a>
+		<a href="http://developer.wordnik.com/docs.html" target="_blank">Dictionary by Wordnik</a> |
+		<a href="https://github.com/garabedium/text-twister" target="_blank">GitHub</a>
 	</footer>
 </main>
 <script src='app.js'></script>
