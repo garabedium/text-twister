@@ -373,8 +373,7 @@ var userView = {
 		function hideModal(){
 			modal.className="hide-modal";
 			userView.renderInputFocus();
-			//userView.renderTimer();
-			//alert('clicked');
+			userView.renderTimer();
 		}
 
 		startGame.addEventListener('click', hideModal);
@@ -433,7 +432,8 @@ var userView = {
 			guessInput = document.getElementById('guess-input'),
 			word = model.currentWord.word,
 			solvedWords = document.getElementById('solved-words'),
-			feedbackMessage = document.getElementById('feedback-message');
+			feedbackMessage = document.getElementById('feedback-message'),
+			feedbackIcon = document.getElementById('feedback-icon');
 
 		if (input === 'hide'){
 
@@ -447,6 +447,7 @@ var userView = {
 			// Reset solved words, guess input
 			solvedWords.innerHTML = '';
 			feedbackMessage.innerHTML = '';
+			feedbackIcon.innerHTML = '';
 			guessInput.value = '';
 
 		} else {
@@ -508,7 +509,7 @@ var userView = {
 
 		};
 
-		startTimer(5,display);
+		startTimer(10,display);
 
 	},
 };

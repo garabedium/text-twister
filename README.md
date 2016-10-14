@@ -1,5 +1,5 @@
 # Text Twist Javascript
-- Recreating the classic [Text Twist](http://zone.msn.com/en/texttwist/) game using pure javascript
+- Recreating the classic [Text Twist](http://zone.msn.com/en/texttwist/) game using only javascript
 - Words sourced from [Wordnik dictionary](http://developer.wordnik.com/docs.html)
 
 ## Getting Started
@@ -7,8 +7,8 @@
 - Or, play online at garabedium.com/projects/text-twister
 
 ## Rules
-- Solve as many words as you can before time runs out!
-- Words must have a minimum of 3 letters.
+- Solve as many words as you can before time runs out.
+- Word must be a minimum of 3 letters.
 - Solve the 6 letter word and advance to the next level.
 
 ## Game Controls
@@ -20,6 +20,7 @@
 - Letters sometimes get locked out.
 
 ## Credits & Documentation
+[Inspired by MSN's Text Twist](http://zone.msn.com/en/texttwist/)
 [Dictionary API by Wordnik](http://developer.wordnik.com/docs.html)
 [Material Icons by Google](https://design.google.com/icons/)
 [Regex](http://stackoverflow.com/questions/23476532/check-if-string-contains-only-letters-in-javascript)
