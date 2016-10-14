@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Text Twister - Javascript | Garabedium.com</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Antic+Slab|Dancing+Script:700">
 	<link rel="stylesheet" href="/dist/css/app.min.css">
 </head>
 <body>
@@ -11,9 +11,9 @@
 	<h1>TextTwister <sup>JS</sup></h1>
 
 	<ul id="score-timer">
-		<li class="ic-timer"><span id="timer"></span></li>
-		<li class="ic-stars"><span id="score"></span></li>
-		<li class="ic-trending"><span id="level"></span></li>
+		<li><i class="material-icons">timer</i><span id="timer"></span></li>
+		<li><i class="material-icons">stars</i><span id="score"></span></li>
+		<li><i class="material-icons">trending_up</i><span id="level"></span></li>
 	</ul>
 
 	<h2 id="word-header"></h2>
@@ -24,11 +24,12 @@
 		<input type="text" id="guess-input" maxlength="6" pattern=".{3,6}" required title="Word must be between 3-6 characters" placeholder="Type a Word" autocomplete="off" autofocus>
 
 		<div id="user-feedback">
+			<i id="feedback-icon" class="material-icons"></i>
 			<div id="feedback-message"></div>
 		</div>
 
-		<button id="scramble" type="button">Scramble</button>
-		<button id="guess" type="submit" id="guess">Solve</button>
+		<button id="scramble" type="button">Scramble <i class="material-icons">space_bar</i></button>
+		<button id="guess" type="submit" id="guess">Solve <i class="material-icons">keyboard_return</i></button>
 	</form>
 
 	<ul id="solved-words"></ul>
@@ -37,6 +38,29 @@
 		<a href="http://developer.wordnik.com/docs.html" target="_blank">Dictionary by Wordnik</a> |
 		<a href="https://github.com/garabedium/text-twister" target="_blank">GitHub</a>
 	</footer>
+
+	<section id="modal">
+		<div id="content">
+			<p>A tribute to the anagram game Text Twist. <br/>
+				Built with pure javascript, leveraging the Wordnik dictionary API.</p>
+			<h3>How to Play</h3>
+			<ul>
+				<li><i class="material-icons md-18">timer</i> Solve as many words as you can before time runs out.</li>
+				<li><i class="material-icons md-18">stars</i> Earn points for every word solved.</li>
+				<li><i class="material-icons md-18">error</i> Word must be a minimum of three letters.</li>
+				<li><i class="material-icons md-18">trending_up</i> Solve a six letter word and move on to the next level.</li>
+			</ul>
+			<h3>Game Controls</h3>
+			<ul>
+				<li><i class="material-icons md-18">space_bar</i> Spacebar: scramble letters</li>
+				<li><i class="material-icons md-18">keyboard_return</i> Enter / Return: solve word</li>
+			</ul>
+
+			<button id="start">Play <i class="material-icons">play_arrow</i></button>
+
+		</div>
+	</section>
+
 </main>
 <script src='app.js'></script>
 </body>

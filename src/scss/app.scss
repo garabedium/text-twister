@@ -12,6 +12,7 @@ html {
 body {
 	background: $blue;
 	text-align: center;
+	font-family: $sans;
 }
 h1 {
 	font-family: 'Dancing Script', cursive;
@@ -49,27 +50,10 @@ button {
 		display: inline-block;
 		width: 35px;
 		text-align: center;
-		&::before {
-			background-image: url('/dist/svg/sprite.css-f1bfeacc.svg');
-			background-repeat: no-repeat;
-			width: 24px;
-			height: 24px;
-			position: absolute;
-			top: -28px;
-			left: 7px;
-			content:'';
-		}
-		&.ic-stars::before {
-			background-position: $icon-star;
-		}
-		&.ic-timer::before {
-			background-position: $icon-timer;
-		}
-		&.ic-timer-off::before {
-			background-position: $icon-timeroff;
-		}
-		&.ic-trending::before {
-			background-position: $icon-trending;
+		i.material-icons {
+		    position: absolute;
+		    top: -28px;
+		    left: 6px;
 		}
 	}
 }
@@ -103,30 +87,7 @@ button {
 		#feedback-message {
 			display: inline-block;
 			position: relative;
-			padding-left: 28px;
 			font-weight: 800;
-			&.svg-bg::before {
-				background-image: url('/dist/svg/sprite.css-f1bfeacc.svg');
-				background-repeat: no-repeat;
-				width: 24px;
-				height: 24px;
-				position: absolute;
-				content: '';
-				left: 0;
-				top: -4px;
-			}
-			&.ic-error::before {
-				background-position: $icon-error;
-			}
-			&.ic-check::before {
-				background-position: $icon-check;
-			}
-			&.ic-stars::before {
-				background-position: $icon-star;
-			}
-			&.ic-trending::before {
-				background-position: $icon-trending;
-			}
 		}
 	}
 }
@@ -154,4 +115,48 @@ footer {
     	font-size: 12px;
     	color: $black;
     }
+}
+#modal {
+	position: fixed;
+	top: 68px;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+	background-color: $blue;
+	// Transition
+    -webkit-transition: visibility .5s, opacity .5s ease-in-out;
+    -moz-transition: visibility .5s, opacity .5s ease-in-out;
+    -ms-transition: visibility .5s, opacity .5s ease-in-out;
+    -o-transition: visibility .5s, opacity .5s ease-in-out;
+     visibility: visible;
+     opacity: 1;
+	&.hide-modal {
+		visibility: hidden;
+		opacity: 0;
+	}
+	#content {
+		padding: 20px;
+	    h3 {
+	     	font-family: 'Antic Slab', serif;
+	     	font-size: 24px;
+			margin: 15px 0;
+	    }
+	    p {
+	     	margin: 0;
+	    }
+		ul {
+			padding: 0;
+			margin: 0;
+			list-style-type: none;
+			li {
+				margin: 6px 0;
+				i.material-icons {
+					//vertical-align: middle;
+				}
+			}
+		}
+		#start {
+			margin-top: 15px;
+		}
+	}
 }

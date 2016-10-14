@@ -235,7 +235,7 @@ var control = {
 			if (e.keyCode === 8){
 				inputArray = guessInput.value;
 				if (inputArray === ''){
-					console.log("blank now");
+					//console.log("blank now");
 					control.recycleRemoved();
 				}
 			}
@@ -263,7 +263,6 @@ var control = {
 	},
 	buttonControls: function(){
 		// Scramble word with [spacebar]
-		// (implement: Clear input on shift)
 		document.body.onkeyup = function(e){
 		    if(e.keyCode === 32){
 		    	control.scramble(model.currentWord.word);
@@ -315,7 +314,7 @@ var control = {
 	},
 	removeLevelWord: function(input){
 		var word = input;
-		console.log(word);
+		//console.log(word);
 		if (model.dictionary.indexOf(word) >= 0){
 			wordIndex = model.dictionary.indexOf(word);
 			model.dictionary.splice(wordIndex, 1);
@@ -323,8 +322,8 @@ var control = {
 	},
 	resetButton: function(){
 		var resetNext = document.getElementById('reset-next'),
-			btnContinue = 'Next Level',
-			btnReset = 'Play Again';
+			btnContinue = 'Next Level <i class="material-icons">trending_up</i>',
+			btnReset = 'Play Again <i class="material-icons">replay</i>';
 
 		if (model.user.solved === true){
 			// Update reset button & move to next level
@@ -337,7 +336,7 @@ var control = {
 		}
 
 		resetNext.className= '';
-		return resetNext.addEventListener('click', control.resetContinue);
+		resetNext.addEventListener('click', control.resetContinue);
 	},
 	resetContinue: function(){
 
@@ -357,10 +356,28 @@ var control = {
 };
 var userView = {
 	init: function(){
+		this.renderModal();
 		this.renderScramble();
 		this.renderScore();
 		this.renderLevel();
-		this.renderTimer();
+		//this.renderTimer();
+	},
+	renderInputFocus(){
+		var guessInput = document.getElementById('guess-input');
+		guessInput.focus();
+	},
+	renderModal: function(){
+		var startGame = document.getElementById('start'),
+			modal = document.getElementById('modal');
+
+		function hideModal(){
+			modal.className="hide-modal";
+			userView.renderInputFocus();
+			//userView.renderTimer();
+			//alert('clicked');
+		}
+
+		startGame.addEventListener('click', hideModal);
 	},
 	// Display scrambled word
 	renderScramble: function(){
@@ -382,27 +399,28 @@ var userView = {
 	renderFeedback: function(input){
 
 		var messageType = input,
-			feedbackMessage = document.getElementById('feedback-message');
+			feedbackMessage = document.getElementById('feedback-message'),
+			feedbackIcon = document.getElementById('feedback-icon');
 
 		switch (messageType) {
 		  case "duplicate":
 		  	feedbackMessage.innerHTML='You already solved that word.';
-		  	feedbackMessage.className='svg-bg ic-error';
+		  	feedbackIcon.innerHTML='error';
 		  break;
 
 		  case "invalid":
 		  	feedbackMessage.innerHTML='Not in our dictionary.';
-		  	feedbackMessage.className='svg-bg ic-error';
+		  	feedbackIcon.innerHTML='error';
 		  break;
 
 		  case "solved":
 		  	feedbackMessage.innerHTML='Points! Keep solving!';
-		  	feedbackMessage.className='svg-bg ic-star';
+		  	feedbackIcon.innerHTML='stars';
 		  break;
 
 		  case "levelup":
 		  	feedbackMessage.innerHTML='Congrats! <br/> You solved the six letter word!';
-		  	feedbackMessage.className='svg-bg ic-trending';
+		  	feedbackIcon.innerHTML='trending_up';
 		  break;
 		}
 
@@ -444,9 +462,13 @@ var userView = {
 
 			// Hide the reset-next button
 			resetNext.className= 'hide';
+
+			// Start the timer
+			userView.renderTimer();
 		}
 
-		guessInput.focus();
+		userView.renderInputFocus();
+		//userView.renderTimer();
 
 	},
 	renderScore: function(){
