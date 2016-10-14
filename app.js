@@ -509,7 +509,7 @@ var userView = {
 
 		};
 
-		startTimer(10,display);
+		startTimer(60,display);
 
 	},
 };
