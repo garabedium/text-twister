@@ -67,26 +67,27 @@ var control = {
 			return apiCall;
 		}
 
-		fetch(apiRequest())
-		  .then(
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', ''+ apiRequest() +'');
 
-		    function(response) {
+		xhr.onload = function() {
 
-		      if (response.status !== 200) {
-		        console.log('Oops. Houston, where is Texas?: ' + response.status);
-		        return;
-		      }
-		      // Handle the results
-		      response.json().then(function(data) {
+		    if (xhr.readyState == 4 && xhr.status == 200){
 
+		        var data = JSON.parse(xhr.responseText);
+		        	data = data.results;
+
+		 		var data = JSON.parse(xhr.responseText);
+
+		 		// If there's no getData() input argument, we're selecting words
+		 		// Else, we're validating a word
 		      	if (input === '' || input === undefined){
 			      	// Get words:
 			 		data.forEach(function(item){
 			 			control.validateWords(item.word);
 			 		});
 			 		control.selectWord();
-			 	}
-			 	else {
+			 	} else {
 
 			        if (data.length > 0) {
 
@@ -118,13 +119,13 @@ var control = {
 
 			 	}
 
-
-		      });
 		    }
-		  )
-		  .catch(function(err) {
-		    console.log(err);
-		  });
+		    else {
+		        alert('Request failed. Returned status of ' + xhr.status);
+		    }
+
+		};
+		xhr.send();
 
 	},
 	validateWords: function(input){
@@ -263,6 +264,7 @@ var control = {
 	},
 	buttonControls: function(){
 		// Scramble word with [spacebar]
+
 		document.body.onkeyup = function(e){
 		    if(e.keyCode === 32){
 		    	control.scramble(model.currentWord.word);

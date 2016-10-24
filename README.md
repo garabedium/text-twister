@@ -16,6 +16,7 @@
 - Press 'Enter' to solve a word.
 
 ## Known Issues
+- Fetch is used for the AJAX requests, so won't work in IE or Safari at the moment.
 - Yes, the solved word is accessible via the console. No, cheaters never win.
 - Letters sometimes get locked out.
 
