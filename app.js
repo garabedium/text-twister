@@ -1,3 +1,4 @@
+"use strict";
 
 // Store data
 var model = {
@@ -159,8 +160,9 @@ var control = {
 		wordHeader.innerHTML=input;
 	},
 	scramble: function(array){
+
 		// Convert word to array
-		array = array.split('');
+		var array = array.split('');
 
 	    var counter = array.length,
 	    	word = '',
@@ -206,7 +208,7 @@ var control = {
 			if (letters.indexOf(char) === -1 && e.keyCode !== 13){
 				e.preventDefault();
 			} else if (e.keyCode !== 13){
-				index = letters.indexOf(char);
+				var index = letters.indexOf(char);
 				letters.splice(index,1);
 				lettersRemoved.push(char);
 			}
@@ -219,11 +221,10 @@ var control = {
 		guessInput.onkeydown = function(e){
 			// On backspace get input value
 			if (e.keyCode === 8){
-				array = guessInput.value;
-				lastInputChar = array.slice(-1);
-
+				var array = guessInput.value,
+					lastInputChar = array.slice(-1);
 				if(model.currentWord.removed.indexOf(lastInputChar) >= 0){
-					index = array.indexOf(lastInputChar);
+					var index = array.indexOf(lastInputChar);
 					model.currentWord.removed.splice(index,1);
 					model.currentWord.letters.push(lastInputChar);
 				}
@@ -234,7 +235,7 @@ var control = {
 		// Recycle letters: run recycleRemoved
 		guessInput.onkeyup = function(e){
 			if (e.keyCode === 8){
-				inputArray = guessInput.value;
+				var inputArray = guessInput.value;
 				if (inputArray === ''){
 					//console.log("blank now");
 					control.recycleRemoved();
@@ -246,7 +247,7 @@ var control = {
 		// If it hasn't, make sure it's a word
 		guessForm.addEventListener('submit', function(e){
 			e.preventDefault();
-			guessValue = guessInput.value;
+			var guessValue = guessInput.value;
 			if (model.solvedWords.indexOf(guessValue) === -1){
 				control.getData(guessValue);
 			} else {
@@ -263,8 +264,7 @@ var control = {
 			model.currentWord.removed = [];
 	},
 	buttonControls: function(){
-		// Scramble word with [spacebar]
-
+		// Scramble word with spacebar
 		document.body.onkeyup = function(e){
 		    if(e.keyCode === 32){
 		    	control.scramble(model.currentWord.word);
@@ -272,7 +272,6 @@ var control = {
 		    	return false;
 		    }
 		};
-
 	},
 	incrementScore: function(input){
 
@@ -316,9 +315,8 @@ var control = {
 	},
 	removeLevelWord: function(input){
 		var word = input;
-		//console.log(word);
 		if (model.dictionary.indexOf(word) >= 0){
-			wordIndex = model.dictionary.indexOf(word);
+			var wordIndex = model.dictionary.indexOf(word);
 			model.dictionary.splice(wordIndex, 1);
 		}
 	},
@@ -327,6 +325,7 @@ var control = {
 			btnContinue = 'Next Level <i class="material-icons">trending_up</i>',
 			btnReset = 'Play Again <i class="material-icons">replay</i>';
 
+		// If user solved a six letter word, levelup or reset game
 		if (model.user.solved === true){
 			// Update reset button & move to next level
 			resetNext.innerHTML = btnContinue;
