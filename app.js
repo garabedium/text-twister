@@ -3,7 +3,7 @@
 // Store data
 var model = {
 	"dictionary":[],
-	"currentWord":{"word":"","letters":[],"removed":[],"charCodes":[]},
+	"currentWord":{"word":"","letters":[],"removed":[],"charCodes":[],"charCodesRemoved":[]},
 	"solvedWords":[],
 	"user":{"score":0, "level":1, "solved":false},
 	"api":{
@@ -153,10 +153,8 @@ var control = {
 		var letters = model.currentWord.letters;
 
 		letters.forEach(function(letter){
-
 			var charCode = letter.charCodeAt();
 			model.currentWord.charCodes.push(charCode);
-
 		});
 
 		control.scramble(randomWord);
@@ -207,24 +205,27 @@ var control = {
 		// Only accept letters in the word, and Enter key
 		guessInput.onkeypress = function(e){
 
-			alert('this key was pressed' + e.keyCode);
+			//alert('this key was pressed' + e.keyCode);
 			// keyCode is in the process of being deprecated
 			// Meanwhile, webkit (safari) doesn't support .key
 			// Convert keyCodes to letters?
 
-			var char = e.key,
+			//var char = e.key,
+			var char = e.keyCode,
 				word = model.currentWord.word,
+				keycodes = model.currentWord.charCodes,
+				keycodesRemoved = model.currentWord.charCodesRemoved,
 				letters = model.currentWord.letters,
 				lettersRemoved = model.currentWord.removed;
 
 			// If character pressed isn't part of the word, do nothing
 			// Else, remove that character from the letters array and add it to removed array
-			if (letters.indexOf(char) === -1 && e.keyCode !== 13){
+			if (keycodes.indexOf(char) === -1 && char !== 13){
 				e.preventDefault();
-			} else if (e.keyCode !== 13){
-				var index = letters.indexOf(char);
-				letters.splice(index,1);
-				lettersRemoved.push(char);
+			} else if (char !== 13){
+				var index = keycodes.indexOf(char);
+				keycodes.splice(index,1);
+				keycodesRemoved.push(char);
 			}
 		};
 
@@ -233,22 +234,28 @@ var control = {
 		// Add it back to model.letters
 
 		guessInput.onkeydown = function(e){
-			// On backspace get input value
-			if (e.keyCode === 8){
+			var char = e.keyCode;
+		// On backspace get input value
+			if (char === 8){
 				var array = guessInput.value,
 					lastInputChar = array.slice(-1);
-				if(model.currentWord.removed.indexOf(lastInputChar) >= 0){
+
+				lastInputChar = lastInputChar.charCodeAt();
+				//console.log(lastInputChar);
+
+				if(model.currentWord.charCodesRemoved.indexOf(lastInputChar) >= 0){
 					var index = array.indexOf(lastInputChar);
-					model.currentWord.removed.splice(index,1);
-					model.currentWord.letters.push(lastInputChar);
+					model.currentWord.charCodesRemoved.splice(index,1);
+					model.currentWord.charCodes.push(lastInputChar);
 				}
 			}
-		}
+		};
 
 		// If the input field is blank (ctrl + a + backspace)
 		// Recycle letters: run recycleRemoved
 		guessInput.onkeyup = function(e){
-			if (e.keyCode === 8){
+			var char = e.keyCode;
+			if (char === 8){
 				var inputArray = guessInput.value;
 				if (inputArray === ''){
 					//console.log("blank now");
@@ -272,10 +279,10 @@ var control = {
 	recycleRemoved: function(){
 		// If there's a valid word
 		// Return the removed characters to letters array and reset currentWord.removed
-		model.currentWord.removed.forEach(function(item){
-			model.currentWord.letters.push(item);
+		model.currentWord.charCodesRemoved.forEach(function(item){
+			model.currentWord.charCodes.push(item);
 		});
-			model.currentWord.removed = [];
+			model.currentWord.charCodesRemoved = [];
 	},
 	buttonControls: function(){
 		// Scramble word with spacebar
