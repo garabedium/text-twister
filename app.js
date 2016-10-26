@@ -3,7 +3,7 @@
 // Store data
 var model = {
 	"dictionary":[],
-	"currentWord":{"word":"", "letters":[], "removed":[]},
+	"currentWord":{"word":"","letters":[],"removed":[],"charCodes":[]},
 	"solvedWords":[],
 	"user":{"score":0, "level":1, "solved":false},
 	"api":{
@@ -150,6 +150,15 @@ var control = {
 		model.currentWord.word = randomWord;
 		model.currentWord.letters = model.currentWord.word.split('');
 
+		var letters = model.currentWord.letters;
+
+		letters.forEach(function(letter){
+
+			var charCode = letter.charCodeAt();
+			model.currentWord.charCodes.push(charCode);
+
+		});
+
 		control.scramble(randomWord);
 
 		// Start View
@@ -198,10 +207,15 @@ var control = {
 		// Only accept letters in the word, and Enter key
 		guessInput.onkeypress = function(e){
 
-			var char = e.key;
-			var word = model.currentWord.word;
-			var letters = model.currentWord.letters;
-			var lettersRemoved = model.currentWord.removed;
+			alert('this key was pressed' + e.keyCode);
+			// keyCode is in the process of being deprecated
+			// Meanwhile, webkit (safari) doesn't support .key
+			// Convert keyCodes to letters?
+
+			var char = e.key,
+				word = model.currentWord.word,
+				letters = model.currentWord.letters,
+				lettersRemoved = model.currentWord.removed;
 
 			// If character pressed isn't part of the word, do nothing
 			// Else, remove that character from the letters array and add it to removed array
@@ -361,7 +375,6 @@ var userView = {
 		this.renderScramble();
 		this.renderScore();
 		this.renderLevel();
-		//this.renderTimer();
 	},
 	renderInputFocus(){
 		var guessInput = document.getElementById('guess-input');
@@ -374,7 +387,7 @@ var userView = {
 		function hideModal(){
 			modal.className="hide-modal";
 			userView.renderInputFocus();
-			userView.renderTimer();
+			//userView.renderTimer();
 		}
 
 		startGame.addEventListener('click', hideModal);
