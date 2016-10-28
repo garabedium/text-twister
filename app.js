@@ -80,8 +80,8 @@ var control = {
 
 		 		var data = JSON.parse(xhr.responseText);
 
-		 		// If there's no getData() input argument, we're selecting words
-		 		// Else, we're validating a word
+		 		// If there's no getData() input argument, select words
+		 		// Else, validate a word
 		      	if (input === '' || input === undefined){
 			      	// Get words:
 			 		data.forEach(function(item){
@@ -205,18 +205,12 @@ var control = {
 		// Only accept letters in the word, and Enter key
 		guessInput.onkeypress = function(e){
 
-			//alert('this key was pressed' + e.keyCode);
-			// keyCode is in the process of being deprecated
-			// Meanwhile, webkit (safari) doesn't support .key
-			// Convert keyCodes to letters?
-
-			//var char = e.key,
 			var char = e.keyCode,
 				word = model.currentWord.word,
 				keycodes = model.currentWord.charCodes,
-				keycodesRemoved = model.currentWord.charCodesRemoved,
-				letters = model.currentWord.letters,
-				lettersRemoved = model.currentWord.removed;
+				keycodesRemoved = model.currentWord.charCodesRemoved;
+				//letters = model.currentWord.letters,
+				//lettersRemoved = model.currentWord.removed;
 
 			// If character pressed isn't part of the word, do nothing
 			// Else, remove that character from the letters array and add it to removed array
@@ -230,9 +224,8 @@ var control = {
 		};
 
 		// If the last index of the guessInput value array exists in model.removed
-		// Then, remove it from model.removed
-		// Add it back to model.letters
-
+		// Then, remove it from model.charCodesRemoved
+		// Add it back to model.charCodes
 		guessInput.onkeydown = function(e){
 			var char = e.keyCode;
 		// On backspace get input value
@@ -241,7 +234,6 @@ var control = {
 					lastInputChar = array.slice(-1);
 
 				lastInputChar = lastInputChar.charCodeAt();
-				//console.log(lastInputChar);
 
 				if(model.currentWord.charCodesRemoved.indexOf(lastInputChar) >= 0){
 					var index = array.indexOf(lastInputChar);
@@ -258,7 +250,6 @@ var control = {
 			if (char === 8){
 				var inputArray = guessInput.value;
 				if (inputArray === ''){
-					//console.log("blank now");
 					control.recycleRemoved();
 				}
 			}
@@ -394,7 +385,7 @@ var userView = {
 		function hideModal(){
 			modal.className="hide-modal";
 			userView.renderInputFocus();
-			//userView.renderTimer();
+			userView.renderTimer();
 		}
 
 		startGame.addEventListener('click', hideModal);
@@ -406,8 +397,6 @@ var userView = {
 	},
 	// Display solved words
 	renderSolved: function(input){
-
-		//control.sortSolved();
 
 		var solvedList = document.getElementById('solved-words'),
 			wordItem = document.createElement('li');
@@ -504,6 +493,7 @@ var userView = {
 	renderTimer: function(){
 
 		var display = document.getElementById('timer'),
+			gameTime = 60,
 			interval = 1000;
 
 		function startTimer(duration,display){
@@ -530,7 +520,7 @@ var userView = {
 
 		};
 
-		startTimer(60,display);
+		startTimer(gameTime,display);
 
 	},
 };

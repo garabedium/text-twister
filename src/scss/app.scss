@@ -135,9 +135,12 @@ footer {
 		opacity: 0;
 	}
 	#content {
+		font-family: $antic-slab;
 		padding: 20px;
+		background-color: lighten($blue, 10%);
 	    h3 {
-	     	font-family: 'Antic Slab', serif;
+	     	color: darken($red, 20%);
+	     	font-weight: 400;
 	     	font-size: 24px;
 			margin: 15px 0;
 	    }
@@ -154,6 +157,18 @@ footer {
 					//vertical-align: middle;
 				}
 			}
+		}
+		ul#about {
+		    max-width: 350px;
+		    margin: 0 auto;
+		    display: inline-block;
+		    background: rgba(255,255,255,.9);
+		    padding: 20px 10% !important;
+		    border-left: 4px solid #a9a9ff;
+		    font-size: 16px;
+		    // &:hover {
+		    // 	background: rgba(169,169,255,.9);
+		    // }
 		}
 		#start {
 			margin-top: 15px;
