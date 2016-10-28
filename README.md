@@ -1,10 +1,10 @@
 # Text Twister Javascript
 - Recreating the classic [Text Twist](http://zone.msn.com/en/texttwist/) game using only javascript
-- Words sourced from [Wordnik dictionary](http://developer.wordnik.com/docs.html)
+- Words sourced and validated via [Wordnik dictionary](http://developer.wordnik.com/docs.html)
 
 ## Getting Started
 - Fork or download, open index.html
-- Or, play online at garabedium.com/projects/text-twister
+- Or, play online at [garabedium.com/projects/text-twister](garabedium.com/projects/text-twister)
 
 ## Rules
 - Solve as many words as you can before time runs out.
