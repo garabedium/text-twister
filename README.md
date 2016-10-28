@@ -1,4 +1,4 @@
-# Text Twist Javascript
+# Text Twister Javascript
 - Recreating the classic [Text Twist](http://zone.msn.com/en/texttwist/) game using only javascript
 - Words sourced from [Wordnik dictionary](http://developer.wordnik.com/docs.html)
 
@@ -16,9 +16,8 @@
 - Press 'Enter' to solve a word.
 
 ## Known Issues
-- Fetch is used for the AJAX requests, so won't work in IE or Safari at the moment.
 - Yes, the solved word is accessible via the console. No, cheaters never win.
-- Letters sometimes get locked out.
+- Letters sometimes get 'locked out' after they're typed and deleted.
 
 ## Credits & Documentation
 - [Inspired by MSN's Text Twist](http://zone.msn.com/en/texttwist/)
