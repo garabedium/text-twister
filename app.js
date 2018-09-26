@@ -64,7 +64,7 @@ var control = {
 			}
 
 			apiCall = apiBase + apiType + word + apiParams + apiKey;
-
+debugger;
 			return apiCall;
 		}
 
