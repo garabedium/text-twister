@@ -22,6 +22,7 @@ class App extends Component {
     this.getWords = this.getWords.bind(this)
     this.filterWords = this.filterWords.bind(this)
     this.selectWord = this.selectWord.bind(this)
+    this.shuffleWord = this.shuffleWord.bind(this)
   }
 
   componentDidMount(){
@@ -39,12 +40,16 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(response => {
+
       const filteredWords = this.filterWords(response)
       const currentWord = this.selectWord(filteredWords)
+      const shuffledWord = this.shuffleWord(currentWord)
+
       this.setState({
         words: this.state.words.concat(filteredWords),
         word: {
-          current: currentWord
+          current: currentWord,
+          letters: shuffledWord
         }
       })
     })
@@ -60,6 +65,27 @@ class App extends Component {
   selectWord(words){
     const selected = words[Math.round( Math.random() * (words.length-1))];
     return selected.word
+  }
+
+  // Take in a word and shuffle the letters:
+  shuffleWord(string){
+    const array = string.split('')
+
+    // Fisher-Yates algorithm:
+    let counter = array.length
+    let shuffled = ''
+
+    while (counter > 0) {
+      let index = Math.floor(Math.random() * counter)
+      counter--
+
+      let temp = array[counter]
+      array[counter] = array[index]
+      array[index] = temp
+    }
+
+    shuffled = array.join('')
+    return shuffled
   }
 
 
