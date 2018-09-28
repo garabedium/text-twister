@@ -19,16 +19,17 @@ class App extends Component {
       }
     }
     // Methods:
-    this.getWord = this.getWord.bind(this)
+    this.getWords = this.getWords.bind(this)
     this.filterWords = this.filterWords.bind(this)
+    this.selectWord = this.selectWord.bind(this)
   }
 
   componentDidMount(){
     console.log("*** mounted ***")
-    this.getWord()
+    this.getWords()
   }
 
-  getWord(){
+  getWords(){
     const url = 'http://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=9999&minDictionaryCount=5&minLength=6&maxLength=6&limit=10&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61'
 
     fetch(url).then(response => {
@@ -38,26 +39,35 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      let words = this.filterWords(response)
-      return words
-      // control.selectWord();
-    })
-    .then(words => {
-      console.log(words);
+      const filteredWords = this.filterWords(response)
+      const currentWord = this.selectWord(filteredWords)
+      this.setState({
+        words: this.state.words.concat(filteredWords),
+        word: {
+          current: currentWord
+        }
+      })
     })
   }
 
-  filterWords(words){
-    let filteredWords = words.filter((item) => {
+  filterWords(array){
+    const filteredWords = array.filter((item) => {
       return (item.word.search(/^[a-z]+$/) >= 0)
     })
       return filteredWords
   }
 
+  selectWord(words){
+    const selected = words[Math.round( Math.random() * (words.length-1))];
+    return selected.word
+  }
+
 
   render(){
     return(
-      <h1>Hello World</h1>
+      <div>
+        <h1>Hello World</h1>
+      </div>
     )
   }
 
