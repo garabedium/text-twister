@@ -9,6 +9,7 @@ class App extends Component {
         level: 1,
         solved: []
       },
+      words: [],
       word: {
         "current":"",
         "letters":[],
@@ -19,6 +20,7 @@ class App extends Component {
     }
     // Methods:
     this.getWord = this.getWord.bind(this)
+    this.filterWords = this.filterWords.bind(this)
   }
 
   componentDidMount(){
@@ -36,9 +38,20 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(response => {
-
+      let words = this.filterWords(response)
+      return words
+      // control.selectWord();
     })
+    .then(words => {
+      console.log(words);
+    })
+  }
 
+  filterWords(words){
+    let filteredWords = words.filter((item) => {
+      return (item.word.search(/^[a-z]+$/) >= 0)
+    })
+      return filteredWords
   }
 
 
