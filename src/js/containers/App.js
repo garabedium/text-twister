@@ -15,7 +15,8 @@ class App extends Component {
         "letters":[],
         "removed":[],
         "charCodes":[],
-        "charCodesRemoved":[]
+        "charCodesRemoved":[],
+        "solved":""
       }
     }
     // Methods:
@@ -23,6 +24,8 @@ class App extends Component {
     this.filterWords = this.filterWords.bind(this)
     this.selectWord = this.selectWord.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
+    this.convertWordToHash = this.convertWordToHash.bind(this)
+    this.convertHashToWord = this.convertHashToWord.bind(this)
   }
 
   componentDidMount(){
@@ -44,12 +47,16 @@ class App extends Component {
       const filteredWords = this.filterWords(response)
       const currentWord = this.selectWord(filteredWords)
       const shuffledWord = this.shuffleWord(currentWord)
+      const charCodes = this.convertWordToHash(currentWord)
+      const solvedWord = this.convertHashToWord(charCodes)
 
       this.setState({
         words: this.state.words.concat(filteredWords),
         word: {
           current: currentWord,
-          letters: shuffledWord
+          letters: shuffledWord,
+          charCodes: this.state.word.charCodes.concat(charCodes),
+          solved: solvedWord
         }
       })
     })
@@ -89,7 +96,24 @@ class App extends Component {
   }
 
 
+  convertWordToHash(string){
+    const array = string.split('')
+    const charCodes = array.map((char) => {
+      return char.charCodeAt()
+    })
+    return charCodes
+  }
+
+  convertHashToWord(array){
+    const word = array.map((charCode) => {
+      return String.fromCharCode(charCode)
+    }).join('')
+    return word
+  }
+
+
   render(){
+    debugger;
     return(
       <div>
         <h1>Hello World</h1>
