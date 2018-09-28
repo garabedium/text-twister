@@ -4,6 +4,10 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
+      game: {
+        active: false,
+        paused: false
+      },
       player: {
         score: 0,
         level: 1,
@@ -113,10 +117,10 @@ class App extends Component {
 
 
   render(){
-    debugger;
     return(
       <div>
         <h1>Hello World</h1>
+        Game is: {this.state.game.active ? "on" : "off"}
       </div>
     )
   }
