@@ -34,7 +34,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    console.log("*** mounted ***")
+    console.log("*** app mounted ***")
     this.getWords()
   }
 
@@ -118,13 +118,13 @@ class App extends Component {
 
 
   render(){
+    let foo = this.state.word.letters.length > 0
+
     return(
       <div>
         <h1>Hello World</h1>
         Game is: {this.state.game.active ? "on" : "off"}
-        <GameFormContainer
-
-        />
+        {foo ? <GameFormContainer word={this.state.word} /> : null}
       </div>
     )
   }
