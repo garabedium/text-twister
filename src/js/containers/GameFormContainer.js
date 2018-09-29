@@ -1,23 +1,32 @@
 import React, { Component } from 'react'
 import FormInput from '../components/FormInput'
+import Button from '../components/Button'
 
 class GameFormContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      word:"",
+      word:[],
       guess:""
     }
     // Class Methods:
     this.handleGuess = this.handleGuess.bind(this)
+    this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
   }
 
-  componentWillMount(){
+  componentDidMount(){
     console.log("*** gameForm mounted ***")
-    console.log(this.props);
-    // this.setState({
-    //   word: this.props.test.letters
-    // })
+    this.handleSpacebarPress()
+
+    this.setState({
+      word: this.state.word.concat(this.props.word)
+    })
+  }
+
+  handleSpacebarPress(){
+    document.body.onkeyup = (e) => {
+      return (e.keyCode === 32) ? console.log("spaced") : false
+    }
   }
 
   handleGuess(event){
@@ -25,18 +34,24 @@ class GameFormContainer extends Component {
       guess: event.target.value
     })
   }
+
   render(){
-    // console.log(this.state.word)
+
+    let word = this.state.word.join('')
+
     return(
       <div>
       Game Container is a game changer: <br/>
+      Word: {word}<br/>
         <FormInput
           placeholder="Guess a word..."
           name="guess"
           content={this.state.guess}
           handleChange={this.handleGuess}
           class="form-input"
-        />
+        /><br/>
+        <Button text="Shuffle Letters" />
+        <Button text="Submit" />
       </div>
     )
   }

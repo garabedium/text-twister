@@ -17,7 +17,7 @@ class App extends Component {
       words: [],
       word: {
         "current":"",
-        "letters":[],
+        "shuffled":[],
         "removed":[],
         "charCodes":[],
         "charCodesRemoved":[],
@@ -59,7 +59,7 @@ class App extends Component {
         words: this.state.words.concat(filteredWords),
         word: {
           current: currentWord,
-          letters: shuffledWord,
+          shuffled: this.state.word.shuffled.concat(shuffledWord),
           charCodes: this.state.word.charCodes.concat(charCodes),
           solved: solvedWord
         }
@@ -97,7 +97,7 @@ class App extends Component {
     }
 
     shuffled = array.join('')
-    return shuffled
+    return shuffled.split('')
   }
 
 
@@ -118,13 +118,17 @@ class App extends Component {
 
 
   render(){
-    let foo = this.state.word.letters.length > 0
+    let loadedWord = this.state.word.shuffled.length > 0
 
     return(
       <div>
         <h1>Hello World</h1>
         Game is: {this.state.game.active ? "on" : "off"}
-        {foo ? <GameFormContainer word={this.state.word} /> : null}
+        {loadedWord ?
+          <GameFormContainer
+            word={this.state.word.shuffled}
+            shuffleWord={this.state.shuffleWord}
+          /> : null}
       </div>
     )
   }
