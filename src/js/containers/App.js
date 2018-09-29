@@ -127,7 +127,7 @@ class App extends Component {
         {loadedWord ?
           <GameFormContainer
             word={this.state.word.shuffled}
-            shuffleWord={this.state.shuffleWord}
+            shuffleWord={this.shuffleWord}
           /> : null}
       </div>
     )
