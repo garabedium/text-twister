@@ -20,7 +20,8 @@ class GameFormContainer extends Component {
   render(){
     return(
       <div>
-      Game Container is a game changer:
+      Game Container is a game changer: <br/>
+      {this.state.guess}<br/>
         <FormInput
           placeholder="Guess a word..."
           name="guess"
