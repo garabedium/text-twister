@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import GameFormContainer from './GameFormContainer'
 
 class App extends Component {
   constructor(props){
@@ -121,6 +122,9 @@ class App extends Component {
       <div>
         <h1>Hello World</h1>
         Game is: {this.state.game.active ? "on" : "off"}
+        <GameFormContainer
+
+        />
       </div>
     )
   }
