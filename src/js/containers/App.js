@@ -17,7 +17,7 @@ class App extends Component {
       words: [],
       word: {
         "current":"",
-        "shuffled":[],
+        "shuffled":"",
         "removed":[],
         "charCodes":[],
         "charCodesRemoved":[],
@@ -59,7 +59,7 @@ class App extends Component {
         words: this.state.words.concat(filteredWords),
         word: {
           current: currentWord,
-          shuffled: this.state.word.shuffled.concat(shuffledWord),
+          shuffled: shuffledWord,
           charCodes: this.state.word.charCodes.concat(charCodes),
           solved: solvedWord
         }
@@ -97,7 +97,8 @@ class App extends Component {
     }
 
     shuffled = array.join('')
-    return shuffled.split('')
+    return shuffled
+
   }
 
 

@@ -6,12 +6,13 @@ class GameFormContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      word:[],
+      word:"",
       guess:""
     }
     // Class Methods:
     this.handleGuess = this.handleGuess.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
+    this.shuffleWord = this.shuffleWord.bind(this)
   }
 
   componentDidMount(){
@@ -19,13 +20,19 @@ class GameFormContainer extends Component {
     this.handleSpacebarPress()
 
     this.setState({
-      word: this.state.word.concat(this.props.word)
+      word: this.props.word
     })
   }
 
+  shuffleWord(){
+    const shuffled = this.props.shuffleWord(this.state.word)
+    return this.setState({ word: shuffled })
+  }
+
+  // Shuffle word on spacebar press
   handleSpacebarPress(){
     document.body.onkeyup = (e) => {
-      return (e.keyCode === 32) ? console.log("spaced") : false
+      return (e.keyCode === 32) ? this.shuffleWord() : false
     }
   }
 
@@ -37,7 +44,7 @@ class GameFormContainer extends Component {
 
   render(){
 
-    let word = this.state.word.join('')
+    let word = this.state.word
 
     return(
       <div>
@@ -50,7 +57,9 @@ class GameFormContainer extends Component {
           handleChange={this.handleGuess}
           class="form-input"
         /><br/>
-        <Button text="Shuffle Letters" />
+        <Button text="Shuffle Letters"
+          handleClick={this.shuffleWord}
+        />
         <Button text="Submit" />
       </div>
     )
