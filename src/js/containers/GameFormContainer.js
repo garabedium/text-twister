@@ -11,6 +11,7 @@ class GameFormContainer extends Component {
     }
     // Class Methods:
     this.handleGuess = this.handleGuess.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
   }
@@ -36,6 +37,11 @@ class GameFormContainer extends Component {
     }
   }
 
+  handleSubmit(event){
+    event.preventDefault()
+    return this.props.checkWord(this.state.guess)
+  }
+
   handleGuess(event){
     this.setState({
       guess: event.target.value
@@ -50,17 +56,22 @@ class GameFormContainer extends Component {
       <div>
       Game Container is a game changer: <br/>
       Word: {word}<br/>
-        <FormInput
-          placeholder="Guess a word..."
-          name="guess"
-          content={this.state.guess}
-          handleChange={this.handleGuess}
-          class="form-input"
-        /><br/>
-        <Button text="Shuffle Letters"
-          handleClick={this.shuffleWord}
-        />
-        <Button text="Submit" />
+        <form onSubmit={this.handleSubmit}>
+          <FormInput
+            placeholder="Guess a word..."
+            name="guess"
+            content={this.state.guess}
+            handleChange={this.handleGuess}
+            class="form-input"
+          /><br/>
+          <Button text="Shuffle Letters"
+            handleClick={this.shuffleWord}
+          />
+          <Button
+            text="Submit"
+            handleClick={this.handleSubmit}
+          />
+        </form>
       </div>
     )
   }
