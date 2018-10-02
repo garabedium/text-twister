@@ -26,6 +26,7 @@ class App extends Component {
     }
     // Methods:
     this.getWords = this.getWords.bind(this)
+    this.checkWord = this.checkWord.bind(this)
     this.filterWords = this.filterWords.bind(this)
     this.selectWord = this.selectWord.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
@@ -64,6 +65,22 @@ class App extends Component {
           solved: solvedWord
         }
       })
+    })
+  }
+
+  checkWord(string){
+    const url = `http://api.wordnik.com/v4/word.json/${string}/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61`
+
+    fetch(url).then(response => {
+      if (response.ok) {
+        return response
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      // if response.length >= 1 ==> update score, add word to solved
+      // else...
+      // this.setState({})
     })
   }
 
@@ -129,6 +146,7 @@ class App extends Component {
           <GameFormContainer
             word={this.state.word.shuffled}
             shuffleWord={this.shuffleWord}
+            checkWord={this.checkWord}
           /> : null}
       </div>
     )
