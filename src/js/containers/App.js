@@ -7,7 +7,7 @@ class App extends Component {
     this.state = {
       game: {
         active: false,
-        paused: false,
+        paused: false
       },
       player: {
         score: 0,
