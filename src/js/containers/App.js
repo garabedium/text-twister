@@ -7,11 +7,12 @@ class App extends Component {
     this.state = {
       game: {
         active: false,
-        paused: false
+        paused: false,
       },
       player: {
         score: 0,
         level: 1,
+        levelup: false,
         solved: []
       },
       words: [],
@@ -31,6 +32,7 @@ class App extends Component {
     this.selectWord = this.selectWord.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
     this.updateScore = this.updateScore.bind(this)
+    this.updateLevel = this.updateLevel.bind(this)
     this.convertWordToHash = this.convertWordToHash.bind(this)
     this.convertHashToWord = this.convertHashToWord.bind(this)
   }
@@ -81,8 +83,10 @@ class App extends Component {
     .then(response => {
       if (response.length >= 1){
         let updatedScore = this.updateScore(word)
+        let levelupStatus = (word.length === 6) ? true : this.state.game.levelup
+        // let updatedLevel = (word.length === 6) ? this.updateLevel() : this.state.player.level
         this.setState({
-          player: { score: updatedScore }
+          player: { score: updatedScore, levelup: levelupStatus }
         })
       }
     })
@@ -122,7 +126,6 @@ class App extends Component {
 
   }
 
-  // Update score:
   updateScore(word){
     const wordLength = word.length
     const multiplier = [10,15,20,50]
@@ -134,7 +137,10 @@ class App extends Component {
       case 5: return score += wordLength * multiplier[2]
       case 6: return score += wordLength * multiplier[3]
     }
+  }
 
+  updateLevel(){
+    return this.state.player.level += 1
   }
 
   convertWordToHash(string){
