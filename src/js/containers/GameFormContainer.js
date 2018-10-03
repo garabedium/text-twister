@@ -54,7 +54,6 @@ class GameFormContainer extends Component {
 
     return(
       <div>
-      Game Container is a game changer: <br/>
       Word: {word}<br/>
         <form onSubmit={this.handleSubmit}>
           <FormInput

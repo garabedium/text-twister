@@ -30,6 +30,7 @@ class App extends Component {
     this.filterWords = this.filterWords.bind(this)
     this.selectWord = this.selectWord.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
+    this.updateScore = this.updateScore.bind(this)
     this.convertWordToHash = this.convertWordToHash.bind(this)
     this.convertHashToWord = this.convertHashToWord.bind(this)
   }
@@ -68,8 +69,8 @@ class App extends Component {
     })
   }
 
-  checkWord(string){
-    const url = `http://api.wordnik.com/v4/word.json/${string}/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61`
+  checkWord(word){
+    const url = `http://api.wordnik.com/v4/word.json/${word}/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61`
 
     fetch(url).then(response => {
       if (response.ok) {
@@ -78,9 +79,12 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      // if response.length >= 1 ==> update score, add word to solved
-      // else...
-      // this.setState({})
+      if (response.length >= 1){
+        let updatedScore = this.updateScore(word)
+        this.setState({
+          player: { score: updatedScore }
+        })
+      }
     })
   }
 
@@ -118,6 +122,20 @@ class App extends Component {
 
   }
 
+  // Update score:
+  updateScore(word){
+    const wordLength = word.length
+    const multiplier = [10,15,20,50]
+    let score = this.state.player.score
+
+    switch(wordLength){
+      case 3: return score += wordLength * multiplier[0]
+      case 4: return score += wordLength * multiplier[1]
+      case 5: return score += wordLength * multiplier[2]
+      case 6: return score += wordLength * multiplier[3]
+    }
+
+  }
 
   convertWordToHash(string){
     const array = string.split('')
@@ -137,11 +155,13 @@ class App extends Component {
 
   render(){
     let loadedWord = this.state.word.shuffled.length > 0
+    let score = this.state.player.score
 
     return(
       <div>
         <h1>Hello World</h1>
-        Game is: {this.state.game.active ? "on" : "off"}
+        Game is: {this.state.game.active ? "on" : "off"}<br/>
+        Score: {score}
         {loadedWord ?
           <GameFormContainer
             word={this.state.word.shuffled}
