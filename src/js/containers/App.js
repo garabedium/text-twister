@@ -21,8 +21,7 @@ class App extends Component {
         "shuffled":"",
         "removed":[],
         "charCodes":[],
-        "charCodesRemoved":[],
-        "solved":""
+        "charCodesRemoved":[]
       }
     }
     // Methods:
@@ -82,11 +81,16 @@ class App extends Component {
     .then(response => response.json())
     .then(response => {
       if (response.length >= 1){
-        let updatedScore = this.updateScore(word)
-        let levelupStatus = (word.length === 6) ? true : this.state.game.levelup
+        const updatedScore = this.updateScore(word)
+        const updatedLevelup = (word.length === 6) ? true : this.state.game.levelup
+        const solvedWords = this.state.player.solved.concat(word)
         // let updatedLevel = (word.length === 6) ? this.updateLevel() : this.state.player.level
         this.setState({
-          player: { score: updatedScore, levelup: levelupStatus }
+          player: {
+            score: updatedScore,
+            levelup: updatedLevelup,
+            solved: solvedWords
+          }
         })
       }
     })
