@@ -7,7 +7,8 @@ class GameFormContainer extends Component {
     super(props)
     this.state = {
       word:"",
-      guess:""
+      guess:"",
+      duplicate: false
     }
     // Class Methods:
     this.handleGuess = this.handleGuess.bind(this)
@@ -30,16 +31,29 @@ class GameFormContainer extends Component {
     return this.setState({ word: shuffled })
   }
 
-  // Shuffle word on spacebar press
+  // Shuffle word on spacebar press:
   handleSpacebarPress(){
     document.body.onkeyup = (e) => {
       return (e.keyCode === 32) ? this.shuffleWord() : false
     }
   }
 
+  // Check if word was already solved:
+  isDuplicateWord(){
+    return this.props.solved.indexOf(this.state.guess) > -1
+  }
+
   handleSubmit(event){
     event.preventDefault()
-    return this.props.checkWord(this.state.guess)
+    // check if this.state.guess
+    if (this.isDuplicateWord()) {
+      this.setState({
+        duplicate: true
+      })
+    } else {
+      this.props.checkWord(this.state.guess)
+      this.handleClear()
+    }
   }
 
   handleGuess(event){
@@ -48,13 +62,21 @@ class GameFormContainer extends Component {
     })
   }
 
+  handleClear(){
+    this.setState({ guess: "" })
+  }
+
   render(){
 
-    let word = this.state.word
+    const word = this.state.word
+    const duplicate = this.state.duplicate
 
     return(
       <div>
       Word: {word}<br/>
+
+        {duplicate ? <h3>You already solved that word</h3> : null}
+
         <form onSubmit={this.handleSubmit}>
           <FormInput
             placeholder="Guess a word..."
