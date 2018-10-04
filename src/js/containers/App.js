@@ -166,18 +166,26 @@ class App extends Component {
   render(){
     let loadedWord = this.state.word.shuffled.length > 0
     let score = this.state.player.score
-
+    let solvedWords = this.state.player.solved.map((word) => {
+      return(
+        <li key={word}>{word}</li>
+      )
+    })
     return(
       <div>
         <h1>Hello World</h1>
         Game is: {this.state.game.active ? "on" : "off"}<br/>
         Score: {score}
+
         {loadedWord ?
           <GameFormContainer
             word={this.state.word.shuffled}
             shuffleWord={this.shuffleWord}
             checkWord={this.checkWord}
           /> : null}
+
+        {solvedWords.length >= 1 ? <ul>{solvedWords}</ul> : null}
+
       </div>
     )
   }
