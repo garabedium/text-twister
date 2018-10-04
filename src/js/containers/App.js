@@ -21,8 +21,7 @@ class App extends Component {
         "shuffled":"",
         "removed":[],
         "charCodes":[],
-        "charCodesRemoved":[],
-        "solved":""
+        "charCodesRemoved":[]
       }
     }
     // Methods:
@@ -82,11 +81,16 @@ class App extends Component {
     .then(response => response.json())
     .then(response => {
       if (response.length >= 1){
-        let updatedScore = this.updateScore(word)
-        let levelupStatus = (word.length === 6) ? true : this.state.game.levelup
+        const updatedScore = this.updateScore(word)
+        const updatedLevelup = (word.length === 6) ? true : this.state.game.levelup
+        const solvedWords = this.state.player.solved.concat(word)
         // let updatedLevel = (word.length === 6) ? this.updateLevel() : this.state.player.level
         this.setState({
-          player: { score: updatedScore, levelup: levelupStatus }
+          player: {
+            score: updatedScore,
+            levelup: updatedLevelup,
+            solved: solvedWords
+          }
         })
       }
     })
@@ -162,18 +166,26 @@ class App extends Component {
   render(){
     let loadedWord = this.state.word.shuffled.length > 0
     let score = this.state.player.score
-
+    let solvedWords = this.state.player.solved.map((word) => {
+      return(
+        <li key={word}>{word}</li>
+      )
+    })
     return(
       <div>
         <h1>Hello World</h1>
         Game is: {this.state.game.active ? "on" : "off"}<br/>
         Score: {score}
+
         {loadedWord ?
           <GameFormContainer
             word={this.state.word.shuffled}
             shuffleWord={this.shuffleWord}
             checkWord={this.checkWord}
           /> : null}
+
+        {solvedWords.length >= 1 ? <ul>{solvedWords}</ul> : null}
+
       </div>
     )
   }
