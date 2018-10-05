@@ -9,10 +9,15 @@ const FormInput = (props) => {
         placeholder={props.placeholder}
         name={props.name}
         value={props.content}
-        onChange={props.handleChange}
+        onKeyPress={props.handleChange}
+        onKeyDown={props.handleChange}
       />
     </label>
   );
 }
 
 export default FormInput;
+
+// onChange={props.handleChange}
+// onKeyPress={props.handleKeypress}
+//         onKeyDown={props.handleKeypress}

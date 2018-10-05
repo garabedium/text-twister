@@ -20,8 +20,7 @@ class App extends Component {
         "current":"",
         "shuffled":"",
         "removed":[],
-        "charCodes":[],
-        "charCodesRemoved":[]
+        "charCodes":[]
       }
     }
     // Methods:
@@ -185,6 +184,7 @@ class App extends Component {
             shuffleWord={this.shuffleWord}
             checkWord={this.checkWord}
             solved={this.state.player.solved}
+            charCodes={this.state.word.charCodes}
           /> : null}
 
         {solvedWords.length >= 1 ? <ul>{solvedWords}</ul> : null}
