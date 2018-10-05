@@ -41,19 +41,19 @@ class App extends Component {
   }
 
   getWords(){
-    // const url = 'http://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=9999&minDictionaryCount=5&minLength=6&maxLength=6&limit=10&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61'
+    const url = 'http://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=9999&minDictionaryCount=5&minLength=6&maxLength=6&limit=10&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61'
 
-    // fetch(url).then(response => {
-    //   if (response.ok) {
-    //     return response
-    //   }
-    // })
-    // .then(response => response.json())
-    // .then(response => {
+    fetch(url).then(response => {
+      if (response.ok) {
+        return response
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
 
-      // const filteredWords = this.filterWords(response)
-      // const currentWord = this.selectWord(filteredWords)
-      const currentWord = "ocoeik"
+      const filteredWords = this.filterWords(response)
+      const currentWord = this.selectWord(filteredWords)
+      // const currentWord = "ocoeik"
       const shuffledWord = this.shuffleWord(currentWord)
       const charCodes = this.convertWordToHash(currentWord)
       const solvedWord = this.convertHashToWord(charCodes)
@@ -67,21 +67,21 @@ class App extends Component {
           solved: solvedWord
         }
       })
-    // })
+    })
   }
 
   checkWord(word){
-    // const url = `http://api.wordnik.com/v4/word.json/${word}/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61`
+    const url = `http://api.wordnik.com/v4/word.json/${word}/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61`
 
-    // fetch(url).then(response => {
-    //   if (response.ok) {
-    //     return response
-    //   }
-    // })
-    // .then(response => response.json())
-    // .then(response => {
+    fetch(url).then(response => {
+      if (response.ok) {
+        return response
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
 
-      // if (response.length >= 1){
+      if (response.length >= 1){
         const updatedScore = this.updateScore(word)
         const updatedLevelup = (word.length === 6) ? true : this.state.game.levelup
         const solvedWords = this.state.player.solved.concat(word)
@@ -93,8 +93,8 @@ class App extends Component {
             solved: solvedWords
           }
         })
-      // }
-    // })
+      }
+    })
   }
 
   filterWords(array){

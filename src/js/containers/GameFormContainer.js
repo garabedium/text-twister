@@ -80,6 +80,8 @@ class GameFormContainer extends Component {
     if (event.type === "keypress"){
       const charCode = event.charCode
       const char = String.fromCharCode(charCode)
+
+      // Only allow chars that are in the word:
       if (this.props.charCodes.indexOf(charCode) < 0 && charCode !== 13){
         event.preventDefault()
       } else if (charCode !== 13){
@@ -87,6 +89,7 @@ class GameFormContainer extends Component {
           guess: this.state.guess.concat(char)
         })
       }
+
     }
 
     if (event.type === "keydown"){
