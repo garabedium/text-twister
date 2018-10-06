@@ -59,7 +59,6 @@ class App extends Component {
       const solvedWord = this.convertHashToWord(charCodes)
 
       this.setState({
-        // words: this.state.words.concat(filteredWords),
         word: {
           current: currentWord,
           shuffled: shuffledWord,

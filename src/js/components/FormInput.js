@@ -5,6 +5,7 @@ const FormInput = (props) => {
     <label>{props.label}
       <input
         type="text"
+        autoComplete="off"
         className={props.class}
         placeholder={props.placeholder}
         name={props.name}

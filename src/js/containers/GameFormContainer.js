@@ -7,9 +7,9 @@ class GameFormContainer extends Component {
     super(props)
     this.state = {
       word:"",
-      // guess:"", // use w/onChange
       guess: [],
-      removedKeycodes: [],
+      charCodes: [],
+      charCodesRemoved: [],
       duplicate: false
     }
     // Class Methods:
@@ -24,8 +24,14 @@ class GameFormContainer extends Component {
     console.log("*** gameForm mounted ***")
     this.handleSpacebarPress()
 
+    let charCodes
+    if (this.state.charCodes.length === 0 && this.state.charCodesRemoved.length === 0){
+      charCodes = this.props.charCodes
+    }
+
     this.setState({
-      word: this.props.word
+      word: this.props.word,
+      charCodes: this.state.charCodes.concat(charCodes)
     })
   }
 
@@ -76,17 +82,24 @@ class GameFormContainer extends Component {
 
   handleChange(event){
 
-    // keypress fires when a key that produces a character value is pressed:
     if (event.type === "keypress"){
+
+      let charCodes = this.state.charCodes
       const charCode = event.charCode
       const char = String.fromCharCode(charCode)
 
       // Only allow chars that are in the word:
-      if (this.props.charCodes.indexOf(charCode) < 0 && charCode !== 13){
+      if (charCodes.indexOf(charCode) < 0 && charCode !== 13){
         event.preventDefault()
       } else if (charCode !== 13){
+
+        let index = charCodes.indexOf(charCode)
+        charCodes.splice(index,1);
+
         this.setState({
-          guess: this.state.guess.concat(char)
+          guess: this.state.guess.concat(char),
+          charCodes: charCodes,
+          charCodesRemoved: this.state.charCodesRemoved.concat(charCode)
         })
       }
 
@@ -97,18 +110,12 @@ class GameFormContainer extends Component {
       const keyCode = event.keyCode
       const backspace = 8
 
-      if(keyCode === backspace){
+      if (keyCode === backspace){
+
         this.setState({ guess: this.state.guess.concat(this.state.guess.pop()) })
       }
     }
 
-
-    // Only allow charCodes that belong to the word
-    // Don't allow duplicate charCodes
-    // debugger;
-    // this.setState({
-    //   guess: event.target.value
-    // })
   }
 
   handleClear(){
