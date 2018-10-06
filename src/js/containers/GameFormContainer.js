@@ -87,13 +87,14 @@ class GameFormContainer extends Component {
       let charCodes = this.state.charCodes
       const charCode = event.charCode
       const char = String.fromCharCode(charCode)
+      const keyEnter = 13
 
       // Only allow chars that are in the word:
-      if (charCodes.indexOf(charCode) < 0 && charCode !== 13){
+      if (charCodes.indexOf(charCode) < 0 && charCode !== keyEnter){
         event.preventDefault()
-      } else if (charCode !== 13){
+      } else if (charCode !== keyEnter){
 
-        let index = charCodes.indexOf(charCode)
+        const index = charCodes.indexOf(charCode)
         charCodes.splice(index,1);
 
         this.setState({
@@ -108,11 +109,17 @@ class GameFormContainer extends Component {
     if (event.type === "keydown"){
       // future: keyCode is deprecated
       const keyCode = event.keyCode
-      const backspace = 8
+      const keyBackspace = 8
+      let charCodesUsed = this.state.charCodesUsed
 
-      if (keyCode === backspace){
+      if (keyCode === keyBackspace && this.state.charCodesUsed.length >= 1){
+        const lastChar = this.state.guess.pop().charCodeAt()
+        charCodesUsed.splice(-1)
 
-        this.setState({ guess: this.state.guess.concat(this.state.guess.pop()) })
+        this.setState({
+          charCodes: this.state.charCodes.concat(lastChar),
+          charCodesUsed: charCodesUsed
+        })
       }
     }
 
