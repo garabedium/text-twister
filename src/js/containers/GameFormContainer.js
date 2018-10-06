@@ -9,7 +9,7 @@ class GameFormContainer extends Component {
       word:"",
       guess: [],
       charCodes: [],
-      charCodesRemoved: [],
+      charCodesUsed: [],
       duplicate: false
     }
     // Class Methods:
@@ -25,7 +25,7 @@ class GameFormContainer extends Component {
     this.handleSpacebarPress()
 
     let charCodes
-    if (this.state.charCodes.length === 0 && this.state.charCodesRemoved.length === 0){
+    if (this.state.charCodes.length === 0 && this.state.charCodesUsed.length === 0){
       charCodes = this.props.charCodes
     }
 
@@ -99,7 +99,7 @@ class GameFormContainer extends Component {
         this.setState({
           guess: this.state.guess.concat(char),
           charCodes: charCodes,
-          charCodesRemoved: this.state.charCodesRemoved.concat(charCode)
+          charCodesUsed: this.state.charCodesUsed.concat(charCode)
         })
       }
 
