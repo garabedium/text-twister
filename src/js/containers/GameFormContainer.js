@@ -57,13 +57,15 @@ class GameFormContainer extends Component {
     event.preventDefault()
     const guess = this.state.guess.join('')
 
-    if (this.isDuplicateWord()) {
-      this.setState({
-        duplicate: true
-      })
+    if (guess.length >= 3){
+      if (this.isDuplicateWord()) {
+        this.setState({ duplicate: true })
+      } else {
+        this.props.checkWord(guess)
+        this.handleClear()
+      }
     } else {
-      this.props.checkWord(guess)
-      this.handleClear()
+      return false
     }
   }
 
