@@ -5,14 +5,20 @@ const FormInput = (props) => {
     <label>{props.label}
       <input
         type="text"
+        autoComplete="off"
         className={props.class}
         placeholder={props.placeholder}
         name={props.name}
         value={props.content}
-        onChange={props.handleChange}
+        onKeyPress={props.handleChange}
+        onKeyDown={props.handleChange}
       />
     </label>
   );
 }
 
 export default FormInput;
+
+// onChange={props.handleChange}
+// onKeyPress={props.handleKeypress}
+//         onKeyDown={props.handleKeypress}
