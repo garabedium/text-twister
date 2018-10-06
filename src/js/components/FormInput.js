@@ -18,7 +18,3 @@ const FormInput = (props) => {
 }
 
 export default FormInput;
-
-// onChange={props.handleChange}
-// onKeyPress={props.handleKeypress}
-//         onKeyDown={props.handleKeypress}
