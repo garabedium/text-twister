@@ -53,6 +53,10 @@ class GameFormContainer extends Component {
     return this.props.solved.indexOf(guess) > -1
   }
 
+  concatCharCodes(){
+    return charCodes.concat(charCodesUsed)
+  }
+
   handleSubmit(event){
     event.preventDefault()
     const guess = this.state.guess.join('')
@@ -128,7 +132,12 @@ class GameFormContainer extends Component {
   }
 
   handleClear(){
-    this.setState({ guess: [] })
+    const charCodes = this.state.charCodes.concat(this.state.charCodesUsed)
+    this.setState({
+      guess: [],
+      charCodes: charCodes,
+      charCodesUsed: []
+    })
   }
 
   render(){
