@@ -19,7 +19,6 @@ class App extends Component {
       word: {
         "current":"",
         "shuffled":"",
-        "removed":[],
         "charCodes":[]
       }
     }
