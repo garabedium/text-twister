@@ -166,9 +166,7 @@ class App extends Component {
     let loadedWord = this.state.word.shuffled.length > 0
     let score = this.state.player.score
     let solvedWords = this.state.player.solved.map((word) => {
-      return(
-        <li key={word}>{word}</li>
-      )
+      return( <li key={word}>{word}</li> )
     })
     return(
       <div>

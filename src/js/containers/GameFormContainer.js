@@ -10,7 +10,7 @@ class GameFormContainer extends Component {
       guess: [],
       charCodes: [],
       charCodesUsed: [],
-      duplicate: false
+      notifications: []
     }
     // Class Methods:
     this.handleChange = this.handleChange.bind(this)
@@ -18,6 +18,7 @@ class GameFormContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
+    this.addNotification = this.addNotification.bind(this)
   }
 
   componentDidMount(){
@@ -63,7 +64,7 @@ class GameFormContainer extends Component {
 
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
-        this.setState({ duplicate: true })
+        this.addNotification("You already solved that word!")
       } else {
         this.props.checkWord(guess)
         this.handleClear()
@@ -140,17 +141,27 @@ class GameFormContainer extends Component {
     })
   }
 
+  addNotification(text){
+    // To do:
+    // - create & attach setTimeout to remove notification
+    const notification = { id: (this.state.notifications.length + 1), text: text }
+    return this.setState({ notifications: this.state.notifications.concat(notification) })
+  }
+
   render(){
 
     const word = this.state.word
-    const duplicate = this.state.duplicate
     let guess = this.state.guess.join('')
+
+    let notifications = this.state.notifications.map((item) => {
+      return (<li key={item.id}>{item.text}</li>)
+    })
 
     return(
       <div>
-      Word: {word}<br/>
+        Word: {word}<br/>
 
-        {duplicate ? <h3>You already solved that word</h3> : null}
+        {notifications.length >= 1 ? <ul>{notifications}</ul> : null}
 
         <form onSubmit={this.handleSubmit}>
           <FormInput
