@@ -144,22 +144,27 @@ class GameFormContainer extends Component {
   addNotification(text){
     // To do:
     // - create & attach setTimeout to remove notification
-    const notification = { id: (this.state.notifications.length + 1), text: text }
+    const notification = { text: text }
     return this.setState({ notifications: this.state.notifications.concat(notification) })
   }
 
   render(){
 
-    const word = this.state.word
+    const word = this.state.word.split('').map((char,i) => {
+      return( <span className="letter" key={i}>{char}</span> )
+    })
+
     let guess = this.state.guess.join('')
 
-    let notifications = this.state.notifications.map((item) => {
-      return (<li key={item.id}>{item.text}</li>)
+    let notifications = this.state.notifications.map((item,i) => {
+      return (<li key={i}>{item.text}</li>)
     })
 
     return(
       <div>
-        Word: {word}<br/>
+        <div className="word">
+          {word}
+        </div>
 
         {notifications.length >= 1 ? <ul>{notifications}</ul> : null}
 
