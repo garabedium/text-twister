@@ -1,5 +1,14 @@
 // Partials
-@import 'normalize';
+@import '../scss/normalize';
+
+.word {
+	border: solid 2px black;
+	width: 100%;
+}
+.lorem-ipsum {
+	color: black;
+  // background-color: yellow;
+}
 // @import
 // '_normalize',
 // '_variables.scss',
