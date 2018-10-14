@@ -169,10 +169,14 @@ class App extends Component {
       return( <li key={word}>{word}</li> )
     })
     return(
-      <div>
-        <h1>Hello World</h1>
-        Game is: {this.state.game.active ? "on" : "off"}<br/>
-        Score: {score}
+      <React.Fragment>
+
+      <div className="game">
+        <div className="game-status">
+          <div className="game-status__score">{score}</div>
+          <div className="game-status__timer">timer</div>
+          <div className="game-status__level">level</div>
+        </div>
 
         {loadedWord ?
           <GameFormContainer
@@ -183,9 +187,12 @@ class App extends Component {
             charCodes={this.state.word.charCodes}
           /> : null}
 
-        {solvedWords.length >= 1 ? <ul>{solvedWords}</ul> : null}
-
+        {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
       </div>
+
+        <footer className="footer">footer</footer>
+
+      </React.Fragment>
     )
   }
 

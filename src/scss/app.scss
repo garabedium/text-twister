@@ -1,14 +1,11 @@
 // Partials
-@import '../scss/normalize';
+@import 'partials/normalize';
+@import 'partials/base';
+@import 'partials/status-bar';
+@import 'partials/form';
 
-.word {
-	border: solid 2px black;
-	width: 100%;
-}
-.lorem-ipsum {
-	color: black;
-  // background-color: yellow;
-}
+
+
 // @import
 // '_normalize',
 // '_variables.scss',

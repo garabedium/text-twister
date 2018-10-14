@@ -2,7 +2,6 @@ import React from 'react';
 
 const FormInput = (props) => {
   return (
-    <label>{props.label}
       <input
         type="text"
         autoComplete="off"
@@ -13,7 +12,6 @@ const FormInput = (props) => {
         onKeyPress={props.handleChange}
         onKeyDown={props.handleChange}
       />
-    </label>
   );
 }
 
