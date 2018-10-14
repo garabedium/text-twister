@@ -161,30 +161,33 @@ class GameFormContainer extends Component {
     })
 
     return(
-      <div>
-        <div className="word">
+      <React.Fragment>
+        <div className="game-word">
           {word}
         </div>
 
         {notifications.length >= 1 ? <ul>{notifications}</ul> : null}
 
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="game-form">
           <FormInput
             placeholder="Guess a word..."
             name="guess"
             content={guess}
             handleChange={this.handleChange}
-            class="form-input"
-          /><br/>
-          <Button text="Shuffle Letters"
+            class="game-form__input"
+          />
+          <Button
+            text="Shuffle Letters"
             handleClick={this.shuffleWord}
+            class="game-form__shuffle"
           />
           <Button
             text="Submit"
             handleClick={this.handleSubmit}
+            class="game-form__submit"
           />
         </form>
-      </div>
+      </React.Fragment>
     )
   }
 
