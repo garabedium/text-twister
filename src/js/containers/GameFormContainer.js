@@ -151,7 +151,7 @@ class GameFormContainer extends Component {
   render(){
 
     const word = this.state.word.split('').map((char,i) => {
-      return( <span className="letter" key={i}>{char}</span> )
+      return( <li className="word__letter" key={i}>{char}</li> )
     })
 
     let guess = this.state.guess.join('')
@@ -162,8 +162,8 @@ class GameFormContainer extends Component {
 
     return(
       <React.Fragment>
-        <div className="game-word">
-          {word}
+        <div className="word-row">
+          <ul className="word">{word}</ul>
         </div>
 
         {notifications.length >= 1 ? <ul>{notifications}</ul> : null}
@@ -177,14 +177,14 @@ class GameFormContainer extends Component {
             class="game-form__input"
           />
           <Button
-            text="Shuffle Letters"
+            text="Shuffle"
             handleClick={this.shuffleWord}
-            class="game-form__shuffle"
+            class="game-form__button game-form__button--shuffle"
           />
           <Button
             text="Submit"
             handleClick={this.handleSubmit}
-            class="game-form__submit"
+            class="game-form__button game-form__button--submit"
           />
         </form>
       </React.Fragment>
