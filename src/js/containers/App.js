@@ -172,11 +172,6 @@ class App extends Component {
       <React.Fragment>
 
       <div className="game">
-        <div className="game-status">
-          <div className="game-status__score">{score}</div>
-          <div className="game-status__timer">timer</div>
-          <div className="game-status__level">level</div>
-        </div>
 
         {loadedWord ?
           <GameFormContainer
@@ -199,3 +194,9 @@ class App extends Component {
 }
 
 export default App;
+
+        // <div className="game-status">
+        //   <div className="game-status game-status__score">{score}</div>
+        //   <div className="game-status game-status__timer">timer</div>
+        //   <div className="game-status game-status__level">level</div>
+        // </div>

@@ -163,6 +163,9 @@ class GameFormContainer extends Component {
     return(
       <React.Fragment>
         <div className="word-row">
+          <div className="game-timer">
+            60
+          </div>
           <ul className="word">{word}</ul>
         </div>
 
