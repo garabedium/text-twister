@@ -11,9 +11,8 @@ class GameFormContainer extends Component {
       charCodes: [],
       charCodesUsed: [],
       notifications: [],
-      seconds: 10
+      seconds: 60
     }
-    this.timer = 0
     // Class Methods:
     this.handleChange = this.handleChange.bind(this)
     this.handleKeypress = this.handleKeypress.bind(this)
@@ -22,7 +21,6 @@ class GameFormContainer extends Component {
     this.shuffleWord = this.shuffleWord.bind(this)
     this.addNotification = this.addNotification.bind(this)
     this.startTimer = this.startTimer.bind(this)
-    this.countDown = this.countDown.bind(this)
   }
 
   componentDidMount(){
@@ -41,19 +39,18 @@ class GameFormContainer extends Component {
   }
 
   startTimer(){
-    console.log("do something");
-    if (this.timer === 0 && this.state.seconds > 0){
-      this.timer = setInterval(this.countDown, 1000);
-    }
-  }
+    let timer
 
-  countDown(){
-    let seconds = this.state.seconds - 1
-    this.setState({
-      seconds: seconds
-    })
-    if (seconds === 0){
-      clearInterval(this.timer)
+    if (this.state.seconds > 0){
+      timer = setInterval(() => countDown(), 1000);
+    }
+
+    let countDown = () => {
+      let seconds = this.state.seconds - 1
+      this.setState({ seconds: seconds })
+      if (seconds === 0){
+        clearInterval(timer)
+      }
     }
   }
 
