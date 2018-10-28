@@ -10,7 +10,8 @@ class GameFormContainer extends Component {
       guess: [],
       charCodes: [],
       charCodesUsed: [],
-      notifications: []
+      notifications: [],
+      seconds: 60
     }
     // Class Methods:
     this.handleChange = this.handleChange.bind(this)
@@ -19,6 +20,7 @@ class GameFormContainer extends Component {
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
     this.addNotification = this.addNotification.bind(this)
+    this.startTimer = this.startTimer.bind(this)
   }
 
   componentDidMount(){
@@ -34,6 +36,22 @@ class GameFormContainer extends Component {
       word: this.props.word,
       charCodes: this.state.charCodes.concat(charCodes)
     })
+  }
+
+  startTimer(){
+    let timer
+
+    if (this.state.seconds > 0){
+      timer = setInterval(() => countDown(), 1000);
+    }
+
+    let countDown = () => {
+      let seconds = this.state.seconds - 1
+      this.setState({ seconds: seconds })
+      if (seconds === 0){
+        clearInterval(timer)
+      }
+    }
   }
 
   shuffleWord(){
@@ -164,7 +182,7 @@ class GameFormContainer extends Component {
       <React.Fragment>
         <div className="word-row">
           <div className="game-timer">
-            60
+            {this.state.seconds}
           </div>
           <ul className="word">{word}</ul>
         </div>
@@ -188,6 +206,10 @@ class GameFormContainer extends Component {
             text="Submit"
             handleClick={this.handleSubmit}
             class="game-form__button game-form__button--submit"
+          />
+          <Button
+            text="Start Timer"
+            handleClick={this.startTimer}
           />
         </form>
       </React.Fragment>
