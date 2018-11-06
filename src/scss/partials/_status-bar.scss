@@ -1,14 +1,13 @@
-.game-status {
-  text-align: center;
-  &__score {
 
-  }
-  &__timer {
-
-  }
-  &__level {
-
-  }
+.game-points {
+  position: absolute;
+  top: -50px;
+  left: 20%;
+}
+.game-level {
+  position: absolute;
+  top: -50px;
+  right: 20%;
 }
 
 .game-timer {

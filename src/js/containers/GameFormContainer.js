@@ -181,9 +181,11 @@ class GameFormContainer extends Component {
     return(
       <React.Fragment>
         <div className="word-row">
+          <div className="game-points">Points: </div>
           <div className="game-timer">
             {this.state.seconds}
           </div>
+          <div className="game-level">Level: </div>
           <ul className="word">{word}</ul>
         </div>
 
