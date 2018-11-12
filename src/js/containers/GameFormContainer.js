@@ -11,7 +11,7 @@ class GameFormContainer extends Component {
       charCodes: [],
       charCodesUsed: [],
       notifications: [],
-      seconds: 60
+      seconds: 10
     }
     // Class Methods:
     this.handleChange = this.handleChange.bind(this)
@@ -50,6 +50,7 @@ class GameFormContainer extends Component {
       this.setState({ seconds: seconds })
       if (seconds === 0){
         clearInterval(timer)
+        this.props.updateGameState(false)
       }
     }
   }
@@ -168,6 +169,9 @@ class GameFormContainer extends Component {
 
   render(){
 
+    let score = this.props.player.score
+    let level = this.props.player.level
+
     const word = this.state.word.split('').map((char,i) => {
       return( <li className="word__letter" key={i}>{char}</li> )
     })
@@ -177,9 +181,6 @@ class GameFormContainer extends Component {
     let notifications = this.state.notifications.map((item,i) => {
       return (<li key={i}>{item.text}</li>)
     })
-
-    let score = this.props.player.score
-    let level = this.props.player.level
 
     return(
       <React.Fragment>
@@ -218,10 +219,11 @@ class GameFormContainer extends Component {
             handleClick={this.handleSubmit}
             class="game-form__button game-form__button--submit"
           />
-          <Button
-            text="Start Timer"
-            handleClick={this.startTimer}
-          />
+          {!this.props.game.active ?
+            <Button
+              text="Start Game"
+              handleClick={this.startTimer}/> : null
+          }
         </form>
       </React.Fragment>
     )
