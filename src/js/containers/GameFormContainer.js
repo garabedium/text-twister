@@ -223,10 +223,12 @@ class GameFormContainer extends Component {
           />
         </form>
 
+        {this.props.game.splash ?
         <Modal
           class="modal"
-          content={<SplashPage />}
-        />
+          content={<SplashPage removeSplash={this.props.removeSplash} />}
+        /> : null
+        }
       </React.Fragment>
     )
   }

@@ -25,7 +25,7 @@ class SplashPage extends Component {
         - keyboard_return Enter / Return: solve word
         <Button
           text="Start Game"
-          handleClick={this.props.startTimer}
+          handleClick={this.props.removeSplash}
         />
       </React.Fragment>
     )

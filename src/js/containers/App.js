@@ -32,6 +32,7 @@ class App extends Component {
     this.updateScore = this.updateScore.bind(this)
     this.updateLevel = this.updateLevel.bind(this)
     this.updateGameState = this.updateGameState.bind(this)
+    this.removeSplash = this.removeSplash.bind(this)
     this.convertWordToHash = this.convertWordToHash.bind(this)
     this.convertHashToWord = this.convertHashToWord.bind(this)
   }
@@ -54,7 +55,6 @@ class App extends Component {
 
       const filteredWords = this.filterWords(response)
       const currentWord = this.selectWord(filteredWords)
-      // const currentWord = "ocoeik"
       const shuffledWord = this.shuffleWord(currentWord)
       const charCodes = this.convertWordToHash(currentWord)
       const solvedWord = this.convertHashToWord(charCodes)
@@ -162,6 +162,12 @@ class App extends Component {
     this.setState(newState)
   }
 
+  removeSplash(){
+    let newState = Object.assign({},this.state)
+    newState.game.splash = false
+    return this.setState(newState)
+  }
+
   convertWordToHash(string){
     const array = string.split('')
     const charCodes = array.map((char) => {
@@ -198,6 +204,7 @@ class App extends Component {
             player={this.state.player}
             charCodes={this.state.word.charCodes}
             updateGameState={this.updateGameState}
+            removeSplash={this.removeSplash}
           /> : null}
 
         {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
