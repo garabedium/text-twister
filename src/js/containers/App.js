@@ -81,12 +81,13 @@ class App extends Component {
 
       if (response.length >= 1){
         const updatedScore = this.updateScore(word)
-        const updatedLevelup = (word.length === 6) ? true : this.state.game.levelup
+        const updatedLevelup = (word.length === 6) ? true : this.state.player.levelup
         const solvedWords = this.state.player.solved.concat(word)
         // let updatedLevel = (word.length === 6) ? this.updateLevel() : this.state.player.level
         this.setState({
           player: {
             score: updatedScore,
+            level: this.state.player.level,
             levelup: updatedLevelup,
             solved: solvedWords
           }
@@ -178,7 +179,7 @@ class App extends Component {
             word={this.state.word.shuffled}
             shuffleWord={this.shuffleWord}
             checkWord={this.checkWord}
-            solved={this.state.player.solved}
+            player={this.state.player}
             charCodes={this.state.word.charCodes}
           /> : null}
 

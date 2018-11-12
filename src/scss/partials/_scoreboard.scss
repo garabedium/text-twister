@@ -1,13 +1,24 @@
 
+$offset-top: -50px;
+$offset-left: 20%;
+
 .game-points {
   position: absolute;
-  top: -50px;
-  left: 20%;
+  top: $offset-top;
+  left: $offset-left;
+  text-align: center;
+  &__title {
+    display: block;
+  }
 }
 .game-level {
   position: absolute;
-  top: -50px;
-  right: 20%;
+  top: $offset-top;
+  right: $offset-left;
+  text-align: center;
+  &__title {
+    display: block;
+  }
 }
 
 .game-timer {

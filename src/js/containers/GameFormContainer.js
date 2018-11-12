@@ -69,7 +69,7 @@ class GameFormContainer extends Component {
   // Check if word was already solved:
   isDuplicateWord(){
     const guess = this.state.guess.join('')
-    return this.props.solved.indexOf(guess) > -1
+    return this.props.player.solved.indexOf(guess) > -1
   }
 
   concatCharCodes(){
@@ -178,14 +178,23 @@ class GameFormContainer extends Component {
       return (<li key={i}>{item.text}</li>)
     })
 
+    let score = this.props.player.score
+    let level = this.props.player.level
+
     return(
       <React.Fragment>
         <div className="word-row">
-          <div className="game-points">Points: </div>
+          <div className="game-points">
+            <span className="game-points__title">Points:</span>
+            <span className="game-points__score">{score}</span>
+          </div>
           <div className="game-timer">
             {this.state.seconds}
           </div>
-          <div className="game-level">Level: </div>
+          <div className="game-level">
+            <span className="game-level__title">Level:</span>
+            <span className="">{level}</span>
+          </div>
           <ul className="word">{word}</ul>
         </div>
 
