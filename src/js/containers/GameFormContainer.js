@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import SplashPage from './SplashPage'
+import Modal from '../components/Modal'
 import FormInput from '../components/FormInput'
 import Button from '../components/Button'
 
@@ -219,12 +221,12 @@ class GameFormContainer extends Component {
             handleClick={this.handleSubmit}
             class="game-form__button game-form__button--submit"
           />
-          {!this.props.game.active ?
-            <Button
-              text="Start Game"
-              handleClick={this.startTimer}/> : null
-          }
         </form>
+
+        <Modal
+          class="modal"
+          content={<SplashPage />}
+        />
       </React.Fragment>
     )
   }

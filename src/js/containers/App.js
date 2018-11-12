@@ -7,7 +7,7 @@ class App extends Component {
     this.state = {
       game: {
         active: false,
-        // first: true,
+        splash: true,
         reset: false
       },
       player: {
@@ -203,7 +203,7 @@ class App extends Component {
         {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
       </div>
 
-        <footer className="footer">footer</footer>
+      <footer className="footer">footer</footer>
 
       </React.Fragment>
     )
