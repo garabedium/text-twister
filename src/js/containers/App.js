@@ -7,7 +7,8 @@ class App extends Component {
     this.state = {
       game: {
         active: false,
-        paused: false
+        first: true,
+        reset: false
       },
       player: {
         score: 0,
@@ -30,6 +31,7 @@ class App extends Component {
     this.shuffleWord = this.shuffleWord.bind(this)
     this.updateScore = this.updateScore.bind(this)
     this.updateLevel = this.updateLevel.bind(this)
+    this.updateGameState = this.updateGameState.bind(this)
     this.convertWordToHash = this.convertWordToHash.bind(this)
     this.convertHashToWord = this.convertHashToWord.bind(this)
   }
@@ -83,7 +85,7 @@ class App extends Component {
         const updatedScore = this.updateScore(word)
         const updatedLevelup = (word.length === 6) ? true : this.state.player.levelup
         const solvedWords = this.state.player.solved.concat(word)
-        // let updatedLevel = (word.length === 6) ? this.updateLevel() : this.state.player.level
+
         this.setState({
           player: {
             score: updatedScore,
@@ -147,6 +149,18 @@ class App extends Component {
     return this.state.player.level += 1
   }
 
+  updateGameState(state){
+  // - is this the first game? --> game.active = true
+  // - is levelup true (next level)? --> game.active = true, levelup = false, level = level + 1
+  // - is reset true? --> reset points / level
+    let newState = Object.assign({},this.state)
+    const level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
+    newState.game.active = state
+    newState.player.level = level
+
+    this.setState(newState)
+  }
+
   convertWordToHash(string){
     const array = string.split('')
     const charCodes = array.map((char) => {
@@ -179,8 +193,10 @@ class App extends Component {
             word={this.state.word.shuffled}
             shuffleWord={this.shuffleWord}
             checkWord={this.checkWord}
+            game={this.state.game}
             player={this.state.player}
             charCodes={this.state.word.charCodes}
+            updateGameState={this.updateGameState}
           /> : null}
 
         {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
@@ -195,9 +211,3 @@ class App extends Component {
 }
 
 export default App;
-
-        // <div className="game-status">
-        //   <div className="game-status game-status__score">{score}</div>
-        //   <div className="game-status game-status__timer">timer</div>
-        //   <div className="game-status game-status__level">level</div>
-        // </div>
