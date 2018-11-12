@@ -7,7 +7,7 @@ class App extends Component {
     this.state = {
       game: {
         active: false,
-        first: true,
+        // first: true,
         reset: false
       },
       player: {
@@ -150,12 +150,13 @@ class App extends Component {
   }
 
   updateGameState(state){
-  // - is this the first game? --> game.active = true
-  // - is levelup true (next level)? --> game.active = true, levelup = false, level = level + 1
-  // - is reset true? --> reset points / level
+
     let newState = Object.assign({},this.state)
     const level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
+    const reset = (!this.state.player.levelup) ? true : false
+
     newState.game.active = state
+    newState.game.reset = reset
     newState.player.level = level
 
     this.setState(newState)
