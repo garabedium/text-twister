@@ -165,6 +165,7 @@ class App extends Component {
   removeSplash(){
     let newState = Object.assign({},this.state)
     newState.game.splash = false
+    newState.game.active = true
     return this.setState(newState)
   }
 

@@ -184,6 +184,10 @@ class GameFormContainer extends Component {
       return (<li key={i}>{item.text}</li>)
     })
 
+    if (this.props.game.active && this.state.seconds === 10){
+      this.startTimer()
+    }
+
     return(
       <React.Fragment>
         <div className="word-row">
