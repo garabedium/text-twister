@@ -190,48 +190,52 @@ class GameFormContainer extends Component {
 
     return(
       <React.Fragment>
+        <header className="site-header">
+          <h1 className="logo">Text Twister JS</h1>
+        </header>
         <div className="word-row">
-          <div className="game-points">
+          {this.props.game.started ? <div className="game-points">
             <span className="game-points__title">Points:</span>
             <span className="game-points__score">{score}</span>
-          </div>
+          </div> : null}
           <div className="game-timer">
-            {this.state.seconds}
+            {this.props.game.started ? <span>{this.state.seconds}</span> : 
+              <Button
+                text=">"
+                handleClick={this.props.startGame}
+              />
+            }
           </div>
-          <div className="game-level">
+          {this.props.game.started ? <div className="game-level">
             <span className="game-level__title">Level:</span>
             <span className="">{level}</span>
-          </div>
-          <ul className="word">{word}</ul>
+          </div> : null}
+          {this.props.game.started && <ul className="word">{word}</ul>}
+          {!this.props.game.started && <div className="word">Play the game.</div>}
         </div>
 
         {notifications.length >= 1 ? <ul>{notifications}</ul> : null}
 
-        <form onSubmit={this.handleSubmit} className="game-form">
-          <FormInput
-            placeholder="Guess a word..."
-            name="guess"
-            content={guess}
-            handleChange={this.handleChange}
-            class="game-form__input"
-          />
-          <Button
-            text="Shuffle"
-            handleClick={this.shuffleWord}
-            class="game-form__button game-form__button--shuffle"
-          />
-          <Button
-            text="Submit"
-            handleClick={this.handleSubmit}
-            class="game-form__button game-form__button--submit"
-          />
-        </form>
-
-        {this.props.game.splash ?
-        <Modal
-          class="modal"
-          content={<SplashPage removeSplash={this.props.removeSplash} />}
-        /> : null
+        {this.props.game.started && 
+          <form onSubmit={this.handleSubmit} className="game-form">
+            <FormInput
+              placeholder="Guess a word..."
+              name="guess"
+              content={guess}
+              handleChange={this.handleChange}
+              class="game-form__input"
+            />
+            <Button
+              text="Shuffle"
+              handleClick={this.shuffleWord}
+              class="game-form__button game-form__button--shuffle"
+            />
+            <Button
+              text="Submit"
+              handleClick={this.handleSubmit}
+              class="game-form__button game-form__button--submit"
+            />
+          </form>
         }
       </React.Fragment>
     )
@@ -242,3 +246,10 @@ class GameFormContainer extends Component {
 export default GameFormContainer
 
 // handleKeypress={this.handleKeypress}
+
+// {this.props.game.splash ?
+//   <Modal
+//     class="modal"
+//     content={<SplashPage removeSplash={this.props.removeSplash} />}
+//   /> : null
+//   }
