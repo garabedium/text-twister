@@ -13,6 +13,18 @@ body {
   flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
   // padding: 20px;
 }
+.site-header {
+  background-color: #df744a;
+  padding: 10px 0;
+  .logo {
+    color: #fff;
+    font-weight: 400;
+    margin: 0;
+    text-shadow: 1px 1px #000;
+    font-size: 1.6em;
+    text-align: center;
+  }
+}
 .footer {
   flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 }

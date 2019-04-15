@@ -7,7 +7,7 @@ class App extends Component {
     this.state = {
       game: {
         active: false,
-        splash: true,
+        started: false,
         reset: false
       },
       player: {
@@ -32,7 +32,7 @@ class App extends Component {
     this.updateScore = this.updateScore.bind(this)
     this.updateLevel = this.updateLevel.bind(this)
     this.updateGameState = this.updateGameState.bind(this)
-    this.removeSplash = this.removeSplash.bind(this)
+    this.startGame = this.startGame.bind(this)
     this.convertWordToHash = this.convertWordToHash.bind(this)
     this.convertHashToWord = this.convertHashToWord.bind(this)
   }
@@ -162,10 +162,10 @@ class App extends Component {
     this.setState(newState)
   }
 
-  removeSplash(){
+  startGame(){
     let newState = Object.assign({},this.state)
-    newState.game.splash = false
     newState.game.active = true
+    newState.game.started = true
     return this.setState(newState)
   }
 
@@ -205,14 +205,11 @@ class App extends Component {
             player={this.state.player}
             charCodes={this.state.word.charCodes}
             updateGameState={this.updateGameState}
-            removeSplash={this.removeSplash}
+            startGame={this.startGame}
           /> : null}
 
         {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
       </div>
-
-      <footer className="footer">footer</footer>
-
       </React.Fragment>
     )
   }

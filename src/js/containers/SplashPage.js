@@ -16,15 +16,9 @@ class SplashPage extends Component {
     return(
       <React.Fragment>
         <h1>Text Twister JS</h1>
-        <h2>How to Play</h2>
-        - Solve as many words as you can before time runs out.
-        - Word must be a minimum of three letters.
-        - Solve the six letter word and move on to the next level.
-        <h2>Game Controls</h2>
-        - space_bar Spacebar: scramble letters
-        - keyboard_return Enter / Return: solve word
+        <h2>Unscramble words</h2>
         <Button
-          text="Start Game"
+          text="Play"
           handleClick={this.props.removeSplash}
         />
       </React.Fragment>
