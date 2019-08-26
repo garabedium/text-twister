@@ -32,9 +32,31 @@ var model = {
 var control = {
 	// Initiate Views & Get Data via API
 	init: function(){
-		this.getData();
+		// this.getData();
+		this.getWord();
 		this.guessWord();
 		this.buttonControls();
+	},
+	getWord: function(){
+		// Gets the word from the api:
+		var regex = '^[a-z]+$';
+		var xhr = new XMLHttpRequest();
+		var url = 'https://wordsapiv1.p.rapidapi.com/words/?letters=6&';
+		url += 'letterPattern=' + encodeURIComponent(regex) + '&'
+		url += 'random=true'
+
+		xhr.open('GET', url);
+		xhr.setRequestHeader('x-rapidapi-host','wordsapiv1.p.rapidapi.com');
+		xhr.setRequestHeader('x-rapidapi-key','7e7cb7d528msh2de4a1e884f778fp1665b5jsn291e57fa21a4');
+		xhr.onload = function() {
+			if (xhr.readyState == 4 && xhr.status == 200){
+				var data = JSON.parse(xhr.responseText);
+				console.log(data);
+			} else {
+				console.log('Request failed. Returned status of ' + xhr.status);
+			}
+		}
+		xhr.send();
 	},
 	getData: function(input){
 
