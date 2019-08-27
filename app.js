@@ -2,7 +2,6 @@
 
 // Store data
 var model = {
-	"dictionary":[],
 	"currentWord":{"word":"","letters":[],"removed":[],"charCodes":[],"charCodesRemoved":[]},
 	"solvedWords":[],
 	"user":{"score":0, "level":1, "solved":false},
@@ -51,12 +50,30 @@ var control = {
 		xhr.onload = function() {
 			if (xhr.readyState == 4 && xhr.status == 200){
 				var data = JSON.parse(xhr.responseText);
-				console.log(data);
+				control.parseWord(data);
 			} else {
 				console.log('Request failed. Returned status of ' + xhr.status);
 			}
 		}
 		xhr.send();
+	},
+	parseWord: function(data){
+		if (data.word){
+			model.currentWord.word = data.word;
+			model.currentWord.letters = model.currentWord.word.split('');
+			var letters = model.currentWord.letters;
+			model.currentWord.charCodes = letters.map(function(letter){
+				return letter.charCodeAt();
+			})
+
+			control.scramble(model.currentWord.word);
+	
+			// // Start View
+			userView.init();
+		}
+	},
+	validateWord: function(guess){
+		// Check if this is a valid word:
 	},
 	getData: function(input){
 
@@ -104,7 +121,7 @@ var control = {
 
 		 		// If there's no getData() input argument, select words
 		 		// Else, validate a word
-		      	if (input === '' || input === undefined){
+		    if (input === '' || input === undefined){
 			      	// Get words:
 			 		data.forEach(function(item){
 			 			control.validateWords(item.word);
@@ -151,53 +168,52 @@ var control = {
 		xhr.send();
 
 	},
-	validateWords: function(input){
+	// validateWords: function(input){
 
-		// Check if word is lowercase and contains no special characters
-		// If valid, push word to dictionary
-		var checkCase = input.search(/^[a-z]+$/);
+	// 	// Check if word is lowercase and contains no special characters
+	// 	// If valid, push word to dictionary
+	// 	var checkCase = input.search(/^[a-z]+$/);
 
-		// Only save words that meet length and case requirements
-		if (checkCase >= 0){
-			model.dictionary.push(input);
-		}
+	// 	// Only save words that meet length and case requirements
+	// 	if (checkCase >= 0){
+	// 		model.dictionary.push(input);
+	// 	}
 
-	},
+	// },
 	selectWord: function(){
 		// Select random word from dictionary array
-		var randomWord = model.dictionary[Math.round( Math.random() * (model.dictionary.length-1))];
+		// var randomWord = model.dictionary[Math.round( Math.random() * (model.dictionary.length-1))];
 
 		// Pass random word to be scrambled
 		// Save original word for future use
-		model.currentWord.word = randomWord;
-		model.currentWord.letters = model.currentWord.word.split('');
+		// model.currentWord.word = dictionary;
+		// model.currentWord.letters = model.currentWord.word.split('');
+		// var letters = model.currentWord.letters;
+		// model.currentWord.charCodes = letters.map(function(letter){
+		// 	return letter.charCodeAt();
+		// })
+		// letters.forEach(function(letter){
+		// 	var charCode = letter.charCodeAt();
+		// 	model.currentWord.charCodes.push(charCode);
+		// });
 
-		var letters = model.currentWord.letters;
+		// control.scramble(model.currentWord);
 
-		letters.forEach(function(letter){
-			var charCode = letter.charCodeAt();
-			model.currentWord.charCodes.push(charCode);
-		});
-
-		control.scramble(randomWord);
-
-		// Start View
-		userView.init();
+		// // Start View
+		// userView.init();
 	},
 	displayWord: function(input){
 		var wordHeader = document.getElementById('word-header');
 		wordHeader.innerHTML=input;
 	},
-	scramble: function(array){
+	scramble: function(word){
 
-		// Convert word to array
-		var array = array.split('');
+		// Convert word to word
+		var word = word.split('');
 
-	    var counter = array.length,
-	    	word = '',
-	    	wordOriginal = model.currentWord.word;
+	    var counter = word.length;
 
-	    // While there are elements in the array
+	    // While there are elements in the word
 	    while (counter > 0) {
 	        // Pick a random index
 	        var index = Math.floor(Math.random() * counter);
@@ -206,18 +222,20 @@ var control = {
 	        counter--;
 
 	        // And swap the last element with it
-	        var temp = array[counter];
-	        array[counter] = array[index];
-	        array[index] = temp;
-	    }
-	    	word = array.join('');
+	        var temp = word[counter];
+	        word[counter] = word[index];
+	        word[index] = temp;
+			}
+
+			word = word.join('');
 
 	    // Make sure scrambled word isn't solved word
-	    if ( word != wordOriginal ){
+	    if ( word != model.currentWord.word ){
 	    	return control.displayWord(word);
 	    } else {
 	    	return this.scramble();
-	    }
+			}
+
 	},
 	guessWord: function(){
 		var guessForm = document.getElementById('guess-form'),
