@@ -68,106 +68,146 @@ var control = {
 
 			control.scramble(model.currentWord.word);
 	
-			// // Start View
+			// Start View
 			userView.init();
 		}
 	},
-	validateWord: function(guess){
+	validateWord: function(word){
+
 		// Check if this is a valid word:
-	},
-	getData: function(input){
-
-		// Shared values for api calls
-		var apiBase = 'http://api.wordnik.com:80/v4/',
-			apiKey = 'api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61',
-			apiParams = '',
-			apiCall = '';
-
-		function apiRequest(){
-			var params, apiType, word;
-				params = apiType = word = '';
-
-			if (input === '' || input === undefined){
-				params = model.api.getWords.params,
-				apiType = model.api.getWords.apiType;
-			} else {
-				params = model.api.checkWord.params,
-				apiType = model.api.checkWord.apiType,
-				word = input + "/";
-			}
-
-			for(var key in params) {
-				if(params.hasOwnProperty(key)){
-					apiParams += key + "=" + params[key] + "&";
-				}
-			}
-
-			apiCall = apiBase + apiType + word + apiParams + apiKey;
-
-			return apiCall;
-		}
-
 		var xhr = new XMLHttpRequest();
-		xhr.open('GET', ''+ apiRequest() +'');
+		var url = 'https://wordsapiv1.p.rapidapi.com/words/' + word;
 
+		xhr.open('GET', url);
+		xhr.setRequestHeader('x-rapidapi-host','wordsapiv1.p.rapidapi.com');
+		xhr.setRequestHeader('x-rapidapi-key','7e7cb7d528msh2de4a1e884f778fp1665b5jsn291e57fa21a4');
 		xhr.onload = function() {
+			if (xhr.readyState == 4 && xhr.status == 200){
+				var data = JSON.parse(xhr.responseText);
+				// Words API may return a partial / fuzzy match that was not the user's guess
+				console.log(data.word)
+				if (data.word !== word) {
+					return userView.renderFeedback('invalid');
+				}
+				// Return solved letters to model.letters, remove from model.removed
+				control.recycleRemoved();
+				// Show solved word to user and store in our model
+				userView.renderSolved(data.word);
+				model.solvedWords.push(data.word);
 
-		    if (xhr.readyState == 4 && xhr.status == 200){
+				// Display feedback
+				if (data.word.length == 6){
+					control.levelUp(true);
+					control.removeLevelWord(data.word);
+					userView.renderFeedback('levelup');
+				} else {
+					userView.renderFeedback('solved');
+				}
 
-		        var data = JSON.parse(xhr.responseText);
-		        	data = data.results;
+				// Clear guess input
+				document.getElementById('guess-input').value = '';
 
-		 		var data = JSON.parse(xhr.responseText);
-
-		 		// If there's no getData() input argument, select words
-		 		// Else, validate a word
-		    if (input === '' || input === undefined){
-			      	// Get words:
-			 		data.forEach(function(item){
-			 			control.validateWords(item.word);
-			 		});
-			 		control.selectWord();
-			 	} else {
-
-			        if (data.length > 0) {
-
-			        	// Return solved letters to model.letters, remove from model.removed
-			        	control.recycleRemoved();
-
-			        	//Show solved word to user and store in our model
-			        	userView.renderSolved(input);
-			        	model.solvedWords.push(input);
-
-			        	// Display feedback
-			        	if (input.length == 6){
-			        		control.levelUp(true);
-			        		control.removeLevelWord(input);
-			        		userView.renderFeedback('levelup');
-			        	} else {
-			        		userView.renderFeedback('solved');
-			        	}
-
-			        	// Clear guess input
-			        	document.getElementById('guess-input').value = '';
-
-			        	// Award points
-			        	control.incrementScore(input);
-
-			        } else {
-			        	userView.renderFeedback('invalid');
-			        }
-
-			 	}
-
-		    }
-		    else {
-		        alert('Request failed. Returned status of ' + xhr.status);
-		    }
-
-		};
+				// Award points
+				control.incrementScore(data.word);
+			} else {
+				userView.renderFeedback('invalid');
+			}
+		}
 		xhr.send();
-
 	},
+	// getData: function(input){
+
+	// 	// Shared values for api calls
+	// 	var apiBase = 'http://api.wordnik.com:80/v4/',
+	// 		apiKey = 'api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61',
+	// 		apiParams = '',
+	// 		apiCall = '';
+
+	// 	function apiRequest(){
+	// 		var params, apiType, word;
+	// 			params = apiType = word = '';
+
+	// 		if (input === '' || input === undefined){
+	// 			params = model.api.getWords.params,
+	// 			apiType = model.api.getWords.apiType;
+	// 		} else {
+	// 			params = model.api.checkWord.params,
+	// 			apiType = model.api.checkWord.apiType,
+	// 			word = input + "/";
+	// 		}
+
+	// 		for(var key in params) {
+	// 			if(params.hasOwnProperty(key)){
+	// 				apiParams += key + "=" + params[key] + "&";
+	// 			}
+	// 		}
+
+	// 		apiCall = apiBase + apiType + word + apiParams + apiKey;
+
+	// 		return apiCall;
+	// 	}
+
+	// 	var xhr = new XMLHttpRequest();
+	// 	xhr.open('GET', ''+ apiRequest() +'');
+
+	// 	xhr.onload = function() {
+
+	// 	    if (xhr.readyState == 4 && xhr.status == 200){
+
+	// 	        var data = JSON.parse(xhr.responseText);
+	// 	        	data = data.results;
+
+	// 	 		var data = JSON.parse(xhr.responseText);
+
+	// 	 		// If there's no getData() input argument, select words
+	// 	 		// Else, validate a word
+	// 	    if (input === '' || input === undefined){
+	// 		      	// Get words:
+	// 		 		data.forEach(function(item){
+	// 		 			control.validateWords(item.word);
+	// 		 		});
+	// 		 		control.selectWord();
+	// 		 	} else {
+
+	// 		        if (data.length > 0) {
+
+	// 		        	// Return solved letters to model.letters, remove from model.removed
+	// 		        	control.recycleRemoved();
+
+	// 		        	//Show solved word to user and store in our model
+	// 		        	userView.renderSolved(input);
+	// 		        	model.solvedWords.push(input);
+
+	// 		        	// Display feedback
+	// 		        	if (input.length == 6){
+	// 		        		control.levelUp(true);
+	// 		        		control.removeLevelWord(input);
+	// 		        		userView.renderFeedback('levelup');
+	// 		        	} else {
+	// 		        		userView.renderFeedback('solved');
+	// 		        	}
+
+	// 		        	// Clear guess input
+	// 		        	document.getElementById('guess-input').value = '';
+
+	// 		        	// Award points
+	// 		        	control.incrementScore(input);
+
+	// 		        } else {
+	// 		        	userView.renderFeedback('invalid');
+	// 		        }
+
+	// 		 	}
+
+	// 	    }
+	// 	    else {
+	// 	        alert('Request failed. Returned status of ' + xhr.status);
+	// 	    }
+
+	// 	};
+	// 	xhr.send();
+
+	// },
 	// validateWords: function(input){
 
 	// 	// Check if word is lowercase and contains no special characters
@@ -301,7 +341,8 @@ var control = {
 			e.preventDefault();
 			var guessValue = guessInput.value;
 			if (model.solvedWords.indexOf(guessValue) === -1){
-				control.getData(guessValue);
+				// control.getData(guessValue);
+				control.validateWord(guessValue);
 			} else {
 				userView.renderFeedback('duplicate');
 			}
