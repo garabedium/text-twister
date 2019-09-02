@@ -83,164 +83,49 @@ var control = {
 		xhr.setRequestHeader('x-rapidapi-key','7e7cb7d528msh2de4a1e884f778fp1665b5jsn291e57fa21a4');
 		xhr.onload = function() {
 			if (xhr.readyState == 4 && xhr.status == 200){
+
 				var data = JSON.parse(xhr.responseText);
-				// Words API may return a partial / fuzzy match that was not the user's guess
 				console.log(data.word)
+
+				// Words API may return a partial / fuzzy match that was not the user's guess
+				// Check if returned word matches user's guess
 				if (data.word !== word) {
 					return userView.renderFeedback('invalid');
-				}
-				// Return solved letters to model.letters, remove from model.removed
-				control.recycleRemoved();
-				// Show solved word to user and store in our model
-				userView.renderSolved(data.word);
-				model.solvedWords.push(data.word);
-
-				// Display feedback
-				if (data.word.length == 6){
-					control.levelUp(true);
-					control.removeLevelWord(data.word);
-					userView.renderFeedback('levelup');
-				} else {
-					userView.renderFeedback('solved');
 				}
 
 				// Clear guess input
 				document.getElementById('guess-input').value = '';
 
-				// Award points
-				control.incrementScore(data.word);
+				// Update model with latest solved:
+				model.solvedWords.push(data.word);
+				control.processSolvedWord();
+
 			} else {
 				userView.renderFeedback('invalid');
 			}
 		}
 		xhr.send();
 	},
-	// getData: function(input){
+	processSolvedWord: function() {
+		var lastSolved = model.solvedWords[model.solvedWords.length - 1];
 
-	// 	// Shared values for api calls
-	// 	var apiBase = 'http://api.wordnik.com:80/v4/',
-	// 		apiKey = 'api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61',
-	// 		apiParams = '',
-	// 		apiCall = '';
+		// Return solved letters to model.letters, remove from model.removed
+		control.recycleRemoved();
 
-	// 	function apiRequest(){
-	// 		var params, apiType, word;
-	// 			params = apiType = word = '';
+		// Update view with solved word:
+		userView.renderSolved(lastSolved);
 
-	// 		if (input === '' || input === undefined){
-	// 			params = model.api.getWords.params,
-	// 			apiType = model.api.getWords.apiType;
-	// 		} else {
-	// 			params = model.api.checkWord.params,
-	// 			apiType = model.api.checkWord.apiType,
-	// 			word = input + "/";
-	// 		}
+		// Display feedback
+		if (lastSolved.length == 6){
+			control.levelUp(true);
+			control.removeLevelWord(lastSolved);
+			userView.renderFeedback('levelup');
+		} else {
+			userView.renderFeedback('solved');
+		}
 
-	// 		for(var key in params) {
-	// 			if(params.hasOwnProperty(key)){
-	// 				apiParams += key + "=" + params[key] + "&";
-	// 			}
-	// 		}
-
-	// 		apiCall = apiBase + apiType + word + apiParams + apiKey;
-
-	// 		return apiCall;
-	// 	}
-
-	// 	var xhr = new XMLHttpRequest();
-	// 	xhr.open('GET', ''+ apiRequest() +'');
-
-	// 	xhr.onload = function() {
-
-	// 	    if (xhr.readyState == 4 && xhr.status == 200){
-
-	// 	        var data = JSON.parse(xhr.responseText);
-	// 	        	data = data.results;
-
-	// 	 		var data = JSON.parse(xhr.responseText);
-
-	// 	 		// If there's no getData() input argument, select words
-	// 	 		// Else, validate a word
-	// 	    if (input === '' || input === undefined){
-	// 		      	// Get words:
-	// 		 		data.forEach(function(item){
-	// 		 			control.validateWords(item.word);
-	// 		 		});
-	// 		 		control.selectWord();
-	// 		 	} else {
-
-	// 		        if (data.length > 0) {
-
-	// 		        	// Return solved letters to model.letters, remove from model.removed
-	// 		        	control.recycleRemoved();
-
-	// 		        	//Show solved word to user and store in our model
-	// 		        	userView.renderSolved(input);
-	// 		        	model.solvedWords.push(input);
-
-	// 		        	// Display feedback
-	// 		        	if (input.length == 6){
-	// 		        		control.levelUp(true);
-	// 		        		control.removeLevelWord(input);
-	// 		        		userView.renderFeedback('levelup');
-	// 		        	} else {
-	// 		        		userView.renderFeedback('solved');
-	// 		        	}
-
-	// 		        	// Clear guess input
-	// 		        	document.getElementById('guess-input').value = '';
-
-	// 		        	// Award points
-	// 		        	control.incrementScore(input);
-
-	// 		        } else {
-	// 		        	userView.renderFeedback('invalid');
-	// 		        }
-
-	// 		 	}
-
-	// 	    }
-	// 	    else {
-	// 	        alert('Request failed. Returned status of ' + xhr.status);
-	// 	    }
-
-	// 	};
-	// 	xhr.send();
-
-	// },
-	// validateWords: function(input){
-
-	// 	// Check if word is lowercase and contains no special characters
-	// 	// If valid, push word to dictionary
-	// 	var checkCase = input.search(/^[a-z]+$/);
-
-	// 	// Only save words that meet length and case requirements
-	// 	if (checkCase >= 0){
-	// 		model.dictionary.push(input);
-	// 	}
-
-	// },
-	selectWord: function(){
-		// Select random word from dictionary array
-		// var randomWord = model.dictionary[Math.round( Math.random() * (model.dictionary.length-1))];
-
-		// Pass random word to be scrambled
-		// Save original word for future use
-		// model.currentWord.word = dictionary;
-		// model.currentWord.letters = model.currentWord.word.split('');
-		// var letters = model.currentWord.letters;
-		// model.currentWord.charCodes = letters.map(function(letter){
-		// 	return letter.charCodeAt();
-		// })
-		// letters.forEach(function(letter){
-		// 	var charCode = letter.charCodeAt();
-		// 	model.currentWord.charCodes.push(charCode);
-		// });
-
-		// control.scramble(model.currentWord);
-
-		// // Start View
-		// userView.init();
+		// Award points
+		control.incrementScore(lastSolved);
 	},
 	displayWord: function(input){
 		var wordHeader = document.getElementById('word-header');
@@ -248,7 +133,7 @@ var control = {
 	},
 	scramble: function(word){
 
-		// Convert word to word
+		// Convert word to array
 		var word = word.split('');
 
 	    var counter = word.length;
