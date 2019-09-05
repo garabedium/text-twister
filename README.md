@@ -21,7 +21,7 @@
 
 ## Credits & Documentation
 - [Inspired by MSN's Text Twist](http://zone.msn.com/en/texttwist/)
-- [Dictionary API by Wordnik](http://developer.wordnik.com/docs.html)
+- [Dictionary API by Words API](https://www.wordsapi.com/)
 - [Material Icons by Google](https://design.google.com/icons/)
 - [Regex](http://stackoverflow.com/questions/23476532/check-if-string-contains-only-letters-in-javascript)
 - [Timer](http://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer)
