@@ -118,7 +118,6 @@ var control = {
 		// Display feedback
 		if (lastSolved.length == 6){
 			control.levelUp(true);
-			control.removeLevelWord(lastSolved);
 			userView.renderFeedback('levelup');
 		} else {
 			userView.renderFeedback('solved');
@@ -291,13 +290,6 @@ var control = {
 	resetSolvedWords: function(){
 		model.solvedWords = [];
 	},
-	removeLevelWord: function(input){
-		var word = input;
-		if (model.dictionary.indexOf(word) >= 0){
-			var wordIndex = model.dictionary.indexOf(word);
-			model.dictionary.splice(wordIndex, 1);
-		}
-	},
 	resetButton: function(){
 		var resetNext = document.getElementById('reset-next'),
 			btnContinue = 'Next Level <i class="material-icons">trending_up</i>',
@@ -323,7 +315,7 @@ var control = {
 		control.resetSolvedWords();
 
 		// Select a new word
-		control.selectWord();
+		control.getWord();
 
 		// Reset user level status
 		control.levelUp(false);
@@ -417,7 +409,6 @@ var userView = {
 			form.className = 'hide-visibility';
 			header.className = 'solved';
 
-			control.removeLevelWord(word);
 			control.displayWord(word);
 
 			// Reset solved words, guess input
