@@ -2,180 +2,110 @@
 
 // Store data
 var model = {
-	"dictionary":[],
 	"currentWord":{"word":"","letters":[],"removed":[],"charCodes":[],"charCodesRemoved":[]},
 	"solvedWords":[],
 	"user":{"score":0, "level":1, "solved":false},
-	"api":{
-		"getWords": {
-			"apiType":"words.json/randomWords?hasDictionaryDef=true&",
-			"params": {
-				"minCorpusCount":9999,
-				"minDictionaryCount":5,
-				"minLength":6,
-				"maxLength":6,
-				"limit":25
-			}
-		},
-		"checkWord": {
-			"apiType":"word.json/",
-			"params":{
-				"definitions?limit":1,
-				"includeRelated":"true",
-				"sourceDictionaries":"all",
-				"useCanonical":"false",
-				"includeTags":"false"
-			}
-		}
-	}
+	"apiBase":"http://garabedium.com/api"
 };
 var control = {
 	// Initiate Views & Get Data via API
 	init: function(){
-		this.getData();
+		this.getWord();
 		this.guessWord();
 		this.buttonControls();
 	},
-	getData: function(input){
-
-		// Shared values for api calls
-		var apiBase = 'http://api.wordnik.com:80/v4/',
-			apiKey = 'api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61',
-			apiParams = '',
-			apiCall = '';
-
-		function apiRequest(){
-			var params, apiType, word;
-				params = apiType = word = '';
-
-			if (input === '' || input === undefined){
-				params = model.api.getWords.params,
-				apiType = model.api.getWords.apiType;
-			} else {
-				params = model.api.checkWord.params,
-				apiType = model.api.checkWord.apiType,
-				word = input + "/";
-			}
-
-			for(var key in params) {
-				if(params.hasOwnProperty(key)){
-					apiParams += key + "=" + params[key] + "&";
-				}
-			}
-
-			apiCall = apiBase + apiType + word + apiParams + apiKey;
-
-			return apiCall;
-		}
-
+	getWord: function(){
 		var xhr = new XMLHttpRequest();
-		xhr.open('GET', ''+ apiRequest() +'');
+		var url = model.apiBase + '/levelWord/range/5&6'
 
+		xhr.open('GET', url);
 		xhr.onload = function() {
-
-		    if (xhr.readyState == 4 && xhr.status == 200){
-
-		        var data = JSON.parse(xhr.responseText);
-		        	data = data.results;
-
-		 		var data = JSON.parse(xhr.responseText);
-
-		 		// If there's no getData() input argument, select words
-		 		// Else, validate a word
-		      	if (input === '' || input === undefined){
-			      	// Get words:
-			 		data.forEach(function(item){
-			 			control.validateWords(item.word);
-			 		});
-			 		control.selectWord();
-			 	} else {
-
-			        if (data.length > 0) {
-
-			        	// Return solved letters to model.letters, remove from model.removed
-			        	control.recycleRemoved();
-
-			        	//Show solved word to user and store in our model
-			        	userView.renderSolved(input);
-			        	model.solvedWords.push(input);
-
-			        	// Display feedback
-			        	if (input.length == 6){
-			        		control.levelUp(true);
-			        		control.removeLevelWord(input);
-			        		userView.renderFeedback('levelup');
-			        	} else {
-			        		userView.renderFeedback('solved');
-			        	}
-
-			        	// Clear guess input
-			        	document.getElementById('guess-input').value = '';
-
-			        	// Award points
-			        	control.incrementScore(input);
-
-			        } else {
-			        	userView.renderFeedback('invalid');
-			        }
-
-			 	}
-
-		    }
-		    else {
-		        alert('Request failed. Returned status of ' + xhr.status);
-		    }
-
-		};
+			if (xhr.readyState == 4 && xhr.status == 200){
+				var data = JSON.parse(xhr.responseText);
+				control.parseWord(data);
+			} else {
+				console.log('Request failed. Returned status of ' + xhr.status);
+			}
+		}
 		xhr.send();
-
 	},
-	validateWords: function(input){
+	parseWord: function(data){
+		if (data.length > 0){
+			model.currentWord.word = data[0].word;
+			model.currentWord.letters = model.currentWord.word.split('');
+			var letters = model.currentWord.letters;
+			model.currentWord.charCodes = letters.map(function(letter){
+				return letter.charCodeAt();
+			})
 
-		// Check if word is lowercase and contains no special characters
-		// If valid, push word to dictionary
-		var checkCase = input.search(/^[a-z]+$/);
+			control.scramble(model.currentWord.word);
+	
+			// Start View
+			userView.init();
+		}
+	},
+	validateWord: function(word){
 
-		// Only save words that meet length and case requirements
-		if (checkCase >= 0){
-			model.dictionary.push(input);
+		// Check if this is a valid word:
+		var xhr = new XMLHttpRequest();
+		var url = model.apiBase + '/word/validate/' + word;
+
+		xhr.open('GET', url);
+		xhr.onload = function() {
+			if (xhr.readyState == 4 && xhr.status == 200){
+
+				var data = JSON.parse(xhr.responseText);
+
+				// Invalid word:
+				if (data.length === 0 || data[0].word !== word) {
+					return userView.renderFeedback('invalid');
+				}
+
+				// Clear guess input
+				document.getElementById('guess-input').value = '';
+
+				// Update model with latest solved:
+				model.solvedWords.push(data[0].word);
+				control.processSolvedWord();
+
+			} else {
+				userView.renderFeedback('invalid');
+			}
+		}
+		xhr.send();
+	},
+	processSolvedWord: function() {
+		var lastSolved = model.solvedWords[model.solvedWords.length - 1];
+
+		// Return solved letters to model.letters, remove from model.removed
+		control.recycleRemoved();
+
+		// Update view with solved word:
+		userView.renderSolved(lastSolved);
+
+		// Display feedback
+		if (lastSolved.length == 6){
+			control.levelUp(true);
+			userView.renderFeedback('levelup');
+		} else {
+			userView.renderFeedback('solved');
 		}
 
-	},
-	selectWord: function(){
-		// Select random word from dictionary array
-		var randomWord = model.dictionary[Math.round( Math.random() * (model.dictionary.length-1))];
-
-		// Pass random word to be scrambled
-		// Save original word for future use
-		model.currentWord.word = randomWord;
-		model.currentWord.letters = model.currentWord.word.split('');
-
-		var letters = model.currentWord.letters;
-
-		letters.forEach(function(letter){
-			var charCode = letter.charCodeAt();
-			model.currentWord.charCodes.push(charCode);
-		});
-
-		control.scramble(randomWord);
-
-		// Start View
-		userView.init();
+		// Award points
+		control.incrementScore(lastSolved);
 	},
 	displayWord: function(input){
 		var wordHeader = document.getElementById('word-header');
 		wordHeader.innerHTML=input;
 	},
-	scramble: function(array){
+	scramble: function(word){
 
 		// Convert word to array
-		var array = array.split('');
+		var word = word.split('');
 
-	    var counter = array.length,
-	    	word = '',
-	    	wordOriginal = model.currentWord.word;
+	    var counter = word.length;
 
-	    // While there are elements in the array
+	    // While there are elements in the word
 	    while (counter > 0) {
 	        // Pick a random index
 	        var index = Math.floor(Math.random() * counter);
@@ -184,18 +114,20 @@ var control = {
 	        counter--;
 
 	        // And swap the last element with it
-	        var temp = array[counter];
-	        array[counter] = array[index];
-	        array[index] = temp;
-	    }
-	    	word = array.join('');
+	        var temp = word[counter];
+	        word[counter] = word[index];
+	        word[index] = temp;
+			}
+
+			word = word.join('');
 
 	    // Make sure scrambled word isn't solved word
-	    if ( word != wordOriginal ){
+	    if ( word != model.currentWord.word ){
 	    	return control.displayWord(word);
 	    } else {
 	    	return this.scramble();
-	    }
+			}
+
 	},
 	guessWord: function(){
 		var guessForm = document.getElementById('guess-form'),
@@ -261,7 +193,8 @@ var control = {
 			e.preventDefault();
 			var guessValue = guessInput.value;
 			if (model.solvedWords.indexOf(guessValue) === -1){
-				control.getData(guessValue);
+				// control.getData(guessValue);
+				control.validateWord(guessValue);
 			} else {
 				userView.renderFeedback('duplicate');
 			}
@@ -325,13 +258,6 @@ var control = {
 	resetSolvedWords: function(){
 		model.solvedWords = [];
 	},
-	removeLevelWord: function(input){
-		var word = input;
-		if (model.dictionary.indexOf(word) >= 0){
-			var wordIndex = model.dictionary.indexOf(word);
-			model.dictionary.splice(wordIndex, 1);
-		}
-	},
 	resetButton: function(){
 		var resetNext = document.getElementById('reset-next'),
 			btnContinue = 'Next Level <i class="material-icons">trending_up</i>',
@@ -357,7 +283,7 @@ var control = {
 		control.resetSolvedWords();
 
 		// Select a new word
-		control.selectWord();
+		control.getWord();
 
 		// Reset user level status
 		control.levelUp(false);
@@ -451,7 +377,6 @@ var userView = {
 			form.className = 'hide-visibility';
 			header.className = 'solved';
 
-			control.removeLevelWord(word);
 			control.displayWord(word);
 
 			// Reset solved words, guess input
