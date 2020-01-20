@@ -4,10 +4,9 @@
 /src/json
 /src/svg
 /dist/svg
-/ROADMAP-BUGS.md
 /dev.html
 /validate-json.js
 yarn-error.log
 yarn.lock
-webpack.config.js
 index-static.html
+.DS_Store
