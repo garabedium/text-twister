@@ -5,48 +5,20 @@ var model = {
 	"currentWord":{"word":"","letters":[],"removed":[],"charCodes":[],"charCodesRemoved":[]},
 	"solvedWords":[],
 	"user":{"score":0, "level":1, "solved":false},
-	"api":{
-		"getWords": {
-			"apiType":"words.json/randomWords?hasDictionaryDef=true&",
-			"params": {
-				"minCorpusCount":9999,
-				"minDictionaryCount":5,
-				"minLength":6,
-				"maxLength":6,
-				"limit":25
-			}
-		},
-		"checkWord": {
-			"apiType":"word.json/",
-			"params":{
-				"definitions?limit":1,
-				"includeRelated":"true",
-				"sourceDictionaries":"all",
-				"useCanonical":"false",
-				"includeTags":"false"
-			}
-		}
-	}
+	"apiBase":"http://garabedium.com/api"
 };
 var control = {
 	// Initiate Views & Get Data via API
 	init: function(){
-		// this.getData();
 		this.getWord();
 		this.guessWord();
 		this.buttonControls();
 	},
 	getWord: function(){
-		// Gets the word from the api:
-		var regex = '^[a-z]+$';
 		var xhr = new XMLHttpRequest();
-		var url = 'https://wordsapiv1.p.rapidapi.com/words/?letters=6&';
-		url += 'letterPattern=' + encodeURIComponent(regex) + '&'
-		url += 'random=true'
+		var url = model.apiBase + '/levelWord/range/5&6'
 
 		xhr.open('GET', url);
-		xhr.setRequestHeader('x-rapidapi-host','wordsapiv1.p.rapidapi.com');
-		xhr.setRequestHeader('x-rapidapi-key','7e7cb7d528msh2de4a1e884f778fp1665b5jsn291e57fa21a4');
 		xhr.onload = function() {
 			if (xhr.readyState == 4 && xhr.status == 200){
 				var data = JSON.parse(xhr.responseText);
@@ -58,8 +30,8 @@ var control = {
 		xhr.send();
 	},
 	parseWord: function(data){
-		if (data.word){
-			model.currentWord.word = data.word;
+		if (data.length > 0){
+			model.currentWord.word = data[0].word;
 			model.currentWord.letters = model.currentWord.word.split('');
 			var letters = model.currentWord.letters;
 			model.currentWord.charCodes = letters.map(function(letter){
@@ -76,20 +48,16 @@ var control = {
 
 		// Check if this is a valid word:
 		var xhr = new XMLHttpRequest();
-		var url = 'https://wordsapiv1.p.rapidapi.com/words/' + word;
+		var url = model.apiBase + '/word/validate/' + word;
 
 		xhr.open('GET', url);
-		xhr.setRequestHeader('x-rapidapi-host','wordsapiv1.p.rapidapi.com');
-		xhr.setRequestHeader('x-rapidapi-key','7e7cb7d528msh2de4a1e884f778fp1665b5jsn291e57fa21a4');
 		xhr.onload = function() {
 			if (xhr.readyState == 4 && xhr.status == 200){
 
 				var data = JSON.parse(xhr.responseText);
-				console.log(data.word)
 
-				// Words API may return a partial / fuzzy match that was not the user's guess
-				// Check if returned word matches user's guess
-				if (data.word !== word) {
+				// Invalid word:
+				if (data.length === 0 || data[0].word !== word) {
 					return userView.renderFeedback('invalid');
 				}
 
@@ -97,7 +65,7 @@ var control = {
 				document.getElementById('guess-input').value = '';
 
 				// Update model with latest solved:
-				model.solvedWords.push(data.word);
+				model.solvedWords.push(data[0].word);
 				control.processSolvedWord();
 
 			} else {
