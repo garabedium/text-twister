@@ -87,7 +87,7 @@ class GameFormContainer extends Component {
       if (this.isDuplicateWord()) {
         this.addNotification("You already solved that word!")
       } else {
-        this.props.checkWord(guess)
+        this.props.validateWord(guess)
         this.handleClear()
       }
     } else {

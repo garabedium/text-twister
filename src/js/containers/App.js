@@ -25,8 +25,7 @@ class App extends Component {
     }
     // Methods:
     this.getWords = this.getWords.bind(this)
-    this.checkWord = this.checkWord.bind(this)
-    this.filterWords = this.filterWords.bind(this)
+    this.validateWord = this.validateWord.bind(this)
     this.selectWord = this.selectWord.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
     this.updateScore = this.updateScore.bind(this)
@@ -43,8 +42,7 @@ class App extends Component {
   }
 
   getWords(){
-    const url = 'http://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=9999&minDictionaryCount=5&minLength=6&maxLength=6&limit=10&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61'
-
+    const url = "http://garabedium.com/api/levelWord/range/5&6"
     fetch(url).then(response => {
       if (response.ok) {
         return response
@@ -53,13 +51,13 @@ class App extends Component {
     .then(response => response.json())
     .then(response => {
 
-      const filteredWords = this.filterWords(response)
-      const currentWord = this.selectWord(filteredWords)
+      const currentWord = this.selectWord(response)
       const shuffledWord = this.shuffleWord(currentWord)
       const charCodes = this.convertWordToHash(currentWord)
       const solvedWord = this.convertHashToWord(charCodes)
 
       this.setState({
+        words: this.state.words.concat(response),
         word: {
           current: currentWord,
           shuffled: shuffledWord,
@@ -70,8 +68,8 @@ class App extends Component {
     })
   }
 
-  checkWord(word){
-    const url = `http://api.wordnik.com/v4/word.json/${word}/definitions?limit=1&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=c5d2a89c760005c52147b0391090c56c56e325c46ef140d61`
+  validateWord(word){
+    const url = `http://garabedium.com/api/word/validate/${word}`
 
     fetch(url).then(response => {
       if (response.ok) {
@@ -96,13 +94,6 @@ class App extends Component {
         })
       }
     })
-  }
-
-  filterWords(array){
-    const filteredWords = array.filter((item) => {
-      return (item.word.search(/^[a-z]+$/) >= 0)
-    })
-      return filteredWords
   }
 
   selectWord(words){
@@ -200,7 +191,7 @@ class App extends Component {
           <GameFormContainer
             word={this.state.word.shuffled}
             shuffleWord={this.shuffleWord}
-            checkWord={this.checkWord}
+            validateWord={this.validateWord}
             game={this.state.game}
             player={this.state.player}
             charCodes={this.state.word.charCodes}
