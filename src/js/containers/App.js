@@ -52,6 +52,8 @@ class App extends Component {
     .then(response => {
 
       const currentWord = this.selectWord(response)
+      const currentWordIndex = response.some((item,i) => { if (item.word === currentWord) return i; })
+      response.splice(currentWordIndex,1)
       const shuffledWord = this.shuffleWord(currentWord)
       const charCodes = this.convertWordToHash(currentWord)
       const solvedWord = this.convertHashToWord(charCodes)
