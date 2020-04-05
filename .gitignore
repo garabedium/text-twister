@@ -10,3 +10,4 @@ yarn-error.log
 yarn.lock
 index-static.html
 .DS_Store
+.env
