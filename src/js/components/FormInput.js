@@ -5,6 +5,7 @@ const FormInput = (props) => {
       <input
         type="text"
         autoComplete="off"
+        autofocus
         className={props.class}
         placeholder={props.placeholder}
         name={props.name}
