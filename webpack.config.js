@@ -1,15 +1,20 @@
-var webpack = require('webpack');
-
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const htmlPlugin = new HtmlWebPackPlugin({
+  template: "./src/index.html", 
+  filename: "./index.html"
+});
 module.exports = {
   entry: {
     path: './src/js/react.js'
   },
   output: {
-    path: '/build',
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'dist'),
+    filename: "[name].js"
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.scss$/,
         loaders: ["style-loader", "css-loader", "sass-loader"]
@@ -21,13 +26,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  plugins: [htmlPlugin],
   devtool: 'eval-source-map',
-  devServer: {
-    contentBase: './build',
-    inline: true,
-    hot: true
-  }
 }
