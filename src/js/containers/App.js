@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   getWords(){
-    const url = "http://garabedium.com/api/levelWord/range/5&6"
+    const url = "/api/levelWord/range/5&6"
     fetch(url).then(response => {
       if (response.ok) {
         return response
@@ -71,7 +71,7 @@ class App extends Component {
   }
 
   validateWord(word){
-    const url = `http://garabedium.com/api/word/validate/${word}`
+    const url = `/api/word/validate/${word}`
 
     fetch(url).then(response => {
       if (response.ok) {
