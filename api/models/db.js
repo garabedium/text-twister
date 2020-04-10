@@ -1,7 +1,7 @@
 'use strict';
 
 const mysql = require('mysql'),
-      { host, db, db_user, db_pwd } = require('../config');
+      { host, db, db_user, db_pwd } = require('../../config');
 
 const mc = mysql.createConnection({
   host: host,
