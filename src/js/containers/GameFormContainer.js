@@ -216,7 +216,7 @@ class GameFormContainer extends Component {
 
         {notifications.length >= 1 ? <ul>{notifications}</ul> : null}
 
-        {this.props.game.started && 
+        {this.props.game.started && this.props.game.active && 
           <form onSubmit={this.handleSubmit} className="game-form">
             <FormInput
               placeholder="Guess a word..."
