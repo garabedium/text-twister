@@ -3,9 +3,9 @@
 /node_modules
 /src/json
 /src/svg
-/dist/svg
-/dist/index.html
-/dist/path.js
+dist/svg
+dist/index.html
+dist/path.js
 /dev.html
 /validate-json.js
 yarn-error.log
