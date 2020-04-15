@@ -106,8 +106,6 @@ class App extends Component {
   // Take in a word and shuffle the letters:
   shuffleWord(string){
     const array = string.split('')
-
-    // Fisher-Yates algorithm:
     let counter = array.length
     let shuffled = ''
 
@@ -121,6 +119,9 @@ class App extends Component {
     }
 
     shuffled = array.join('')
+    if (shuffled === this.state.word.current) {
+      return this.shuffleWord(string)
+    }
     return shuffled
 
   }
@@ -192,6 +193,7 @@ class App extends Component {
         {loadedWord ?
           <GameFormContainer
             word={this.state.word.shuffled}
+            wordCurrent={this.state.word.current}
             shuffleWord={this.shuffleWord}
             validateWord={this.validateWord}
             game={this.state.game}
