@@ -173,11 +173,13 @@ class GameFormContainer extends Component {
 
     let score = this.props.player.score
     let level = this.props.player.level
+    const showSolved = !this.props.game.active && this.props.game.started
+    const wordVal = showSolved ? this.props.wordCurrent : this.state.word
 
-    const word = this.state.word.split('').map((char,i) => {
+    const word = wordVal.split('').map((char,i) => {
       return( <li className="word__letter" key={i}>{char}</li> )
     })
-
+    
     let guess = this.state.guess.join('')
 
     let notifications = this.state.notifications.map((item,i) => {
@@ -193,7 +195,7 @@ class GameFormContainer extends Component {
         <header className="site-header">
           <h1 className="logo">Text Twister JS</h1>
         </header>
-        <div className="word-row">
+        <div className={`word-row ${showSolved ? '--reset':''}`}>
           {this.props.game.started ? <div className="game-points">
             <span className="game-points__title">Points:</span>
             <span className="game-points__score">{score}</span>
