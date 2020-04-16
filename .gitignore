@@ -6,6 +6,7 @@
 dist/svg
 dist/index.html
 dist/path.js
+/dist/path.js
 /dev.html
 /validate-json.js
 yarn-error.log

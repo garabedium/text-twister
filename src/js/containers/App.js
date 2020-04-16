@@ -25,6 +25,7 @@ class App extends Component {
     }
     // Methods:
     this.getWords = this.getWords.bind(this)
+    this.getWordAnagrams = this.getWordAnagrams.bind(this)
     this.validateWord = this.validateWord.bind(this)
     this.selectWord = this.selectWord.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
@@ -64,9 +65,14 @@ class App extends Component {
           current: currentWord,
           shuffled: shuffledWord,
           charCodes: this.state.word.charCodes.concat(charCodes),
-          solved: solvedWord
+          solved: solvedWord,
+          anagrams: []
         }
       })
+    })
+    .then(() => {
+      console.log("*** get anagrams ***")
+      this.getWordAnagrams()
     })
   }
 
@@ -124,6 +130,24 @@ class App extends Component {
     }
     return shuffled
 
+  }
+
+  getWordAnagrams(){
+    const url = `/api/levelWord/anagrams/${this.state.word.current}`
+
+    fetch(url).then(response => {
+      if (response.ok) {
+        return response
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response.length >= 1){
+        let newState = Object.assign({},this.state)
+        newState.word.anagrams = newState.word.anagrams.concat(response)
+        this.setState(newState)
+      }
+    })
   }
 
   updateScore(word){
