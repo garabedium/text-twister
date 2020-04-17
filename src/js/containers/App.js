@@ -20,7 +20,8 @@ class App extends Component {
       word: {
         "current":"",
         "shuffled":"",
-        "charCodes":[]
+        "charCodes":[],
+        "anagrams":[]
       }
     }
     // Methods:
@@ -202,6 +203,12 @@ class App extends Component {
     return word
   }
 
+  replaceLetterUnderscore(word){
+    let output = word.split('').map(letter => {
+      return "_"
+    }).join(' ')
+    return output
+  }
 
   render(){
     let loadedWord = this.state.word.shuffled.length > 0
@@ -209,6 +216,10 @@ class App extends Component {
     let solvedWords = this.state.player.solved.map((word) => {
       return( <li key={word}>{word}</li> )
     })
+    let anagrams = this.state.word.anagrams.map((a) => {
+      return( <li key={a.id}>{this.replaceLetterUnderscore(a.anagram)}</li> )
+    })
+
     return(
       <React.Fragment>
 
@@ -228,6 +239,7 @@ class App extends Component {
           /> : null}
 
         {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
+        {this.state.game.started && anagrams.length > 0 ? <ul>{anagrams}</ul> : null}
       </div>
       </React.Fragment>
     )
