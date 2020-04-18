@@ -57,7 +57,7 @@ LevelWord.randomByRange = function (min,max,result) {
 };
 
 LevelWord.anagrams = function (word, result) {
-  sql.query(`SELECT * FROM levelword_anagrams WHERE level_word = ? `, word, 
+  sql.query(`SELECT * FROM levelword_anagrams WHERE level_word = ? ORDER BY char_length(anagram) DESC `, word, 
   function (err, res) {
     if(err) {
       console.log("error: ", err);
