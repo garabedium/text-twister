@@ -22,13 +22,15 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
     "css-loader": "^1.0.0",
+    "dotenv": "^8.1.0",
+    "html-webpack-plugin": "^4.0.4",
     "node-sass": "^4.9.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "dotenv": "^8.1.0",
-    "html-webpack-plugin": "^4.0.4"
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0"
   }
 }

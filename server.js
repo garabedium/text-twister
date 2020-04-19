@@ -1,5 +1,8 @@
 //server.js
 const express = require('express'),
+      webpack = require('webpack'),
+      webpackConfig = require('./webpack.config'),
+      compiler = webpack(webpackConfig),
       path = require('path'),
       distDir = path.join(__dirname, './dist'),
       appPage = path.join(distDir, 'index.html'),
@@ -7,6 +10,13 @@ const express = require('express'),
       { port, host, db, db_user, db_pwd } = require('./config'),
       app = express(),
       bodyParser = require('body-parser');
+
+/* Hot Module Replacement */
+app.use(require("webpack-dev-middleware")(compiler, {
+  noInfo: true, publicPath: webpackConfig.output.publicPath
+}));
+app.use(require("webpack-hot-middleware")(compiler));
+/***/
 
 const mc = mysql.createConnection({
   host: host,
