@@ -6,9 +6,10 @@ const htmlPlugin = new HtmlWebPackPlugin({
   filename: "./index.html"
 });
 module.exports = {
-  entry: {
-    path: './src/js/react.js'
-  },
+  entry: [
+    './src/js/react.js',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
+  ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: "[name].js"
@@ -26,6 +27,9 @@ module.exports = {
       }
     ]
   },
-  plugins: [htmlPlugin],
+  plugins: [
+    htmlPlugin,
+    new webpack.HotModuleReplacementPlugin()
+  ],
   devtool: 'eval-source-map',
 }

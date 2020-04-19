@@ -14,3 +14,4 @@ yarn.lock
 index-static.html
 .DS_Store
 .env
+dist/main.js
