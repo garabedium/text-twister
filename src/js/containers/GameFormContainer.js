@@ -175,6 +175,8 @@ class GameFormContainer extends Component {
     let level = this.props.player.level
     const showSolved = !this.props.game.active && this.props.game.started
     const wordVal = showSolved ? this.props.wordCurrent : this.state.word
+    const btnRestart = <Button text="Restart" />
+    const btnNextLevel = <Button text="Next Level" />
 
     const word = wordVal.split('').map((char,i) => {
       return( <li className="word__letter" key={i}>{char}</li> )
@@ -217,6 +219,9 @@ class GameFormContainer extends Component {
         </div>
 
         {notifications.length >= 1 ? <ul>{notifications}</ul> : null}
+
+        {this.props.game.started && !this.props.game.active && !this.props.player.levelup && btnRestart}
+        {this.props.game.started && !this.props.game.active && this.props.player.levelup && btnNextLevel}
 
         {this.props.game.started && this.props.game.active && 
           <form onSubmit={this.handleSubmit} className="game-form">
