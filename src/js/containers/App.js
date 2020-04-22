@@ -8,7 +8,8 @@ class App extends Component {
       game: {
         active: false,
         started: false,
-        reset: false
+        reset: false,
+        time: 10
       },
       player: {
         score: 0,
@@ -33,7 +34,9 @@ class App extends Component {
     this.updateScore = this.updateScore.bind(this)
     this.updateLevel = this.updateLevel.bind(this)
     this.updateGameState = this.updateGameState.bind(this)
+    this.updateShuffledState = this.updateShuffledState.bind(this)
     this.startGame = this.startGame.bind(this)
+    this.resetGame = this.resetGame.bind(this)
     this.convertWordToHash = this.convertWordToHash.bind(this)
     this.convertHashToWord = this.convertHashToWord.bind(this)
   }
@@ -54,8 +57,6 @@ class App extends Component {
     .then(response => {
 
       const currentWord = this.selectWord(response)
-      const currentWordIndex = response.some((item,i) => { if (item.word === currentWord) return i; })
-      response.splice(currentWordIndex,1)
       const shuffledWord = this.shuffleWord(currentWord)
       const charCodes = this.convertWordToHash(currentWord)
       const solvedWord = this.convertHashToWord(charCodes)
@@ -106,12 +107,14 @@ class App extends Component {
   }
 
   selectWord(words){
-    const selected = words[Math.round( Math.random() * (words.length-1))];
+    const array = words ? words : this.state.words
+    const selected = array[Math.round( Math.random() * (array.length-1))];
     return selected.word
   }
 
   // Take in a word and shuffle the letters:
   shuffleWord(string){
+    string = (string) ? string : this.state.word.shuffled
     const array = string.split('')
     let counter = array.length
     let shuffled = ''
@@ -145,7 +148,7 @@ class App extends Component {
     .then(response => {
       if (response.length >= 1){
         let newState = Object.assign({},this.state)
-        newState.word.anagrams = newState.word.anagrams.concat(response)
+        newState.word.anagrams = response
         this.setState(newState)
       }
     })
@@ -169,7 +172,6 @@ class App extends Component {
   }
 
   updateGameState(state){
-
     let newState = Object.assign({},this.state)
     const level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
     const reset = (!this.state.player.levelup) ? true : false
@@ -177,6 +179,7 @@ class App extends Component {
     newState.game.active = state
     newState.game.reset = reset
     newState.player.level = level
+    newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0
 
     this.setState(newState)
   }
@@ -185,6 +188,30 @@ class App extends Component {
     let newState = Object.assign({},this.state)
     newState.game.active = true
     newState.game.started = true
+    return this.setState(newState)
+  }
+
+  resetGame(){
+    let newState = Object.assign({},this.state)
+    const currentWord = this.selectWord()
+    const shuffledWord = this.shuffleWord(currentWord)
+    const charCodes = this.convertWordToHash(currentWord)
+    newState.word.current = currentWord
+    newState.word.charCodes = charCodes
+    newState.word.shuffled = shuffledWord
+    newState.player.solved = []
+    newState.game.active = true
+    newState.game.started = true
+    newState.game.reset = false
+
+    this.getWordAnagrams()
+
+    return this.setState(newState)
+  }
+
+  updateShuffledState(){
+    let newState = Object.assign({},this.state)
+    newState.word.shuffled = this.shuffleWord()
     return this.setState(newState)
   }
 
@@ -235,7 +262,9 @@ class App extends Component {
             player={this.state.player}
             charCodes={this.state.word.charCodes}
             updateGameState={this.updateGameState}
+            updateShuffledState={this.updateShuffledState}
             startGame={this.startGame}
+            resetGame={this.resetGame}
           /> : null}
 
         {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
