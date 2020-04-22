@@ -12,8 +12,7 @@ class GameFormContainer extends Component {
       guess: [],
       charCodes: [],
       charCodesUsed: [],
-      notifications: [],
-      seconds: 10
+      notifications: []
     }
     // Class Methods:
     this.handleChange = this.handleChange.bind(this)
@@ -23,6 +22,7 @@ class GameFormContainer extends Component {
     this.shuffleWord = this.shuffleWord.bind(this)
     this.addNotification = this.addNotification.bind(this)
     this.startTimer = this.startTimer.bind(this)
+    this.resetTimer = this.resetTimer.bind(this)
   }
 
   componentDidMount(){
@@ -36,7 +36,8 @@ class GameFormContainer extends Component {
 
     this.setState({
       word: this.props.word,
-      charCodes: this.state.charCodes.concat(charCodes)
+      charCodes: this.state.charCodes.concat(charCodes),
+      seconds: this.props.game.time
     })
   }
 
@@ -57,6 +58,12 @@ class GameFormContainer extends Component {
     }
   }
 
+  resetTimer(){
+    let newState = Object.assign({},this.state)
+    newState.seconds = this.props.game.time
+    return this.setState(newState)    
+  }
+
   shuffleWord(){
     const shuffled = this.props.shuffleWord(this.state.word)
     return this.setState({ word: shuffled })
@@ -65,7 +72,7 @@ class GameFormContainer extends Component {
   // Shuffle word on spacebar press:
   handleSpacebarPress(){
     document.body.onkeyup = (e) => {
-      return (e.keyCode === 32) ? this.shuffleWord() : false
+      return (e.keyCode === 32) ? this.props.updateShuffledState() : false
     }
   }
 
@@ -173,10 +180,12 @@ class GameFormContainer extends Component {
 
     let score = this.props.player.score
     let level = this.props.player.level
-    const showSolved = !this.props.game.active && this.props.game.started
-    const wordVal = showSolved ? this.props.wordCurrent : this.state.word
-    const btnRestart = <Button text="Restart" />
-    const btnNextLevel = <Button text="Next Level" />
+    const reset = this.props.game.reset
+
+    // let wordVal = reset ? this.props.wordCurrent : this.state.word
+    let wordVal = reset ? this.props.wordCurrent : this.props.word
+    const btnRestartText = this.props.player.levelup ? "Next Level" : "Restart"
+    const btnRestart = <Button handleClick={this.props.resetGame} text={btnRestartText} />
 
     const word = wordVal.split('').map((char,i) => {
       return( <li className="word__letter" key={i}>{char}</li> )
@@ -192,12 +201,16 @@ class GameFormContainer extends Component {
       this.startTimer()
     }
 
+    // if (this.props.game.active && this.props.game.started && this.state.seconds === 0){
+    //   // this.resetTimer() 
+    // }
+
     return(
       <React.Fragment>
         <header className="site-header">
           <h1 className="logo">Text Twister JS</h1>
         </header>
-        <div className={`word-row ${showSolved ? '--reset':''}`}>
+        <div className={`word-row ${reset ? '--reset':''}`}>
           {this.props.game.started ? <div className="game-points">
             <span className="game-points__title">Points:</span>
             <span className="game-points__score">{score}</span>
@@ -220,8 +233,7 @@ class GameFormContainer extends Component {
 
         {notifications.length >= 1 ? <ul>{notifications}</ul> : null}
 
-        {this.props.game.started && !this.props.game.active && !this.props.player.levelup && btnRestart}
-        {this.props.game.started && !this.props.game.active && this.props.player.levelup && btnNextLevel}
+        {reset && btnRestart}
 
         {this.props.game.started && this.props.game.active && 
           <form onSubmit={this.handleSubmit} className="game-form">

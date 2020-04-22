@@ -51,6 +51,7 @@ LevelWord.randomByRange = function (min,max,result) {
       console.log("error: ", err);
       result(err, null);
     } else {
+      res = res.map((obj) => ({ ...obj, used: false }))
       result(null, res);
     }
   });
