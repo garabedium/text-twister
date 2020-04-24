@@ -218,7 +218,7 @@ class App extends Component {
       newState.word.lettersUsed.push(key)
 
       return this.setState(newState)
-    } else {
+    } else if (key !== 'Enter'){
       event.preventDefault()
     }
 
