@@ -20,9 +20,9 @@ class GameFormContainer extends Component {
     this.startTimer = this.startTimer.bind(this)
     this.resetTimer = this.resetTimer.bind(this)
   }
-  // componentDidMount(){
+  componentDidMount(){
   //   console.log("*** gameForm mounted ***")
-  //   this.handleSpacebarPress()
+    this.handleSpacebarPress()
 
   //   // let charCodes
   //   // if (this.state.charCodes.length === 0 && this.state.charCodesUsed.length === 0){
@@ -34,7 +34,7 @@ class GameFormContainer extends Component {
   //   //   charCodes: this.state.charCodes.concat(charCodes),
   //   //   seconds: this.props.game.time
   //   // })
-  // }
+  }
 
   startTimer(){
     let timer
