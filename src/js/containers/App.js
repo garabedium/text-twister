@@ -9,7 +9,9 @@ class App extends Component {
         active: false,
         started: false,
         reset: false,
-        time: 10
+        guess: [],
+        charCodesUsed: [],
+        time: 60
       },
       player: {
         score: 0,
@@ -22,6 +24,8 @@ class App extends Component {
         "current":"",
         "shuffled":"",
         "charCodes":[],
+        "letters":[],
+        "lettersUsed":[],
         "anagrams":[]
       }
     }
@@ -37,6 +41,8 @@ class App extends Component {
     this.updateShuffledState = this.updateShuffledState.bind(this)
     this.startGame = this.startGame.bind(this)
     this.resetGame = this.resetGame.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleBackspace = this.handleBackspace.bind(this)
     this.convertWordToHash = this.convertWordToHash.bind(this)
     this.convertHashToWord = this.convertHashToWord.bind(this)
   }
@@ -55,22 +61,29 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(response => {
-
-      const currentWord = this.selectWord(response)
-      const shuffledWord = this.shuffleWord(currentWord)
-      const charCodes = this.convertWordToHash(currentWord)
-      const solvedWord = this.convertHashToWord(charCodes)
-
-      this.setState({
-        words: this.state.words.concat(response),
-        word: {
-          current: currentWord,
-          shuffled: shuffledWord,
-          charCodes: this.state.word.charCodes.concat(charCodes),
-          solved: solvedWord,
-          anagrams: []
-        }
-      })
+      let newState = Object.assign({},this.state)
+      newState.words = response
+      newState.word.current = this.selectWord(response)
+      newState.word.shuffled = this.shuffleWord(newState.word.current)
+      // newState.word.charCodes = this.convertWordToHash(newState.word.current)
+      newState.word.solved = this.convertHashToWord(newState.word.charCodes)
+      newState.word.letters = newState.word.shuffled.split('')
+      // const currentWord = this.selectWord(response)
+      // const shuffledWord = this.shuffleWord(currentWord)
+      // const charCodes = this.convertWordToHash(currentWord)
+      // const solvedWord = this.convertHashToWord(charCodes)
+      this.setState(newState)
+      // this.setState({
+      //   words: this.state.words.concat(response),
+      //   word: {
+      //     current: currentWord,
+      //     shuffled: shuffledWord,
+      //     charCodes: this.state.word.charCodes.concat(charCodes),
+      //     letters: shuffledWord.split(''),
+      //     solved: solvedWord,
+      //     anagrams: []
+      //   }
+      // })
     })
     .then(() => {
       console.log("*** get anagrams ***")
@@ -191,7 +204,37 @@ class App extends Component {
     return this.setState(newState)
   }
 
-  resetGame(){
+  handleKeyPress(event){
+    let newState = Object.assign({},this.state)
+    const letters = newState.word.letters
+    const key = event.key
+
+    if (letters.indexOf(key) > -1 && key !== 'Enter') {
+      const foundIndex = letters.indexOf(key)
+
+      // Remove letter from letters, add to lettersUsed
+      letters.splice(foundIndex,1)
+      newState.word.lettersUsed.push(key)
+
+      return this.setState(newState)
+    } else {
+      event.preventDefault()
+    }
+
+  }
+
+  handleBackspace(event){
+    let newState = Object.assign({},this.state)
+    const lastLetter = newState.word.lettersUsed.pop()
+    newState.word.lettersUsed.splice(-1)
+    // letter not getting concated / pushed to newState.word.letters
+    newState.word.letters.concat(lastLetter)
+    debugger;
+    return this.setState(newState)
+  }
+
+  resetGame(event){
+    debugger;
     let newState = Object.assign({},this.state)
     const currentWord = this.selectWord()
     const shuffledWord = this.shuffleWord(currentWord)
@@ -237,6 +280,56 @@ class App extends Component {
     return output
   }
 
+  // handleInput(event){
+  //   // let newState = Object.assign({},this.state)
+  //   debugger;
+    // if (event && event.type === "keypress"){
+      // let charCodes = newState.game.charCodesUsed
+      // const charCode = event.charCode
+      // const char = String.fromCharCode(charCode)
+      // const keyEnter = 13
+
+      // // Only allow chars that are in the word:
+      // if (charCodes.indexOf(charCode) < 0 && charCode !== keyEnter){
+      //   event.preventDefault()
+      // } else if (charCode !== keyEnter){
+
+      //   const index = charCodes.indexOf(charCode)
+      //   charCodes.splice(index,1);
+
+      //   newState.game.guess.concat(char)
+      //   newState.game.charCodesUsed.concat(charCode)
+      //   // return this.setState(newState)
+      //   // this.setState({
+      //   //   guess: this.state.guess.concat(char),
+      //   //   charCodes: charCodes,
+      //   //   charCodesUsed: this.state.word.charCodesUsed.concat(charCode)
+      //   // })
+      // }
+
+  //   // }
+
+  //   // if (event && event.type === "keydown"){
+  //   //   // future: keyCode is deprecated
+  //   //   const keyCode = event.keyCode
+  //   //   const keyBackspace = 8
+  //   //   let charCodesUsed = newState.game.charCodesUsed
+
+  //   //   if (keyCode === keyBackspace && this.state.charCodesUsed.length >= 1){
+  //   //     const lastChar = newState.game.guess.pop().charCodeAt()
+  //   //     charCodesUsed.splice(-1)
+
+  //   //     newState.word.charCodes.concat(lastChar)
+
+  //   //     // this.setState({
+  //   //     //   charCodes: this.state.charCodes.concat(lastChar),
+  //   //     //   charCodesUsed: charCodesUsed
+  //   //     // })
+  //   //   }
+  //   // }
+  //   // return this.setState(newState)  
+  // }
+
   render(){
     let loadedWord = this.state.word.shuffled.length > 0
     let score = this.state.player.score
@@ -250,11 +343,15 @@ class App extends Component {
     return(
       <React.Fragment>
 
-      <div className="game">
+      <main className="game">
+
+        <header className="site-header">
+          <h1 className="logo">Text Twister JS</h1>
+        </header>
 
         {loadedWord ?
           <GameFormContainer
-            word={this.state.word.shuffled}
+            word={this.state.word}
             wordCurrent={this.state.word.current}
             shuffleWord={this.shuffleWord}
             validateWord={this.validateWord}
@@ -265,11 +362,14 @@ class App extends Component {
             updateShuffledState={this.updateShuffledState}
             startGame={this.startGame}
             resetGame={this.resetGame}
+            handleKeyPress={this.handleKeyPress}
+            handleBackspace={this.handleBackspace}
+            guess={this.state.game.guess}
           /> : null}
 
         {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
         {this.state.game.started && anagrams.length > 0 ? <ul>{anagrams}</ul> : null}
-      </div>
+      </main>
       </React.Fragment>
     )
   }

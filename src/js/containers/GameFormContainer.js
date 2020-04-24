@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import SplashPage from './SplashPage'
-import Modal from '../components/Modal'
 import FormInput from '../components/FormInput'
 import Button from '../components/Button'
 
@@ -8,15 +6,13 @@ class GameFormContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      word:"",
-      guess: [],
-      charCodes: [],
-      charCodesUsed: [],
-      notifications: []
+      word: this.props.word,
+      notifications: [],
+      seconds: this.props.game.time
     }
     // Class Methods:
-    this.handleChange = this.handleChange.bind(this)
-    this.handleKeypress = this.handleKeypress.bind(this)
+    this.handleInput = this.handleInput.bind(this)
+    // this.handleKeypress = this.handleKeypress.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.shuffleWord = this.shuffleWord.bind(this)
@@ -24,22 +20,21 @@ class GameFormContainer extends Component {
     this.startTimer = this.startTimer.bind(this)
     this.resetTimer = this.resetTimer.bind(this)
   }
+  // componentDidMount(){
+  //   console.log("*** gameForm mounted ***")
+  //   this.handleSpacebarPress()
 
-  componentDidMount(){
-    console.log("*** gameForm mounted ***")
-    this.handleSpacebarPress()
+  //   // let charCodes
+  //   // if (this.state.charCodes.length === 0 && this.state.charCodesUsed.length === 0){
+  //   //   charCodes = this.props.charCodes
+  //   // }
 
-    let charCodes
-    if (this.state.charCodes.length === 0 && this.state.charCodesUsed.length === 0){
-      charCodes = this.props.charCodes
-    }
-
-    this.setState({
-      word: this.props.word,
-      charCodes: this.state.charCodes.concat(charCodes),
-      seconds: this.props.game.time
-    })
-  }
+  //   // this.setState({
+  //   //   word: this.props.word,
+  //   //   charCodes: this.state.charCodes.concat(charCodes),
+  //   //   seconds: this.props.game.time
+  //   // })
+  // }
 
   startTimer(){
     let timer
@@ -78,7 +73,7 @@ class GameFormContainer extends Component {
 
   // Check if word was already solved:
   isDuplicateWord(){
-    const guess = this.state.guess.join('')
+    const guess = this.props.game.guess.join('')
     return this.props.player.solved.indexOf(guess) > -1
   }
 
@@ -86,9 +81,18 @@ class GameFormContainer extends Component {
     return charCodes.concat(charCodesUsed)
   }
 
+  handleInput(event){
+    if (event.type === "keypress") {
+      return this.props.handleKeyPress(event)
+    }
+    if (event.type == "keydown" && event.key == 'Backspace' && this.props.word.lettersUsed.length > 0) {
+      return this.props.handleBackspace(event)
+    }
+  }
+
   handleSubmit(event){
     event.preventDefault()
-    const guess = this.state.guess.join('')
+    const guess = this.props.word.lettersUsed.join('')
 
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
@@ -115,50 +119,50 @@ class GameFormContainer extends Component {
     // }
   }
 
-  handleChange(event){
+  // handleChange(event){
 
-    if (event.type === "keypress"){
+  //   if (event.type === "keypress"){
 
-      let charCodes = this.state.charCodes
-      const charCode = event.charCode
-      const char = String.fromCharCode(charCode)
-      const keyEnter = 13
+  //     let charCodes = this.state.charCodes
+  //     const charCode = event.charCode
+  //     const char = String.fromCharCode(charCode)
+  //     const keyEnter = 13
 
-      // Only allow chars that are in the word:
-      if (charCodes.indexOf(charCode) < 0 && charCode !== keyEnter){
-        event.preventDefault()
-      } else if (charCode !== keyEnter){
+  //     // Only allow chars that are in the word:
+  //     if (charCodes.indexOf(charCode) < 0 && charCode !== keyEnter){
+  //       event.preventDefault()
+  //     } else if (charCode !== keyEnter){
 
-        const index = charCodes.indexOf(charCode)
-        charCodes.splice(index,1);
+  //       const index = charCodes.indexOf(charCode)
+  //       charCodes.splice(index,1);
 
-        this.setState({
-          guess: this.state.guess.concat(char),
-          charCodes: charCodes,
-          charCodesUsed: this.state.charCodesUsed.concat(charCode)
-        })
-      }
+  //       this.setState({
+  //         guess: this.state.guess.concat(char),
+  //         charCodes: charCodes,
+  //         charCodesUsed: this.state.charCodesUsed.concat(charCode)
+  //       })
+  //     }
 
-    }
+  //   }
 
-    if (event.type === "keydown"){
-      // future: keyCode is deprecated
-      const keyCode = event.keyCode
-      const keyBackspace = 8
-      let charCodesUsed = this.state.charCodesUsed
+    // if (event.type === "keydown"){
+    //   // future: keyCode is deprecated
+    //   const keyCode = event.keyCode
+    //   const keyBackspace = 8
+    //   let charCodesUsed = this.state.charCodesUsed
 
-      if (keyCode === keyBackspace && this.state.charCodesUsed.length >= 1){
-        const lastChar = this.state.guess.pop().charCodeAt()
-        charCodesUsed.splice(-1)
+    //   if (keyCode === keyBackspace && this.state.charCodesUsed.length >= 1){
+    //     const lastChar = this.state.guess.pop().charCodeAt()
+    //     charCodesUsed.splice(-1)
 
-        this.setState({
-          charCodes: this.state.charCodes.concat(lastChar),
-          charCodesUsed: charCodesUsed
-        })
-      }
-    }
+    //     this.setState({
+    //       charCodes: this.state.charCodes.concat(lastChar),
+    //       charCodesUsed: charCodesUsed
+    //     })
+    //   }
+    // }
 
-  }
+  // }
 
   handleClear(){
     const charCodes = this.state.charCodes.concat(this.state.charCodesUsed)
@@ -183,7 +187,7 @@ class GameFormContainer extends Component {
     const reset = this.props.game.reset
 
     // let wordVal = reset ? this.props.wordCurrent : this.state.word
-    let wordVal = reset ? this.props.wordCurrent : this.props.word
+    let wordVal = reset ? this.props.word.current : this.props.word.shuffled
     const btnRestartText = this.props.player.levelup ? "Next Level" : "Restart"
     const btnRestart = <Button handleClick={this.props.resetGame} text={btnRestartText} />
 
@@ -191,15 +195,15 @@ class GameFormContainer extends Component {
       return( <li className="word__letter" key={i}>{char}</li> )
     })
     
-    let guess = this.state.guess.join('')
+    let guess = this.props.word.lettersUsed.join('')
 
     let notifications = this.state.notifications.map((item,i) => {
       return (<li key={i}>{item.text}</li>)
     })
 
-    if (this.props.game.active && this.state.seconds === 10){
-      this.startTimer()
-    }
+    // if (this.props.game.active && this.state.seconds === 10){
+    //   this.startTimer()
+    // }
 
     // if (this.props.game.active && this.props.game.started && this.state.seconds === 0){
     //   // this.resetTimer() 
@@ -207,9 +211,6 @@ class GameFormContainer extends Component {
 
     return(
       <React.Fragment>
-        <header className="site-header">
-          <h1 className="logo">Text Twister JS</h1>
-        </header>
         <div className={`word-row ${reset ? '--reset':''}`}>
           {this.props.game.started ? <div className="game-points">
             <span className="game-points__title">Points:</span>
@@ -241,7 +242,7 @@ class GameFormContainer extends Component {
               placeholder="Guess a word..."
               name="guess"
               content={guess}
-              handleChange={this.handleChange}
+              handleChange={this.handleInput}
               class="game-form__input"
             />
             <Button
