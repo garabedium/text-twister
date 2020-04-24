@@ -73,7 +73,7 @@ class GameFormContainer extends Component {
 
   // Check if word was already solved:
   isDuplicateWord(){
-    const guess = this.props.game.guess.join('')
+    const guess = this.props.word.lettersUsed.join('')
     return this.props.player.solved.indexOf(guess) > -1
   }
 
@@ -93,13 +93,13 @@ class GameFormContainer extends Component {
   handleSubmit(event){
     event.preventDefault()
     const guess = this.props.word.lettersUsed.join('')
-
+    console.log(guess)
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
         this.addNotification("You already solved that word!")
       } else {
         this.props.validateWord(guess)
-        this.handleClear()
+        this.props.handleClear()
       }
     } else {
       return false
@@ -164,14 +164,14 @@ class GameFormContainer extends Component {
 
   // }
 
-  handleClear(){
-    const charCodes = this.state.charCodes.concat(this.state.charCodesUsed)
-    this.setState({
-      guess: [],
-      charCodes: charCodes,
-      charCodesUsed: []
-    })
-  }
+  // handleClear(){
+  //   const charCodes = this.state.charCodes.concat(this.state.charCodesUsed)
+  //   this.setState({
+  //     guess: [],
+  //     charCodes: charCodes,
+  //     charCodesUsed: []
+  //   })
+  // }
 
   addNotification(text){
     // To do:

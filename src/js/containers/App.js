@@ -43,6 +43,7 @@ class App extends Component {
     this.resetGame = this.resetGame.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleBackspace = this.handleBackspace.bind(this)
+    this.handleClear = this.handleClear.bind(this)
     this.convertWordToHash = this.convertWordToHash.bind(this)
     this.convertHashToWord = this.convertHashToWord.bind(this)
   }
@@ -229,8 +230,14 @@ class App extends Component {
     return this.setState(newState)
   }
 
+  handleClear(){
+    let newState = Object.assign({},this.state)
+    newState.word.letters = newState.word.letters.concat(newState.word.lettersUsed)
+    newState.word.lettersUsed = []
+    return this.setState(newState)
+  }
+
   resetGame(event){
-    debugger;
     let newState = Object.assign({},this.state)
     const currentWord = this.selectWord()
     const shuffledWord = this.shuffleWord(currentWord)
@@ -360,6 +367,7 @@ class App extends Component {
             resetGame={this.resetGame}
             handleKeyPress={this.handleKeyPress}
             handleBackspace={this.handleBackspace}
+            handleClear={this.handleClear}
             guess={this.state.game.guess}
           /> : null}
 
