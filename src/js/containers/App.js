@@ -225,11 +225,7 @@ class App extends Component {
 
   handleBackspace(event){
     let newState = Object.assign({},this.state)
-    const lastLetter = newState.word.lettersUsed.pop()
-    newState.word.lettersUsed.splice(-1)
-    // letter not getting concated / pushed to newState.word.letters
-    newState.word.letters.concat(lastLetter)
-    debugger;
+    newState.word.letters.push(newState.word.lettersUsed.pop())
     return this.setState(newState)
   }
 
