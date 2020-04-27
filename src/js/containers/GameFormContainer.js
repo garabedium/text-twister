@@ -13,42 +13,41 @@ class GameFormContainer extends Component {
     this.handleInput = this.handleInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
-    this.shuffleWord = this.shuffleWord.bind(this)
+    // this.shuffleWord = this.shuffleWord.bind(this)
     this.addNotification = this.addNotification.bind(this)
-    this.startTimer = this.startTimer.bind(this)
-    this.resetTimer = this.resetTimer.bind(this)
+    // this.resetTimer = this.resetTimer.bind(this)
   }
   componentDidMount(){
     console.log("*** gameForm mounted ***")
     this.handleSpacebarPress()
   }
 
-  startTimer(){
-    let timer
+  // startTimer(){
+  //   let timer
 
-    if (this.state.seconds > 0){
-      timer = setInterval(() => countDown(), 1000);
-    }
+  //   if (this.state.seconds > 0){
+  //     timer = setInterval(() => countDown(), 1000);
+  //   }
 
-    let countDown = () => {
-      let seconds = this.state.seconds - 1
-      this.setState({ seconds: seconds })
-      if (seconds === 0){
-        clearInterval(timer)
-        this.props.updateGameState(false)
-      }
-    }
-  }
+  //   let countDown = () => {
+  //     let seconds = this.state.seconds - 1
+  //     this.setState({ seconds: seconds })
+  //     if (seconds === 0){
+  //       clearInterval(timer)
+  //       this.props.updateGameState(false)
+  //     }
+  //   }
+  // }
 
-  resetTimer(){
-    let newState = Object.assign({},this.state)
-    newState.seconds = this.props.game.time
-    return this.setState(newState)    
-  }
+  // resetTimer(){
+  //   let newState = Object.assign({},this.state)
+  //   newState.seconds = this.props.game.time
+  //   return this.setState(newState)
+  // }
 
-  shuffleWord(){
-    return this.props.updateShuffledState()
-  }
+  // shuffleWord(){
+  //   return this.props.updateShuffledState()
+  // }
 
   // Shuffle word on spacebar press:
   handleSpacebarPress(){
@@ -103,7 +102,7 @@ class GameFormContainer extends Component {
     let guess = this.props.word.lettersUsed.join('')
 
     const btnRestartText = this.props.player.levelup ? "Next Level" : "Restart"
-    const btnRestart = <Button handleClick={this.props.resetGame} text={btnRestartText} />
+    const btnRestart = <Button handleClick={this.props.restartGame} text={btnRestartText} />
 
     const word = wordVal.split('').map((char,i) => {
       return( <li className="word__letter" key={i}>{char}</li> )
@@ -113,23 +112,24 @@ class GameFormContainer extends Component {
       return (<li key={i}>{item.text}</li>)
     })
 
-    if (this.props.game.active && this.state.seconds === 10){
-      this.startTimer()
+    if (this.props.game.active && this.props.seconds === 10){
+      // this.props.startTimer()
     }
 
-    // if (this.props.game.active && this.props.game.started && this.state.seconds === 0){
-    //   // this.resetTimer() 
-    // }
+    const { timerTime, timerStart, timerOn } = this.props;
+    // let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);    
+    let seconds = timerTime
 
     return(
       <React.Fragment>
+        
         <div className={`word-row ${reset ? '--reset':''}`}>
           {this.props.game.started ? <div className="game-points">
             <span className="game-points__title">Points:</span>
             <span className="game-points__score">{score}</span>
           </div> : null}
           <div className="game-timer">
-            {this.props.game.started ? <span>{this.state.seconds}</span> : 
+            {this.props.game.started ? <span>{this.props.seconds}</span> : 
               <Button
                 text=">"
                 handleClick={this.props.startGame}
@@ -159,7 +159,7 @@ class GameFormContainer extends Component {
             />
             <Button
               text="Shuffle"
-              handleClick={this.shuffleWord}
+              handleClick={this.props.shuffleWord}
               class="game-form__button game-form__button--shuffle"
             />
             <Button
@@ -176,3 +176,28 @@ class GameFormContainer extends Component {
 }
 
 export default GameFormContainer
+
+// <div className="Countdown">
+// <div className="Countdown-header">Countdown</div>
+// <div className="Countdown-label">Seconds</div>
+// <div className="Countdown-display">
+
+//   <div className="Countdown-time">
+//     {seconds}
+//   </div>
+
+// </div>
+
+// {timerOn === false && (timerStart === 0 || timerTime === timerStart) && (
+//   <button className="Button-start" onClick={this.props.startTimer}>
+//     Start
+//   </button>
+// )}
+
+// {(timerOn === false || timerTime < 1) &&
+//   (timerStart !== timerTime && timerStart > 0) && (
+//     <button className="Button-reset" onClick={this.resetTimer}>
+//       Reset
+//     </button>
+//   )}
+// </div>

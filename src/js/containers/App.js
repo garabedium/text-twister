@@ -5,11 +5,16 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
+      timerOn: false,
+      timerTime: 20,
+      timerStart: 20,      
+      seconds: 10,
       game: {
         active: false,
         started: false,
         reset: false,
-        time: 10
+        seconds: 20,
+        time: 20
       },
       player: {
         score: 0,
@@ -37,17 +42,20 @@ class App extends Component {
     this.updateGameState = this.updateGameState.bind(this)
     this.updateShuffledState = this.updateShuffledState.bind(this)
     this.startGame = this.startGame.bind(this)
-    this.resetGame = this.resetGame.bind(this)
+    this.restartGame = this.restartGame.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleBackspace = this.handleBackspace.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.startTimer = this.startTimer.bind(this)
   }
 
   componentDidMount(){
     console.log("*** app mounted ***")
     this.getWords()
   }
-
+  componentWillUnmount() {
+    clearInterval(this.startTimer())
+  }
   getWords(){
     const url = "/api/levelWord/range/5&6"
     fetch(url).then(response => {
@@ -167,12 +175,13 @@ class App extends Component {
   updateGameState(state){
     let newState = Object.assign({},this.state)
     const level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
-    const reset = (!this.state.player.levelup) ? true : false
+    // const reset = (!this.state.player.levelup) ? true : false
 
     newState.game.active = state
-    newState.game.reset = reset
+    newState.game.reset = true
     newState.player.level = level
     newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0
+    // newState.game.restart = false
 
     this.setState(newState)
   }
@@ -216,7 +225,7 @@ class App extends Component {
     return this.setState(newState)
   }
 
-  resetGame(event){
+  restartGame(event){
     let newState = Object.assign({},this.state)
     const currentWord = this.selectWord()
 
@@ -226,11 +235,53 @@ class App extends Component {
     newState.game.active = true
     newState.game.started = true
     newState.game.reset = false
+    newState.game.restart = true
+    newState.seconds = 10
 
     this.getWordAnagrams()
 
     return this.setState(newState)
   }
+
+  startTimer(){
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime
+    });
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 1;
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime
+        });
+      } else {
+        clearInterval(this.timer);
+        this.setState({ timerOn: false });
+        // alert("Countdown ended");
+      }
+    }, 1000);
+  };  
+
+  // startTimer(){
+  //   let timer
+  //   let newState = Object.assign({},this.state)
+
+  //   if (this.state.game.seconds > 0){
+  //     timer = setInterval(() => countDown(), 1000);
+  //   }
+
+  //   let countDown = () => {
+  //     newState.game.seconds -= 1
+  //     // this.setState({ seconds: seconds })
+  //     this.setState(newState)
+
+  //     if (this.state.game.seconds == 0){
+  //       clearInterval(timer)
+  //       this.updateGameState(false)
+  //     }
+  //   }
+  // }
 
   updateShuffledState(){
     let newState = Object.assign({},this.state)
@@ -255,9 +306,11 @@ class App extends Component {
       return( <li key={a.id}>{this.replaceLetterUnderscore(a.anagram)}</li> )
     })
 
+
     return(
       <React.Fragment>
       <main className="game">
+
         <header className="site-header">
           <h1 className="logo">Text Twister JS</h1>
         </header>
@@ -272,11 +325,16 @@ class App extends Component {
             player={this.state.player}
             updateGameState={this.updateGameState}
             updateShuffledState={this.updateShuffledState}
+            startTimer={this.startTimer}
             startGame={this.startGame}
-            resetGame={this.resetGame}
+            restartGame={this.restartGame}
             handleKeyPress={this.handleKeyPress}
             handleBackspace={this.handleBackspace}
             handleClear={this.handleClear}
+            seconds={this.state.seconds}
+            timerTime={this.state.timerTime}
+            timerOn={this.state.timerOn}
+            timerStart={this.state.timerStart}
           /> : null}
 
         {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
