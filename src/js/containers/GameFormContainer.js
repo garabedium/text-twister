@@ -94,6 +94,7 @@ class GameFormContainer extends Component {
   }
 
   render(){
+    const { timerTime, timerStart, timerOn } = this.props;
 
     let score = this.props.player.score
     let level = this.props.player.level
@@ -112,12 +113,10 @@ class GameFormContainer extends Component {
       return (<li key={i}>{item.text}</li>)
     })
 
-    if (this.props.game.active && this.props.seconds === 10){
-      // this.props.startTimer()
+    if (this.props.game.active && timerOn === false && (timerTime === timerStart)){
+      this.props.startTimer()
     }
 
-    const { timerTime, timerStart, timerOn } = this.props;
-    // let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);    
     let seconds = timerTime
 
     return(
@@ -129,7 +128,7 @@ class GameFormContainer extends Component {
             <span className="game-points__score">{score}</span>
           </div> : null}
           <div className="game-timer">
-            {this.props.game.started ? <span>{this.props.seconds}</span> : 
+            {this.props.game.started ? <span>{seconds}</span> : 
               <Button
                 text=">"
                 handleClick={this.props.startGame}
@@ -176,28 +175,3 @@ class GameFormContainer extends Component {
 }
 
 export default GameFormContainer
-
-// <div className="Countdown">
-// <div className="Countdown-header">Countdown</div>
-// <div className="Countdown-label">Seconds</div>
-// <div className="Countdown-display">
-
-//   <div className="Countdown-time">
-//     {seconds}
-//   </div>
-
-// </div>
-
-// {timerOn === false && (timerStart === 0 || timerTime === timerStart) && (
-//   <button className="Button-start" onClick={this.props.startTimer}>
-//     Start
-//   </button>
-// )}
-
-// {(timerOn === false || timerTime < 1) &&
-//   (timerStart !== timerTime && timerStart > 0) && (
-//     <button className="Button-reset" onClick={this.resetTimer}>
-//       Reset
-//     </button>
-//   )}
-// </div>

@@ -7,14 +7,11 @@ class App extends Component {
     this.state = {
       timerOn: false,
       timerTime: 20,
-      timerStart: 20,      
-      seconds: 10,
+      timerStart: 20,
       game: {
         active: false,
         started: false,
-        reset: false,
-        seconds: 20,
-        time: 20
+        reset: false
       },
       player: {
         score: 0,
@@ -54,7 +51,7 @@ class App extends Component {
     this.getWords()
   }
   componentWillUnmount() {
-    clearInterval(this.startTimer())
+    // clearInterval(this.startTimer())
   }
   getWords(){
     const url = "/api/levelWord/range/5&6"
@@ -172,16 +169,15 @@ class App extends Component {
     return this.state.player.level += 1
   }
 
-  updateGameState(state){
+  updateGameState(){
     let newState = Object.assign({},this.state)
     const level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
-    // const reset = (!this.state.player.levelup) ? true : false
 
-    newState.game.active = state
+    newState.game.active = false
     newState.game.reset = true
     newState.player.level = level
-    newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0
-    // newState.game.restart = false
+    newState.player.score = this.state.player.score
+    newState.timerOn = false
 
     this.setState(newState)
   }
@@ -231,12 +227,16 @@ class App extends Component {
 
     newState.word.current = currentWord
     newState.word.shuffled = this.shuffleWord(currentWord)
+    newState.word.letters = newState.word.shuffled.split('')
     newState.player.solved = []
+    newState.player.level = (this.state.player.levelup) ? this.state.player.level : 0
+    newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0    
+    newState.player.levelup = false    
     newState.game.active = true
     newState.game.started = true
     newState.game.reset = false
     newState.game.restart = true
-    newState.seconds = 10
+    newState.timerTime = this.state.timerStart
 
     this.getWordAnagrams()
 
@@ -257,8 +257,8 @@ class App extends Component {
         });
       } else {
         clearInterval(this.timer);
-        this.setState({ timerOn: false });
-        // alert("Countdown ended");
+        // this.setState({ timerOn: false });
+        this.updateGameState()
       }
     }, 1000);
   };  
