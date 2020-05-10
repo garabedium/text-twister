@@ -283,8 +283,8 @@ class App extends Component {
     let loadedWord = this.state.word.shuffled.length > 0
     let score = this.state.player.score
     let anagrams = this.state.word.anagrams.map((a) => {
-      let word = (a.solved) ? a.anagram : this.replaceLetterUnderscore(a.anagram);
-      return( <li key={a.id}>{word}</li> )
+      let word = (a.solved || this.state.game.reset) ? a.anagram : this.replaceLetterUnderscore(a.anagram)
+    return( <li key={a.id}>{word}</li> )
     })
 
     return(
@@ -318,6 +318,7 @@ class App extends Component {
           /> : null}
 
         {this.state.game.started && anagrams.length > 0 ? <ul>{anagrams}</ul> : null}
+
       </main>
       </React.Fragment>
     )
