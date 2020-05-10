@@ -64,6 +64,7 @@ LevelWord.anagrams = function (word, result) {
       console.log("error: ", err);
       result(err, null);
     } else {
+      res = res.map((obj) => ({...obj, solved: false}))
       result(null, res);
     }
   });

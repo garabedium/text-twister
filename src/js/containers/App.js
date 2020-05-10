@@ -88,18 +88,21 @@ class App extends Component {
     .then(response => {
 
       if (response.length >= 1){
-        const updatedScore = this.updateScore(word)
-        const updatedLevelup = (word.length === 6) ? true : this.state.player.levelup
-        const solvedWords = this.state.player.solved.concat(word)
-
-        this.setState({
-          player: {
-            score: updatedScore,
-            level: this.state.player.level,
-            levelup: updatedLevelup,
-            solved: solvedWords
+        let newState = Object.assign({},this.state)
+        let anagrams = newState.word.anagrams.map((a)=>{
+          if (a.anagram === word){
+            a.solved = true
           }
+          return a
         })
+
+        newState.player.score = this.updateScore(word)
+        newState.player.levelup = (word.length === 6) ? true : this.state.player.levelup
+        newState.player.solved = this.state.player.solved.concat(word)
+        newState.word.anagrams = anagrams
+
+        this.setState(newState)
+
       }
     })
   }
@@ -261,27 +264,7 @@ class App extends Component {
         this.updateGameState()
       }
     }, 1000);
-  };  
-
-  // startTimer(){
-  //   let timer
-  //   let newState = Object.assign({},this.state)
-
-  //   if (this.state.game.seconds > 0){
-  //     timer = setInterval(() => countDown(), 1000);
-  //   }
-
-  //   let countDown = () => {
-  //     newState.game.seconds -= 1
-  //     // this.setState({ seconds: seconds })
-  //     this.setState(newState)
-
-  //     if (this.state.game.seconds == 0){
-  //       clearInterval(timer)
-  //       this.updateGameState(false)
-  //     }
-  //   }
-  // }
+  };
 
   updateShuffledState(){
     let newState = Object.assign({},this.state)
@@ -299,13 +282,10 @@ class App extends Component {
   render(){
     let loadedWord = this.state.word.shuffled.length > 0
     let score = this.state.player.score
-    let solvedWords = this.state.player.solved.map((word) => {
-      return( <li key={word}>{word}</li> )
-    })
     let anagrams = this.state.word.anagrams.map((a) => {
-      return( <li key={a.id}>{this.replaceLetterUnderscore(a.anagram)}</li> )
+      let word = (a.solved || this.state.game.reset) ? a.anagram : this.replaceLetterUnderscore(a.anagram)
+    return( <li key={a.id}>{word}</li> )
     })
-
 
     return(
       <React.Fragment>
@@ -337,8 +317,8 @@ class App extends Component {
             timerStart={this.state.timerStart}
           /> : null}
 
-        {solvedWords.length >= 1 ? <ul className="game-solved-words">{solvedWords}</ul> : null}
         {this.state.game.started && anagrams.length > 0 ? <ul>{anagrams}</ul> : null}
+
       </main>
       </React.Fragment>
     )
