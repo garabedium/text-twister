@@ -22,33 +22,6 @@ class GameFormContainer extends Component {
     this.handleSpacebarPress()
   }
 
-  // startTimer(){
-  //   let timer
-
-  //   if (this.state.seconds > 0){
-  //     timer = setInterval(() => countDown(), 1000);
-  //   }
-
-  //   let countDown = () => {
-  //     let seconds = this.state.seconds - 1
-  //     this.setState({ seconds: seconds })
-  //     if (seconds === 0){
-  //       clearInterval(timer)
-  //       this.props.updateGameState(false)
-  //     }
-  //   }
-  // }
-
-  // resetTimer(){
-  //   let newState = Object.assign({},this.state)
-  //   newState.seconds = this.props.game.time
-  //   return this.setState(newState)
-  // }
-
-  // shuffleWord(){
-  //   return this.props.updateShuffledState()
-  // }
-
   // Shuffle word on spacebar press:
   handleSpacebarPress(){
     document.body.onkeyup = (event) => {
