@@ -7,8 +7,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 module.exports = {
   entry: [
-    './src/js/react.js',
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
+    './src/js/react.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
