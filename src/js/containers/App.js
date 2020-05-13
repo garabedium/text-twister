@@ -50,11 +50,9 @@ class App extends Component {
     console.log("*** app mounted ***")
     this.getWords()
   }
-  componentWillUnmount() {
-    // clearInterval(this.startTimer())
-  }
+  
   getWords(){
-    const url = "/api/levelWord/range/5&6"
+    const url = "/api/levelWord/range/5&7"
     fetch(url).then(response => {
       if (response.ok) {
         return response

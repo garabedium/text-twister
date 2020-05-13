@@ -41,10 +41,10 @@ LevelWord.random = function (result) {
 
 LevelWord.randomByRange = function (min,max,result) {
   sql.query(`
-    SELECT id,word FROM level_words
+    SELECT id, word, zipf_value FROM level_words
     WHERE zipf_value BETWEEN ? and ?
     ORDER BY RAND()
-    LIMIT 10
+    LIMIT 5
     `, [min,max],
     function (err, res) {
     if(err) {
