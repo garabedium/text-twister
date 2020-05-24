@@ -15,3 +15,4 @@ index-static.html
 .DS_Store
 .env
 dist/main.js
+.vscode/
