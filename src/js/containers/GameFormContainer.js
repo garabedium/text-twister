@@ -103,7 +103,7 @@ class GameFormContainer extends Component {
           <div className="game-timer">
             {this.props.game.started ? <span>{seconds}</span> : 
               <Button
-                text=">"
+                icon="ri-play-fill"
                 handleClick={this.props.startGame}
               />
             }

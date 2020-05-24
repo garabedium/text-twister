@@ -278,6 +278,9 @@ class App extends Component {
   }
 
   render(){
+    let logoText = "Text Twister".split('').map((char,i)=>{
+      return(<span className={`logo-letter ${char === ' ' ? '--space':''}`}>{char}</span>)
+    })
     let loadedWord = this.state.word.shuffled.length > 0
     let score = this.state.player.score
     let anagrams = this.state.word.anagrams.map((a) => {
@@ -290,7 +293,7 @@ class App extends Component {
       <main className="game">
 
         <header className="site-header">
-          <h1 className="logo">Text Twister JS</h1>
+          <h1 className="logo">{logoText}</h1>
         </header>
 
         {loadedWord ?

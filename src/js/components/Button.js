@@ -8,6 +8,7 @@ const Button = (props) =>{
       onClick={props.handleClick}
     >
       {props.text}
+      {props.icon && <i className={props.icon}></i>}
     </button>
   );
 }
