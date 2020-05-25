@@ -1,6 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html", 
   filename: "./index.html"
@@ -17,7 +20,20 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
+        use: [
+          'style-loader',
+          MiniCssExtractPlugin.loader,
+          {
+              loader: "css-loader",
+              options: {
+                  minimize: true,
+                  sourceMap: true
+              }
+          },
+          {
+              loader: "sass-loader"
+          }          
+        ]
       },
       {
         test: /\.jsx?$/,
@@ -26,9 +42,22 @@ module.exports = {
       }
     ]
   },
+  // Remove comments:
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorPluginOptions: {
+          preset: ['default', { discardComments: { removeAll: true } }],
+        }
+      })
+    ],
+  },  
   plugins: [
     htmlPlugin,
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "[name].css"
+    }),
   ],
   devtool: 'eval-source-map',
 }
