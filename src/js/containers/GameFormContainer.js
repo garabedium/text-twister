@@ -97,19 +97,19 @@ class GameFormContainer extends Component {
         
         <div className={`word-row ${reset ? '--reset':''}`}>
           {this.props.game.started ? <div className="game-points">
-            <span className="game-points__title">Points:</span>
+            <span className="game-points__title"><i class="ri-star-fill ri-2x"></i></span>
             <span className="game-points__score">{score}</span>
           </div> : null}
           <div className="game-timer">
             {this.props.game.started ? <span>{seconds}</span> : 
               <Button
-                icon="ri-play-fill"
+                icon="ri-play-fill ri-2x"
                 handleClick={this.props.startGame}
               />
             }
           </div>
           {this.props.game.started ? <div className="game-level">
-            <span className="game-level__title">Level:</span>
+            <span className="game-points__title"><i class="ri-funds-line ri-2x"></i></span>
             <span className="">{level}</span>
           </div> : null}
           {this.props.game.started && <ul className="word">{word}</ul>}
@@ -131,7 +131,7 @@ class GameFormContainer extends Component {
             />
             <Button
               text="Shuffle"
-              handleClick={this.props.shuffleWord}
+              handleClick={this.props.updateShuffledState}
               class="game-form__button game-form__button--shuffle"
             />
             <Button
