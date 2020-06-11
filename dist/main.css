@@ -418,12 +418,18 @@ body {
   text-align: center;
   width: 1.25em; }
 
+.ri-funds-line:before {
+  content: "\ED7C"; }
+
 .ri-play-fill:before {
   content: "\EFB6"; }
 
+.ri-star-fill:before {
+  content: "\F11E"; }
+
 .game-points {
   position: absolute;
-  top: -50px;
+  top: -65px;
   left: 20%;
   text-align: center; }
   .game-points__title {
@@ -431,7 +437,7 @@ body {
 
 .game-level {
   position: absolute;
-  top: -50px;
+  top: -65px;
   right: 20%;
   text-align: center; }
   .game-level__title {
