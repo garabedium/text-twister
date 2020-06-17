@@ -30,3 +30,43 @@ body {
 .footer {
   flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 }
+
+.btn {
+    display: block;
+    text-transform: uppercase;
+    background: #ff4904;
+    padding: 15px 20px;
+    font-size: 18px;
+    border-radius: 30px;
+    color: #fff;
+    box-shadow: 0px 1px 0px #000;
+    text-shadow: 1px 1px #000;
+}
+
+// Margin Utility::
+.m {
+  // m-auto
+  &-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  // m-t30
+  &-t30 {
+    margin-top: 30px;
+  }
+  // m-l5
+  &-l5 {
+    margin-left: 5px;
+  }
+}
+// m-10-t
+// m-10-b
+// m-20-t
+// m-t-10
+// m-t-20
+// .m {
+//   // m-t10
+//   &-t10 {
+
+//   }
+// }

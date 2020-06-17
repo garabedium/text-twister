@@ -306,7 +306,8 @@ template {
 button {
   padding: 0;
   border: 0;
-  cursor: pointer; }
+  cursor: pointer;
+  background: transparent; }
 
 html {
   height: 100%; }
@@ -388,7 +389,8 @@ body {
   font-size: 1em; }
 
 .ri-2x {
-  font-size: 2em; }
+  font-size: 2em;
+  line-height: 1; }
 
 .ri-3x {
   font-size: 3em; }
