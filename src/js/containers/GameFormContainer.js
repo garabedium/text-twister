@@ -117,7 +117,7 @@ class GameFormContainer extends Component {
           {!this.props.game.started && <div className="word">Play the game.</div>}
         </div>
 
-        {notifications.length >= 1 ? <ul>{notifications}</ul> : null}
+        {notifications.length > 0 && !reset ? <ul id="notifications">{notifications}</ul> : null}
 
         {reset && btnRestart}
 
