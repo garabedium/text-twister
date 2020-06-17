@@ -76,7 +76,8 @@ class GameFormContainer extends Component {
     let guess = this.props.word.lettersUsed.join('')
 
     const btnRestartText = this.props.player.levelup ? "Next Level" : "Restart"
-    const btnRestart = <Button handleClick={this.props.restartGame} text={btnRestartText} />
+    const btnRestartIcon = this.props.player.levelup ? "ri-funds-line" : "ri-restart-line"
+    const btnRestart = <Button handleClick={this.props.restartGame} class="btn m-auto m-t30" text={btnRestartText} icon={`${btnRestartIcon} ri-lg m-l5`} />
 
     const word = wordVal.split('').map((char,i) => {
       return( <li className="word__letter" key={i}>{char}</li> )
