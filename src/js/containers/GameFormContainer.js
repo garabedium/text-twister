@@ -123,6 +123,7 @@ class GameFormContainer extends Component {
 
         {this.props.game.started && this.props.game.active && 
           <form onSubmit={this.handleSubmit} className="game-form">
+            <div>
             <FormInput
               placeholder="Guess a word..."
               name="guess"
@@ -130,6 +131,7 @@ class GameFormContainer extends Component {
               handleChange={this.handleInput}
               class="game-form__input"
             />
+            </div>
             <Button
               text="Shuffle"
               handleClick={this.props.updateShuffledState}
