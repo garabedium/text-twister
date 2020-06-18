@@ -133,12 +133,14 @@ class GameFormContainer extends Component {
             <Button
               text="Shuffle"
               handleClick={this.props.updateShuffledState}
-              class="game-form__button game-form__button--shuffle"
+              class="btn--secondary"
+              icon="ri-space m-l5"
             />
             <Button
               text="Submit"
               handleClick={this.handleSubmit}
-              class="game-form__button game-form__button--submit"
+              class="btn--secondary"
+              icon="ri-arrow-right-line m-l5"
             />
           </form>
         }

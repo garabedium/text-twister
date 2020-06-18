@@ -31,18 +31,6 @@ body {
   flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 }
 
-.btn {
-    display: block;
-    text-transform: uppercase;
-    background: #ff4904;
-    padding: 15px 20px;
-    font-size: 18px;
-    border-radius: 30px;
-    color: #fff;
-    box-shadow: 0px 1px 0px #000;
-    text-shadow: 1px 1px #000;
-}
-
 // Margin Utility::
 .m {
   // m-auto
@@ -59,14 +47,16 @@ body {
     margin-left: 5px;
   }
 }
-// m-10-t
-// m-10-b
-// m-20-t
-// m-t-10
-// m-t-20
-// .m {
-//   // m-t10
-//   &-t10 {
 
-//   }
-// }
+.game-form {
+  text-align: center;
+  &__input {
+    width: 100%;
+    text-align: center;
+    margin: 15px 0;
+    font-size: 26px;
+    line-height: 2.1;
+    outline: 0;
+    border: 0;
+  }
+}
