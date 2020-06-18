@@ -1,0 +1,28 @@
+.btn {
+  // Primary button:
+  display: block;
+  text-transform: uppercase;
+  background: #ff4904;
+  padding: 15px 20px;
+  font-size: 18px;
+  border-radius: 30px;
+  color: #fff;
+  box-shadow: 0px 1px 0px #000;
+  text-shadow: 1px 1px #000;
+
+  // Secondary button:
+  &--secondary {
+    font-size: 18px;
+    background-color: transparent;
+    border: solid 1px #000;
+    border-radius: 4px;
+    border-bottom: solid 2px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    &:focus {
+      border-bottom: solid 1px;
+      border-color: rgba(0,0,0,.5);
+      outline: none;
+    }
+  }
+}
