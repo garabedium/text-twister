@@ -342,6 +342,29 @@ body {
   flex-shrink: 0;
   /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */ }
 
+.m-auto {
+  margin-left: auto;
+  margin-right: auto; }
+
+.m-t30 {
+  margin-top: 30px; }
+
+.m-l5 {
+  margin-left: 5px; }
+
+.game-form {
+  text-align: center; }
+  .game-form__input {
+    width: 100%;
+    max-width: 424px;
+    text-align: center;
+    margin: 15px 0;
+    font-size: 26px;
+    line-height: 2.1;
+    outline: 0;
+    border: solid 3px #df744a;
+    border-radius: 4px; }
+
 /*
 * Remix Icon v2.4.0
 * https://remixicon.com
@@ -420,11 +443,20 @@ body {
   text-align: center;
   width: 1.25em; }
 
+.ri-arrow-right-line:before {
+  content: "\EA6A"; }
+
 .ri-funds-line:before {
   content: "\ED7C"; }
 
 .ri-play-fill:before {
   content: "\EFB6"; }
+
+.ri-restart-line:before {
+  content: "\F021"; }
+
+.ri-space:before {
+  content: "\F101"; }
 
 .ri-star-fill:before {
   content: "\F11E"; }
@@ -459,23 +491,28 @@ body {
   left: 50%;
   transform: translateX(-50%); }
 
-.game-form {
-  text-align: center; }
-  .game-form__input {
-    width: 100%;
-    text-align: center;
-    margin: 15px 0;
-    font-size: 26px;
-    line-height: 2.1;
-    outline: 0;
-    border: 0; }
-  .game-form__button {
+.btn {
+  display: block;
+  text-transform: uppercase;
+  background: #ff4904;
+  padding: 15px 20px;
+  font-size: 18px;
+  border-radius: 30px;
+  color: #fff;
+  box-shadow: 0px 1px 0px #000;
+  text-shadow: 1px 1px #000; }
+  .btn--secondary {
+    font-size: 18px;
     background-color: transparent;
     border: solid 1px #000;
     border-radius: 4px;
     border-bottom: solid 2px;
     padding: 5px 10px;
     margin-right: 10px; }
+    .btn--secondary:focus {
+      border-bottom: solid 1px;
+      border-color: rgba(0, 0, 0, 0.5);
+      outline: none; }
 
 .word-row {
   position: relative;
