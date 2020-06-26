@@ -194,7 +194,6 @@ class App extends Component {
   handleKeyPress(event){
     let newState = Object.assign({},this.state)
     const key = event.key
-    // let letters = newState.word.letters
     let found = newState.word.letters.filter( obj => { return key === obj.char && !obj.used })
 
     if (key !== 'Enter' && found.length > 0){
@@ -204,49 +203,28 @@ class App extends Component {
     } else if (key !== 'Enter') {
       event.preventDefault()
     }
-
-
-    // if (letters.indexOf(key) > -1 && key !== 'Enter') {
-    //   const foundIndex = letters.indexOf(key)
-
-    //   // Remove letter from letters, add to lettersUsed
-    //   letters.splice(foundIndex,1)
-    //   newState.word.lettersUsed.push(key)
-
-    //   return this.setState(newState)
-    // } else if (key !== 'Enter'){
-    //   event.preventDefault()
-    // }
-
   }
 
   handleBackspace(event){
     let newState = Object.assign({},this.state)
     const key = event.key
     const last = newState.word.letters.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b))
-    // not working ^
-    // debugger;
-    // check if any letters are used before we take this action::
+
     last.used = false
     last.updatedAt = this.state.baseDate
 
-    // newState.word.letters.filter( el => { return el.char === key }).map(el => { return el.used === false })
-    // filter letters for found key, map and set used to false
-    // newState.word.letters
-    // newState.word.letters.push(newState.word.lettersUsed.pop())
-    // set newState.word.letters
     return this.setState(newState)
   }
 
   handleClear(){
     let newState = Object.assign({},this.state)
+  
     newState.word.letters.map(letter => { 
       letter.used = false
       letter.updatedAt = this.state.baseDate
       return letter
     })
-    // newState.word.letters = newState.word.letters.concat(newState.word.lettersUsed)
-    // newState.word.lettersUsed = []
+
     return this.setState(newState)
   }
 

@@ -44,7 +44,6 @@ class GameFormContainer extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    // const guess = this.props.word.lettersUsed.join('')
     let guess = this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
@@ -72,7 +71,6 @@ class GameFormContainer extends Component {
     let level = this.props.player.level
     const reset = this.props.game.reset
     let displayWordVal = reset ? this.props.word.current.split('') : this.props.word.letters
-    // let guess = this.props.word.lettersUsed.join('')
     let guess = this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char} ).join('')
     const btnRestartText = this.props.player.levelup ? "Next Level" : "Restart"
     const btnRestartIcon = this.props.player.levelup ? "ri-funds-line" : "ri-restart-line"
