@@ -23,10 +23,7 @@ class App extends Component {
       words: [],
       word: {
         "current":"",
-        "shuffled":"",
         "letters":[],
-        "letterObjs":[],
-        "lettersUsed":[],
         "anagrams":[]
       }
     }
@@ -35,7 +32,7 @@ class App extends Component {
     this.getWordAnagrams = this.getWordAnagrams.bind(this)
     this.validateWord = this.validateWord.bind(this)
     this.selectWord = this.selectWord.bind(this)
-    this.shuffleWord = this.shuffleWord.bind(this)
+    this.shuffleLetters = this.shuffleLetters.bind(this)
     this.updateScore = this.updateScore.bind(this)
     this.updateLevel = this.updateLevel.bind(this)
     this.updateGameState = this.updateGameState.bind(this)
@@ -65,14 +62,10 @@ class App extends Component {
       let newState = Object.assign({},this.state)
       newState.words = response
       newState.word.current = this.selectWord(response)
-      newState.word.shuffled = this.shuffleWord(newState.word.current)
-      newState.word.letters = newState.word.shuffled.split('')
 
       // Build the letter objects that will maintain letter 'state':
-      // used, id etc
-      // let now = Date.now()
-      newState.word.letterObjs = newState.word.letters.map( (char,i) => {
-        return { id: i, char: char, used: false, updatedAt: this.state.baseDate }
+      newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
+        return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
       })
 
       this.setState(newState)
@@ -121,27 +114,26 @@ class App extends Component {
   }
 
   // Take in a word and shuffle the letters:
-  shuffleWord(string){
-    string = (string) ? string : this.state.word.shuffled
-    const array = string.split('')
-    let counter = array.length
+  shuffleLetters(string){
+
+    let arr = (string) ? string.split('') : this.state.word.letters.map( obj => { return obj.char })
     let shuffled = ''
 
-    while (counter > 0) {
-      let index = Math.floor(Math.random() * counter)
-      counter--
-
-      let temp = array[counter]
-      array[counter] = array[index]
-      array[index] = temp
+    for (let i = arr.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
     }
 
-    shuffled = array.join('')
-    if (shuffled === this.state.word.current) {
-      return this.shuffleWord(string)
+    shuffled = arr.join('')
+
+    // Don't accidentally solve the word for the user:
+    if (shuffled === this.state.word.current){
+      return this.shuffleLetters(string)
     }
+
     return shuffled
-
   }
 
   getWordAnagrams(){
@@ -201,11 +193,10 @@ class App extends Component {
 
   handleKeyPress(event){
     let newState = Object.assign({},this.state)
-    // const letters = newState.word.letters
     const key = event.key
-    let letters = newState.word.letterObjs
-    let found = letters.filter( obj => { return key === obj.char && !obj.used })
-// debugger;
+    // let letters = newState.word.letters
+    let found = newState.word.letters.filter( obj => { return key === obj.char && !obj.used })
+
     if (key !== 'Enter' && found.length > 0){
       found[0].used = true
       found[0].updatedAt = Date.now()
@@ -232,24 +223,24 @@ class App extends Component {
   handleBackspace(event){
     let newState = Object.assign({},this.state)
     const key = event.key
-    const last = newState.word.letterObjs.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b))
+    const last = newState.word.letters.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b))
     // not working ^
     // debugger;
     // check if any letters are used before we take this action::
     last.used = false
     last.updatedAt = this.state.baseDate
 
-    // newState.word.letterObjs.filter( el => { return el.char === key }).map(el => { return el.used === false })
-    // filter letterObjs for found key, map and set used to false
-    // newState.word.letterObjs
+    // newState.word.letters.filter( el => { return el.char === key }).map(el => { return el.used === false })
+    // filter letters for found key, map and set used to false
+    // newState.word.letters
     // newState.word.letters.push(newState.word.lettersUsed.pop())
-    // set newState.word.letterObjs
+    // set newState.word.letters
     return this.setState(newState)
   }
 
   handleClear(){
     let newState = Object.assign({},this.state)
-    newState.word.letterObjs.map(letter => { 
+    newState.word.letters.map(letter => { 
       letter.used = false
       letter.updatedAt = this.state.baseDate
       return letter
@@ -264,8 +255,9 @@ class App extends Component {
     const currentWord = this.selectWord()
 
     newState.word.current = currentWord
-    newState.word.shuffled = this.shuffleWord(currentWord)
-    newState.word.letters = newState.word.shuffled.split('')
+    newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
+      return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
+    })    
     newState.player.solved = []
     newState.player.level = (this.state.player.levelup) ? this.state.player.level : 0
     newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0    
@@ -303,7 +295,10 @@ class App extends Component {
 
   updateShuffledState(){
     let newState = Object.assign({},this.state)
-    newState.word.shuffled = this.shuffleWord()
+    newState.word.letters = this.shuffleLetters().split('').map( (char,i) => {
+      return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
+    })
+    // newState.word.shuffled = this.shuffleLetters()
     return this.setState(newState)
   }
 
@@ -318,7 +313,7 @@ class App extends Component {
     let logoText = "Text Twister".split('').map((char,i)=>{
       return(<span className={`logo-letter ${char === ' ' ? '--space':''}`}>{char}</span>)
     })
-    let loadedWord = this.state.word.shuffled.length > 0
+    let loadedWord = this.state.word.letters.length > 0
     let score = this.state.player.score
     let anagrams = this.state.word.anagrams.map((a) => {
       let word = (a.solved || this.state.game.reset) ? a.anagram : this.replaceLetterUnderscore(a.anagram)
@@ -336,8 +331,7 @@ class App extends Component {
         {loadedWord ?
           <GameFormContainer
             word={this.state.word}
-            wordCurrent={this.state.word.current}
-            shuffleWord={this.shuffleWord}
+            shuffleLetters={this.shuffleLetters}
             validateWord={this.validateWord}
             game={this.state.game}
             player={this.state.player}
