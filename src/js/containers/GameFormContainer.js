@@ -13,9 +13,7 @@ class GameFormContainer extends Component {
     this.handleInput = this.handleInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
-    // this.shuffleWord = this.shuffleWord.bind(this)
     this.addNotification = this.addNotification.bind(this)
-    // this.resetTimer = this.resetTimer.bind(this)
   }
   componentDidMount(){
     console.log("*** gameForm mounted ***")
@@ -31,7 +29,7 @@ class GameFormContainer extends Component {
 
   // Check if word was already solved:
   isDuplicateWord(){
-    const guess = this.props.word.lettersUsed.join('')
+    const guess = this.props.word.letters.map(obj => { return obj.char  }).join('')
     return this.props.player.solved.indexOf(guess) > -1
   }
 
@@ -39,14 +37,14 @@ class GameFormContainer extends Component {
     if (event.type === "keypress") {
       return this.props.handleKeyPress(event)
     }
-    if (event.type == "keydown" && event.key == 'Backspace' && this.props.word.lettersUsed.length > 0) {
+    if (event.type == "keydown" && event.key == 'Backspace') {
       return this.props.handleBackspace(event)
     }
   }
 
   handleSubmit(event){
     event.preventDefault()
-    const guess = this.props.word.lettersUsed.join('')
+    let guess = this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
         this.addNotification("You already solved that word!")
@@ -72,15 +70,14 @@ class GameFormContainer extends Component {
     let score = this.props.player.score
     let level = this.props.player.level
     const reset = this.props.game.reset
-    let wordVal = reset ? this.props.word.current : this.props.word.shuffled
-    let guess = this.props.word.lettersUsed.join('')
-
+    let displayWordVal = reset ? this.props.word.current.split('') : this.props.word.letters
+    let guess = this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char} ).join('')
     const btnRestartText = this.props.player.levelup ? "Next Level" : "Restart"
     const btnRestartIcon = this.props.player.levelup ? "ri-funds-line" : "ri-restart-line"
     const btnRestart = <Button handleClick={this.props.restartGame} class="btn m-auto m-t30" text={btnRestartText} icon={`${btnRestartIcon} ri-lg m-l5`} />
 
-    const word = wordVal.split('').map((char,i) => {
-      return( <li className="word__letter" key={i}>{char}</li> )
+    const displayWord = displayWordVal.map((el,i) => {
+      return( <li className={`word__letter ${el.used ? '--used':''}`} key={el.id ? el.id : i + 1}>{el.char ? el.char : el}</li> )
     })
 
     let notifications = this.state.notifications.map((item,i) => {
@@ -113,7 +110,7 @@ class GameFormContainer extends Component {
             <span className="game-points__title"><i class="ri-funds-line ri-2x"></i></span>
             <span className="">{level}</span>
           </div> : null}
-          {this.props.game.started && <ul className="word">{word}</ul>}
+          {this.props.game.started && <ul className="word">{displayWord}</ul>}
           {!this.props.game.started && <div className="word">Play the game.</div>}
         </div>
 
