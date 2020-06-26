@@ -6,8 +6,8 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: 999,
-      timerStart: 999,
+      timerTime: 20,
+      timerStart: 20,
       baseDate: Date.now(),
       game: {
         active: false,
