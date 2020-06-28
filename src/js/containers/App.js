@@ -109,7 +109,8 @@ class App extends Component {
 
   selectWord(words){
     const array = words ? words : this.state.words
-    const selected = array[Math.round( Math.random() * (array.length-1))];
+    const filtered = array.filter(obj => { return !obj.used })
+    const selected = filtered[Math.round( Math.random() * (filtered.length-1))]
     return selected.word
   }
 
@@ -175,6 +176,13 @@ class App extends Component {
     let newState = Object.assign({},this.state)
     const level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
 
+    // Remove current word from words:
+    newState.words.filter(obj => {
+      if (obj.word === this.state.word.current) {
+        return obj.used = true
+      }
+    })
+
     newState.game.active = false
     newState.game.reset = true
     newState.player.level = level
@@ -235,7 +243,7 @@ class App extends Component {
     newState.word.current = currentWord
     newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
       return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
-    })    
+    })
     newState.player.solved = []
     newState.player.level = (this.state.player.levelup) ? this.state.player.level : 0
     newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0    
@@ -265,7 +273,6 @@ class App extends Component {
         });
       } else {
         clearInterval(this.timer);
-        // this.setState({ timerOn: false });
         this.updateGameState()
       }
     }, 1000);
