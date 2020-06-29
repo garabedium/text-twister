@@ -61,11 +61,12 @@ class App extends Component {
       newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
         return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
       })
-      this.setState(newState)
+      this.setState(newState, this.getWordAnagrams())
     })
   }
 
   getWords(range){
+    console.log("*** get words ***")
     const url = "/api/levelWord/range/5&7"
     return new Promise((resolve, reject) => {
        fetch(url).then(response => {
@@ -138,8 +139,8 @@ class App extends Component {
   }
 
   getWordAnagrams(){
+    console.log("*** get anagrams ***")
     const url = `/api/levelWord/anagrams/${this.state.word.current}`
-
     fetch(url).then(response => {
       if (response.ok) {
         return response
