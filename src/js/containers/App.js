@@ -28,6 +28,7 @@ class App extends Component {
       }
     }
     // Methods:
+    this.initGame = this.initGame.bind(this)
     this.getWords = this.getWords.bind(this)
     this.getWordAnagrams = this.getWordAnagrams.bind(this)
     this.validateWord = this.validateWord.bind(this)
@@ -47,32 +48,31 @@ class App extends Component {
 
   componentDidMount(){
     console.log("*** app mounted ***")
-    this.getWords()
+    this.initGame()
   }
   
-  getWords(){
-    const url = "/api/levelWord/range/5&7"
-    fetch(url).then(response => {
-      if (response.ok) {
-        return response
-      }
-    })
-    .then(response => response.json())
-    .then(response => {
+  initGame(){  
+    this.getWords().then(response => { 
       let newState = Object.assign({},this.state)
       newState.words = response
       newState.word.current = this.selectWord(response)
-
       // Build the letter objects that will maintain letter 'state':
       newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
         return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
       })
-
-      this.setState(newState)
+      this.setState(newState, this.getWordAnagrams())
     })
-    .then(() => {
-      console.log("*** get anagrams ***")
-      this.getWordAnagrams()
+  }
+
+  getWords(range){
+    console.log("*** get words ***")
+    const url = "/api/levelWord/range/5&7"
+    return new Promise((resolve, reject) => {
+       fetch(url).then(response => {
+        if (response.ok) {
+          resolve(response.json()) 
+        }
+      })
     })
   }
 
@@ -138,8 +138,8 @@ class App extends Component {
   }
 
   getWordAnagrams(){
+    console.log("*** get anagrams ***")
     const url = `/api/levelWord/anagrams/${this.state.word.current}`
-
     fetch(url).then(response => {
       if (response.ok) {
         return response
