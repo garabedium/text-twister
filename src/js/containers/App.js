@@ -30,7 +30,6 @@ class App extends Component {
     // Methods:
     this.initGame = this.initGame.bind(this)
     this.getWords = this.getWords.bind(this)
-    // this.resolveAfter2Seconds = this.resolveAfter2Seconds.bind(this)
     this.getWordAnagrams = this.getWordAnagrams.bind(this)
     this.validateWord = this.validateWord.bind(this)
     this.selectWord = this.selectWord.bind(this)
