@@ -8,6 +8,8 @@ class App extends Component {
       timerOn: false,
       timerTime: 20,
       timerStart: 20,
+      zipfMin: 5,
+      zipfMax: 7,
       baseDate: Date.now(),
       game: {
         active: false,
@@ -30,6 +32,7 @@ class App extends Component {
     // Methods:
     this.initGame = this.initGame.bind(this)
     this.getWords = this.getWords.bind(this)
+    this.lazyLoadWords = this.lazyLoadWords.bind(this)
     this.getWordAnagrams = this.getWordAnagrams.bind(this)
     this.validateWord = this.validateWord.bind(this)
     this.selectWord = this.selectWord.bind(this)
@@ -64,9 +67,15 @@ class App extends Component {
     })
   }
 
-  getWords(range){
+  getWords(params){
     console.log("*** get words ***")
-    const url = "/api/levelWord/range/5&7"
+    let url = `/api/levelWord/range/${this.state.zipfMin}&${this.state.zipfMax}`
+
+    if (params && params.exclude){
+      let query = params.exclude.map(obj => { return `&exclude=${obj.word}`}).join('')
+      url += query
+    }
+
     return new Promise((resolve, reject) => {
        fetch(url).then(response => {
         if (response.ok) {
@@ -74,6 +83,21 @@ class App extends Component {
         }
       })
     })
+  }
+
+  lazyLoadWords(){
+    let usedWords = this.state.words.filter(obj => { return obj.used })
+    let availableWords = this.state.words.length - usedWords.length
+
+    if (availableWords <= 2) {
+      let params = {}
+      params.exclude = usedWords
+      this.getWords(params).then(response => {
+        let newState = Object.assign({},this.state)
+        newState.words = newState.words.concat(response)
+        this.setState(newState)
+      })
+    }
   }
 
   validateWord(word){
@@ -176,7 +200,7 @@ class App extends Component {
     let newState = Object.assign({},this.state)
     const level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
 
-    // Remove current word from words:
+    // Mark current word as used:
     newState.words.filter(obj => {
       if (obj.word === this.state.word.current) {
         return obj.used = true
@@ -189,7 +213,7 @@ class App extends Component {
     newState.player.score = this.state.player.score
     newState.timerOn = false
 
-    this.setState(newState)
+    this.setState(newState, this.lazyLoadWords())
   }
 
   startGame(){
@@ -244,6 +268,7 @@ class App extends Component {
     newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
       return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
     })
+
     newState.player.solved = []
     newState.player.level = (this.state.player.levelup) ? this.state.player.level : 0
     newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0    

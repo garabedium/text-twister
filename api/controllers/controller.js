@@ -37,7 +37,9 @@ exports.getRandomLevelWord = function(req, res) {
 }
 
 exports.getLevelWordsByRange = function(req, res) {
-  LevelWord.randomByRange(req.params.min, req.params.max, function(err, word) {
+  let exclude = req.query.exclude || ''
+
+  LevelWord.randomByRange(req.params.min, req.params.max, exclude, function(err, word) {
     if (err)
       res.send(err);
     res.json(word);

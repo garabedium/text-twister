@@ -31,7 +31,5 @@ module.exports = function(app) {
   // Gets LevelWords anagram:
   app.route('/api/levelWord/anagrams/:word')
   .get(controller.getLevelWordAnagrams)
-
-
 }
 
