@@ -532,13 +532,14 @@ body {
   padding: 40px 0;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 4px; }
-  .word__letter {
-    background-color: #fff;
-    margin: 0 10px 0 0;
-    width: 50px;
-    line-height: 1.5;
-    list-style: none;
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2); }
-    .word__letter:last-child {
-      margin-right: 0; }
+
+.letter {
+  background-color: #fff;
+  margin: 0 10px 0 0;
+  width: 50px;
+  line-height: 1.5;
+  list-style: none;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2); }
+  .letter:last-child {
+    margin-right: 0; }
 

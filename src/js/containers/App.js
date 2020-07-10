@@ -6,8 +6,8 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: 20,
-      timerStart: 20,
+      timerTime: 30,
+      timerStart: 30,
       zipfMin: 5,
       zipfMax: 7,
       baseDate: Date.now(),
