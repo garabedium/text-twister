@@ -77,7 +77,7 @@ class GameFormContainer extends Component {
     const btnRestart = <Button handleClick={this.props.restartGame} class="btn m-auto m-t30" text={btnRestartText} icon={`${btnRestartIcon} ri-lg m-l5`} />
 
     const displayWord = displayWordVal.map((el,i) => {
-      return( <li className={`word__letter ${el.used ? '--used':''}`} key={el.id ? el.id : i + 1}>{el.char ? el.char : el}</li> )
+      return( <li className={`letter ${el.used ? '--used':''}`} key={el.id ? el.id : i + 1}>{el.char ? el.char : el}</li> )
     })
 
     let notifications = this.state.notifications.map((item,i) => {
@@ -93,7 +93,7 @@ class GameFormContainer extends Component {
     return(
       <React.Fragment>
         
-        <div className={`word-row ${reset ? '--reset':''}`}>
+        <div className={`game-row ${reset ? '--reset':''}`}>
           {this.props.game.started ? <div className="game-points">
             <span className="game-points__title"><i class="ri-star-fill ri-2x"></i></span>
             <span className="game-points__score">{score}</span>
