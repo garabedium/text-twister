@@ -6,18 +6,20 @@ class GameFormContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      notifications: [],
+      notification: {},
+      notificationDefault: {text:"Press Spacebar to shuffle letters. Press Enter to submit."},
       seconds: this.props.game.time
     }
     // Class Methods:
     this.handleInput = this.handleInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
-    this.addNotification = this.addNotification.bind(this)
+    this.setNotification = this.setNotification.bind(this)
   }
   componentDidMount(){
     console.log("*** gameForm mounted ***")
     this.handleSpacebarPress()
+    this.setNotification()
   }
 
   // Shuffle word on spacebar press:
@@ -47,21 +49,21 @@ class GameFormContainer extends Component {
     let guess = this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
-        this.addNotification("You already solved that word!")
+        console.log("duplicate word")
+        this.setNotification({text:"You already solved that word!", icon:"x"})
       } else {
         this.props.validateWord(guess)
         this.props.handleClear()
       }
     } else {
-      return false
+      this.setNotification({text:"Words must be at least 3 letters!", icon:"x"})
     }
   }
 
-  addNotification(text){
-    // To do:
-    // - create & attach setTimeout to remove notification
-    const notification = { text: text }
-    return this.setState({ notifications: this.state.notifications.concat(notification) })
+  setNotification(notify){
+    let newState = Object.assign({},this.state)
+    newState.notification = notify ? notify : this.state.notificationDefault
+    return this.setState(newState)
   }
 
   render(){
@@ -80,9 +82,10 @@ class GameFormContainer extends Component {
       return( <li className={`letter ${el.used ? '--used':''}`} key={el.id ? el.id : i + 1}>{el.char ? el.char : el}</li> )
     })
 
-    let notifications = this.state.notifications.map((item,i) => {
-      return (<li key={i}>{item.text}</li>)
-    })
+    // let notification = this.state.notification.text;
+    // this.state.notifications.map((item,i) => {
+    //   return (<li key={i}>{item.text}</li>)
+    // })
 
     if (this.props.game.active && timerOn === false && (timerTime === timerStart)){
       this.props.startTimer()
@@ -114,13 +117,13 @@ class GameFormContainer extends Component {
           {!this.props.game.started && <div className="word">Play the game.</div>}
         </div>
 
-        {notifications.length > 0 && !reset ? <ul id="notifications">{notifications}</ul> : null}
+        
 
         {reset && btnRestart}
 
         {this.props.game.started && this.props.game.active && 
           <form onSubmit={this.handleSubmit} className="game-form">
-            <div>
+
             <FormInput
               placeholder="Guess a word..."
               name="guess"
@@ -128,7 +131,11 @@ class GameFormContainer extends Component {
               handleChange={this.handleInput}
               class="game-form__input"
             />
+
+            <div className="notify">
+              { this.state.notification.text }
             </div>
+
             <Button
               text="Shuffle"
               handleClick={this.props.updateShuffledState}
@@ -150,3 +157,4 @@ class GameFormContainer extends Component {
 }
 
 export default GameFormContainer
+// {notifications.length > 0 && !reset ? <ul id="notifications">{notifications}</ul> : null}

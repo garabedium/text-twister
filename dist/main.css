@@ -514,7 +514,7 @@ body {
       border-color: rgba(0, 0, 0, 0.5);
       outline: none; }
 
-.word-row {
+.game-row {
   position: relative;
   max-width: 450px;
   margin: 75px auto 0 auto; }
@@ -540,6 +540,8 @@ body {
   line-height: 1.5;
   list-style: none;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2); }
+  .letter.\--used {
+    color: #fff; }
   .letter:last-child {
     margin-right: 0; }
 
