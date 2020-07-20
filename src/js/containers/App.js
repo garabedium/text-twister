@@ -6,8 +6,8 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: 30,
-      timerStart: 30,
+      timerTime: 999,
+      timerStart: 999,
       zipfMin: 5,
       zipfMax: 7,
       baseDate: Date.now(),
@@ -111,6 +111,7 @@ class App extends Component {
     .then(response => response.json())
     .then(response => {
 
+      // Valid word:
       if (response.length >= 1){
         let newState = Object.assign({},this.state)
         let anagrams = newState.word.anagrams.map((a)=>{
