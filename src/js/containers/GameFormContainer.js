@@ -31,7 +31,7 @@ class GameFormContainer extends Component {
 
   // Check if word was already solved:
   isDuplicateWord(){
-    const guess = this.props.word.letters.map(obj => { return obj.char  }).join('')
+    const guess = this.props.word.letters.filter(obj => { return obj.used  }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
     return this.props.player.solved.indexOf(guess) > -1
   }
 
