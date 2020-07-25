@@ -358,12 +358,18 @@ body {
     width: 100%;
     max-width: 424px;
     text-align: center;
-    margin: 15px 0;
+    margin: 15px 0 0 0;
     font-size: 26px;
     line-height: 2.1;
     outline: 0;
     border: solid 3px #df744a;
     border-radius: 4px; }
+
+.notify {
+  width: 400px;
+  margin: 15px auto;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8); }
 
 /*
 * Remix Icon v2.4.0

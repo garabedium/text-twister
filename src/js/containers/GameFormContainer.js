@@ -15,6 +15,7 @@ class GameFormContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.setNotification = this.setNotification.bind(this)
+    this.getGuess = this.getGuess.bind(this)
   }
   componentDidMount(){
     console.log("*** gameForm mounted ***")
@@ -31,8 +32,7 @@ class GameFormContainer extends Component {
 
   // Check if word was already solved:
   isDuplicateWord(){
-    const guess = this.props.word.letters.filter(obj => { return obj.used  }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
-    return this.props.player.solved.indexOf(guess) > -1
+    return this.props.player.solved.indexOf(this.getGuess()) > -1
   }
 
   handleInput(event){
@@ -46,7 +46,7 @@ class GameFormContainer extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    let guess = this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
+    let guess = this.getGuess()
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
         console.log("duplicate word")
@@ -66,6 +66,11 @@ class GameFormContainer extends Component {
     return this.setState(newState)
   }
 
+  getGuess(){
+    // Filter by used letters, sort by timestamp, map + return result:
+    return this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
+  }
+
   render(){
     const { timerTime, timerStart, timerOn } = this.props;
 
@@ -73,7 +78,7 @@ class GameFormContainer extends Component {
     let level = this.props.player.level
     const reset = this.props.game.reset
     let displayWordVal = reset ? this.props.word.current.split('') : this.props.word.letters
-    let guess = this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char} ).join('')
+    let guess = this.getGuess()
     const btnRestartText = this.props.player.levelup ? "Next Level" : "Restart"
     const btnRestartIcon = this.props.player.levelup ? "ri-funds-line" : "ri-restart-line"
     const btnRestart = <Button handleClick={this.props.restartGame} class="btn m-auto m-t30" text={btnRestartText} icon={`${btnRestartIcon} ri-lg m-l5`} />
