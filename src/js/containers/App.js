@@ -10,6 +10,14 @@ class App extends Component {
       timerStart: 999,
       zipfMin: 5,
       zipfMax: 7,
+      notification: {},
+      notificationDefault: {text:"Press Spacebar to shuffle letters. Press Enter to submit.",default: true},
+      notifications: {
+        "default":{},
+        "points":{},
+        "duplicate":{},
+        "min":{},
+      },
       baseDate: Date.now(),
       game: {
         active: false,
@@ -47,11 +55,13 @@ class App extends Component {
     this.handleBackspace = this.handleBackspace.bind(this)
     this.handleClear = this.handleClear.bind(this)
     this.startTimer = this.startTimer.bind(this)
+    this.setNotification = this.setNotification.bind(this)
   }
 
   componentDidMount(){
     console.log("*** app mounted ***")
     this.initGame()
+    this.setNotification()
   }
   
   initGame(){  
@@ -125,6 +135,7 @@ class App extends Component {
         newState.player.levelup = (word.length === 6) ? true : this.state.player.levelup
         newState.player.solved = this.state.player.solved.concat(word)
         newState.word.anagrams = anagrams
+        newState.notification = {text:"Woohoo! Points! Keep Solving!", icon:"star"}
 
         this.setState(newState)
 
@@ -320,6 +331,12 @@ class App extends Component {
     return output
   }
 
+  setNotification(notify){
+    let newState = Object.assign({},this.state)
+    newState.notification = notify ? notify : this.state.notificationDefault
+    return this.setState(newState)
+  }
+
   render(){
     let logoText = "Text Twister".split('').map((char,i)=>{
       return(<span className={`logo-letter ${char === ' ' ? '--space':''}`}>{char}</span>)
@@ -358,6 +375,9 @@ class App extends Component {
             timerTime={this.state.timerTime}
             timerOn={this.state.timerOn}
             timerStart={this.state.timerStart}
+            notification={this.state.notification}
+            notificationDefault={this.state.notificationDefault}
+            setNotification={this.setNotification}
           /> : null}
 
         {this.state.game.started && anagrams.length > 0 ? <ul>{anagrams}</ul> : null}
