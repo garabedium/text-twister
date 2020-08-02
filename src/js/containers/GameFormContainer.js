@@ -48,20 +48,20 @@ class GameFormContainer extends Component {
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
         console.log("duplicate word")
-        this.props.setNotification({text:"You already solved that word!", icon:"x"})
+        this.props.setNotification("dupe")
       } else {
         this.props.validateWord(guess)
         this.props.handleClear()
       }
     } else {
-      this.props.setNotification({text:"Words must be at least 3 letters!", icon:"x"})
+      this.props.setNotification("min")
     }
   }
 
   delaySetNotification(){
     setTimeout(() => {
-      this.props.setNotification({text:"Default!",default:true, icon:"x"})
-    },2500)
+      this.props.setNotification("default")
+    },5000)
   }
 
   getGuess(){
@@ -93,7 +93,7 @@ class GameFormContainer extends Component {
 
     let notification = this.props.notification.text
     if (!this.props.notification.default) {
-      this.delaySetNotification();
+      this.delaySetNotification()
     }
 
     return(

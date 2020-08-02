@@ -13,10 +13,10 @@ class App extends Component {
       notification: {},
       notificationDefault: {text:"Press Spacebar to shuffle letters. Press Enter to submit.",default: true},
       notifications: {
-        "default":{},
-        "points":{},
-        "duplicate":{},
-        "min":{},
+        "default":   {text:"Press Spacebar to shuffle letters. Press Enter to submit.",default: true},
+        "points":    {text:"Woohoo! Points! Keep Solving!", icon:"star"},
+        "dupe":      {text:"You already solved that word!", icon:"x"},
+        "min":       {text:"Words must be at least 3 letters!", icon:"x"},
       },
       baseDate: Date.now(),
       game: {
@@ -61,12 +61,13 @@ class App extends Component {
   componentDidMount(){
     console.log("*** app mounted ***")
     this.initGame()
-    this.setNotification()
+    // this.setNotification()
   }
   
   initGame(){  
     this.getWords().then(response => { 
       let newState = Object.assign({},this.state)
+      newState.notification = this.state.notifications.default
       newState.words = response
       newState.word.current = this.selectWord(response)
       // Build the letter objects that will maintain letter 'state':
@@ -333,7 +334,7 @@ class App extends Component {
 
   setNotification(notify){
     let newState = Object.assign({},this.state)
-    newState.notification = notify ? notify : this.state.notificationDefault
+    newState.notification = this.state.notifications[notify]
     return this.setState(newState)
   }
 
@@ -376,7 +377,7 @@ class App extends Component {
             timerOn={this.state.timerOn}
             timerStart={this.state.timerStart}
             notification={this.state.notification}
-            notificationDefault={this.state.notificationDefault}
+            notifications={this.state.notifications}
             setNotification={this.setNotification}
           /> : null}
 
