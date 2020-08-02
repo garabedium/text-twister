@@ -11,7 +11,6 @@ class App extends Component {
       zipfMin: 5,
       zipfMax: 7,
       notification: {},
-      notificationDefault: {text:"Press Spacebar to shuffle letters. Press Enter to submit.",default: true},
       notifications: {
         "default":   {text:"Press Spacebar to shuffle letters. Press Enter to submit.",default: true},
         "points":    {text:"Woohoo! Points! Keep Solving!", icon:"star"},
