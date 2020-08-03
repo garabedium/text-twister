@@ -135,7 +135,7 @@ class App extends Component {
         newState.player.levelup = (word.length === 6) ? true : this.state.player.levelup
         newState.player.solved = this.state.player.solved.concat(word)
         newState.word.anagrams = anagrams
-        newState.notification = {text:"Woohoo! Points! Keep Solving!", icon:"star"}
+        newState.notification = this.state.notifications.points
 
         this.setState(newState)
 
