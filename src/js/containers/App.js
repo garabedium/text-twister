@@ -10,6 +10,13 @@ class App extends Component {
       timerStart: 999,
       zipfMin: 5,
       zipfMax: 7,
+      notification: {},
+      notifications: {
+        "default":   {text:"Press Spacebar to shuffle letters. Press Enter to submit.",default: true},
+        "points":    {text:"Woohoo! Points! Keep Solving!", icon:"star"},
+        "dupe":      {text:"You already solved that word!", icon:"x"},
+        "min":       {text:"Words must be at least 3 letters!", icon:"x"},
+      },
       baseDate: Date.now(),
       game: {
         active: false,
@@ -47,16 +54,19 @@ class App extends Component {
     this.handleBackspace = this.handleBackspace.bind(this)
     this.handleClear = this.handleClear.bind(this)
     this.startTimer = this.startTimer.bind(this)
+    this.setNotification = this.setNotification.bind(this)
   }
 
   componentDidMount(){
     console.log("*** app mounted ***")
     this.initGame()
+    // this.setNotification()
   }
   
   initGame(){  
     this.getWords().then(response => { 
       let newState = Object.assign({},this.state)
+      newState.notification = this.state.notifications.default
       newState.words = response
       newState.word.current = this.selectWord(response)
       // Build the letter objects that will maintain letter 'state':
@@ -125,6 +135,7 @@ class App extends Component {
         newState.player.levelup = (word.length === 6) ? true : this.state.player.levelup
         newState.player.solved = this.state.player.solved.concat(word)
         newState.word.anagrams = anagrams
+        newState.notification = this.state.notifications.points
 
         this.setState(newState)
 
@@ -320,6 +331,12 @@ class App extends Component {
     return output
   }
 
+  setNotification(notify){
+    let newState = Object.assign({},this.state)
+    newState.notification = this.state.notifications[notify]
+    return this.setState(newState)
+  }
+
   render(){
     let logoText = "Text Twister".split('').map((char,i)=>{
       return(<span className={`logo-letter ${char === ' ' ? '--space':''}`}>{char}</span>)
@@ -358,6 +375,9 @@ class App extends Component {
             timerTime={this.state.timerTime}
             timerOn={this.state.timerOn}
             timerStart={this.state.timerStart}
+            notification={this.state.notification}
+            notifications={this.state.notifications}
+            setNotification={this.setNotification}
           /> : null}
 
         {this.state.game.started && anagrams.length > 0 ? <ul>{anagrams}</ul> : null}
