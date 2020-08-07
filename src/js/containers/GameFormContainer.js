@@ -64,9 +64,10 @@ class GameFormContainer extends Component {
     },5000)
   }
 
+  // Guess = used letters, sorted by timestamp, returned as string
   getGuess(){
-    // Filter by used letters, sort by timestamp, map + return result:
-    return this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
+    let guess = this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
+    return guess
   }
 
   render(){
@@ -75,7 +76,10 @@ class GameFormContainer extends Component {
     let score = this.props.player.score
     let level = this.props.player.level
     const reset = this.props.game.reset
+
+    // Show solved word when game is over, else, show letters:
     let displayWordVal = reset ? this.props.word.current.split('') : this.props.word.letters
+
     let guess = this.getGuess()
     const btnRestartText = this.props.player.levelup ? "Next Level" : "Restart"
     const btnRestartIcon = this.props.player.levelup ? "ri-funds-line" : "ri-restart-line"
@@ -158,4 +162,3 @@ class GameFormContainer extends Component {
 }
 
 export default GameFormContainer
-// {notifications.length > 0 && !reset ? <ul id="notifications">{notifications}</ul> : null}

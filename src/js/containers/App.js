@@ -153,7 +153,9 @@ class App extends Component {
   // Take in a word and shuffle the letters:
   shuffleLetters(string){
 
-    let arr = (string) ? string.split('') : this.state.word.letters.map( obj => { return obj.char })
+    let arr = (string) ? string.split('') : this.state.word.letters.filter(obj => { return !obj.used }).map( obj => { return obj.char })
+    let original = arr.join('')
+
     let shuffled = ''
 
     for (let i = arr.length - 1; i > 0; i--) {
@@ -165,8 +167,8 @@ class App extends Component {
 
     shuffled = arr.join('')
 
-    // Don't accidentally solve the word for the user:
-    if (shuffled === this.state.word.current){
+    // Don't show the solved word or the same shuffled sequence:
+    if (shuffled.length > 1 && (shuffled === this.state.word.current || shuffled === original)){
       return this.shuffleLetters(string)
     }
 
@@ -249,6 +251,8 @@ class App extends Component {
     }
   }
 
+  // On backspace, look for the most recently updated letter
+  // and change its 'used' status:
   handleBackspace(event){
     let newState = Object.assign({},this.state)
     const key = event.key
@@ -317,10 +321,15 @@ class App extends Component {
 
   updateShuffledState(){
     let newState = Object.assign({},this.state)
-    newState.word.letters = this.shuffleLetters().split('').map( (char,i) => {
-      return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
+    let shuffled = this.shuffleLetters().split('').map(char => { return { char: char, used: false } })
+    let used = this.state.word.letters.filter(obj => { return obj.used }).map(obj => { return { char: obj.char, used: obj.used, updatedAt: obj.updatedAt } })
+
+    let letters = used.concat(shuffled).map( (obj,i) => {
+      let updatedAt = obj.updatedAt || this.state.baseDate
+      return { id: i + 1, char: obj.char, used: obj.used, updatedAt: updatedAt }
     })
-    // newState.word.shuffled = this.shuffleLetters()
+
+    newState.word.letters = letters
     return this.setState(newState)
   }
 
