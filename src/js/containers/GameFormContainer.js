@@ -86,7 +86,16 @@ class GameFormContainer extends Component {
     const btnRestart = <Button handleClick={this.props.restartGame} class="btn m-auto m-t30" text={btnRestartText} icon={`${btnRestartIcon} ri-lg m-l5`} />
 
     const displayWord = displayWordVal.map((el,i) => {
-      return( <li className={`letter ${el.used ? '--used':''}`} key={el.id ? el.id : i + 1}>{el.char ? el.char : el}</li> )
+      return( 
+        <li 
+        className={`letter ${el.used ? '--used':''}`} 
+        onClick={() => !el.used ? this.props.handleLetterClick(el.char) : false} 
+        key={el.id ? el.id : i + 1}
+        role={!el.used ? 'button' : 'listitem'}
+        >
+          {el.char ? el.char : el}
+        </li> 
+      )
     })
 
     if (this.props.game.active && timerOn === false && (timerTime === timerStart)){

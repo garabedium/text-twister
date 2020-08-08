@@ -53,6 +53,7 @@ class App extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleBackspace = this.handleBackspace.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.handleLetterClick = this.handleLetterClick.bind(this)
     this.startTimer = this.startTimer.bind(this)
     this.setNotification = this.setNotification.bind(this)
   }
@@ -276,6 +277,17 @@ class App extends Component {
     return this.setState(newState)
   }
 
+  handleLetterClick(char){
+    let newState = Object.assign({},this.state)
+    let found = newState.word.letters.filter( obj => { return char === obj.char && !obj.used })
+
+    if (found.length > 0){
+      found[0].used = true
+      found[0].updatedAt = Date.now()
+      return this.setState(newState)
+    }
+  }
+
   restartGame(event){
     let newState = Object.assign({},this.state)
     const currentWord = this.selectWord()
@@ -380,6 +392,7 @@ class App extends Component {
             handleKeyPress={this.handleKeyPress}
             handleBackspace={this.handleBackspace}
             handleClear={this.handleClear}
+            handleLetterClick={this.handleLetterClick}
             seconds={this.state.seconds}
             timerTime={this.state.timerTime}
             timerOn={this.state.timerOn}
