@@ -365,8 +365,11 @@ class App extends Component {
     let loadedWord = this.state.word.letters.length > 0
     let score = this.state.player.score
     let anagrams = this.state.word.anagrams.map((a) => {
-      let word = (a.solved || this.state.game.reset) ? a.anagram : this.replaceLetterUnderscore(a.anagram)
-    return( <li key={a.id}>{word}</li> )
+      // let word = (a.solved || this.state.game.reset) ? a.anagram : this.replaceLetterUnderscore(a.anagram)
+      let anagram = a.anagram.split('')
+      let word = anagram.map(char => { return (<span className="char">{char}</span>) })
+      // return(<span className={`logo-letter ${char === ' ' ? '--space':''}`}>{char}</span>)
+    return( <li className="anagram" key={a.id}>{word}</li> )
     })
 
     return(
@@ -402,7 +405,7 @@ class App extends Component {
             setNotification={this.setNotification}
           /> : null}
 
-        {this.state.game.started && anagrams.length > 0 ? <ul>{anagrams}</ul> : null}
+        {this.state.game.started && anagrams.length > 0 ? <ul className="anagrams">{anagrams}</ul> : null}
 
       </main>
       </React.Fragment>
