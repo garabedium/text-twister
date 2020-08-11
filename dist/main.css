@@ -545,9 +545,41 @@ body {
   width: 50px;
   line-height: 1.5;
   list-style: none;
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2); }
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer; }
   .letter.\--used {
-    color: #fff; }
+    color: #fff;
+    cursor: default; }
+    .letter.\--used::selection {
+      color: #fff; }
   .letter:last-child {
     margin-right: 0; }
+
+.anagrams {
+  columns: 2;
+  list-style: none;
+  margin: 50px auto;
+  width: 100%;
+  max-width: 1000px;
+  padding: 0; }
+  @media screen and (min-width: 768px) {
+    .anagrams {
+      columns: 4;
+      column-gap: 20px; } }
+
+.anagram {
+  text-align: center;
+  margin-bottom: 15px; }
+
+.char {
+  background-color: white;
+  margin: 0 1px 0 0;
+  display: inline-block;
+  font-size: 20px;
+  color: white;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  width: 25px;
+  height: 33px;
+  text-align: center;
+  line-height: 33px; }
 
