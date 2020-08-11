@@ -14,17 +14,28 @@
 .anagram {
   text-align: center;
   margin-bottom: 15px;
-}
-
-.char {
-  background-color: white;
-  margin: 0 1px 0 0;
-  display: inline-block;
-  font-size: 20px;
-  color: white;
-  box-shadow: 2px 2px 0 rgba(0,0,0,.2);
-  width: 25px;
-  height: 33px;
-  text-align: center;
-  line-height: 33px;  
+  .char {
+    background-color: rgba(255,255,255,.7);
+    margin: 0 1px 0 0;
+    display: inline-block;
+    font-size: 20px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,.2);
+    width: 25px;
+    height: 33px;
+    text-align: center;
+    line-height: 33px;
+    color: transparent;
+    &::selection {
+      color: transparent;
+    }    
+  }
+  &.--show {
+    .char {
+      background-color: #ffffff;
+      color: #000000;
+      &::transparent {
+        color: #000000;
+      }
+    }
+  }
 }

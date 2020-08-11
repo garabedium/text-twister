@@ -6,8 +6,8 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: 999,
-      timerStart: 999,
+      timerTime: 20,
+      timerStart: 20,
       zipfMin: 5,
       zipfMax: 7,
       notification: {},
@@ -365,11 +365,9 @@ class App extends Component {
     let loadedWord = this.state.word.letters.length > 0
     let score = this.state.player.score
     let anagrams = this.state.word.anagrams.map((a) => {
-      // let word = (a.solved || this.state.game.reset) ? a.anagram : this.replaceLetterUnderscore(a.anagram)
-      let anagram = a.anagram.split('')
-      let word = anagram.map(char => { return (<span className="char">{char}</span>) })
-      // return(<span className={`logo-letter ${char === ' ' ? '--space':''}`}>{char}</span>)
-    return( <li className="anagram" key={a.id}>{word}</li> )
+      let showSolved = (a.solved || this.state.game.reset)
+      let word = a.anagram.split('').map(char => { return (<span className="char">{(showSolved) ? char : "-"}</span>) })
+    return( <li className={`anagram ${showSolved ? '--show':''}`} key={a.id}>{word}</li> )
     })
 
     return(
