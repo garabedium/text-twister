@@ -2,6 +2,11 @@
   position: relative;
   max-width: 450px;
   margin: 75px auto 0 auto;
+  &.--reset {
+    .letter {
+      text-transform: uppercase;
+    }
+  }
 }
 
 .word {
