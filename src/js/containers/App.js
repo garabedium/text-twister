@@ -6,8 +6,8 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: 20,
-      timerStart: 20,
+      timerTime: 999,
+      timerStart: 999,
       zipfMin: 5,
       zipfMax: 7,
       notification: {},
@@ -238,16 +238,15 @@ class App extends Component {
     return this.setState(newState)
   }
 
-  handleKeyPress(event){
+  handleKeyPress(key,event){
     let newState = Object.assign({},this.state)
-    const key = event.key
     let found = newState.word.letters.filter( obj => { return key === obj.char && !obj.used })
 
-    if (key !== 'Enter' && found.length > 0){
+    if (key !== "enter" && found.length > 0){
       found[0].used = true
       found[0].updatedAt = Date.now()
       return this.setState(newState)
-    } else if (key !== 'Enter') {
+    } else if (key !== "enter") {
       event.preventDefault()
     }
   }

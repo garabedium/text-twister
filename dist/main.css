@@ -524,6 +524,8 @@ body {
   position: relative;
   max-width: 450px;
   margin: 75px auto 0 auto; }
+  .game-row.\--reset .letter {
+    text-transform: uppercase; }
 
 .word {
   display: flex;
@@ -570,16 +572,22 @@ body {
 .anagram {
   text-align: center;
   margin-bottom: 15px; }
-
-.char {
-  background-color: white;
-  margin: 0 1px 0 0;
-  display: inline-block;
-  font-size: 20px;
-  color: white;
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
-  width: 25px;
-  height: 33px;
-  text-align: center;
-  line-height: 33px; }
+  .anagram .char {
+    background-color: rgba(255, 255, 255, 0.7);
+    margin: 0 1px 0 0;
+    display: inline-block;
+    font-size: 20px;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+    width: 25px;
+    height: 33px;
+    text-align: center;
+    line-height: 33px;
+    color: transparent; }
+    .anagram .char::selection {
+      color: transparent; }
+  .anagram.\--show .char {
+    background-color: #ffffff;
+    color: #000000; }
+    .anagram.\--show .char::transparent {
+      color: #000000; }
 

@@ -34,11 +34,17 @@ class GameFormContainer extends Component {
   }
 
   handleInput(event){
-    if (event.type === "keypress") {
-      return this.props.handleKeyPress(event)
-    }
-    if (event.type == "keydown" && event.key == 'Backspace') {
-      return this.props.handleBackspace(event)
+    // keyCode check still necessary as Android mobile event.key returns "Unidentified" :(
+    let keyCode = event.keyCode;
+
+    if (event.type === "keydown"){
+      if (keyCode === 8 || event.key === "Backspace") {
+        return this.props.handleBackspace(event)
+      } else {
+        let key = (keyCode === 13 || event.key === "Enter") ? "Enter" : String.fromCharCode(keyCode)
+        key = key.toLowerCase()
+        return this.props.handleKeyPress(key,event)
+      }
     }
   }
 
