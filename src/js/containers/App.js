@@ -10,6 +10,7 @@ class App extends Component {
       timerStart: 20,
       zipfMin: 5,
       zipfMax: 7,
+      isTouchDevice: this.props.isTouchDevice,
       notification: {},
       notifications: {
         "default":   {text:"Press Spacebar to shuffle letters. Press Enter to submit.",default: true},
@@ -61,7 +62,6 @@ class App extends Component {
   componentDidMount(){
     console.log("*** app mounted ***")
     this.initGame()
-    // this.setNotification()
   }
   
   initGame(){  
