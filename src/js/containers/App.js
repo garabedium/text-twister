@@ -6,11 +6,11 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: 20,
-      timerStart: 20,
+      timerTime: 999,
+      timerStart: 999,
       zipfMin: 5,
       zipfMax: 7,
-      isTouchDevice: this.props.isTouchDevice,
+      isMobile: this.props.isTouchDevice,
       notification: {},
       notifications: {
         "default":   {text:"Press Spacebar to shuffle letters. Press Enter to submit.",default: true},
@@ -256,7 +256,7 @@ class App extends Component {
   // and change its 'used' status:
   handleBackspace(event){
     let newState = Object.assign({},this.state)
-    const key = event.key
+    // const key = event.key
     const last = newState.word.letters.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b))
 
     last.used = false
@@ -401,6 +401,7 @@ class App extends Component {
             notification={this.state.notification}
             notifications={this.state.notifications}
             setNotification={this.setNotification}
+            isMobile={this.state.isMobile}
           /> : null}
 
         {this.state.game.started && anagrams.length > 0 ? <ul className="anagrams">{anagrams}</ul> : null}

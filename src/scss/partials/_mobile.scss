@@ -1,0 +1,17 @@
+.mobile-guess {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 15px 0;
+  background-color: #ffffff;
+  padding: 10px 0;
+  box-shadow: inset 0 12px 5px -12px #424242, inset 0 -12px 5px -12px #424242;
+}
+
+.mobile-letters {
+  flex-grow: 1;
+  font-size: 26px;
+  letter-spacing: 2px;
+  // Left margin offsets backspace button so text properly centers
+  margin-left: 32px;
+}
