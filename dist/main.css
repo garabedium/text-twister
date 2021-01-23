@@ -452,6 +452,9 @@ body {
 .ri-arrow-right-line:before {
   content: "\EA6A"; }
 
+.ri-close-circle-line:before {
+  content: "\EB91"; }
+
 .ri-funds-line:before {
   content: "\ED7C"; }
 

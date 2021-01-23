@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import GuessMobile from './GuessMobile'
 import FormInput from '../components/FormInput'
 import Button from '../components/Button'
 
@@ -76,6 +77,7 @@ class GameFormContainer extends Component {
     let score = this.props.player.score
     let level = this.props.player.level
     const reset = this.props.game.reset
+    const isMobile = this.props.isMobile
 
     // Show solved word when game is over, else, show letters:
     let displayWordVal = reset ? this.props.word.current.split('') : this.props.word.letters
@@ -138,30 +140,37 @@ class GameFormContainer extends Component {
         {this.props.game.started && this.props.game.active && 
           <form onSubmit={this.handleSubmit} className="game-form">
 
+          {isMobile ? 
+            <GuessMobile
+              guess={guess}
+              handleBackspace={this.props.handleBackspace}
+            /> : 
             <FormInput
               placeholder="Guess a word..."
               name="guess"
               content={guess}
               handleChange={this.handleInput}
               class="game-form__input"
-            />
+            /> }
 
-            <div className="notify">
+            {/* <div className="notify">
               { notification }
-            </div>
+            </div> */}
 
-            <Button
-              text="Shuffle"
-              handleClick={this.props.updateShuffledState}
-              class="btn--secondary"
-              icon="ri-space m-l5"
-            />
-            <Button
-              text="Submit"
-              handleClick={this.handleSubmit}
-              class="btn--secondary"
-              icon="ri-arrow-right-line m-l5"
-            />
+            <div class="buttons">
+              <Button
+                text="Shuffle"
+                handleClick={this.props.updateShuffledState}
+                class="btn--secondary"
+                icon="ri-space m-l5"
+              />
+              <Button
+                text="Submit"
+                handleClick={this.handleSubmit}
+                class={`btn--secondary ${guess.length < 3 ? 'disabled':''}`}
+                icon="ri-arrow-right-line m-l5"
+              />
+            </div>
           </form>
         }
       </React.Fragment>
@@ -171,3 +180,5 @@ class GameFormContainer extends Component {
 }
 
 export default GameFormContainer
+
+// <div> {guess} </div>
