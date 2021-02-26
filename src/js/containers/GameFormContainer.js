@@ -13,7 +13,7 @@ class GameFormContainer extends Component {
     this.handleInput = this.handleInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
-    this.delaySetNotification = this.delaySetNotification.bind(this)
+    // this.delaySetNotification = this.delaySetNotification.bind(this)
     this.getGuess = this.getGuess.bind(this)
   }
   componentDidMount(){
@@ -49,21 +49,21 @@ class GameFormContainer extends Component {
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
         console.log("duplicate word")
-        this.props.setNotification("dupe")
+        this.props.setNotification("validate_dupe")
       } else {
         this.props.validateWord(guess)
         this.props.handleClear()
       }
     } else {
-      this.props.setNotification("min")
+      this.props.setNotification("validate_min")
     }
   }
 
-  delaySetNotification(){
-    setTimeout(() => {
-      this.props.setNotification("default")
-    },5000)
-  }
+  // delaySetNotification(){
+  //   setTimeout(() => {
+  //     this.props.setNotification("default")
+  //   },5000)
+  // }
 
   // Guess = used letters, sorted by timestamp, returned as string
   getGuess(){
@@ -107,8 +107,9 @@ class GameFormContainer extends Component {
     let seconds = timerTime
 
     let notification = this.props.notification.text
+
     if (!this.props.notification.default) {
-      this.delaySetNotification()
+      this.props.setNotification("default",true);
     }
 
     return(
@@ -153,9 +154,9 @@ class GameFormContainer extends Component {
               class="game-form__input"
             /> }
 
-            {/* <div className="notify">
+            <div className="notification">
               { notification }
-            </div> */}
+            </div> 
 
             <div class="buttons">
               <Button
