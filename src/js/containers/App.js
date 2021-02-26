@@ -10,13 +10,17 @@ class App extends Component {
       timerStart: 999,
       zipfMin: 5,
       zipfMax: 7,
+      levelWordLength: 6,
       isMobile: this.props.isTouchDevice,
       notification: {},
       notifications: {
-        "default":   {text:"Press Spacebar to shuffle letters. Press Enter to submit.",default: true},
+        "default":   {text:"",default: true},
         "points":    {text:"Woohoo! Points! Keep Solving!", icon:"star"},
-        "dupe":      {text:"You already solved that word!", icon:"x"},
-        "min":       {text:"Words must be at least 3 letters!", icon:"x"},
+        "validate_dupe":      {text:"You already solved that word!", icon:"x"},
+        "validate_min":       {text:"Words must be at least 3 letters!", icon:"x"},
+        "validate_invalid":    {text:"That's not in our dictionary!", icon:"x"},
+        "solved_level": {text:"You solved the 6 letter word! Next level solve!", icon:"x"},
+        "solved_all":   {text:"You solved all the words! Genius!"}
       },
       baseDate: Date.now(),
       game: {
@@ -67,6 +71,7 @@ class App extends Component {
   initGame(){  
     this.getWords().then(response => { 
       let newState = Object.assign({},this.state)
+      newState.notifications.default.text = this.state.isMobile ? "Tap letters to use." : "Press Spacebar to shuffle. Press Enter to submit."
       newState.notification = this.state.notifications.default
       newState.words = response
       newState.word.current = this.selectWord(response)
@@ -133,13 +138,14 @@ class App extends Component {
         })
 
         newState.player.score = this.updateScore(word)
-        newState.player.levelup = (word.length === 6) ? true : this.state.player.levelup
+        newState.player.levelup = (word.length === this.state.levelWordLength) ? true : this.state.player.levelup
+        newState.notification = (word.length === this.state.levelWordLength) ? this.state.notifications.solved_level : this.state.notifications.points
         newState.player.solved = this.state.player.solved.concat(word)
         newState.word.anagrams = anagrams
-        newState.notification = this.state.notifications.points
 
         this.setState(newState)
-
+      } else {
+        this.setNotification("validate_invalid")
       }
     })
   }
@@ -352,10 +358,16 @@ class App extends Component {
     return output
   }
 
-  setNotification(notify){
+  setNotification(notify,delay){
     let newState = Object.assign({},this.state)
     newState.notification = this.state.notifications[notify]
-    return this.setState(newState)
+    if (delay){
+      setTimeout(() => {
+        return this.setState(newState)
+      },2500)
+    } else {
+      return this.setState(newState)
+    }
   }
 
   render(){
