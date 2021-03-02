@@ -6,6 +6,7 @@ const Button = (props) =>{
       type="button"
       className={props.class}
       onClick={props.handleClick}
+      key={props.key}
     >
       {props.text}
       {props.icon && <i className={props.icon}></i>}

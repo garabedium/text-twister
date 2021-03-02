@@ -13,13 +13,11 @@ class GameFormContainer extends Component {
     this.handleInput = this.handleInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
-    // this.delaySetNotification = this.delaySetNotification.bind(this)
     this.getGuess = this.getGuess.bind(this)
   }
   componentDidMount(){
     console.log("*** gameForm mounted ***")
     this.handleSpacebarPress()
-    // this.setNotification()
   }
 
   // Shuffle word on spacebar press:
@@ -88,15 +86,17 @@ class GameFormContainer extends Component {
     const btnRestart = <Button handleClick={this.props.restartGame} class="btn m-auto m-t30" text={btnRestartText} icon={`${btnRestartIcon} ri-lg m-l5`} />
 
     const displayWord = displayWordVal.map((el,i) => {
-      return( 
-        <li 
-        className={`letter ${el.used ? '--used':''}`} 
-        onClick={() => !el.used ? this.props.handleLetterClick(el.char) : false} 
-        key={el.id ? el.id : i + 1}
-        role={!el.used ? 'button' : 'listitem'}
-        >
-          {el.char ? el.char : el}
-        </li> 
+      var letterText = el.char ? el.char : el
+      var letterKey = el.id ? el.id : i + 1
+      var letterClass = `letter ${el.used ? '--used':''}`
+      return(
+        <Button 
+          class={letterClass} 
+          handleClick={() => !el.used ? this.props.handleLetterClick(el.char) : false} 
+          key={letterKey}
+          text={letterText}
+        />
+          
       )
     })
 
@@ -132,7 +132,7 @@ class GameFormContainer extends Component {
             <span className="game-points__title"><i class="ri-funds-line ri-2x"></i></span>
             <span className="">{level}</span>
           </div> : null}
-          {this.props.game.started && <ul className="word">{displayWord}</ul>}
+          {this.props.game.started && <div className="word">{displayWord}</div>}
           {!this.props.game.started && <div className="word">Play the game.</div>}
         </div>
 
