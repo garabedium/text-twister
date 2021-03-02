@@ -13,13 +13,11 @@ class GameFormContainer extends Component {
     this.handleInput = this.handleInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
-    // this.delaySetNotification = this.delaySetNotification.bind(this)
     this.getGuess = this.getGuess.bind(this)
   }
   componentDidMount(){
     console.log("*** gameForm mounted ***")
     this.handleSpacebarPress()
-    // this.setNotification()
   }
 
   // Shuffle word on spacebar press:
@@ -88,14 +86,17 @@ class GameFormContainer extends Component {
     const btnRestart = <Button handleClick={this.props.restartGame} class="btn m-auto m-t30" text={btnRestartText} icon={`${btnRestartIcon} ri-lg m-l5`} />
 
     const displayWord = displayWordVal.map((el,i) => {
-      return( 
-        <button 
-        className={`letter ${el.used ? '--used':''}`} 
-        onClick={() => !el.used ? this.props.handleLetterClick(el.char) : false} 
-        key={el.id ? el.id : i + 1}
-        >
-          {el.char ? el.char : el}
-        </button> 
+      var letterText = el.char ? el.char : el
+      var letterKey = el.id ? el.id : i + 1
+      var letterClass = `letter ${el.used ? '--used':''}`
+      return(
+        <Button 
+          class={letterClass} 
+          handleClick={() => !el.used ? this.props.handleLetterClick(el.char) : false} 
+          key={letterKey}
+          text={letterText}
+        />
+          
       )
     })
 
