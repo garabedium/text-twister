@@ -89,14 +89,13 @@ class GameFormContainer extends Component {
 
     const displayWord = displayWordVal.map((el,i) => {
       return( 
-        <li 
+        <button 
         className={`letter ${el.used ? '--used':''}`} 
         onClick={() => !el.used ? this.props.handleLetterClick(el.char) : false} 
         key={el.id ? el.id : i + 1}
-        role={!el.used ? 'button' : 'listitem'}
         >
           {el.char ? el.char : el}
-        </li> 
+        </button> 
       )
     })
 
@@ -132,7 +131,7 @@ class GameFormContainer extends Component {
             <span className="game-points__title"><i class="ri-funds-line ri-2x"></i></span>
             <span className="">{level}</span>
           </div> : null}
-          {this.props.game.started && <ul className="word">{displayWord}</ul>}
+          {this.props.game.started && <div className="word">{displayWord}</div>}
           {!this.props.game.started && <div className="word">Play the game.</div>}
         </div>
 
