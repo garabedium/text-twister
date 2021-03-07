@@ -553,7 +553,7 @@ body {
   border-radius: 4px; }
 
 .letter {
-  background-color: #fff;
+  background-color: #ffffff;
   margin: 0 10px 0 0;
   width: 50px;
   line-height: 1.5;
@@ -561,12 +561,16 @@ body {
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
   cursor: pointer; }
   .letter.\--used {
-    color: #fff;
+    color: #ffffff;
+    box-shadow: 0px 0px 0px 2px #df744a;
     cursor: default; }
     .letter.\--used::selection {
       color: #fff; }
   .letter:last-child {
     margin-right: 0; }
+  .letter:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 2px #df744a; }
 
 .anagrams {
   columns: 2;

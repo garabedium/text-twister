@@ -6,8 +6,7 @@
   max-width: 1000px;
   padding: 0;
   @media screen and (min-width: 768px) {
-    columns: 4;
-    column-gap: 20px;
+    columns: 4;    column-gap: 20px;
   }
 }
 
@@ -36,6 +35,11 @@
       &::transparent {
         color: #000000;
       }
+    }
+  }
+  &.--solved {
+    .char {
+      background-color: yellow;
     }
   }
 }
