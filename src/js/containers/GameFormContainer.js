@@ -92,7 +92,7 @@ class GameFormContainer extends Component {
       return(
         <Button 
           class={letterClass} 
-          handleClick={() => !el.used ? this.props.handleLetterClick(el.char) : false} 
+          handleClick={() => !el.used ? this.props.handleLetterClick(el) : false} 
           key={letterKey}
           text={letterText}
         />

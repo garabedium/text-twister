@@ -258,16 +258,13 @@ class App extends Component {
     }
   }
 
-  // On backspace, look for the most recently updated letter
-  // and change its 'used' status:
+  // On backspace, find the most recently updated letter
+  // reset "used" status and "updatedAt" timestamp
   handleBackspace(event){
     let newState = Object.assign({},this.state)
-    // const key = event.key
     const last = newState.word.letters.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b))
-
     last.used = false
     last.updatedAt = this.state.baseDate
-
     return this.setState(newState)
   }
 
@@ -283,9 +280,10 @@ class App extends Component {
     return this.setState(newState)
   }
 
-  handleLetterClick(char){
+  // Remove letter on click or touch:
+  handleLetterClick(letter){
     let newState = Object.assign({},this.state)
-    let found = newState.word.letters.filter( obj => { return char === obj.char && !obj.used })
+    let found = newState.word.letters.filter( obj => { return letter.id === obj.id && !obj.used })
 
     if (found.length > 0){
       found[0].used = true
