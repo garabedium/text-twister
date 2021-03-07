@@ -379,7 +379,7 @@ class App extends Component {
     let anagrams = this.state.word.anagrams.map((a) => {
       let showSolved = (a.solved || this.state.game.reset)
       let word = a.anagram.split('').map(char => { return (<span className="char">{(showSolved) ? char : "-"}</span>) })
-    return( <li className={`anagram ${showSolved ? '--show':''}`} key={a.id}>{word}</li> )
+    return( <li className={`anagram ${showSolved ? '--show':''} ${a.solved ? '--solved':''}`} key={a.id}>{word}</li> )
     })
 
     return(
