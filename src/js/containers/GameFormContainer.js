@@ -57,12 +57,6 @@ class GameFormContainer extends Component {
     }
   }
 
-  // delaySetNotification(){
-  //   setTimeout(() => {
-  //     this.props.setNotification("default")
-  //   },5000)
-  // }
-
   // Guess = used letters, sorted by timestamp, returned as string
   getGuess(){
     let guess = this.props.word.letters.filter( el => { return el.used }).sort((a,b) => { return a.updatedAt - b.updatedAt }).map(el => { return el.char }).join('')
@@ -81,9 +75,7 @@ class GameFormContainer extends Component {
     let displayWordVal = reset ? this.props.word.current.split('') : this.props.word.letters
 
     let guess = this.getGuess()
-    const btnRestartText = this.props.player.levelup ? "Next Level" : "Restart"
-    const btnRestartIcon = this.props.player.levelup ? "ri-funds-line" : "ri-restart-line"
-    const btnRestart = <Button handleClick={this.props.restartGame} class="btn m-auto m-t30" text={btnRestartText} icon={`${btnRestartIcon} ri-lg m-l5`} />
+    const btnRestartText = this.props.player.levelup ? "Next Level" : "New Game"
 
     const displayWord = displayWordVal.map((el,i) => {
       var letterText = el.char ? el.char : el
@@ -105,12 +97,6 @@ class GameFormContainer extends Component {
     }
 
     let seconds = timerTime
-
-    let notification = this.props.notification.text
-
-    if (!this.props.notification.default) {
-      this.props.setNotification("default",true);
-    }
 
     return(
       <React.Fragment>
@@ -135,8 +121,19 @@ class GameFormContainer extends Component {
           {this.props.game.started && <div className="word">{displayWord}</div>}
           {!this.props.game.started && <div className="word">Play the game.</div>}
         </div>
+        
+        {reset && 
+          <div className="notification">
+            { notification }
+          </div> 
+        }
 
-        {reset && btnRestart}
+        {reset && 
+          <Button 
+            handleClick={this.props.restartGame} 
+            class="btn m-auto m-t30" 
+            text={btnRestartText} 
+            icon={`ri-play-fill ri-lg m-l5`} />}
 
         {this.props.game.started && this.props.game.active && 
           <form onSubmit={this.handleSubmit} className="game-form">
@@ -181,5 +178,3 @@ class GameFormContainer extends Component {
 }
 
 export default GameFormContainer
-
-// <div> {guess} </div>

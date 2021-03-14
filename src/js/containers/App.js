@@ -14,13 +14,15 @@ class App extends Component {
       isMobile: this.props.isTouchDevice,
       notification: {},
       notifications: {
-        "default":   {text:"",default: true},
+        "default":   {text:"Press Spacebar to shuffle. Press Enter to submit."},
+        "default_mobile": {text: "Tap letters to use."},
         "points":    {text:"Woohoo! Points! Keep Solving!", icon:"star"},
         "validate_dupe":      {text:"You already solved that word!", icon:"x"},
         "validate_min":       {text:"Words must be at least 3 letters!", icon:"x"},
         "validate_invalid":    {text:"That's not in our dictionary!", icon:"x"},
         "solved_level": {text:"You solved the 6 letter word! Next level solve!", icon:"x"},
-        "solved_all":   {text:"You solved all the words! Genius!"}
+        "solved_all":   {text:"You solved all the words! Genius!"},
+        "game_over":   {text:"Game Over"},
       },
       baseDate: Date.now(),
       game: {
@@ -71,8 +73,7 @@ class App extends Component {
   initGame(){  
     this.getWords().then(response => { 
       let newState = Object.assign({},this.state)
-      newState.notifications.default.text = this.state.isMobile ? "Tap letters to use." : "Press Spacebar to shuffle. Press Enter to submit."
-      newState.notification = this.state.notifications.default
+      newState.notification = this.state.notifications[(this.state.isMobile) ? "default_mobile":"default"]
       newState.words = response
       newState.word.current = this.selectWord(response)
       // Build the letter objects that will maintain letter 'state':
@@ -233,6 +234,7 @@ class App extends Component {
     newState.player.level = level
     newState.player.score = this.state.player.score
     newState.timerOn = false
+    newState.notification = this.state.notifications[(this.state.player.levelup) ? "default":"game_over"]
 
     this.setState(newState, this.lazyLoadWords())
   }
@@ -300,7 +302,8 @@ class App extends Component {
     newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
       return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
     })
-
+    
+    newState.notification = this.state.notifications["default"]
     newState.player.solved = []
     newState.player.level = (this.state.player.levelup) ? this.state.player.level : 0
     newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0    
@@ -324,11 +327,13 @@ class App extends Component {
     });
     this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 1;
+      // Timer counts down:
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime
         });
       } else {
+      // Time clears:
         clearInterval(this.timer);
         this.updateGameState()
       }
