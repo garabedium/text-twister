@@ -68,6 +68,7 @@ class GameFormContainer extends Component {
 
     let score = this.props.player.score
     let level = this.props.player.level
+    let notification = this.props.notification.text
     const reset = this.props.game.reset
     const isMobile = this.props.isMobile
 
