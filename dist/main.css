@@ -605,6 +605,8 @@ body {
     color: #000000; }
     .anagram.\--show .char::transparent {
       color: #000000; }
+  .anagram.\--solved .char {
+    background-color: yellow; }
 
 .notification {
   margin: 15px auto;

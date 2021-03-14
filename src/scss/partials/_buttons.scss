@@ -1,6 +1,7 @@
 .btn {
   // Primary button:
-  display: block;
+  display: flex;
+  align-items: center;
   text-transform: uppercase;
   background: #ff4904;
   padding: 15px 20px;
