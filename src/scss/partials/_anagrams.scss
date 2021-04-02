@@ -1,18 +1,32 @@
-.anagrams {
-  columns: 2;
-  list-style: none;
-  margin: 50px auto;
-  width: 100%;
-  max-width: 1000px;
-  padding: 0;
-  @media screen and (min-width: 768px) {
-    columns: 4;    column-gap: 20px;
+.anagrams-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;  
+  margin: 25px auto;
+  width: 90%;
+
+  .anagram-column {
+    margin: 0 15px 15px 0;
+    list-style: none;
+    padding: 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
+
 }
 
 .anagram {
-  text-align: center;
-  margin-bottom: 15px;
+  // text-align: center;
+  // margin-bottom: 15px;
+  
+  // dev
+  text-align: left;
+  // width: 175px;
+  // display: inline-block;
+  margin-bottom: 5px;
+
   .char {
     background-color: rgba(255,255,255,.7);
     margin: 0 1px 0 0;

@@ -504,7 +504,8 @@ body {
   transform: translateX(-50%); }
 
 .btn {
-  display: block;
+  display: flex;
+  align-items: center;
   text-transform: uppercase;
   background: #ff4904;
   padding: 15px 20px;
@@ -572,21 +573,20 @@ body {
     outline: none;
     box-shadow: 0px 0px 0px 2px #df744a; }
 
-.anagrams {
-  columns: 2;
-  list-style: none;
-  margin: 50px auto;
+.anagrams-container {
   width: 100%;
-  max-width: 1000px;
+  margin-top: 25px; }
+
+.anagrams {
+  list-style: none;
+  margin: 0 auto;
+  width: 90%;
+  columns: 6;
   padding: 0; }
-  @media screen and (min-width: 768px) {
-    .anagrams {
-      columns: 4;
-      column-gap: 20px; } }
 
 .anagram {
-  text-align: center;
-  margin-bottom: 15px; }
+  text-align: left;
+  margin-bottom: 5px; }
   .anagram .char {
     background-color: rgba(255, 255, 255, 0.7);
     margin: 0 1px 0 0;
@@ -617,7 +617,8 @@ body {
   border-radius: 4px;
   color: white;
   font-size: 18px;
-  font-weight: 700; }
+  font-weight: 700;
+  text-align: center; }
 
 .mobile-guess {
   display: flex;
