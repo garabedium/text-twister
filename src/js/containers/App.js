@@ -1,28 +1,29 @@
 import React, { Component } from 'react'
 import GameFormContainer from './GameFormContainer'
+import Anagrams from './Anagrams'
 
 class App extends Component {
   constructor(props){
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: 90,
-      timerStart: 90,
+      timerTime: 999,
+      timerStart: 999,
       zipfMin: 5,
       zipfMax: 7,
       levelWordLength: 6,
       isMobile: this.props.isTouchDevice,
       notification: {},
       notifications: {
-        "default":   {text:"Press Spacebar to shuffle. Press Enter to submit."},
+        "default": {text:"Press Spacebar to shuffle. Press Enter to submit."},
         "default_mobile": {text: "Tap letters to use."},
-        "points":    {text:"Woohoo! Points! Keep Solving!", icon:"star"},
-        "validate_dupe":      {text:"You already solved that word!", icon:"x"},
-        "validate_min":       {text:"Words must be at least 3 letters!", icon:"x"},
-        "validate_invalid":    {text:"That's not in our dictionary!", icon:"x"},
+        "points": {text:"Woohoo! Points! Keep Solving!", icon:"star"},
+        "validate_dupe": {text:"You already solved that word!", icon:"x"},
+        "validate_min": {text:"Words must be at least 3 letters!", icon:"x"},
+        "validate_invalid": {text:"That's not in our dictionary!", icon:"x"},
         "solved_level": {text:"You solved the 6 letter word! Next level solve!", icon:"x"},
-        "solved_all":   {text:"You solved all the words! Genius!"},
-        "game_over":   {text:"Game Over"},
+        "solved_all": {text:"You solved all the words! Genius!"},
+        "game_over": {text:"Game Over"},
       },
       baseDate: Date.now(),
       game: {
@@ -379,11 +380,6 @@ class App extends Component {
     })
     let loadedWord = this.state.word.letters.length > 0
     let score = this.state.player.score
-    let anagrams = this.state.word.anagrams.map((a) => {
-      let showSolved = (a.solved || this.state.game.reset)
-      let word = a.anagram.split('').map(char => { return (<span className="char">{(showSolved) ? char : "-"}</span>) })
-    return( <li className={`anagram ${showSolved ? '--show':''} ${a.solved ? '--solved':''}`} key={a.id}>{word}</li> )
-    })
 
     return(
       <React.Fragment>
@@ -419,7 +415,10 @@ class App extends Component {
             isMobile={this.state.isMobile}
           /> : null}
 
-        {this.state.game.started && anagrams.length > 0 ? <ul className="anagrams">{anagrams}</ul> : null}
+        <Anagrams 
+          game={this.state.game}
+          anagrams={this.state.word.anagrams}
+        />
 
       </main>
       </React.Fragment>

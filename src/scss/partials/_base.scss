@@ -23,7 +23,7 @@ body {
     font-weight: 700;
     margin: 0;
     text-shadow: 1px 2px #000;
-    font-size: 2em;
+    font-size: 1.75rem;
     text-align: center;
   }
 }
@@ -45,6 +45,10 @@ body {
   // m-l5
   &-l5 {
     margin-left: 5px;
+  }
+  // m-r10
+  &-r10 {
+    margin-right: 10px;
   }
 }
 
