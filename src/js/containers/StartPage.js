@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Button from '../components/Button'
 
-class SplashPage extends Component {
+class StartPage extends Component {
   constructor(props){
     super(props)
     this.state = {}
@@ -27,4 +27,4 @@ class SplashPage extends Component {
 
 }
 
-export default SplashPage;
+export default StartPage;

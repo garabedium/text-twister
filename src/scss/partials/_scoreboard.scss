@@ -1,23 +1,19 @@
 
-$offset-top: -65px;
-$offset-left: 20%;
+$offset-top: -50px;
+$offset-horizontal: 20%;
 
-.game-points {
+.game-stat {
   position: absolute;
   top: $offset-top;
-  left: $offset-left;
   text-align: center;
-  &__title {
-    display: block;
+  display: flex;
+  align-items: center;
+
+  &.game-stat--points {
+    left: $offset-horizontal;
   }
-}
-.game-level {
-  position: absolute;
-  top: $offset-top;
-  right: $offset-left;
-  text-align: center;
-  &__title {
-    display: block;
+  &.game-stat--level {
+    right: $offset-horizontal;
   }
 }
 

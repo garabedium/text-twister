@@ -1,13 +1,12 @@
 .anagrams-container {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;  
-  // bottom margin - anagram-column margin
-  margin: 25px auto 10px auto;
+  flex-wrap: wrap;
+  margin: 20px auto 10px auto;
   width: 90%;
 
   .anagram-column {
-    margin: 0 15px 15px 0;
+    margin: 0 15px 10px 0;
     list-style: none;
     padding: 0;
 

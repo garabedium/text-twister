@@ -103,10 +103,12 @@ class GameFormContainer extends Component {
       <React.Fragment>
         
         <div className={`game-row ${reset ? '--reset':''}`}>
-          {this.props.game.started ? <div className="game-points">
-            <span className="game-points__title"><i class="ri-star-fill ri-2x"></i></span>
-            <span className="game-points__score">{score}</span>
-          </div> : null}
+
+          {this.props.game.started &&
+          <div className="game-stat game-stat--points">
+            <i class="ri-star-fill ri-2x m-r10"></i>
+            <span>{score}</span>
+          </div> }
           <div className="game-timer">
             {this.props.game.started ? <span>{seconds}</span> : 
               <Button
@@ -115,10 +117,12 @@ class GameFormContainer extends Component {
               />
             }
           </div>
-          {this.props.game.started ? <div className="game-level">
-            <span className="game-points__title"><i class="ri-funds-line ri-2x"></i></span>
-            <span className="">{level}</span>
-          </div> : null}
+          {this.props.game.started && 
+            <div className="game-stat game-stat--level">
+              <i class="ri-funds-line ri-2x m-r10"></i>
+              <span>{level}</span>
+            </div>
+          }
           {this.props.game.started && <div className="word">{displayWord}</div>}
           {!this.props.game.started && <div className="word">Play the game.</div>}
         </div>
