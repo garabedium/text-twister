@@ -40,13 +40,13 @@
   }
   &.--show {
     .char {
-      background-color: #ffffff;
-      color: #000000;
+      background-color: $white;
+      color: $black;
       &::selection {
         color: inherit;
       }      
       &::transparent {
-        color: #000000;
+        color: $black;
       }
     }
   }

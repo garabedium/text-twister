@@ -8,19 +8,19 @@ class StartPage extends Component {
   }
 
   componentDidMount(){
-    console.log("*** splash page mounted ***")
+    console.log("*** start page mounted ***")
   }
 
   render(){
 
     return(
       <React.Fragment>
-        <h1>Text Twister JS</h1>
-        <h2>Unscramble words</h2>
+        <div>start me up
+        </div>
         <Button
-          text="Play"
-          handleClick={this.props.removeSplash}
-        />
+          icon="ri-play-fill ri-2x"
+          handleClick={this.props.startGame}
+        />        
       </React.Fragment>
     )
   }

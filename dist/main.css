@@ -327,7 +327,7 @@ body {
   /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */ }
 
 .site-header {
-  background-color: #df744a;
+  background-color: $primary-red;
   padding: 10px 0; }
   .site-header .logo {
     font-family: 'Merienda';
@@ -335,7 +335,7 @@ body {
     font-weight: 700;
     margin: 0;
     text-shadow: 1px 2px #000;
-    font-size: 2em;
+    font-size: 1.75rem;
     text-align: center; }
 
 .footer {
@@ -352,6 +352,9 @@ body {
 .m-l5 {
   margin-left: 5px; }
 
+.m-r10 {
+  margin-right: 10px; }
+
 .game-form {
   text-align: center; }
   .game-form__input {
@@ -362,7 +365,7 @@ body {
     font-size: 26px;
     line-height: 2.1;
     outline: 0;
-    border: solid 3px #df744a;
+    border: solid 3px $primary-red;
     border-radius: 4px; }
 
 .notify {
@@ -473,21 +476,18 @@ body {
 .ri-star-fill:before {
   content: "\F11E"; }
 
-.game-points {
-  position: absolute;
-  top: -65px;
-  left: 20%;
-  text-align: center; }
-  .game-points__title {
-    display: block; }
-
-.game-level {
-  position: absolute;
-  top: -65px;
-  right: 20%;
-  text-align: center; }
-  .game-level__title {
-    display: block; }
+.game-stats {
+  display: flex;
+  justify-content: center;
+  max-width: 450px;
+  margin: 15px auto 10px auto; }
+  .game-stats .game-stat {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center; }
+    .game-stats .game-stat .game-stat-icon {
+      margin-right: 5px; }
 
 .game-timer {
   width: 50px;
@@ -535,7 +535,7 @@ body {
 .game-row {
   position: relative;
   max-width: 450px;
-  margin: 75px auto 0 auto; }
+  margin: 0 auto; }
   .game-row.\--reset .letter {
     text-transform: uppercase; }
 
@@ -563,7 +563,7 @@ body {
   cursor: pointer; }
   .letter.\--used {
     color: #ffffff;
-    box-shadow: 0px 0px 0px 2px #df744a;
+    box-shadow: 0px 0px 0px 2px $primary-red;
     cursor: default; }
     .letter.\--used::selection {
       color: #fff; }
@@ -571,16 +571,16 @@ body {
     margin-right: 0; }
   .letter:focus {
     outline: none;
-    box-shadow: 0px 0px 0px 2px #df744a; }
+    box-shadow: 0px 0px 0px 2px $primary-red; }
 
 .anagrams-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 25px auto;
+  margin: 20px auto 10px auto;
   width: 90%; }
   .anagrams-container .anagram-column {
-    margin: 0 15px 15px 0;
+    margin: 0 15px 10px 0;
     list-style: none;
     padding: 0; }
     .anagrams-container .anagram-column:last-child {
@@ -588,6 +588,8 @@ body {
 
 .anagram {
   margin-bottom: 5px; }
+  .anagram:last-child {
+    margin-bottom: 0; }
   .anagram .char {
     background-color: rgba(255, 255, 255, 0.7);
     margin: 0 1px 0 0;

@@ -1,7 +1,7 @@
 .game-row {
   position: relative;
   max-width: 450px;
-  margin: 65px auto 0 auto;
+  margin: 0 auto;
   &.--reset {
     .letter {
       text-transform: uppercase;
@@ -34,10 +34,10 @@
   cursor: pointer;
   &.--used {
     color: $white;
-    box-shadow: 0px 0px 0px 2px $red;
+    box-shadow: 0px 0px 0px 2px $primary-red;
     cursor: default;
     &::selection {
-      color: #fff;
+      color: $white;
     }
   }
   &:last-child {
@@ -45,6 +45,6 @@
   }
   &:focus {
     outline: none;
-    box-shadow: 0px 0px 0px 2px $red;
+    box-shadow: 0px 0px 0px 2px $primary-red;
   }
 }

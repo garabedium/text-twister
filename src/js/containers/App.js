@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import GameFormContainer from './GameFormContainer'
 import Anagrams from './Anagrams'
+import GameContainer from './GameContainer'
+import StartPage from './StartPage'
 
 class App extends Component {
   constructor(props){
@@ -389,8 +390,15 @@ class App extends Component {
           <h1 className="logo">{logoText}</h1>
         </header>
 
+        { !this.state.game.started && 
+          <StartPage
+            game={this.state.game}
+            startGame={this.startGame}
+          /> 
+        }
+
         {loadedWord ?
-          <GameFormContainer
+          <GameContainer
             word={this.state.word}
             shuffleLetters={this.shuffleLetters}
             validateWord={this.validateWord}

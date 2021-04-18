@@ -1,0 +1,25 @@
+
+// $offset-top: -50px;
+$offset-horizontal: 20%;
+
+.game-stats {
+  // top: $offset-top;
+  // position: relative;
+  display: flex;
+  justify-content: center;
+  max-width: 450px;
+  margin: 15px auto 10px auto;
+
+  .game-stat {
+    display: flex;
+    // text-align: center;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+
+    .game-stat-icon {
+      margin-right: 5px;
+    }
+  }
+
+}
