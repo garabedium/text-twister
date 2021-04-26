@@ -15,6 +15,7 @@ class GameContainer extends Component {
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.getGuess = this.getGuess.bind(this)
   }
+
   componentDidMount(){
     console.log("*** gameForm mounted ***")
     this.handleSpacebarPress()
@@ -88,8 +89,7 @@ class GameContainer extends Component {
           handleClick={() => !el.used ? this.props.handleLetterClick(el) : false} 
           key={letterKey}
           text={letterText}
-        />
-          
+        />  
       )
     })
 
@@ -173,6 +173,7 @@ class GameContainer extends Component {
             </div>
           </form>
         }
+
       </React.Fragment>
     )
   }

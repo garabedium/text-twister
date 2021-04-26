@@ -3,7 +3,7 @@
   opacity: .2;
 }
 
-// Margin Utility::
+// Margin Utility:
 .m {
   // m-auto
   &-auto {
@@ -22,4 +22,9 @@
   &-r10 {
     margin-right: 10px;
   }
+}
+
+// Text Utility:
+.text-uppercase {
+  text-transform: uppercase;
 }

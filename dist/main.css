@@ -313,66 +313,20 @@ html {
   height: 100%; }
 
 body {
-  background-color: #00CCFF;
+  background-color: #00d3ff;
   font-family: 'Jost', Arial, Serif; }
 
-#root {
+#game-root {
   display: flex;
   flex-direction: column;
   height: 100vh;
   /* Avoid the IE 10-11 `min-height` bug. */ }
 
-.game {
-  flex: 1 0 auto;
-  /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */ }
-
-.site-header {
-  background-color: $primary-red;
-  padding: 10px 0; }
-  .site-header .logo {
-    font-family: 'Merienda';
-    color: #fff;
-    font-weight: 700;
-    margin: 0;
-    text-shadow: 1px 2px #000;
-    font-size: 1.75rem;
-    text-align: center; }
-
-.footer {
-  flex-shrink: 0;
-  /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */ }
-
-.m-auto {
-  margin-left: auto;
-  margin-right: auto; }
-
-.m-t30 {
-  margin-top: 30px; }
-
-.m-l5 {
-  margin-left: 5px; }
-
-.m-r10 {
-  margin-right: 10px; }
-
-.game-form {
-  text-align: center; }
-  .game-form__input {
-    width: 100%;
-    max-width: 424px;
-    text-align: center;
-    margin: 15px 0 0 0;
-    font-size: 26px;
-    line-height: 2.1;
-    outline: 0;
-    border: solid 3px $primary-red;
-    border-radius: 4px; }
-
-.notify {
-  width: 400px;
-  margin: 15px auto;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.8); }
+.game-container {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; }
 
 /*
 * Remix Icon v2.4.0
@@ -396,7 +350,12 @@ body {
   font-family: 'remixicon' !important;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
+  -moz-osx-font-smoothing: grayscale;
+  opacity: 0;
+  transition: opacity 200ms ease-in; }
+
+body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
+  opacity: 1; }
 
 .ri-lg {
   font-size: 1.3333em;
@@ -461,6 +420,9 @@ body {
 .ri-delete-back-2-line:before {
   content: "\EC0A"; }
 
+.ri-error-warning-line:before {
+  content: "\EC81"; }
+
 .ri-funds-line:before {
   content: "\ED7C"; }
 
@@ -476,9 +438,38 @@ body {
 .ri-star-fill:before {
   content: "\F11E"; }
 
+.ri-timer-flash-line:before {
+  content: "\F1A2"; }
+
+.site-header {
+  background-color: #df744a;
+  padding: 10px 0; }
+  .site-header .logo {
+    font-family: 'Merienda';
+    color: #ffffff;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 1px 2px #000000;
+    font-size: 1.75rem;
+    text-align: center; }
+
+.game-form {
+  text-align: center; }
+  .game-form__input {
+    width: 100%;
+    max-width: 424px;
+    text-align: center;
+    margin: 15px 0 0 0;
+    font-size: 26px;
+    line-height: 2.1;
+    outline: 0;
+    border: solid 3px #df744a;
+    border-radius: 4px; }
+
 .game-stats {
   display: flex;
   justify-content: center;
+  width: 100%;
   max-width: 450px;
   margin: 15px auto 10px auto; }
   .game-stats .game-stat {
@@ -494,7 +485,7 @@ body {
   height: 50px;
   border: solid 6px #3bd6ff;
   border-radius: 50px;
-  background-color: #fff;
+  background-color: #ffffff;
   line-height: 50px;
   text-align: center;
   font-size: 25px;
@@ -511,7 +502,7 @@ body {
   padding: 15px 20px;
   font-size: 18px;
   border-radius: 30px;
-  color: #fff;
+  color: #ffffff;
   box-shadow: 0px 1px 0px #000;
   text-shadow: 1px 1px #000; }
   .btn--secondary {
@@ -534,7 +525,7 @@ body {
 
 .game-row {
   position: relative;
-  max-width: 450px;
+  width: 100%;
   margin: 0 auto; }
   .game-row.\--reset .letter {
     text-transform: uppercase; }
@@ -563,15 +554,45 @@ body {
   cursor: pointer; }
   .letter.\--used {
     color: #ffffff;
-    box-shadow: 0px 0px 0px 2px $primary-red;
+    box-shadow: 0px 0px 0px 2px #df744a;
     cursor: default; }
     .letter.\--used::selection {
-      color: #fff; }
+      color: #ffffff; }
   .letter:last-child {
     margin-right: 0; }
   .letter:focus {
     outline: none;
-    box-shadow: 0px 0px 0px 2px $primary-red; }
+    box-shadow: 0px 0px 0px 2px #df744a; }
+
+.start-page {
+  margin-top: 58px;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border-bottom: solid 10px #df744a; }
+  .start-page .word {
+    width: 100%;
+    max-width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; }
+
+.instructions-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 24px;
+  background-color: #ffffff;
+  padding: 20px;
+  flex-grow: 1; }
+  .instructions-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; }
+    .instructions-list li i {
+      margin-right: 10px; }
+    .instructions-list li:last-child {
+      margin-bottom: 0; }
 
 .anagrams-container {
   display: flex;
@@ -643,4 +664,17 @@ body {
 .disabled {
   pointer-events: none;
   opacity: .2; }
+
+.m-auto {
+  margin-left: auto;
+  margin-right: auto; }
+
+.m-t30 {
+  margin-top: 30px; }
+
+.m-l5 {
+  margin-left: 5px; }
+
+.m-r10 {
+  margin-right: 10px; }
 
