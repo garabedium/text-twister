@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import GameFormContainer from './GameFormContainer'
 import Anagrams from './Anagrams'
+import GameContainer from './GameContainer'
+import StartPage from './StartPage'
 
 class App extends Component {
   constructor(props){
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: 999,
-      timerStart: 999,
+      timerTime: 60,
+      timerStart: 60,
       zipfMin: 5,
       zipfMax: 7,
       levelWordLength: 6,
@@ -46,6 +47,7 @@ class App extends Component {
     }
     // Methods:
     this.initGame = this.initGame.bind(this)
+    this.reactLoaded = this.reactLoaded.bind(this)
     this.getWords = this.getWords.bind(this)
     this.lazyLoadWords = this.lazyLoadWords.bind(this)
     this.getWordAnagrams = this.getWordAnagrams.bind(this)
@@ -68,9 +70,16 @@ class App extends Component {
 
   componentDidMount(){
     console.log("*** app mounted ***")
+    this.reactLoaded()
     this.initGame()
   }
   
+  reactLoaded(){
+    setTimeout(() => {
+      document.body.classList.add('--react-loaded')
+    },250)
+  }
+
   initGame(){  
     this.getWords().then(response => { 
       let newState = Object.assign({},this.state)
@@ -380,17 +389,27 @@ class App extends Component {
     })
     let loadedWord = this.state.word.letters.length > 0
     let score = this.state.player.score
+    let gameStarted = this.state.game.started
 
     return(
       <React.Fragment>
-      <main className="game">
 
         <header className="site-header">
           <h1 className="logo">{logoText}</h1>
         </header>
 
-        {loadedWord ?
-          <GameFormContainer
+      <div className="game-container">
+
+        { !gameStarted && 
+          <StartPage
+            game={this.state.game}
+            shuffleLetters={this.shuffleLetters}
+            startGame={this.startGame}
+          /> 
+        }
+
+        {loadedWord && gameStarted ?
+          <GameContainer
             word={this.state.word}
             shuffleLetters={this.shuffleLetters}
             validateWord={this.validateWord}
@@ -420,7 +439,8 @@ class App extends Component {
           anagrams={this.state.word.anagrams}
         />
 
-      </main>
+      </div>
+
       </React.Fragment>
     )
   }

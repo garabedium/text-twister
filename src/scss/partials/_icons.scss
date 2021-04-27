@@ -4,6 +4,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
+
+body.--react-loaded {
+  [class^="ri-"], [class*=" ri-"] {
+    opacity: 1;
+  }
 }
 
 .ri-lg { font-size: 1.3333em; line-height: 0.75em; vertical-align: -.0667em; }
@@ -663,7 +671,7 @@
 // .ri-eraser-fill:before { content: "\ec7e"; }
 // .ri-eraser-line:before { content: "\ec7f"; }
 // .ri-error-warning-fill:before { content: "\ec80"; }
-// .ri-error-warning-line:before { content: "\ec81"; }
+.ri-error-warning-line:before { content: "\ec81"; }
 // .ri-evernote-fill:before { content: "\ec82"; }
 // .ri-evernote-line:before { content: "\ec83"; }
 // .ri-exchange-box-fill:before { content: "\ec84"; }
@@ -1976,7 +1984,7 @@
 // .ri-timer-2-line:before { content: "\f19f"; }
 // .ri-timer-fill:before { content: "\f1a0"; }
 // .ri-timer-flash-fill:before { content: "\f1a1"; }
-// .ri-timer-flash-line:before { content: "\f1a2"; }
+.ri-timer-flash-line:before { content: "\f1a2"; }
 // .ri-timer-line:before { content: "\f1a3"; }
 // .ri-todo-fill:before { content: "\f1a4"; }
 // .ri-todo-line:before { content: "\f1a5"; }

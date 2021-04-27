@@ -3,7 +3,7 @@ import GuessMobile from './GuessMobile'
 import FormInput from '../components/FormInput'
 import Button from '../components/Button'
 
-class GameFormContainer extends Component {
+class GameContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -15,6 +15,7 @@ class GameFormContainer extends Component {
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.getGuess = this.getGuess.bind(this)
   }
+
   componentDidMount(){
     console.log("*** gameForm mounted ***")
     this.handleSpacebarPress()
@@ -88,8 +89,7 @@ class GameFormContainer extends Component {
           handleClick={() => !el.used ? this.props.handleLetterClick(el) : false} 
           key={letterKey}
           text={letterText}
-        />
-          
+        />  
       )
     })
 
@@ -101,30 +101,27 @@ class GameFormContainer extends Component {
 
     return(
       <React.Fragment>
-        
+
+        { this.props.game.started && 
+          <div className="game-stats">
+            <div className="game-stat">
+              <i class="game-stat-icon ri-star-fill ri-2x"></i>
+              <span>{score}</span>
+            </div> 
+            <div className="game-stat">
+              <i class="game-stat-icon ri-funds-line ri-2x"></i>
+              <span>{level}</span>
+            </div>                           
+          </div>
+        }
+
         <div className={`game-row ${reset ? '--reset':''}`}>
 
-          {this.props.game.started &&
-          <div className="game-stat game-stat--points">
-            <i class="ri-star-fill ri-2x m-r10"></i>
-            <span>{score}</span>
-          </div> }
           <div className="game-timer">
-            {this.props.game.started ? <span>{seconds}</span> : 
-              <Button
-                icon="ri-play-fill ri-2x"
-                handleClick={this.props.startGame}
-              />
-            }
+            { this.props.game.started && <span>{seconds}</span> }
           </div>
-          {this.props.game.started && 
-            <div className="game-stat game-stat--level">
-              <i class="ri-funds-line ri-2x m-r10"></i>
-              <span>{level}</span>
-            </div>
-          }
+
           {this.props.game.started && <div className="word">{displayWord}</div>}
-          {!this.props.game.started && <div className="word">Play the game.</div>}
         </div>
         
         {reset && 
@@ -176,10 +173,38 @@ class GameFormContainer extends Component {
             </div>
           </form>
         }
+
       </React.Fragment>
     )
   }
 
 }
 
-export default GameFormContainer
+export default GameContainer
+
+
+{/* <div className="game-timer">
+{this.props.game.started ? <span>{seconds}</span> : 
+  <Button
+    icon="ri-play-fill ri-2x"
+    handleClick={this.props.startGame}
+  />
+}
+</div> */}
+// {this.props.game.started &&
+//   <div className="game-stat game-stat--points">
+//     <i class="ri-star-fill ri-2x m-r10"></i>
+//     <span>{score}</span>
+//   </div> }
+
+//   <div className="game-timer">
+//     { this.props.game.started && <span>{seconds}</span> }
+//   </div>
+//   {this.props.game.started && 
+//     <div className="game-stat game-stat--level">
+//       <i class="ri-funds-line ri-2x m-r10"></i>
+//       <span>{level}</span>
+//     </div>
+//   }
+//   {this.props.game.started && <div className="word">{displayWord}</div>}
+// </div>

@@ -1,14 +1,19 @@
+// Global variables
 @import 'variables';
 
 // Partials
 @import 'partials/normalize';
 @import 'partials/reset';
-@import 'partials/base';
+@import 'partials/layout';
 @import 'partials/fonts';
 @import 'partials/icons';
-@import 'partials/scoreboard';
+@import 'partials/site-header';
+@import 'partials/game-form';
+@import 'partials/game-stats';
+@import 'partials/game-timer';
 @import 'partials/buttons';
 @import 'partials/word';
+@import 'partials/start-page';
 @import 'partials/anagrams';
 @import 'partials/notification';
 @import 'partials/mobile';

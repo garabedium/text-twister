@@ -7,5 +7,5 @@ import isTouchDevice from 'is-touch-device';
 ReactDOM.render(
   <App 
   isTouchDevice={ isTouchDevice() } />,
-  document.getElementById('root')
+  document.getElementById('game-root')
 )
