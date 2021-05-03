@@ -12,6 +12,7 @@ const FormInput = (props) => {
         value={props.content}
         onKeyPress={props.handleChange}
         onKeyDown={props.handleChange}
+        onClick={props.onClick}
       />
   );
 }

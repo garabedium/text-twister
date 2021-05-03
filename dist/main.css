@@ -563,10 +563,20 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
   .letter:focus {
     outline: none;
     box-shadow: 0px 0px 0px 2px #df744a; }
+  .letter.\--animate-letter-fade {
+    animation: fadeIn ease-in-out 700ms; }
+  .letter.\--animate-letter-fade-last {
+    animation: fadeIn ease-in 1000ms; }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
 
 .start-page {
   margin-top: 58px;
-  max-width: 1000px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -677,4 +687,7 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
 
 .m-r10 {
   margin-right: 10px; }
+
+.text-uppercase {
+  text-transform: uppercase; }
 

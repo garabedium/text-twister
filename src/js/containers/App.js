@@ -8,8 +8,8 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: 60,
-      timerStart: 60,
+      timerTime: this.props.isProduction ? 60 : 300,
+      timerStart: this.props.isProduction ? 60 : 300,
       zipfMin: 5,
       zipfMax: 7,
       levelWordLength: 6,

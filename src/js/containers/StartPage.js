@@ -57,20 +57,22 @@ class StartPage extends Component {
 
     return (
       <React.Fragment>
-        <div class="game-row start-page">
-          <div class="game-timer">
+        <div className="game-row start-page">
+          <div className="game-timer">
             <Button
               icon="ri-play-fill ri-2x"
               handleClick={this.props.startGame}
             />
           </div>
-          <div class="word">
+          <div className="word">
             {letters}
           </div>
-          <ul class="instructions-list">
-            <li><i class="ri-timer-flash-line ri-2x"></i> Solve words before time runs out</li>
-            <li><i class="ri-funds-line ri-2x"></i> Solve the 6 letter word and move on up</li>
-            <li><i class="ri-error-warning-line ri-2x"></i> Words must be a minimum of 3 letters</li>
+          <ul className="instructions-list">
+            <li><i className="ri-timer-flash-line ri-2x"></i> Solve words before time runs out</li>
+            <li><i className="ri-funds-line ri-2x"></i> Solve the 6 letter word and move on up</li>
+            <li><i className="ri-error-warning-line ri-2x"></i> Words must be a minimum of 3 letters</li>
+            <li><i className="ri-space ri-2x"></i> Spacebar to shuffle words</li>
+            <li><i className="ri-arrow-right-line ri-2x"></i> Enter to solve word</li>
           </ul>          
         </div>
       </React.Fragment>

@@ -14,6 +14,7 @@ class GameContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.getGuess = this.getGuess.bind(this)
+    this.onInputClick = this.onInputClick.bind(this)
   }
 
   componentDidMount(){
@@ -64,6 +65,11 @@ class GameContainer extends Component {
     return guess
   }
 
+  onInputClick(e){
+    const inputValueLength = e.currentTarget.value.length
+    e.currentTarget.setSelectionRange(inputValueLength, inputValueLength)
+  }
+
   render(){
     const { timerTime, timerStart, timerOn } = this.props;
 
@@ -109,7 +115,7 @@ class GameContainer extends Component {
               <span>{score}</span>
             </div> 
             <div className="game-stat">
-              <i class="game-stat-icon ri-funds-line ri-2x"></i>
+              <i className="game-stat-icon ri-funds-line ri-2x"></i>
               <span>{level}</span>
             </div>                           
           </div>
@@ -151,13 +157,14 @@ class GameContainer extends Component {
               content={guess}
               handleChange={this.handleInput}
               class="game-form__input"
+              onClick={this.onInputClick}
             /> }
 
             <div className="notification">
               { notification }
             </div> 
 
-            <div class="buttons">
+            <div className="buttons">
               <Button
                 text="Shuffle"
                 handleClick={this.props.updateShuffledState}
@@ -181,30 +188,3 @@ class GameContainer extends Component {
 }
 
 export default GameContainer
-
-
-{/* <div className="game-timer">
-{this.props.game.started ? <span>{seconds}</span> : 
-  <Button
-    icon="ri-play-fill ri-2x"
-    handleClick={this.props.startGame}
-  />
-}
-</div> */}
-// {this.props.game.started &&
-//   <div className="game-stat game-stat--points">
-//     <i class="ri-star-fill ri-2x m-r10"></i>
-//     <span>{score}</span>
-//   </div> }
-
-//   <div className="game-timer">
-//     { this.props.game.started && <span>{seconds}</span> }
-//   </div>
-//   {this.props.game.started && 
-//     <div className="game-stat game-stat--level">
-//       <i class="ri-funds-line ri-2x m-r10"></i>
-//       <span>{level}</span>
-//     </div>
-//   }
-//   {this.props.game.started && <div className="word">{displayWord}</div>}
-// </div>

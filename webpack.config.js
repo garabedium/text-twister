@@ -58,6 +58,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].css"
     }),
+    new webpack.EnvironmentPlugin(['NODE_ENV'])
   ],
   devtool: 'eval-source-map',
 }
