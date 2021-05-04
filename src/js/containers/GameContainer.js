@@ -38,8 +38,12 @@ class GameContainer extends Component {
     if (event.type === "keypress") {
       return this.props.handleKeyPress(event)
     }
-    if (event.type == "keydown" && event.key == 'Backspace') {
+    if (event.type == "keydown" && event.key == "Backspace") {
       return this.props.handleBackspace(event)
+    }
+    // Prevent cursor from moving left within the guess input
+    if (event.type == "keydown" && event.key == "ArrowLeft"){
+      event.preventDefault()
     }
   }
 
