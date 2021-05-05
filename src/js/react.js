@@ -7,6 +7,6 @@ import isTouchDevice from 'is-touch-device';
 ReactDOM.render(
   <App 
   isTouchDevice={ isTouchDevice() }
-  isProduction={ process.env.NODE_ENV === "production" } />,
+  isProduction={ process.env.NODE_ENV === "Production" } />,
   document.getElementById('game-root')
 )
