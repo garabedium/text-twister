@@ -65,7 +65,7 @@ class App extends Component {
     this.handleClear = this.handleClear.bind(this)
     this.handleLetterClick = this.handleLetterClick.bind(this)
     this.startTimer = this.startTimer.bind(this)
-    this.setNotification = this.setNotification.bind(this)
+    this.setNotification = this.setNotification.bind(this) 
   }
 
   componentDidMount(){

@@ -15,11 +15,25 @@ class GameContainer extends Component {
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.getGuess = this.getGuess.bind(this)
     this.onInputClick = this.onInputClick.bind(this)
+    this.textInput = React.createRef()
+    this.focusTextInput = this.focusTextInput.bind(this)
+    this.handleLetterClickAndFocus = this.handleLetterClickAndFocus.bind(this)
   }
 
   componentDidMount(){
     console.log("*** gameForm mounted ***")
     this.handleSpacebarPress()
+  }
+
+  handleLetterClickAndFocus(letter){
+    this.props.handleLetterClick(letter)
+    this.focusTextInput()
+  }
+
+  focusTextInput() {
+    // Explicitly focus the text input using the raw DOM API
+    // Note: "current" accesses the DOM node
+    this.textInput.current.focus();
   }
 
   // Shuffle word on spacebar press:
@@ -96,7 +110,7 @@ class GameContainer extends Component {
       return(
         <Button 
           class={letterClass} 
-          handleClick={() => !el.used ? this.props.handleLetterClick(el) : false} 
+          handleClick={() => !el.used ? this.handleLetterClickAndFocus(el) : false} 
           key={letterKey}
           text={letterText}
         />  
@@ -162,6 +176,7 @@ class GameContainer extends Component {
               handleChange={this.handleInput}
               class="game-form__input"
               onClick={this.onInputClick}
+              inputRef={this.textInput}
             /> }
 
             <div className="notification">
