@@ -33,7 +33,13 @@ class Anagrams extends Component {
       })
 
       // Return word in list element:
-      return( <li className={`anagram ${showSolved ? '--show':''} ${a.solved ? '--solved':''}`} key={a.id}>{word}</li> )
+      return( 
+        <li 
+        className={`anagram ${showSolved ? '--show':''} ${a.solved ? '--solved':''}`} 
+        key={a.id}>
+          {word}
+        </li> 
+      )
     })
 
     let anagramsCols = this.chunkAnagrams(anagrams,4).map((col,i) => {

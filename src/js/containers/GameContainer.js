@@ -14,11 +14,28 @@ class GameContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSpacebarPress = this.handleSpacebarPress.bind(this)
     this.getGuess = this.getGuess.bind(this)
+    this.onInputClick = this.onInputClick.bind(this)
+    this.textInput = React.createRef()
+    this.focusTextInput = this.focusTextInput.bind(this)
+    this.handleLetterClickAndFocus = this.handleLetterClickAndFocus.bind(this)
   }
 
   componentDidMount(){
     console.log("*** gameForm mounted ***")
     this.handleSpacebarPress()
+  }
+
+  handleLetterClickAndFocus(letter){
+    this.props.handleLetterClick(letter)
+    if (!this.props.isMobile){
+      this.focusTextInput()
+    }
+  }
+
+  focusTextInput() {
+    // Explicitly focus the text input using the raw DOM API
+    // Note: "current" accesses the DOM node
+    this.textInput.current.focus();
   }
 
   // Shuffle word on spacebar press:
@@ -37,8 +54,12 @@ class GameContainer extends Component {
     if (event.type === "keypress") {
       return this.props.handleKeyPress(event)
     }
-    if (event.type == "keydown" && event.key == 'Backspace') {
+    if (event.type == "keydown" && event.key == "Backspace") {
       return this.props.handleBackspace(event)
+    }
+    // Prevent cursor from moving left within the guess input
+    if (event.type == "keydown" && event.key == "ArrowLeft"){
+      event.preventDefault()
     }
   }
 
@@ -64,6 +85,11 @@ class GameContainer extends Component {
     return guess
   }
 
+  onInputClick(e){
+    const inputValueLength = e.currentTarget.value.length
+    e.currentTarget.setSelectionRange(inputValueLength, inputValueLength)
+  }
+
   render(){
     const { timerTime, timerStart, timerOn } = this.props;
 
@@ -86,7 +112,7 @@ class GameContainer extends Component {
       return(
         <Button 
           class={letterClass} 
-          handleClick={() => !el.used ? this.props.handleLetterClick(el) : false} 
+          handleClick={() => !el.used ? this.handleLetterClickAndFocus(el) : false} 
           key={letterKey}
           text={letterText}
         />  
@@ -105,11 +131,11 @@ class GameContainer extends Component {
         { this.props.game.started && 
           <div className="game-stats">
             <div className="game-stat">
-              <i class="game-stat-icon ri-star-fill ri-2x"></i>
+              <i className="game-stat-icon ri-star-fill ri-2x"></i>
               <span>{score}</span>
             </div> 
             <div className="game-stat">
-              <i class="game-stat-icon ri-funds-line ri-2x"></i>
+              <i className="game-stat-icon ri-funds-line ri-2x"></i>
               <span>{level}</span>
             </div>                           
           </div>
@@ -151,13 +177,15 @@ class GameContainer extends Component {
               content={guess}
               handleChange={this.handleInput}
               class="game-form__input"
+              onClick={this.onInputClick}
+              inputRef={this.textInput}
             /> }
 
             <div className="notification">
               { notification }
             </div> 
 
-            <div class="buttons">
+            <div className="buttons">
               <Button
                 text="Shuffle"
                 handleClick={this.props.updateShuffledState}
@@ -181,30 +209,3 @@ class GameContainer extends Component {
 }
 
 export default GameContainer
-
-
-{/* <div className="game-timer">
-{this.props.game.started ? <span>{seconds}</span> : 
-  <Button
-    icon="ri-play-fill ri-2x"
-    handleClick={this.props.startGame}
-  />
-}
-</div> */}
-// {this.props.game.started &&
-//   <div className="game-stat game-stat--points">
-//     <i class="ri-star-fill ri-2x m-r10"></i>
-//     <span>{score}</span>
-//   </div> }
-
-//   <div className="game-timer">
-//     { this.props.game.started && <span>{seconds}</span> }
-//   </div>
-//   {this.props.game.started && 
-//     <div className="game-stat game-stat--level">
-//       <i class="ri-funds-line ri-2x m-r10"></i>
-//       <span>{level}</span>
-//     </div>
-//   }
-//   {this.props.game.started && <div className="word">{displayWord}</div>}
-// </div>
