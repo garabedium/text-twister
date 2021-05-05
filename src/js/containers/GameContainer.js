@@ -27,7 +27,9 @@ class GameContainer extends Component {
 
   handleLetterClickAndFocus(letter){
     this.props.handleLetterClick(letter)
-    this.focusTextInput()
+    if (!this.props.isMobile){
+      this.focusTextInput()
+    }
   }
 
   focusTextInput() {
@@ -129,7 +131,7 @@ class GameContainer extends Component {
         { this.props.game.started && 
           <div className="game-stats">
             <div className="game-stat">
-              <i class="game-stat-icon ri-star-fill ri-2x"></i>
+              <i className="game-stat-icon ri-star-fill ri-2x"></i>
               <span>{score}</span>
             </div> 
             <div className="game-stat">
