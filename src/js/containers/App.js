@@ -8,8 +8,8 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: this.props.isProduction ? 60 : 300,
-      timerStart: this.props.isProduction ? 60 : 300,
+      timerTime: this.props.isDevEnv ? 300 : 60,
+      timerStart: this.props.isDevEnv ? 300 : 60,
       zipfMin: 5,
       zipfMax: 7,
       levelWordLength: 6,
@@ -261,7 +261,7 @@ class App extends Component {
     const key = event.key
     let found = newState.word.letters.filter( obj => { return key === obj.char && !obj.used })
 
-    if (key !== 'Enter' && found.length > 0){
+    if (key !== 'Enter' && found.length){
       found[0].used = true
       found[0].updatedAt = Date.now()
       return this.setState(newState)
@@ -385,7 +385,7 @@ class App extends Component {
 
   render(){
     let logoText = "Text Twister".split('').map((char,i)=>{
-      return(<span className={`logo-letter ${char === ' ' ? '--space':''}`}>{char}</span>)
+      return(<span className={`logo-letter ${char === ' ' ? '--space':''}`} key={i}>{char}</span>)
     })
     let loadedWord = this.state.word.letters.length > 0
     let score = this.state.player.score
