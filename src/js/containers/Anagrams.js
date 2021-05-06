@@ -28,8 +28,14 @@ class Anagrams extends Component {
       let showSolved = (a.solved || this.props.game.reset)
 
       // Split word into individual chars:
-      let word = a.anagram.split('').map(char => { 
-        return (<span className="char">{(showSolved) ? char : "-"}</span>) 
+      let word = a.anagram.split('').map((char,i) => { 
+        return (
+        <span
+          key={i}
+          className="char">
+          {(showSolved) ? char : "-"}
+        </span>
+        ) 
       })
 
       // Return word in list element:
@@ -43,11 +49,10 @@ class Anagrams extends Component {
     })
 
     let anagramsCols = this.chunkAnagrams(anagrams,4).map((col,i) => {
-      return (<ul className="anagram-column">{col}</ul>)
+      return (<ul key={i} className="anagram-column">{col}</ul>)
     })
-    // console.log(this.chunkAnagrams(anagrams,4))
 
-    let showAnagrams = this.props.game.started && anagramsCols.length > 0
+    let showAnagrams = this.props.game.started && anagramsCols.length
 
     return(
       <React.Fragment>
@@ -61,7 +66,3 @@ class Anagrams extends Component {
 }
 
 export default Anagrams;
-
-// { showAnagrams && 
-//   <ul className="anagrams">{anagrams}</ul>
-// }

@@ -43,9 +43,9 @@ class StartPage extends Component {
   }  
 
   render() {
-    console.log(this.state.shuffleCount)
     var displayWord = this.state.shuffleCount === this.state.shuffleLimit ? this.state.solvedWord : this.state.shuffleWord
     var letters = displayWord.split('').map( letter => {
+
       return(
         <Button
           class={`letter letter text-uppercase ${this.state.shuffleCount < 5 ? '--animate-letter-fade':'--animate-letter-fade-last'}`}
