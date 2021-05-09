@@ -230,7 +230,6 @@ class App extends Component {
 
   updateGameState(){
     let newState = Object.assign({},this.state)
-    const level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
 
     // Mark current word as used:
     newState.words.filter(obj => {
@@ -241,7 +240,7 @@ class App extends Component {
 
     newState.game.active = false
     newState.game.reset = true
-    newState.player.level = level
+    newState.player.level = this.state.player.level
     newState.player.score = this.state.player.score
     newState.timerOn = false
     newState.notification = this.state.notifications[(this.state.player.levelup) ? "default":"game_over"]
@@ -315,7 +314,7 @@ class App extends Component {
     
     newState.notification = this.state.notifications["default"]
     newState.player.solved = []
-    newState.player.level = (this.state.player.levelup) ? this.state.player.level : 0
+    newState.player.level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
     newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0    
     newState.player.levelup = false    
     newState.game.active = true
