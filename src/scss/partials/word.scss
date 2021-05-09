@@ -1,6 +1,7 @@
-.game-row {
+.word-row {
   position: relative;
   width: 100%;
+  max-width: $game-max-width;
   margin: 0 auto;
   &.--reset {
     .letter {
@@ -17,7 +18,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  max-width: 430px;
   margin: 0 auto;
   padding: 40px 0;
   background: rgba(255,255,255,.2);

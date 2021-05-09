@@ -1,8 +1,12 @@
 .game-form {
   text-align: center;
+  width: 100%;
+  max-width: $game-max-width;
+  margin: 0 auto;
+
   &__input {
     width: 100%;
-    max-width: 424px;
+    max-width: $game-max-width;
     text-align: center;
     margin: 15px 0 0 0;
     font-size: 26px;

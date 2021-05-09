@@ -8,8 +8,8 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: this.props.isDevEnv ? 300 : 60,
-      timerStart: this.props.isDevEnv ? 300 : 60,
+      timerTime: this.props.isDevEnv ? 600 : 60,
+      timerStart: this.props.isDevEnv ? 600 : 60,
       zipfMin: 5,
       zipfMax: 7,
       levelWordLength: 6,
@@ -230,6 +230,7 @@ class App extends Component {
 
   updateGameState(){
     let newState = Object.assign({},this.state)
+    const notificationKey = this.state.player.levelup ? "solved_level" : "game_over"
 
     // Mark current word as used:
     newState.words.filter(obj => {
@@ -243,7 +244,7 @@ class App extends Component {
     newState.player.level = this.state.player.level
     newState.player.score = this.state.player.score
     newState.timerOn = false
-    newState.notification = this.state.notifications[(this.state.player.levelup) ? "default":"game_over"]
+    newState.notification = this.state.notifications[notificationKey]
 
     this.setState(newState, this.lazyLoadWords())
   }

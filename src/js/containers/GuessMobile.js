@@ -18,7 +18,7 @@ class GuessMobile extends Component {
         <div className="mobile-letters">
           {guess}
         </div>
-        <button onClick={this.props.handleBackspace} className={`btn--backspace ${guess.length === 0 ? 'disabled':''}`}><i className="ri-delete-back-2-line ri-2x"></i></button>
+        <button onClick={this.props.handleBackspace} className={`btn--backspace ${guess.length === 0 ? 'disabled':''}`}><i className="ri-delete-back-2-line ri-3x"></i></button>
       </div>
     )
   }

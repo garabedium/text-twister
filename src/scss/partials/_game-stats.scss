@@ -3,17 +3,14 @@
 $offset-horizontal: 20%;
 
 .game-stats {
-  // top: $offset-top;
-  // position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 450px;
+  max-width: $game-max-width;
   margin: 15px auto 10px auto;
 
   .game-stat {
     display: flex;
-    // text-align: center;
     align-items: center;
     flex-grow: 1;
     justify-content: center;

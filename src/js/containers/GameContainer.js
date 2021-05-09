@@ -131,17 +131,17 @@ class GameContainer extends Component {
         { this.props.game.started && 
           <div className="game-stats">
             <div className="game-stat">
-              <i className="game-stat-icon ri-star-fill ri-2x"></i>
+              <i className="game-stat-icon ri-star-fill ri-3x"></i>
               <span>{score}</span>
             </div> 
             <div className="game-stat">
-              <i className="game-stat-icon ri-funds-line ri-2x"></i>
+              <i className="game-stat-icon ri-funds-line ri-3x"></i>
               <span>{level}</span>
             </div>                           
           </div>
         }
 
-        <div className={`game-row ${reset ? '--reset':''}`}>
+        <div className={`word-row ${reset ? '--reset':''}`}>
 
           <div className="game-timer">
             { this.props.game.started && <span>{seconds}</span> }
