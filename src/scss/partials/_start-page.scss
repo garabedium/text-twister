@@ -1,7 +1,8 @@
 
 .start-page {
   margin-top: 58px;
-  max-width: 800px;
+  width: 100%;
+  max-width: $start-page-max-width;
   display: flex;
   flex-direction: column;
   flex-grow: 1;

@@ -1,12 +1,12 @@
 .notification {
   margin: 15px auto;
   width: 100%;
-  background: red;
-  max-width: 420px;
+  background-color: $primary-red;
   padding: 10px;
   border-radius: 4px;
-  color: white;
+  color: $white;
   font-size: 18px;
   font-weight: 700;
   text-align: center;
+  text-shadow: 1px 1px $black;
 }
