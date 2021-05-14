@@ -303,6 +303,9 @@ template {
 [hidden] {
   display: none; }
 
+* {
+  box-sizing: border-box; }
+
 button {
   padding: 0;
   border: 0;
@@ -380,36 +383,10 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
   font-size: 1em; }
 
 .ri-2x {
-  font-size: 2em;
-  line-height: 1; }
+  font-size: 1.5em; }
 
 .ri-3x {
-  font-size: 3em; }
-
-.ri-4x {
-  font-size: 4em; }
-
-.ri-5x {
-  font-size: 5em; }
-
-.ri-6x {
-  font-size: 6em; }
-
-.ri-7x {
-  font-size: 7em; }
-
-.ri-8x {
-  font-size: 8em; }
-
-.ri-9x {
-  font-size: 9em; }
-
-.ri-10x {
-  font-size: 10em; }
-
-.ri-fw {
-  text-align: center;
-  width: 1.25em; }
+  font-size: 2em; }
 
 .ri-arrow-right-line:before {
   content: "\EA6A"; }
@@ -454,10 +431,13 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
     text-align: center; }
 
 .game-form {
-  text-align: center; }
+  text-align: center;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto; }
   .game-form__input {
     width: 100%;
-    max-width: 424px;
+    max-width: 450px;
     text-align: center;
     margin: 15px 0 0 0;
     font-size: 26px;
@@ -481,18 +461,23 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
       margin-right: 5px; }
 
 .game-timer {
+  box-sizing: content-box;
   width: 50px;
   height: 50px;
+  line-height: 50px;
   border: solid 6px #3bd6ff;
   border-radius: 50px;
   background-color: #ffffff;
-  line-height: 50px;
   text-align: center;
   font-size: 25px;
   position: absolute;
   top: -33px;
   left: 50%;
   transform: translateX(-50%); }
+  .game-timer button {
+    line-height: 50px;
+    height: 50px;
+    width: 50px; }
 
 .btn {
   display: flex;
@@ -503,12 +488,12 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
   font-size: 18px;
   border-radius: 30px;
   color: #ffffff;
-  box-shadow: 0px 1px 0px #000;
-  text-shadow: 1px 1px #000; }
+  box-shadow: 0px 1px 0px #000000;
+  text-shadow: 1px 1px #000000; }
   .btn--secondary {
     font-size: 18px;
     background-color: transparent;
-    border: solid 1px #000;
+    border: solid 1px #000000;
     border-radius: 4px;
     border-bottom: solid 2px;
     padding: 5px 10px;
@@ -523,11 +508,12 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
   display: flex;
   margin-right: 5px; }
 
-.game-row {
+.word-row {
   position: relative;
   width: 100%;
+  max-width: 450px;
   margin: 0 auto; }
-  .game-row.\--reset .letter {
+  .word-row.\--reset .letter {
     text-transform: uppercase; }
 
 .word {
@@ -538,7 +524,6 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
   align-items: center;
   justify-content: center;
   text-align: center;
-  max-width: 430px;
   margin: 0 auto;
   padding: 40px 0;
   background: rgba(255, 255, 255, 0.2);
@@ -563,10 +548,6 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
   .letter:focus {
     outline: none;
     box-shadow: 0px 0px 0px 2px #df744a; }
-  .letter.\--animate-letter-fade {
-    animation: fadeIn ease-in-out 700ms; }
-  .letter.\--animate-letter-fade-last {
-    animation: fadeIn ease-in 1000ms; }
 
 @keyframes fadeIn {
   0% {
@@ -576,6 +557,7 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
 
 .start-page {
   margin-top: 58px;
+  width: 100%;
   max-width: 800px;
   display: flex;
   flex-direction: column;
@@ -647,11 +629,11 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
 .notification {
   margin: 15px auto;
   width: 100%;
-  background: red;
-  max-width: 420px;
-  padding: 10px;
+  max-width: 450px;
+  background-color: #ffffff;
+  padding: 15px;
   border-radius: 4px;
-  color: white;
+  color: #ff4904;
   font-size: 18px;
   font-weight: 700;
   text-align: center; }
@@ -678,6 +660,9 @@ body.\--react-loaded [class^="ri-"], body.\--react-loaded [class*=" ri-"] {
 .m-auto {
   margin-left: auto;
   margin-right: auto; }
+
+.m-t15 {
+  margin-top: 15px; }
 
 .m-t30 {
   margin-top: 30px; }
