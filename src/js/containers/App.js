@@ -8,9 +8,9 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: this.props.isDevEnv ? 600 : 60,
-      timerStart: this.props.isDevEnv ? 600 : 60,
-      zipfMin: 5,
+      timerTime: this.props.isDevEnv ? 150 : 60,
+      timerStart: this.props.isDevEnv ? 150 : 60,
+      zipfMin: 4.5,
       zipfMax: 7,
       levelWordLength: 6,
       isMobile: this.props.isTouchDevice,
@@ -36,7 +36,8 @@ class App extends Component {
         score: 0,
         level: 1,
         levelup: false,
-        solved: []
+        solved: [],
+        solvedAll: false
       },
       words: [],
       word: {
@@ -139,20 +140,30 @@ class App extends Component {
     .then(response => {
 
       // Valid word:
-      if (response.length >= 1){
+      if (response.length){
         let newState = Object.assign({},this.state)
+
         let anagrams = newState.word.anagrams.map((a)=>{
           if (a.anagram === word){
             a.solved = true
           }
+
           return a
         })
 
         newState.player.score = this.updateScore(word)
         newState.player.levelup = (word.length === this.state.levelWordLength) ? true : this.state.player.levelup
-        newState.notification = (word.length === this.state.levelWordLength) ? this.state.notifications.solved_level : this.state.notifications.points
         newState.player.solved = this.state.player.solved.concat(word)
+        newState.player.solvedAll = newState.player.solved.length === this.state.word.anagrams.length
         newState.word.anagrams = anagrams
+        newState.notification = newState.player.solvedAll ? this.state.notifications.solved_all : this.state.notifications.points
+
+        if (newState.player.solvedAll) {
+          newState.game.active = false
+          newState.game.reset = true
+          newState.timerOn = false
+          newState.timerTime = 0
+        }
 
         this.setState(newState)
       } else {
@@ -230,7 +241,11 @@ class App extends Component {
 
   updateGameState(){
     let newState = Object.assign({},this.state)
-    const notificationKey = this.state.player.levelup ? "solved_level" : "game_over"
+    let notificationKey = this.state.player.levelup ? "solved_level" : "game_over"
+
+    if (this.state.player.solvedAll){
+      notificationKey = "solved_all"
+    }
 
     // Mark current word as used:
     newState.words.filter(obj => {
@@ -243,6 +258,7 @@ class App extends Component {
     newState.game.reset = true
     newState.player.level = this.state.player.level
     newState.player.score = this.state.player.score
+    newState.player.solvedAll = false
     newState.timerOn = false
     newState.notification = this.state.notifications[notificationKey]
 

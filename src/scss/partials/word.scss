@@ -47,12 +47,12 @@
     outline: none;
     box-shadow: 0px 0px 0px 2px $primary-red;
   }
-  &.--animate-letter-fade {
-    animation: fadeIn ease-in-out 700ms;
-  }
-  &.--animate-letter-fade-last {
-    animation: fadeIn ease-in 1000ms
-  }
+  // &.--animate-letter-fade {
+  //   animation: fadeIn ease-in-out 700ms;
+  // }
+  // &.--animate-letter-fade-last {
+  //   animation: fadeIn ease-in 1000ms
+  // }
 }
 
 @keyframes fadeIn {

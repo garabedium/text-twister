@@ -1,12 +1,12 @@
 .notification {
   margin: 15px auto;
   width: 100%;
-  background-color: $primary-red;
-  padding: 10px;
+  max-width: $game-max-width;
+  background-color: $white;
+  padding: 15px;
   border-radius: 4px;
-  color: $white;
+  color: $secondary-red;
   font-size: 18px;
   font-weight: 700;
   text-align: center;
-  text-shadow: 1px 1px $black;
 }

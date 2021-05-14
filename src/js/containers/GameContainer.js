@@ -66,6 +66,7 @@ class GameContainer extends Component {
   handleSubmit(event){
     event.preventDefault()
     let guess = this.getGuess()
+    // If guess meets minimum word length:
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
         console.log("duplicate word")
@@ -159,7 +160,7 @@ class GameContainer extends Component {
         {reset && 
           <Button 
             handleClick={this.props.restartGame} 
-            class="btn m-auto m-t30" 
+            class="btn m-auto m-t15" 
             text={btnRestartText} 
             icon={`ri-play-fill ri-lg m-l5`} />}
 
