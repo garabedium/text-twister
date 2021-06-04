@@ -70,6 +70,7 @@ class GameContainer extends Component {
     if (guess.length >= 3){
       if (this.isDuplicateWord()) {
         console.log("duplicate word")
+        this.props.handleClear()
         this.props.setNotification("validate_dupe")
       } else {
         this.props.validateWord(guess)
