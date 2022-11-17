@@ -5,7 +5,7 @@
   "author": "Gregory Garabedian",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack --mode development && node -r dotenv/config server.js",
+    "dev": "NODE_ENV=development webpack --mode development && node -r dotenv/config server.js",
     "build": "webpack --mode production"
   },
   "dependencies": {
