@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import Button from '../components/Button'
+import React, { Component } from 'react';
+import Button from '../../components/Button';
+import './StartPage.scss';
 
 class StartPage extends Component {
   constructor(props) {

@@ -1,20 +1,24 @@
-// // Global variables
-// @import 'variables';
+@import 'utils/utils';
 
-// // Partials
-// @import 'partials/normalize';
-// @import 'partials/reset';
-// @import 'partials/layout';
-// @import 'partials/fonts';
-// @import 'partials/icons';
-// @import 'partials/site-header';
-// @import 'partials/game-form';
-// @import 'partials/game-stats';
-// @import 'partials/game-timer';
-// @import 'partials/buttons';
-// @import 'partials/word';
-// @import 'partials/start-page';
-// @import 'partials/anagrams';
-// @import 'partials/notification';
-// @import 'partials/mobile';
-// @import 'partials/utils';
+html {
+  height: 100%;
+}
+
+body {
+  background-color: $primary-blue;
+  font-family: 'Jost', Arial, Serif;
+}
+
+#app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* Avoid the IE 10-11 `min-height` bug. */
+}
+
+.app-container {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}

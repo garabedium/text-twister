@@ -2,7 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const isDevelopment = process.env.NODE_MODULE === 'development';
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html", 
@@ -19,20 +20,16 @@ module.exports = {
   module: {
     rules: [
       {
-        // test: /\.scss$/,
+        test: /\.scss$/,
         use: [
-          // 'style-loader',
-          // MiniCssExtractPlugin.loader,
-          // {
-          //     loader: "css-loader",
-          //     options: {
-          //         minimize: true,
-          //         sourceMap: true
-          //     }
-          // },
-          // {
-          //     loader: "sass-loader"
-          // }  
+          // isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'style-loader',
+          {
+              loader: "css-loader"
+          },
+          {
+              loader: "sass-loader"
+          }  
         ]
       },
       {
@@ -54,11 +51,12 @@ module.exports = {
   // },  
   plugins: [
     htmlPlugin,
-    new webpack.HotModuleReplacementPlugin(),
-    // new MiniCssExtractPlugin({
-    //   filename: "[name].css"
-    // }),
+    // new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "[name].css"
+    }),
     new webpack.EnvironmentPlugin(['NODE_ENV'])
   ],
   devtool: 'eval-source-map',
+  mode: process.env.NODE_ENV
 }

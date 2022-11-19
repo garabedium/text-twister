@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Anagrams from './Anagrams'
 import GameContainer from './GameContainer'
-import StartPage from './StartPage'
+import StartPage from './StartPage/StartPage'
+import AppHeader from '../components/AppHeader/AppHeader.jsx';
+import '../../scss/app.scss';
 
 class App extends Component {
   constructor(props){
@@ -400,21 +402,15 @@ class App extends Component {
   }
 
   render(){
-    let logoText = "Text Twister".split('').map((char,i)=>{
-      return(<span className={`logo-letter ${char === ' ' ? '--space':''}`} key={i}>{char}</span>)
-    })
-    let loadedWord = this.state.word.letters.length > 0
-    let score = this.state.player.score
-    let gameStarted = this.state.game.started
+    let loadedWord = this.state.word.letters.length > 0;
+    let gameStarted = this.state.game.started;
 
     return(
       <React.Fragment>
 
-        <header className="site-header">
-          <h1 className="logo">{logoText}</h1>
-        </header>
+        <AppHeader />
 
-      <div className="game-container">
+      <div className="app-container">
 
         { !gameStarted && 
           <StartPage
