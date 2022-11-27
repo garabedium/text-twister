@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import Anagrams from './Anagrams'
 import GameContainer from './GameContainer'
-import StartPage from './StartPage/StartPage'
+import StartPage from './StartPage/StartPage.jsx'
 import AppHeader from '../components/AppHeader/AppHeader.jsx';
+import { shuffleLetters } from '../utils/utils.js';
+
 import '../../scss/app.scss';
 
 class App extends Component {
@@ -56,7 +58,7 @@ class App extends Component {
     this.getWordAnagrams = this.getWordAnagrams.bind(this)
     this.validateWord = this.validateWord.bind(this)
     this.selectWord = this.selectWord.bind(this)
-    this.shuffleLetters = this.shuffleLetters.bind(this)
+    // this.shuffleLetters = this.shuffleLetters.bind(this)
     this.updateScore = this.updateScore.bind(this)
     this.updateLevel = this.updateLevel.bind(this)
     this.updateGameState = this.updateGameState.bind(this)
@@ -72,9 +74,9 @@ class App extends Component {
   }
 
   componentDidMount(){
-    console.log("*** app mounted ***")
-    this.reactLoaded()
-    this.initGame()
+    console.log("*** app mounted ***");
+    this.reactLoaded();
+    this.initGame();
   }
   
   reactLoaded(){
@@ -88,9 +90,10 @@ class App extends Component {
       let newState = Object.assign({},this.state)
       newState.notification = this.state.notifications[(this.state.isMobile) ? "default_mobile":"default"]
       newState.words = response
-      newState.word.current = this.selectWord(response)
+      newState.word.current = this.selectWord(response);
+      const shuffledWord = shuffleLetters(newState.word.current, this.state.word.current).split('');
       // Build the letter objects that will maintain letter 'state':
-      newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
+      newState.word.letters = shuffledWord.map( (char,i) => {
         return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
       })
       this.setState(newState, this.getWordAnagrams())
@@ -182,29 +185,29 @@ class App extends Component {
   }
 
   // Take in a word and shuffle the letters:
-  shuffleLetters(string){
+  // shuffleLetters(string){
 
-    let arr = (string) ? string.split('') : this.state.word.letters.filter(obj => { return !obj.used }).map( obj => { return obj.char })
-    let original = arr.join('')
+  //   let arr = (string) ? string.split('') : this.state.word.letters.filter(obj => { return !obj.used }).map( obj => { return obj.char })
+  //   let original = arr.join('')
 
-    let shuffled = ''
+  //   let shuffled = ''
 
-    for (let i = arr.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = arr[i];
-      arr[i] = arr[j];
-      arr[j] = temp;
-    }
+  //   for (let i = arr.length - 1; i > 0; i--) {
+  //     let j = Math.floor(Math.random() * (i + 1));
+  //     let temp = arr[i];
+  //     arr[i] = arr[j];
+  //     arr[j] = temp;
+  //   }
 
-    shuffled = arr.join('')
+  //   shuffled = arr.join('')
 
-    // Don't show the solved word or the same shuffled sequence:
-    if (shuffled.length > 1 && (shuffled === this.state.word.current || shuffled === original)){
-      return this.shuffleLetters(string)
-    }
+  //   // Don't show the solved word or the same shuffled sequence:
+  //   if (shuffled.length > 1 && (shuffled === this.state.word.current || shuffled === original)){
+  //     return this.shuffleLetters(string)
+  //   }
 
-    return shuffled
-  }
+  //   return shuffled
+  // }
 
   getWordAnagrams(){
     console.log("*** get anagrams ***")
@@ -323,11 +326,13 @@ class App extends Component {
   }
 
   restartGame(event){
-    let newState = Object.assign({},this.state)
-    const currentWord = this.selectWord()
+    let newState = Object.assign({},this.state);
+    const currentWord = this.selectWord();
+    const shuffledWord = shuffleLetters(currentWord, '').split('');
 
-    newState.word.current = currentWord
-    newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
+    newState.word.current = currentWord;
+
+    newState.word.letters = shuffledWord.map( (char,i) => {
       return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
     })
     
@@ -370,7 +375,8 @@ class App extends Component {
 
   updateShuffledState(){
     let newState = Object.assign({},this.state)
-    let shuffled = this.shuffleLetters().split('').map(char => { return { char: char, used: false } })
+    // let shuffled = this.shuffleLetters().split('').map(char => { return { char: char, used: false } })
+    // let shuffled = this.shuffleLetters().split('').map(char => { return { char: char, used: false } })
     let used = this.state.word.letters.filter(obj => { return obj.used }).map(obj => { return { char: obj.char, used: obj.used, updatedAt: obj.updatedAt } })
 
     let letters = used.concat(shuffled).map( (obj,i) => {
@@ -410,12 +416,9 @@ class App extends Component {
 
         <AppHeader />
 
-      <div className="app-container">
-
+      <div className="app-container"> 
         { !gameStarted && 
           <StartPage
-            game={this.state.game}
-            shuffleLetters={this.shuffleLetters}
             startGame={this.startGame}
           /> 
         }
@@ -423,7 +426,6 @@ class App extends Component {
         {loadedWord && gameStarted ?
           <GameContainer
             word={this.state.word}
-            shuffleLetters={this.shuffleLetters}
             validateWord={this.validateWord}
             game={this.state.game}
             player={this.state.player}
