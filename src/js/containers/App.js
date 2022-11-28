@@ -184,31 +184,6 @@ class App extends Component {
     return selected.word
   }
 
-  // Take in a word and shuffle the letters:
-  // shuffleLetters(string){
-
-  //   let arr = (string) ? string.split('') : this.state.word.letters.filter(obj => { return !obj.used }).map( obj => { return obj.char })
-  //   let original = arr.join('')
-
-  //   let shuffled = ''
-
-  //   for (let i = arr.length - 1; i > 0; i--) {
-  //     let j = Math.floor(Math.random() * (i + 1));
-  //     let temp = arr[i];
-  //     arr[i] = arr[j];
-  //     arr[j] = temp;
-  //   }
-
-  //   shuffled = arr.join('')
-
-  //   // Don't show the solved word or the same shuffled sequence:
-  //   if (shuffled.length > 1 && (shuffled === this.state.word.current || shuffled === original)){
-  //     return this.shuffleLetters(string)
-  //   }
-
-  //   return shuffled
-  // }
-
   getWordAnagrams(){
     console.log("*** get anagrams ***")
     const url = `/api/levelWord/anagrams/${this.state.word.current}`
@@ -374,13 +349,13 @@ class App extends Component {
   };
 
   updateShuffledState(){
-    let newState = Object.assign({},this.state)
-    // let shuffled = this.shuffleLetters().split('').map(char => { return { char: char, used: false } })
-    // let shuffled = this.shuffleLetters().split('').map(char => { return { char: char, used: false } })
-    let used = this.state.word.letters.filter(obj => { return obj.used }).map(obj => { return { char: obj.char, used: obj.used, updatedAt: obj.updatedAt } })
+    let newState = Object.assign({},this.state);
+    const unusedLetters = this.state.word.letters.filter(letter => !letter.used).map(unusedLetter => unusedLetter.char).join('');
+    const shuffled = shuffleLetters(unusedLetters).split('').map(char => { return { char: char, used: false } });
+    const usedLetters = this.state.word.letters.filter(letter => letter.used).map(usedLetter => { return { ...usedLetter, updatedAt: usedLetter.updatedAt }});
 
-    let letters = used.concat(shuffled).map( (obj,i) => {
-      let updatedAt = obj.updatedAt || this.state.baseDate
+    const letters = usedLetters.concat(shuffled).map( (obj,i) => {
+      let updatedAt = obj.updatedAt || this.state.baseDate;
       return { id: i + 1, char: obj.char, used: obj.used, updatedAt: updatedAt }
     })
 
