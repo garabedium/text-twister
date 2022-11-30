@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
-import Anagrams from './Anagrams'
-import GameContainer from './GameContainer'
-import StartPage from './StartPage/StartPage.jsx'
-import AppHeader from '../components/AppHeader/AppHeader.jsx';
-import { shuffleLetters } from '../utils/utils.js';
+import React, { Component } from 'react';
 
 import '../../scss/app.scss';
+import { shuffleLetters } from '../utils/utils.js';
+
+import Anagrams from '../components/Anagrams/Anagrams.jsx';
+import GameContainer from './GameContainer/GameContainer';
+import StartPage from './StartPage/StartPage.jsx'
+import AppHeader from '../components/AppHeader/AppHeader.jsx';
 
 class App extends Component {
   constructor(props){
@@ -348,6 +349,7 @@ class App extends Component {
     }, 1000);
   };
 
+  // Shuffle any unused letters
   updateShuffledState(){
     let newState = Object.assign({},this.state);
     const unusedLetters = this.state.word.letters.filter(letter => !letter.used).map(unusedLetter => unusedLetter.char).join('');
@@ -363,12 +365,12 @@ class App extends Component {
     return this.setState(newState)
   }
 
-  replaceLetterUnderscore(word){
-    let output = word.split('').map(letter => {
-      return "_"
-    }).join(' ')
-    return output
-  }
+  // replaceLetterUnderscore(word){
+  //   let output = word.split('').map(letter => {
+  //     return "_"
+  //   }).join(' ')
+  //   return output
+  // }
 
   setNotification(notify,delay){
     let newState = Object.assign({},this.state)

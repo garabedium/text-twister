@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './containers/App'
+import App from './features/App'
 import isTouchDevice from 'is-touch-device';
 
 const container = document.getElementById('app-root');

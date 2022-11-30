@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import GuessMobile from './GuessMobile'
-import FormInput from '../components/FormInput'
-import Button from '../components/Button'
+import React, { Component } from 'react';
+
+import GuessMobile from '../GuessMobile/GuessMobile.jsx';
+import FormInput from '../../components/FormInput';
+import Button from '../../components/Button';
+import GameWord from '../../components/GameWord/GameWord.jsx';
 
 class GameContainer extends Component {
   constructor(props){
@@ -149,7 +151,7 @@ class GameContainer extends Component {
             { this.props.game.started && <span>{seconds}</span> }
           </div>
 
-          {this.props.game.started && <div className="word">{displayWord}</div>}
+          {this.props.game.started && <GameWord word={displayWord} />}
         </div>
         
         {reset && 

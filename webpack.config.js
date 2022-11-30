@@ -22,10 +22,14 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          // isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'style-loader',
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          // 'style-loader',
+          // MiniCssExtractPlugin.loader,
           {
-              loader: "css-loader"
+              loader: "css-loader",
+              options: {
+                url: false
+              }
           },
           {
               loader: "sass-loader"
@@ -39,16 +43,6 @@ module.exports = {
       }
     ]
   },
-  // Remove comments:
-  // optimization: {
-  //   minimizer: [
-  //     new OptimizeCSSAssetsPlugin({
-  //       cssProcessorPluginOptions: {
-  //         preset: ['default', { discardComments: { removeAll: true } }],
-  //       }
-  //     })
-  //   ],
-  // },  
   plugins: [
     htmlPlugin,
     // new webpack.HotModuleReplacementPlugin(),

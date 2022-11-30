@@ -1,8 +1,11 @@
 import React from 'react';
-import Button from '../../components/Button';
-import './StartPage.scss';
 import { useState, useEffect } from 'react';
+
+import './StartPage.scss';
 import { shuffleLetters } from '../../utils/utils.js'
+
+import Button from '../../components/Button';
+import GameWord from '../../components/GameWord/GameWord.jsx';
 
 function StartPage(props) {
 
@@ -60,9 +63,10 @@ function StartPage(props) {
               handleClick={props.startGame}
             />
           </div>
-          <div className="word">
+          <GameWord word={letters} />
+          {/* <div className="word">
             {letters}
-          </div>
+          </div> */}
           <ul className="instructions-list">
             <li><i className="ri-timer-flash-line ri-3x"></i> Solve words before time runs out</li>
             <li><i className="ri-funds-line ri-3x"></i> Solve the 6 letter word and move on up</li>
