@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import './StartPage.scss';
 import { shuffleLetters } from '../../utils/utils.js'
 
-import Button from '../../components/Button';
+import Button from '../../components/Button/Button';
 import GameWord from '../../components/GameWord/GameWord.jsx';
 
 function StartPage(props) {

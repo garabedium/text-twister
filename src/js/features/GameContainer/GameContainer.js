@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 import GuessMobile from '../GuessMobile/GuessMobile.jsx';
 import FormInput from '../../components/FormInput';
-import Button from '../../components/Button';
+import Button from '../../components/Button/Button';
 import GameWord from '../../components/GameWord/GameWord.jsx';
+import GameStat from '../../components/GameStat/GameStat.jsx';
 
 class GameContainer extends Component {
   constructor(props){
@@ -134,14 +135,8 @@ class GameContainer extends Component {
 
         { this.props.game.started && 
           <div className="game-stats">
-            <div className="game-stat">
-              <i className="game-stat-icon ri-star-fill ri-3x"></i>
-              <span>{score}</span>
-            </div> 
-            <div className="game-stat">
-              <i className="game-stat-icon ri-funds-line ri-3x"></i>
-              <span>{level}</span>
-            </div>                           
+            <GameStat icon="score" stat={score} />
+            <GameStat icon="level" stat={level} />
           </div>
         }
 
