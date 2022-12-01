@@ -365,13 +365,6 @@ class App extends Component {
     return this.setState(newState)
   }
 
-  // replaceLetterUnderscore(word){
-  //   let output = word.split('').map(letter => {
-  //     return "_"
-  //   }).join(' ')
-  //   return output
-  // }
-
   setNotification(notify,delay){
     let newState = Object.assign({},this.state)
     newState.notification = this.state.notifications[notify]

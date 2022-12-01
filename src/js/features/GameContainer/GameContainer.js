@@ -5,7 +5,7 @@ import FormInput from '../../components/FormInput';
 import Button from '../../components/Button/Button';
 import GameWord from '../../components/GameWord/GameWord.jsx';
 import GameStat from '../../components/GameStat/GameStat.jsx';
-
+import GameTimer from '../../components/GameTimer/GameTimer.jsx';
 class GameContainer extends Component {
   constructor(props){
     super(props)
@@ -143,7 +143,7 @@ class GameContainer extends Component {
         <div className={`word-row ${reset ? '--reset':''}`}>
 
           <div className="game-timer">
-            { this.props.game.started && <span>{seconds}</span> }
+            { this.props.game.started && <GameTimer seconds={seconds}/> }
           </div>
 
           {this.props.game.started && <GameWord word={displayWord} />}
