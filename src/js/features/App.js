@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import '../../scss/app.scss';
 import { shuffleLetters } from '../utils/utils.js';
+import { Notifications } from '../utils/constants';
 
 import Anagrams from '../components/Anagrams/Anagrams.jsx';
 import GameContainer from './GameContainer/GameContainer';
@@ -20,17 +21,6 @@ class App extends Component {
       levelWordLength: 6,
       isMobile: this.props.isTouchDevice,
       notification: {},
-      notifications: {
-        "default": {text:"Press Spacebar to shuffle. Press Enter to submit."},
-        "default_mobile": {text: "Tap letters to use."},
-        "points": {text:"Woohoo! Points! Keep Solving!", icon:"star"},
-        "validate_dupe": {text:"You already solved that word!", icon:"x"},
-        "validate_min": {text:"Words must be at least 3 letters!", icon:"x"},
-        "validate_invalid": {text:"That's not in our dictionary!", icon:"x"},
-        "solved_level": {text:"You solved the 6 letter word! Next level solve!", icon:"x"},
-        "solved_all": {text:"You solved all the words! Genius!"},
-        "game_over": {text:"Game Over"},
-      },
       baseDate: Date.now(),
       game: {
         active: false,
@@ -89,7 +79,7 @@ class App extends Component {
   initGame(){  
     this.getWords().then(response => { 
       let newState = Object.assign({},this.state)
-      newState.notification = this.state.notifications[(this.state.isMobile) ? "default_mobile":"default"]
+      newState.notification = Notifications[(this.state.isMobile) ? "default_mobile":"default"]
       newState.words = response
       newState.word.current = this.selectWord(response);
       const shuffledWord = shuffleLetters(newState.word.current, this.state.word.current).split('');
@@ -162,7 +152,7 @@ class App extends Component {
         newState.player.solved = this.state.player.solved.concat(word)
         newState.player.solvedAll = newState.player.solved.length === this.state.word.anagrams.length
         newState.word.anagrams = anagrams
-        newState.notification = newState.player.solvedAll ? this.state.notifications.solved_all : this.state.notifications.points
+        newState.notification = newState.player.solvedAll ? Notifications.solved_all : Notifications.points
 
         if (newState.player.solvedAll) {
           newState.game.active = false
@@ -241,7 +231,7 @@ class App extends Component {
     newState.player.score = this.state.player.score
     newState.player.solvedAll = false
     newState.timerOn = false
-    newState.notification = this.state.notifications[notificationKey]
+    newState.notification = Notifications[notificationKey]
 
     this.setState(newState, this.lazyLoadWords())
   }
@@ -312,7 +302,7 @@ class App extends Component {
       return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
     })
     
-    newState.notification = this.state.notifications["default"]
+    newState.notification = Notifications["default"]
     newState.player.solved = []
     newState.player.level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
     newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0    
@@ -367,7 +357,7 @@ class App extends Component {
 
   setNotification(notify,delay){
     let newState = Object.assign({},this.state)
-    newState.notification = this.state.notifications[notify]
+    newState.notification = Notifications[notify]
     if (delay){
       setTimeout(() => {
         return this.setState(newState)
@@ -413,7 +403,7 @@ class App extends Component {
             timerOn={this.state.timerOn}
             timerStart={this.state.timerStart}
             notification={this.state.notification}
-            notifications={this.state.notifications}
+            notifications={Notifications}
             setNotification={this.setNotification}
             isMobile={this.state.isMobile}
           /> : null}

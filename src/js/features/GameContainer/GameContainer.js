@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
+import './GameForm.scss';
+
 import GuessMobile from '../GuessMobile/GuessMobile.jsx';
-import FormInput from '../../components/FormInput';
 import Button from '../../components/Button/Button';
 import GameWord from '../../components/GameWord/GameWord.jsx';
 import GameStat from '../../components/GameStat/GameStat.jsx';
 import GameTimer from '../../components/GameTimer/GameTimer.jsx';
+import Notification from '../../components/Notification/Notification.jsx';
+import TextInput from '../../components/TextInput/TextInput.jsx';
 class GameContainer extends Component {
   constructor(props){
     super(props)
@@ -150,9 +153,7 @@ class GameContainer extends Component {
         </div>
         
         {reset && 
-          <div className="notification">
-            { notification }
-          </div> 
+          <Notification text={notification} />
         }
 
         {reset && 
@@ -163,26 +164,27 @@ class GameContainer extends Component {
             icon={`ri-play-fill ri-lg m-l5`} />}
 
         {this.props.game.started && this.props.game.active && 
-          <form onSubmit={this.handleSubmit} className="game-form">
+          <form 
+            onSubmit={this.handleSubmit} 
+            className="game-form"
+          >
+            {isMobile ? 
+              <GuessMobile
+                guess={guess}
+                handleBackspace={this.props.handleBackspace}
+              /> : 
+              <TextInput
+                placeholder="Guess a word..."
+                name="guess"
+                content={guess}
+                handleChange={this.handleInput}
+                class="game-guess"
+                onClick={this.onInputClick}
+                inputRef={this.textInput}
+              /> 
+            }
 
-          {isMobile ? 
-            <GuessMobile
-              guess={guess}
-              handleBackspace={this.props.handleBackspace}
-            /> : 
-            <FormInput
-              placeholder="Guess a word..."
-              name="guess"
-              content={guess}
-              handleChange={this.handleInput}
-              class="game-form__input"
-              onClick={this.onInputClick}
-              inputRef={this.textInput}
-            /> }
-
-            <div className="notification">
-              { notification }
-            </div> 
+            <Notification text={notification} />
 
             <div className="buttons">
               <Button

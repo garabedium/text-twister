@@ -1,0 +1,14 @@
+@import '../../../scss/utils/utils';
+
+.notification {
+  margin: 15px auto;
+  width: 100%;
+  max-width: $game-max-width;
+  background-color: $white;
+  padding: 15px;
+  border-radius: 4px;
+  color: $secondary-red;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
