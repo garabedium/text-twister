@@ -9,3 +9,13 @@ export const Notifications = {
   "solved_all": { text: "You solved all the words! Genius!" },
   "game_over": { text: "Game Over" },
 }
+
+export const LevelWordLength = 6;
+
+export const ZipfMin = 4.5;
+export const ZipfMax = 7;
+
+export const TimerDev = 150;
+export const TimerProd = 60;
+
+export const BaseDate = Date.now();

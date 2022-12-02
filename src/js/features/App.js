@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import '../../scss/app.scss';
 import { shuffleLetters } from '../utils/utils.js';
-import { Notifications } from '../utils/constants';
+import { BaseDate, Notifications, ZipfMin, ZipfMax, TimerDev, TimerProd, LevelWordLength } from '../utils/constants';
 
 import Anagrams from '../components/Anagrams/Anagrams.jsx';
 import GameContainer from './GameContainer/GameContainer';
@@ -14,14 +14,10 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: this.props.isDevEnv ? 150 : 60,
-      timerStart: this.props.isDevEnv ? 150 : 60,
-      zipfMin: 4.5,
-      zipfMax: 7,
-      levelWordLength: 6,
+      timerTime: this.props.isDevEnv ? TimerDev : TimerProd,
+      timerStart: this.props.isDevEnv ? TimerDev : TimerProd,
       isMobile: this.props.isTouchDevice,
       notification: {},
-      baseDate: Date.now(),
       game: {
         active: false,
         started: false,
@@ -49,7 +45,6 @@ class App extends Component {
     this.getWordAnagrams = this.getWordAnagrams.bind(this)
     this.validateWord = this.validateWord.bind(this)
     this.selectWord = this.selectWord.bind(this)
-    // this.shuffleLetters = this.shuffleLetters.bind(this)
     this.updateScore = this.updateScore.bind(this)
     this.updateLevel = this.updateLevel.bind(this)
     this.updateGameState = this.updateGameState.bind(this)
@@ -85,7 +80,7 @@ class App extends Component {
       const shuffledWord = shuffleLetters(newState.word.current, this.state.word.current).split('');
       // Build the letter objects that will maintain letter 'state':
       newState.word.letters = shuffledWord.map( (char,i) => {
-        return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
+        return { id: i + 1, char: char, used: false, updatedAt: BaseDate }
       })
       this.setState(newState, this.getWordAnagrams())
     })
@@ -93,7 +88,7 @@ class App extends Component {
 
   getWords(params){
     console.log("*** get words ***")
-    let url = `/api/levelWord/range/${this.state.zipfMin}&${this.state.zipfMax}`
+    let url = `/api/levelWord/range/${ZipfMin}&${ZipfMax}`
 
     if (params && params.exclude){
       let query = params.exclude.map(obj => { return `&exclude=${obj.word}`}).join('')
@@ -148,7 +143,7 @@ class App extends Component {
         })
 
         newState.player.score = this.updateScore(word)
-        newState.player.levelup = (word.length === this.state.levelWordLength) ? true : this.state.player.levelup
+        newState.player.levelup = (word.length === LevelWordLength) ? true : this.state.player.levelup
         newState.player.solved = this.state.player.solved.concat(word)
         newState.player.solvedAll = newState.player.solved.length === this.state.word.anagrams.length
         newState.word.anagrams = anagrams
@@ -263,7 +258,7 @@ class App extends Component {
     let newState = Object.assign({},this.state)
     const last = newState.word.letters.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b))
     last.used = false
-    last.updatedAt = this.state.baseDate
+    last.updatedAt = BaseDate
     return this.setState(newState)
   }
 
@@ -272,7 +267,7 @@ class App extends Component {
   
     newState.word.letters.map(letter => { 
       letter.used = false
-      letter.updatedAt = this.state.baseDate
+      letter.updatedAt = BaseDate
       return letter
     })
 
@@ -299,7 +294,7 @@ class App extends Component {
     newState.word.current = currentWord;
 
     newState.word.letters = shuffledWord.map( (char,i) => {
-      return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
+      return { id: i + 1, char: char, used: false, updatedAt: BaseDate }
     })
     
     newState.notification = Notifications["default"]
@@ -347,7 +342,7 @@ class App extends Component {
     const usedLetters = this.state.word.letters.filter(letter => letter.used).map(usedLetter => { return { ...usedLetter, updatedAt: usedLetter.updatedAt }});
 
     const letters = usedLetters.concat(shuffled).map( (obj,i) => {
-      let updatedAt = obj.updatedAt || this.state.baseDate;
+      let updatedAt = obj.updatedAt || BaseDate;
       return { id: i + 1, char: obj.char, used: obj.used, updatedAt: updatedAt }
     })
 

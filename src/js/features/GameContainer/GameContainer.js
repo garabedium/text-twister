@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './GameForm.scss';
 
 import GuessMobile from '../GuessMobile/GuessMobile.jsx';
-import Button from '../../components/Button/Button';
+import Button from '../../components/Button/Button.jsx';
 import GameWord from '../../components/GameWord/GameWord.jsx';
 import GameStat from '../../components/GameStat/GameStat.jsx';
 import GameTimer from '../../components/GameTimer/GameTimer.jsx';

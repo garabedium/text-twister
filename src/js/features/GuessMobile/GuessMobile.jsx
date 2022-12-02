@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './GuessMobile.scss';
-import Button from '../../components/Button/Button';
+import Button from '../../components/Button/Button.jsx';
 
 function GuessMobile(props){
 

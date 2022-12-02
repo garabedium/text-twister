@@ -1,110 +1,3 @@
-/*!***************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/GameWord/GameWord.scss ***!
-  \***************************************************************************************************************************************************************/
-.word-row {
-  position: relative;
-  width: 100%;
-  max-width: 450px;
-  margin: 0 auto;
-}
-.word-row.--reset .letter {
-  text-transform: uppercase;
-}
-
-.word {
-  display: flex;
-  padding: 0;
-  margin: 0;
-  font-size: 50px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 0 auto;
-  padding: 40px 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-}
-
-.letter {
-  background-color: #ffffff;
-  margin: 0 10px 0 0;
-  width: 50px;
-  line-height: 1.5;
-  list-style: none;
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-}
-.letter.--used {
-  color: #ffffff;
-  box-shadow: 0px 0px 0px 2px #df744a;
-  cursor: default;
-}
-.letter.--used::selection {
-  color: #ffffff;
-}
-.letter:last-child {
-  margin-right: 0;
-}
-.letter:focus {
-  outline: none;
-  box-shadow: 0px 0px 0px 2px #df744a;
-}
-/*!***************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/features/StartPage/StartPage.scss ***!
-  \***************************************************************************************************************************************************************/
-.start-page {
-  margin-top: 58px;
-  width: 100%;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  border-bottom: solid 10px #df744a;
-}
-.start-page .word {
-  width: 100%;
-  max-width: 100%;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.instructions-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 24px;
-  background-color: #ffffff;
-  padding: 20px;
-  flex-grow: 1;
-}
-.instructions-list li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.instructions-list li i {
-  margin-right: 10px;
-}
-.instructions-list li:last-child {
-  margin-bottom: 0;
-}
-/*!*****************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/AppHeader/AppHeader.scss ***!
-  \*****************************************************************************************************************************************************************/
-.app-header {
-  background-color: #df744a;
-  padding: 10px 0;
-}
-
-.app-logo {
-  font-family: "Merienda";
-  color: #ffffff;
-  font-weight: 700;
-  margin: 0;
-  text-shadow: 1px 2px #000000;
-  font-size: 1.75rem;
-  text-align: center;
-}
 /*!****************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/scss/app.scss ***!
   \****************************************************************************************************************************************/
@@ -535,6 +428,29 @@ body.--react-loaded [class^=ri-], body.--react-loaded [class*=" ri-"] {
   content: "\f1a2";
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.m-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.m-t15 {
+  margin-top: 15px;
+}
+.m-t30 {
+  margin-top: 30px;
+}
+.m-l5 {
+  margin-left: 5px;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
 html {
   height: 100%;
 }
@@ -557,7 +473,298 @@ body {
   flex-direction: column;
   flex-grow: 1;
 }
-/*!**************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/scss/partials/word.scss ***!
-  \**************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Anagrams/Anagrams.scss ***!
+  \***************************************************************************************************************************************************************/
+.anagrams-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px auto 10px auto;
+  width: 90%;
+}
+.anagrams-container .anagram-column {
+  margin: 0 15px 10px 0;
+  list-style: none;
+  padding: 0;
+}
+.anagrams-container .anagram-column:last-child {
+  margin-right: 0;
+}
 
+.anagram {
+  margin-bottom: 5px;
+}
+.anagram:last-child {
+  margin-bottom: 0;
+}
+.anagram .char {
+  background-color: rgba(255, 255, 255, 0.7);
+  margin: 0 1px 0 0;
+  display: inline-block;
+  font-size: 18px;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  width: 25px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: transparent;
+  text-transform: uppercase;
+}
+.anagram .char::selection {
+  color: transparent;
+}
+.anagram.--show .char {
+  background-color: #ffffff;
+  color: #000000;
+}
+.anagram.--show .char::selection {
+  color: inherit;
+}
+.anagram.--show .char::transparent {
+  color: #000000;
+}
+.anagram.--solved .char {
+  background-color: yellow;
+}
+/*!******************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/features/GameContainer/GameForm.scss ***!
+  \******************************************************************************************************************************************************************/
+.game-form {
+  text-align: center;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+/*!*******************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/features/GuessMobile/GuessMobile.scss ***!
+  \*******************************************************************************************************************************************************************/
+.mobile-guess {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 15px 0;
+  background-color: #ffffff;
+  padding: 10px 0;
+  box-shadow: inset 0 12px 5px -12px #424242, inset 0 -12px 5px -12px #424242;
+}
+
+.mobile-letters {
+  flex-grow: 1;
+  font-size: 26px;
+  letter-spacing: 2px;
+  margin-left: 32px;
+}
+/*!***********************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Button/Button.scss ***!
+  \***********************************************************************************************************************************************************/
+.btn {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  background: #ff4904;
+  padding: 15px 20px;
+  font-size: 18px;
+  border-radius: 30px;
+  color: #ffffff;
+  box-shadow: 0px 1px 0px #000000;
+  text-shadow: 1px 1px #000000;
+}
+.btn--secondary {
+  font-size: 18px;
+  background-color: transparent;
+  border: solid 1px #000000;
+  border-radius: 4px;
+  border-bottom: solid 2px;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+.btn--secondary:focus {
+  border-bottom: solid 1px;
+  border-color: rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+
+.btn--backspace {
+  margin-left: auto;
+  display: flex;
+  margin-right: 5px;
+}
+/*!***************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/GameWord/GameWord.scss ***!
+  \***************************************************************************************************************************************************************/
+.word-row {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+.word-row.--reset .letter {
+  text-transform: uppercase;
+}
+
+.word {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  font-size: 50px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  padding: 40px 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.letter {
+  background-color: #ffffff;
+  margin: 0 10px 0 0;
+  width: 50px;
+  line-height: 1.5;
+  list-style: none;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.letter.--used {
+  color: #ffffff;
+  box-shadow: 0px 0px 0px 2px #df744a;
+  cursor: default;
+}
+.letter.--used::selection {
+  color: #ffffff;
+}
+.letter:last-child {
+  margin-right: 0;
+}
+.letter:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 2px #df744a;
+}
+/*!***************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/GameStat/GameStat.scss ***!
+  \***************************************************************************************************************************************************************/
+.game-stats {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 450px;
+  margin: 15px auto 10px auto;
+}
+.game-stats .game-stat {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
+}
+.game-stats .game-stat .game-stat-icon {
+  margin-right: 5px;
+}
+/*!*****************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/GameTimer/GameTimer.scss ***!
+  \*****************************************************************************************************************************************************************/
+.game-timer {
+  box-sizing: content-box;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border: solid 6px rgb(59, 214, 255);
+  border-radius: 50px;
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 25px;
+  position: absolute;
+  top: -33px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.game-timer button {
+  line-height: 50px;
+  height: 50px;
+  width: 50px;
+}
+/*!***********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Notification/Notification.scss ***!
+  \***********************************************************************************************************************************************************************/
+.notification {
+  margin: 15px auto;
+  width: 100%;
+  max-width: 450px;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 4px;
+  color: #ff4904;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+/*!*****************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/TextInput/TextInput.scss ***!
+  \*****************************************************************************************************************************************************************/
+.game-guess {
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  margin: 15px 0 0 0;
+  font-size: 26px;
+  line-height: 2.1;
+  outline: 0;
+  border: solid 3px #df744a;
+  border-radius: 4px;
+}
+/*!***************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/features/StartPage/StartPage.scss ***!
+  \***************************************************************************************************************************************************************/
+.start-page {
+  margin-top: 58px;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border-bottom: solid 10px #df744a;
+}
+.start-page .word {
+  width: 100%;
+  max-width: 100%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.instructions-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 24px;
+  background-color: #ffffff;
+  padding: 20px;
+  flex-grow: 1;
+}
+.instructions-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.instructions-list li i {
+  margin-right: 10px;
+}
+.instructions-list li:last-child {
+  margin-bottom: 0;
+}
+/*!*****************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/AppHeader/AppHeader.scss ***!
+  \*****************************************************************************************************************************************************************/
+.app-header {
+  background-color: #df744a;
+  padding: 10px 0;
+}
+
+.app-logo {
+  font-family: "Merienda";
+  color: #ffffff;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 1px 2px #000000;
+  font-size: 1.75rem;
+  text-align: center;
+}
