@@ -19,3 +19,5 @@ export const TimerDev = 150;
 export const TimerProd = 60;
 
 export const BaseDate = Date.now();
+
+export const IsDevEnv = process.env.NODE_ENV;

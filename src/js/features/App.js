@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 
 import '../../scss/app.scss';
 import { shuffleLetters } from '../utils/utils.js';
-import { BaseDate, Notifications, ZipfMin, ZipfMax, TimerDev, TimerProd, LevelWordLength } from '../utils/constants';
+import { 
+  BaseDate,
+  Notifications,
+  ZipfMin,
+  ZipfMax,
+  TimerDev,
+  TimerProd,
+  LevelWordLength, 
+  IsDevEnv 
+} from '../utils/constants';
 
 import Anagrams from '../components/Anagrams/Anagrams.jsx';
 import GameContainer from './GameContainer/GameContainer';
@@ -14,8 +23,8 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: this.props.isDevEnv ? TimerDev : TimerProd,
-      timerStart: this.props.isDevEnv ? TimerDev : TimerProd,
+      timerTime: IsDevEnv? TimerDev : TimerProd,
+      timerStart: IsDevEnv ? TimerDev : TimerProd,
       isMobile: this.props.isTouchDevice,
       notification: {},
       game: {

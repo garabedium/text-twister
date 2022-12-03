@@ -9,7 +9,5 @@ const root = createRoot(container);
 root.render(
   <App
     isTouchDevice={isTouchDevice()}
-    isDevEnv={process.env.NODE_ENV === "development"}
-    nodeEnv={process.env.NODE_ENV} 
   />  
 );

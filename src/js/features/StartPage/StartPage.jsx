@@ -62,9 +62,6 @@ function StartPage(props) {
           />
         </div>
         <GameWord word={letters} />
-        {/* <div className="word">
-          {letters}
-        </div> */}
         <ul className="instructions-list">
           <li><i className="ri-timer-flash-line ri-3x"></i> Solve words before time runs out</li>
           <li><i className="ri-funds-line ri-3x"></i> Solve the 6 letter word and move on up</li>
