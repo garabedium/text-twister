@@ -4,7 +4,7 @@ const express = require('express'),
       distDir = path.join(__dirname, './dist'),
       appPage = path.join(distDir, 'index.html'),
       mysql = require('mysql'),
-      { port, host, db, db_user, db_pwd } = require('./config'),
+      { port, host, db, db_user, db_password } = require('./config'),
       app = express(),
       isDevelopment = process.env.NODE_ENV === "development",
       bodyParser = require('body-parser');
@@ -24,9 +24,10 @@ if (isDevelopment) {
 const mc = mysql.createConnection({
   host: host,
   user: db_user,
-  password: db_pwd,
+  password: db_password,
   database: db
-})
+});
+
 mc.connect();
 console.log('DB connected: ' + db);
 

@@ -1,3 +1,4 @@
+@import '../../../scss/utils/utils';
 
 .start-page {
   margin-top: 58px;
@@ -7,6 +8,7 @@
   flex-direction: column;
   flex-grow: 1;
   border-bottom: solid 10px $primary-red;
+
   .word {
     width: 100%;
     max-width: 100%;
@@ -23,13 +25,16 @@
   background-color: $white;
   padding: 20px;
   flex-grow: 1;
+
   li {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+
     i {
       margin-right: 10px;
     }
+
     &:last-child {
       margin-bottom: 0;
     }

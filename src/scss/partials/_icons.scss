@@ -1,3 +1,27 @@
+/*
+* Remix Icon v2.4.0
+* https://remixicon.com
+* https://github.com/Remix-Design/RemixIcon
+*
+* Copyright RemixIcon.com
+* Released under the Apache License Version 2.0
+*
+* Date: 2020-04-20
+*/
+@font-face {
+  font-family: "remixicon";
+  src: url('/css/fonts/remixicon.eot');
+  /* IE9*/
+  src: url('css/fonts/remixicon.eot#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('css/fonts/remixicon.woff2') format('woff2'),
+    url('css/fonts/remixicon.woff') format('woff'),
+    url('css/fonts/remixicon.ttf') format('truetype'),
+    /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('css/fonts/remixicon.svg#remixicon') format('svg');
+  /* iOS 4.1- */
+  font-display: swap;
+}
 
 [class^="ri-"], [class*=" ri-"] {
   font-family: 'remixicon' !important;

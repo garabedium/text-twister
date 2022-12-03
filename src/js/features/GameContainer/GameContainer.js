@@ -1,8 +1,14 @@
-import React, { Component } from 'react'
-import GuessMobile from './GuessMobile'
-import FormInput from '../components/FormInput'
-import Button from '../components/Button'
+import React, { Component } from 'react';
 
+import './GameForm.scss';
+
+import GuessMobile from '../GuessMobile/GuessMobile.jsx';
+import Button from '../../components/Button/Button.jsx';
+import GameWord from '../../components/GameWord/GameWord.jsx';
+import GameStat from '../../components/GameStat/GameStat.jsx';
+import GameTimer from '../../components/GameTimer/GameTimer.jsx';
+import Notification from '../../components/Notification/Notification.jsx';
+import TextInput from '../../components/TextInput/TextInput.jsx';
 class GameContainer extends Component {
   constructor(props){
     super(props)
@@ -132,30 +138,22 @@ class GameContainer extends Component {
 
         { this.props.game.started && 
           <div className="game-stats">
-            <div className="game-stat">
-              <i className="game-stat-icon ri-star-fill ri-3x"></i>
-              <span>{score}</span>
-            </div> 
-            <div className="game-stat">
-              <i className="game-stat-icon ri-funds-line ri-3x"></i>
-              <span>{level}</span>
-            </div>                           
+            <GameStat icon="score" stat={score} />
+            <GameStat icon="level" stat={level} />
           </div>
         }
 
         <div className={`word-row ${reset ? '--reset':''}`}>
 
           <div className="game-timer">
-            { this.props.game.started && <span>{seconds}</span> }
+            { this.props.game.started && <GameTimer seconds={seconds}/> }
           </div>
 
-          {this.props.game.started && <div className="word">{displayWord}</div>}
+          {this.props.game.started && <GameWord word={displayWord} />}
         </div>
         
         {reset && 
-          <div className="notification">
-            { notification }
-          </div> 
+          <Notification text={notification} />
         }
 
         {reset && 
@@ -166,26 +164,27 @@ class GameContainer extends Component {
             icon={`ri-play-fill ri-lg m-l5`} />}
 
         {this.props.game.started && this.props.game.active && 
-          <form onSubmit={this.handleSubmit} className="game-form">
+          <form 
+            onSubmit={this.handleSubmit} 
+            className="game-form"
+          >
+            {isMobile ? 
+              <GuessMobile
+                guess={guess}
+                handleBackspace={this.props.handleBackspace}
+              /> : 
+              <TextInput
+                placeholder="Guess a word..."
+                name="guess"
+                content={guess}
+                handleChange={this.handleInput}
+                class="game-guess"
+                onClick={this.onInputClick}
+                inputRef={this.textInput}
+              /> 
+            }
 
-          {isMobile ? 
-            <GuessMobile
-              guess={guess}
-              handleBackspace={this.props.handleBackspace}
-            /> : 
-            <FormInput
-              placeholder="Guess a word..."
-              name="guess"
-              content={guess}
-              handleChange={this.handleInput}
-              class="game-form__input"
-              onClick={this.onInputClick}
-              inputRef={this.textInput}
-            /> }
-
-            <div className="notification">
-              { notification }
-            </div> 
+            <Notification text={notification} />
 
             <div className="buttons">
               <Button

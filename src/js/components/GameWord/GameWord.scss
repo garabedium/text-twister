@@ -1,8 +1,11 @@
+@import '../../../scss/utils/utils';
+
 .word-row {
   position: relative;
   width: 100%;
   max-width: $game-max-width;
   margin: 0 auto;
+
   &.--reset {
     .letter {
       text-transform: uppercase;
@@ -20,7 +23,7 @@
   text-align: center;
   margin: 0 auto;
   padding: 40px 0;
-  background: rgba(255,255,255,.2);
+  background: rgba(255, 255, 255, .2);
   border-radius: 4px;
 }
 
@@ -30,32 +33,25 @@
   width: 50px;
   line-height: 1.5;
   list-style: none;
-  box-shadow: 2px 2px 0px rgba(0,0,0,.2);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, .2);
   cursor: pointer;
+
   &.--used {
     color: $white;
     box-shadow: 0px 0px 0px 2px $primary-red;
     cursor: default;
+
     &::selection {
       color: $white;
     }
   }
+
   &:last-child {
     margin-right: 0;
   }
+
   &:focus {
     outline: none;
     box-shadow: 0px 0px 0px 2px $primary-red;
   }
-  // &.--animate-letter-fade {
-  //   animation: fadeIn ease-in-out 700ms;
-  // }
-  // &.--animate-letter-fade-last {
-  //   animation: fadeIn ease-in 1000ms
-  // }
-}
-
-@keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
 }
