@@ -372,8 +372,8 @@ class App extends Component {
   }
 
   render(){
-    let loadedWord = this.state.word.letters.length > 0;
-    let gameStarted = this.state.game.started;
+    const loadedWord = this.state.word.letters.length > 0;
+    const gameStarted = this.state.game.started;
 
     return(
       <React.Fragment>
@@ -381,7 +381,7 @@ class App extends Component {
         <AppHeader />
 
       <div className="app-container"> 
-        { !gameStarted && 
+        {!gameStarted && 
           <StartPage
             startGame={this.startGame}
           /> 
