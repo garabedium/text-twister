@@ -29,5 +29,5 @@ jobs:
             --exclude='node_modules/'
           REMOTE_USER: ${{ secrets.SSH_USER }}
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }} -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa
           TARGET: ${{ secrets.STAGING_DEPLOY_PATH }}  
