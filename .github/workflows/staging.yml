@@ -1,13 +1,8 @@
 name: deploy-staging-on-merge
 run-name: ${{ github.actor }} is deploying to staging env.
-on:
-  pull_request:
-    branches: [staging]
-    types: [closed]
-
+on: [workflow_dispatch]
 jobs:
-  merge_job:
-    if: github.event.pull_request.merged == true
+  staging_deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Get the latest code
@@ -18,7 +13,7 @@ jobs:
         run: |
           npm install
           npm run build
-      - name: Deploy
+      - name: Deploy to server
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_STAGING }}
