@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Get the latest code
         uses: actions/checkout@v3
+      - name: Set up node
         uses: actions/setup-node@master
       - name: Install dependencies and build project
         run: |
