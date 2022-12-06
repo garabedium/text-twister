@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development webpack --mode development && node -r dotenv/config server.js",
-    "build": "webpack --mode production"
+    "build": "NODE_ENV=production webpack --mode production"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
