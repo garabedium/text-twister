@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDevelopment = process.env.NODE_MODULE === 'development';
 
@@ -23,8 +22,6 @@ module.exports = {
         test: /\.scss$/,
         use: [
           isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          // 'style-loader',
-          // MiniCssExtractPlugin.loader,
           {
               loader: "css-loader",
               options: {
@@ -45,7 +42,6 @@ module.exports = {
   },
   plugins: [
     htmlPlugin,
-    // new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: "[name].css"
     }),
