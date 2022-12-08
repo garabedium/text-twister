@@ -23,7 +23,7 @@ class App extends Component {
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: IsDevEnv? TimerDev : TimerProd,
+      timerTime: IsDevEnv ? TimerDev : TimerProd,
       timerStart: IsDevEnv ? TimerDev : TimerProd,
       isMobile: this.props.isTouchDevice,
       notification: {},
