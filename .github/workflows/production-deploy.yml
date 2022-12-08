@@ -1,8 +1,13 @@
-name: deploy-staging-on-merge
-run-name: ${{ github.actor }} is deploying to staging env.
-on: [workflow_dispatch]
+name: Production Deploy
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  staging_deploy:
+  deploy_production:
     runs-on: ubuntu-latest
     steps:
       - name: Get the latest code
@@ -23,5 +28,5 @@ jobs:
             --exclude='node_modules/'
           REMOTE_USER: ${{ secrets.SSH_USER }}
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_PORT: ${{ secrets.SSH_PORT }}
-          TARGET: ${{ secrets.STAGING_DEPLOY_PATH }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }} -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa
+          TARGET: ${{ secrets.PRODUCTION_DEPLOY_PATH }}  
