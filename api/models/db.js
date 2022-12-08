@@ -1,12 +1,12 @@
 'use strict';
 
 const mysql = require('mysql'),
-      { host, db, db_user, db_pwd } = require('../../config');
+      { host, db, db_user, db_password } = require('../../config');
 
 const mc = mysql.createConnection({
   host: host,
   user: db_user,
-  password: db_pwd,
+  password: db_password,
   database: db
 })
 

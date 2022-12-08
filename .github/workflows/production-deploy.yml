@@ -1,4 +1,4 @@
-name: Staging Deploy
+name: Production Deploy
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -7,7 +7,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  deploy_staging:
+  deploy_production:
     runs-on: ubuntu-latest
     steps:
       - name: Get the latest code
@@ -29,4 +29,4 @@ jobs:
           REMOTE_USER: ${{ secrets.SSH_USER }}
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_PORT: ${{ secrets.SSH_PORT }} -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa
-          TARGET: ${{ secrets.STAGING_DEPLOY_PATH }}  
+          TARGET: ${{ secrets.PRODUCTION_DEPLOY_PATH }}  

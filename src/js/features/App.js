@@ -1,32 +1,32 @@
-import React, { Component } from 'react'
-import Anagrams from './Anagrams'
-import GameContainer from './GameContainer'
-import StartPage from './StartPage'
+import React, { Component } from 'react';
+
+import '../../scss/app.scss';
+import { shuffleLetters } from '../utils/utils.js';
+import { 
+  BaseDate,
+  Notifications,
+  ZipfMin,
+  ZipfMax,
+  TimerDev,
+  TimerProd,
+  LevelWordLength, 
+  IsDevEnv 
+} from '../utils/constants';
+
+import Anagrams from '../components/Anagrams/Anagrams.jsx';
+import GameContainer from './GameContainer/GameContainer';
+import StartPage from './StartPage/StartPage.jsx'
+import AppHeader from '../components/AppHeader/AppHeader.jsx';
 
 class App extends Component {
   constructor(props){
     super(props)
     this.state = {
       timerOn: false,
-      timerTime: this.props.isDevEnv ? 150 : 60,
-      timerStart: this.props.isDevEnv ? 150 : 60,
-      zipfMin: 4.5,
-      zipfMax: 7,
-      levelWordLength: 6,
+      timerTime: IsDevEnv? TimerDev : TimerProd,
+      timerStart: IsDevEnv ? TimerDev : TimerProd,
       isMobile: this.props.isTouchDevice,
       notification: {},
-      notifications: {
-        "default": {text:"Press Spacebar to shuffle. Press Enter to submit."},
-        "default_mobile": {text: "Tap letters to use."},
-        "points": {text:"Woohoo! Points! Keep Solving!", icon:"star"},
-        "validate_dupe": {text:"You already solved that word!", icon:"x"},
-        "validate_min": {text:"Words must be at least 3 letters!", icon:"x"},
-        "validate_invalid": {text:"That's not in our dictionary!", icon:"x"},
-        "solved_level": {text:"You solved the 6 letter word! Next level solve!", icon:"x"},
-        "solved_all": {text:"You solved all the words! Genius!"},
-        "game_over": {text:"Game Over"},
-      },
-      baseDate: Date.now(),
       game: {
         active: false,
         started: false,
@@ -54,7 +54,6 @@ class App extends Component {
     this.getWordAnagrams = this.getWordAnagrams.bind(this)
     this.validateWord = this.validateWord.bind(this)
     this.selectWord = this.selectWord.bind(this)
-    this.shuffleLetters = this.shuffleLetters.bind(this)
     this.updateScore = this.updateScore.bind(this)
     this.updateLevel = this.updateLevel.bind(this)
     this.updateGameState = this.updateGameState.bind(this)
@@ -70,9 +69,9 @@ class App extends Component {
   }
 
   componentDidMount(){
-    console.log("*** app mounted ***")
-    this.reactLoaded()
-    this.initGame()
+    console.log("*** app mounted ***");
+    this.reactLoaded();
+    this.initGame();
   }
   
   reactLoaded(){
@@ -84,12 +83,13 @@ class App extends Component {
   initGame(){  
     this.getWords().then(response => { 
       let newState = Object.assign({},this.state)
-      newState.notification = this.state.notifications[(this.state.isMobile) ? "default_mobile":"default"]
+      newState.notification = Notifications[(this.state.isMobile) ? "default_mobile":"default"]
       newState.words = response
-      newState.word.current = this.selectWord(response)
+      newState.word.current = this.selectWord(response);
+      const shuffledWord = shuffleLetters(newState.word.current, this.state.word.current).split('');
       // Build the letter objects that will maintain letter 'state':
-      newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
-        return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
+      newState.word.letters = shuffledWord.map( (char,i) => {
+        return { id: i + 1, char: char, used: false, updatedAt: BaseDate }
       })
       this.setState(newState, this.getWordAnagrams())
     })
@@ -97,7 +97,7 @@ class App extends Component {
 
   getWords(params){
     console.log("*** get words ***")
-    let url = `/api/levelWord/range/${this.state.zipfMin}&${this.state.zipfMax}`
+    let url = `/api/levelWord/range/${ZipfMin}&${ZipfMax}`
 
     if (params && params.exclude){
       let query = params.exclude.map(obj => { return `&exclude=${obj.word}`}).join('')
@@ -152,11 +152,11 @@ class App extends Component {
         })
 
         newState.player.score = this.updateScore(word)
-        newState.player.levelup = (word.length === this.state.levelWordLength) ? true : this.state.player.levelup
+        newState.player.levelup = (word.length === LevelWordLength) ? true : this.state.player.levelup
         newState.player.solved = this.state.player.solved.concat(word)
         newState.player.solvedAll = newState.player.solved.length === this.state.word.anagrams.length
         newState.word.anagrams = anagrams
-        newState.notification = newState.player.solvedAll ? this.state.notifications.solved_all : this.state.notifications.points
+        newState.notification = newState.player.solvedAll ? Notifications.solved_all : Notifications.points
 
         if (newState.player.solvedAll) {
           newState.game.active = false
@@ -177,31 +177,6 @@ class App extends Component {
     const filtered = array.filter(obj => { return !obj.used })
     const selected = filtered[Math.round( Math.random() * (filtered.length-1))]
     return selected.word
-  }
-
-  // Take in a word and shuffle the letters:
-  shuffleLetters(string){
-
-    let arr = (string) ? string.split('') : this.state.word.letters.filter(obj => { return !obj.used }).map( obj => { return obj.char })
-    let original = arr.join('')
-
-    let shuffled = ''
-
-    for (let i = arr.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = arr[i];
-      arr[i] = arr[j];
-      arr[j] = temp;
-    }
-
-    shuffled = arr.join('')
-
-    // Don't show the solved word or the same shuffled sequence:
-    if (shuffled.length > 1 && (shuffled === this.state.word.current || shuffled === original)){
-      return this.shuffleLetters(string)
-    }
-
-    return shuffled
   }
 
   getWordAnagrams(){
@@ -260,7 +235,7 @@ class App extends Component {
     newState.player.score = this.state.player.score
     newState.player.solvedAll = false
     newState.timerOn = false
-    newState.notification = this.state.notifications[notificationKey]
+    newState.notification = Notifications[notificationKey]
 
     this.setState(newState, this.lazyLoadWords())
   }
@@ -292,7 +267,7 @@ class App extends Component {
     let newState = Object.assign({},this.state)
     const last = newState.word.letters.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b))
     last.used = false
-    last.updatedAt = this.state.baseDate
+    last.updatedAt = BaseDate
     return this.setState(newState)
   }
 
@@ -301,7 +276,7 @@ class App extends Component {
   
     newState.word.letters.map(letter => { 
       letter.used = false
-      letter.updatedAt = this.state.baseDate
+      letter.updatedAt = BaseDate
       return letter
     })
 
@@ -321,15 +296,17 @@ class App extends Component {
   }
 
   restartGame(event){
-    let newState = Object.assign({},this.state)
-    const currentWord = this.selectWord()
+    let newState = Object.assign({},this.state);
+    const currentWord = this.selectWord();
+    const shuffledWord = shuffleLetters(currentWord, '').split('');
 
-    newState.word.current = currentWord
-    newState.word.letters = this.shuffleLetters(newState.word.current).split('').map( (char,i) => {
-      return { id: i + 1, char: char, used: false, updatedAt: this.state.baseDate }
+    newState.word.current = currentWord;
+
+    newState.word.letters = shuffledWord.map( (char,i) => {
+      return { id: i + 1, char: char, used: false, updatedAt: BaseDate }
     })
     
-    newState.notification = this.state.notifications["default"]
+    newState.notification = Notifications["default"]
     newState.player.solved = []
     newState.player.level = (this.state.player.levelup) ? this.updateLevel() : this.state.player.level
     newState.player.score = (this.state.player.levelup) ? this.state.player.score : 0    
@@ -366,13 +343,15 @@ class App extends Component {
     }, 1000);
   };
 
+  // Shuffle any unused letters
   updateShuffledState(){
-    let newState = Object.assign({},this.state)
-    let shuffled = this.shuffleLetters().split('').map(char => { return { char: char, used: false } })
-    let used = this.state.word.letters.filter(obj => { return obj.used }).map(obj => { return { char: obj.char, used: obj.used, updatedAt: obj.updatedAt } })
+    let newState = Object.assign({},this.state);
+    const unusedLetters = this.state.word.letters.filter(letter => !letter.used).map(unusedLetter => unusedLetter.char).join('');
+    const shuffled = shuffleLetters(unusedLetters).split('').map(char => { return { char: char, used: false } });
+    const usedLetters = this.state.word.letters.filter(letter => letter.used).map(usedLetter => { return { ...usedLetter, updatedAt: usedLetter.updatedAt }});
 
-    let letters = used.concat(shuffled).map( (obj,i) => {
-      let updatedAt = obj.updatedAt || this.state.baseDate
+    const letters = usedLetters.concat(shuffled).map( (obj,i) => {
+      let updatedAt = obj.updatedAt || BaseDate;
       return { id: i + 1, char: obj.char, used: obj.used, updatedAt: updatedAt }
     })
 
@@ -380,16 +359,9 @@ class App extends Component {
     return this.setState(newState)
   }
 
-  replaceLetterUnderscore(word){
-    let output = word.split('').map(letter => {
-      return "_"
-    }).join(' ')
-    return output
-  }
-
   setNotification(notify,delay){
     let newState = Object.assign({},this.state)
-    newState.notification = this.state.notifications[notify]
+    newState.notification = Notifications[notify]
     if (delay){
       setTimeout(() => {
         return this.setState(newState)
@@ -400,26 +372,17 @@ class App extends Component {
   }
 
   render(){
-    let logoText = "Text Twister".split('').map((char,i)=>{
-      return(<span className={`logo-letter ${char === ' ' ? '--space':''}`} key={i}>{char}</span>)
-    })
-    let loadedWord = this.state.word.letters.length > 0
-    let score = this.state.player.score
-    let gameStarted = this.state.game.started
+    const loadedWord = this.state.word.letters.length > 0;
+    const gameStarted = this.state.game.started;
 
     return(
       <React.Fragment>
 
-        <header className="site-header">
-          <h1 className="logo">{logoText}</h1>
-        </header>
+        <AppHeader />
 
-      <div className="game-container">
-
-        { !gameStarted && 
+      <div className="app-container"> 
+        {!gameStarted && 
           <StartPage
-            game={this.state.game}
-            shuffleLetters={this.shuffleLetters}
             startGame={this.startGame}
           /> 
         }
@@ -427,7 +390,6 @@ class App extends Component {
         {loadedWord && gameStarted ?
           <GameContainer
             word={this.state.word}
-            shuffleLetters={this.shuffleLetters}
             validateWord={this.validateWord}
             game={this.state.game}
             player={this.state.player}
@@ -445,7 +407,7 @@ class App extends Component {
             timerOn={this.state.timerOn}
             timerStart={this.state.timerStart}
             notification={this.state.notification}
-            notifications={this.state.notifications}
+            notifications={Notifications}
             setNotification={this.setNotification}
             isMobile={this.state.isMobile}
           /> : null}

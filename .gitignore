@@ -16,3 +16,4 @@ index-static.html
 .env
 dist/main.js
 .vscode/
+_data/

@@ -5,26 +5,26 @@
 
 // Margin Utility:
 .m {
+
   // m-auto
   &-auto {
     margin-left: auto;
     margin-right: auto;
   }
-  // m-t30
+
+  // m-t15
   &-t15 {
     margin-top: 15px;
   }
+
   // m-t30
   &-t30 {
     margin-top: 30px;
   }
+
   // m-l5
   &-l5 {
     margin-left: 5px;
-  }
-  // m-r10
-  &-r10 {
-    margin-right: 10px;
   }
 }
 

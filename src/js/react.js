@@ -1,13 +1,13 @@
-import '../scss/app.scss';
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './containers/App'
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './features/App'
 import isTouchDevice from 'is-touch-device';
 
-ReactDOM.render(
-  <App 
-  isTouchDevice={ isTouchDevice() }
-  isDevEnv={ process.env.NODE_ENV === "development" }
-  nodeEnv={process.env.NODE_ENV} />,
-  document.getElementById('game-root')
-)
+const container = document.getElementById('app-root');
+const root = createRoot(container);
+
+root.render(
+  <App
+    isTouchDevice={isTouchDevice()}
+  />  
+);
