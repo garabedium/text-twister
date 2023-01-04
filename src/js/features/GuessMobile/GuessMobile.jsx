@@ -1,14 +1,13 @@
 import React from 'react';
 
 import './GuessMobile.scss';
-import Button from '../../components/Button/Button.jsx';
+import Button from '../../components/Button/Button';
 
-function GuessMobile(props){
-
+function GuessMobile(props) {
   const { guess, handleBackspace } = props;
-  const buttonClass = `btn--backspace ${guess.length === 0 ? 'disabled' : ''}`
+  const buttonClass = `btn--backspace ${guess.length === 0 ? 'disabled' : ''}`;
 
-  return(
+  return (
     <div className="mobile-guess">
       <div className="mobile-letters">
         {guess}
@@ -17,11 +16,10 @@ function GuessMobile(props){
       <Button
         class={buttonClass}
         handleClick={() => handleBackspace()}
-        icon='ri-delete-back-2-line ri-3x'
-      />  
+        icon="ri-delete-back-2-line ri-3x"
+      />
     </div>
-  )
-    
-  }
-  
-  export default GuessMobile;
+  );
+}
+
+export default GuessMobile;

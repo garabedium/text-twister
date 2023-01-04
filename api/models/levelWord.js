@@ -1,23 +1,24 @@
-'use strict';
-
-const sql = require('./db.js');
 const fs = require('fs');
+const sql = require('./db.js');
 
-var LevelWord = function(word){
+const LevelWord = function (word) {
   this.word = word.word;
   this.zipf = word.zipf_value;
 };
 
 LevelWord.validate = function (word, result) {
-  sql.query("SELECT word, zipf_value FROM level_words WHERE word = ? ", word, 
-  function (err, res) {
-    if(err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      result(null, res);
-    }
-  });
+  sql.query(
+    'SELECT word, zipf_value FROM level_words WHERE word = ? ',
+    word,
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    },
+  );
 };
 
 LevelWord.random = function (result) {
@@ -29,9 +30,9 @@ LevelWord.random = function (result) {
     WHERE
         w.id >= x.id
     LIMIT 1
-  `, function(err, res){
-    if(err) {
-      console.log("error: ", err);
+  `, (err, res) => {
+    if (err) {
+      console.log('error: ', err);
       result(err, null);
     } else {
       result(null, res);
@@ -39,36 +40,41 @@ LevelWord.random = function (result) {
   });
 };
 
-LevelWord.randomByRange = function (min,max,exclude,result) {
-
-  let query = `SELECT id, word, zipf_value FROM level_words
+LevelWord.randomByRange = function (min, max, exclude, result) {
+  const query = `SELECT id, word, zipf_value FROM level_words
   WHERE zipf_value BETWEEN ? and ?
   AND word not in (?)
   ORDER BY RAND()
-  LIMIT 5`
-  sql.query(query, [min,max,exclude],
-    function (err, res) {
-    if(err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      res = res.map((obj) => ({ ...obj, used: false }))
-      result(null, res);
-    }
-  });
+  LIMIT 5`;
+  sql.query(
+    query,
+    [min, max, exclude],
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+      } else {
+        res = res.map((obj) => ({ ...obj, used: false }));
+        result(null, res);
+      }
+    },
+  );
 };
 
 LevelWord.anagrams = function (word, result) {
-  sql.query(`SELECT * FROM levelword_anagrams WHERE level_word = ? ORDER BY char_length(anagram) DESC `, word, 
-  function (err, res) {
-    if(err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      res = res.map((obj) => ({...obj, solved: false}))
-      result(null, res);
-    }
-  });
+  sql.query(
+    'SELECT * FROM levelword_anagrams WHERE level_word = ? ORDER BY char_length(anagram) DESC ',
+    word,
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+      } else {
+        res = res.map((obj) => ({ ...obj, solved: false }));
+        result(null, res);
+      }
+    },
+  );
 };
 
-module.exports= LevelWord;
+module.exports = LevelWord;
