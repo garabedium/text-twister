@@ -11,14 +11,14 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 module.exports = {
   entry: [
-    './src/js/react.js',
+    './src/js/react.jsx',
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
   },
   resolve: {
-    extensions: ['.js', '', '.scss'],
+    extensions: ['.js', '.jsx', '.scss'],
   },
   module: {
     rules: [
