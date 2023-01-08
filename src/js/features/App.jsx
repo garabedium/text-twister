@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import '../../scss/app';
+import '../../scss/app.scss';
 import { shuffleLetters } from '../utils/utils';
 import {
   BaseDate,
@@ -347,7 +347,8 @@ class App extends Component {
     const newState = { ...this.state };
     const unusedLetters = this.state.word.letters.filter((letter) => !letter.used).map((unusedLetter) => unusedLetter.char).join('');
     const shuffled = shuffleLetters(unusedLetters).split('').map((char) => ({ char, used: false }));
-    const usedLetters = this.state.word.letters.filter((letter) => letter.used).map((usedLetter) => ({ ...usedLetter, updatedAt: usedLetter.updatedAt }));
+    const usedLetters = this.state.word.letters.filter((letter) => letter.used)
+      .map((usedLetter) => ({ ...usedLetter, updatedAt: usedLetter.updatedAt }));
 
     const letters = usedLetters.concat(shuffled).map((obj, i) => {
       const updatedAt = obj.updatedAt || BaseDate;
