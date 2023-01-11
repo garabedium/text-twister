@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Button.scss';
 
-const Button = (props) =>{
+function Button(props) {
   return (
     <button
       type="button"
@@ -10,7 +10,7 @@ const Button = (props) =>{
       onClick={props.handleClick}
     >
       {props.text}
-      {props.icon && <i className={props.icon}></i>}
+      {props.icon && <i className={props.icon} />}
     </button>
   );
 }
