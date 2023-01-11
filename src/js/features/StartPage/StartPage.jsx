@@ -41,7 +41,7 @@ function StartPage(props) {
   const displayWord = shuffleCount === shuffleLimit ? solvedWord : shuffleWord;
   const letters = displayWord.split('').map((letter) => (
     <Button
-      class={`letter letter text-uppercase ${shuffleCount < 5 ? '--animate-letter-fade' : '--animate-letter-fade-last'}`}
+      class={`letter text-uppercase ${shuffleCount < 5 ? '--animate-letter-fade' : '--animate-letter-fade-last'}`}
       text={letter}
       key={letter}
     />

@@ -3,9 +3,9 @@ import React from 'react';
 import './GameWord.scss';
 
 function GameWord(props) {
-  const word = props.word;
+  const { word } = props;
 
-  return ( 
+  return (
     <div className="word">{word}</div>
   );
 }
