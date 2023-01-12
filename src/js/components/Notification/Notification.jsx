@@ -6,7 +6,7 @@ function Notification(props) {
   return (
     <div className="notification">
       {text}
-    </div> 
+    </div>
   );
 }
 
