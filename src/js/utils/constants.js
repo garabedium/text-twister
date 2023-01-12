@@ -23,3 +23,8 @@ export const BaseDate = Date.now();
 export const LogoText = 'Text Twister';
 
 export const IsDevEnv = process.env.NODE_ENV;
+
+export const Icons = {
+  score: 'ri-star-fill',
+  level: 'ri-funds-line',
+};
