@@ -1,13 +1,10 @@
 import React from 'react';
+import { Icons } from '../../utils/constants';
 import './GameStat.scss';
 
 function GameStat(props) {
   const { icon, stat } = props;
-  const icons = {
-    score: 'ri-star-fill',
-    level: 'ri-funds-line',
-  };
-  const iconClass = `game-stat-icon ri-3x ${icons[icon]}`;
+  const iconClass = `game-stat-icon ri-3x ${Icons[icon]}`;
 
   return (
     <div className="game-stat">
