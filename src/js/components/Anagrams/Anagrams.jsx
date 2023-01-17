@@ -32,6 +32,7 @@ function Anagrams(props) {
     return (
       <li
         className={`anagram ${showSolved ? '--show' : ''} ${a.solved ? '--solved' : ''}`}
+        data-testid={`anagram-${a.id}`}
         key={a.id}
       >
         {word}
