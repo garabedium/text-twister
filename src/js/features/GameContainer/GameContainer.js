@@ -6,16 +6,17 @@ import GuessMobile from '../GuessMobile/GuessMobile';
 import Button from '../../components/Button/Button';
 import GameWord from '../../components/GameWord/GameWord';
 import GameStat from '../../components/GameStat/GameStat';
-import GameTimer from '../../components/GameTimer/GameTimer';
+// import GameTimer from '../../components/GameTimer/GameTimer';
 import Notification from '../../components/Notification/Notification';
 import TextInput from '../../components/TextInput/TextInput';
+import Timer from '../../components/Timer/Timer';
 
 class GameContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      seconds: this.props.game.time,
-    };
+    // this.state = {
+    //   seconds: this.props.game.time,
+    // };
     // Class Methods:
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -98,10 +99,9 @@ class GameContainer extends Component {
   }
 
   render() {
-    const { timerTime, timerStart, timerOn } = this.props;
+    // const { timerTime, timerStart, timerOn } = this.props;
 
-    const { score } = this.props.player;
-    const { level } = this.props.player;
+    const { score, level } = this.props.player;
     const notification = this.props.notification.text;
     const { reset } = this.props.game;
     const { isMobile } = this.props;
@@ -126,11 +126,11 @@ class GameContainer extends Component {
       );
     });
 
-    if (this.props.game.active && timerOn === false && (timerTime === timerStart)) {
-      this.props.startTimer();
-    }
+    // if (this.props.game.active && timerOn === false && (timerTime === timerStart)) {
+    //   this.props.startTimer();
+    // }
 
-    const seconds = timerTime;
+    // const seconds = timerTime;
 
     return (
       <>
@@ -145,9 +145,16 @@ class GameContainer extends Component {
 
         <div className={`word-row ${reset ? '--reset' : ''}`}>
 
-          <div className="game-timer">
+          {this.props.game.started
+            && (
+            <Timer
+              updateGameState={this.props.updateGameState}
+              game={this.props.game}
+            />
+            )}
+          {/* <div className="game-timer">
             { this.props.game.started && <GameTimer seconds={seconds} /> }
-          </div>
+          </div> */}
 
           {this.props.game.started && <GameWord word={displayWord} />}
         </div>

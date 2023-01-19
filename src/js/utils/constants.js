@@ -15,7 +15,7 @@ export const LevelWordLength = 6;
 export const ZipfMin = 4.5;
 export const ZipfMax = 7;
 
-export const TimerDev = 150;
+export const TimerDev = 5;
 export const TimerProd = 60;
 
 export const BaseDate = Date.now();

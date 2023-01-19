@@ -660,29 +660,6 @@ body {
 .game-stats .game-stat .game-stat-icon {
   margin-right: 5px;
 }
-/*!*****************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/GameTimer/GameTimer.scss ***!
-  \*****************************************************************************************************************************************************************/
-.game-timer {
-  box-sizing: content-box;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border: solid 6px rgb(59, 214, 255);
-  border-radius: 50px;
-  background-color: #ffffff;
-  text-align: center;
-  font-size: 25px;
-  position: absolute;
-  top: -33px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.game-timer button {
-  line-height: 50px;
-  height: 50px;
-  width: 50px;
-}
 /*!***********************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Notification/Notification.scss ***!
   \***********************************************************************************************************************************************************************/
@@ -711,6 +688,29 @@ body {
   outline: 0;
   border: solid 3px #df744a;
   border-radius: 4px;
+}
+/*!*********************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Timer/Timer.scss ***!
+  \*********************************************************************************************************************************************************/
+.game-timer {
+  box-sizing: content-box;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border: solid 6px rgb(59, 214, 255);
+  border-radius: 50px;
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 25px;
+  position: absolute;
+  top: -33px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.game-timer button {
+  line-height: 50px;
+  height: 50px;
+  width: 50px;
 }
 /*!***************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/features/StartPage/StartPage.scss ***!
