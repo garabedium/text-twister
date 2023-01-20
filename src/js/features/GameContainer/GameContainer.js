@@ -6,16 +6,13 @@ import GuessMobile from '../GuessMobile/GuessMobile';
 import Button from '../../components/Button/Button';
 import GameWord from '../../components/GameWord/GameWord';
 import GameStat from '../../components/GameStat/GameStat';
-import GameTimer from '../../components/GameTimer/GameTimer';
 import Notification from '../../components/Notification/Notification';
 import TextInput from '../../components/TextInput/TextInput';
+import Timer from '../../components/Timer/Timer';
 
 class GameContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      seconds: this.props.game.time,
-    };
     // Class Methods:
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -98,16 +95,12 @@ class GameContainer extends Component {
   }
 
   render() {
-    const { timerTime, timerStart, timerOn } = this.props;
-
-    const { score } = this.props.player;
-    const { level } = this.props.player;
+    const { score, level } = this.props.player;
     const notification = this.props.notification.text;
-    const { reset } = this.props.game;
-    const { isMobile } = this.props;
+    const { isMobile, game } = this.props;
 
     // Show solved word when game is over, else, show letters:
-    const displayWordVal = reset ? this.props.word.current.split('') : this.props.word.letters;
+    const displayWordVal = game.reset ? this.props.word.current.split('') : this.props.word.letters;
 
     const guess = this.getGuess();
     const btnRestartText = this.props.player.levelup ? 'Next Level' : 'New Game';
@@ -126,16 +119,10 @@ class GameContainer extends Component {
       );
     });
 
-    if (this.props.game.active && timerOn === false && (timerTime === timerStart)) {
-      this.props.startTimer();
-    }
-
-    const seconds = timerTime;
-
     return (
       <>
 
-        { this.props.game.started
+        {game.started
           && (
           <div className="game-stats">
             <GameStat icon="score" stat={score} />
@@ -143,19 +130,24 @@ class GameContainer extends Component {
           </div>
           )}
 
-        <div className={`word-row ${reset ? '--reset' : ''}`}>
+        <div className={`word-row ${game.reset ? '--reset' : ''}`}>
 
-          <div className="game-timer">
-            { this.props.game.started && <GameTimer seconds={seconds} /> }
-          </div>
+          {game.started
+            && (
+            <Timer
+              updateGameState={this.props.updateGameState}
+              game={game}
+              restartGame={this.props.restartGame}
+            />
+            )}
 
-          {this.props.game.started && <GameWord word={displayWord} />}
+          {game.started && <GameWord word={displayWord} />}
         </div>
 
-        {reset
+        {game.reset
           && <Notification text={notification} />}
 
-        {reset
+        {game.reset
           && (
           <Button
             handleClick={this.props.restartGame}
@@ -165,7 +157,7 @@ class GameContainer extends Component {
           />
           )}
 
-        {this.props.game.started && this.props.game.active
+        {game.started && game.active
           && (
           <form
             onSubmit={this.handleSubmit}

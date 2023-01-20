@@ -15,16 +15,17 @@ export const LevelWordLength = 6;
 export const ZipfMin = 4.5;
 export const ZipfMax = 7;
 
-export const TimerDev = 150;
-export const TimerProd = 60;
+export const TimeDev = 90;
+export const TimeProd = 60;
 
 export const BaseDate = Date.now();
 
 export const LogoText = 'Text Twister';
 
-export const IsDevEnv = process.env.NODE_ENV;
+export const IsDevEnv = (process.env.NODE_ENV === 'development');
 
 export const Icons = {
   score: 'ri-star-fill',
   level: 'ri-funds-line',
+  play_fill: 'ri-play-fill',
 };
