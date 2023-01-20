@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { TimerDev, TimerProd, IsDevEnv } from '../../utils/constants';
+import Button from '../Button/Button';
 import './Timer.scss';
 
 function Timer(props) {
-  const { updateGameState, game } = props;
+  const { updateGameState, restartGame, game } = props;
   const startTime = IsDevEnv ? TimerDev : TimerProd;
   const [seconds, setSeconds] = useState(startTime);
 
@@ -33,7 +34,12 @@ function Timer(props) {
 
   return (
     <div className="game-timer">
-      <span>{seconds}</span>
+      {game.reset ? (
+        <Button
+          icon="ri-play-fill ri-2x"
+          handleClick={() => restartGame()}
+        />
+      ) : <span>{seconds}</span>}
     </div>
   );
 }

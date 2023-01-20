@@ -7,10 +7,7 @@ import {
   Notifications,
   ZipfMin,
   ZipfMax,
-  // TimerDev,
-  // TimerProd,
   LevelWordLength,
-  // IsDevEnv,
 } from '../utils/constants';
 
 import Anagrams from '../components/Anagrams/Anagrams';
@@ -22,9 +19,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timerOn: false,
-      // timerTime: IsDevEnv ? TimerDev : TimerProd,
-      // timerStart: IsDevEnv ? TimerDev : TimerProd,
       isMobile: this.props.isTouchDevice,
       notification: {},
       game: {
@@ -64,7 +58,6 @@ class App extends Component {
     this.handleBackspace = this.handleBackspace.bind(this);
     this.handleClear = this.handleClear.bind(this);
     this.handleLetterClick = this.handleLetterClick.bind(this);
-    // this.startTimer = this.startTimer.bind(this);
     this.setNotification = this.setNotification.bind(this);
   }
 
@@ -233,7 +226,6 @@ class App extends Component {
     newState.player.level = this.state.player.level;
     newState.player.score = this.state.player.score;
     newState.player.solvedAll = false;
-    newState.timerOn = false;
     newState.notification = Notifications[notificationKey];
 
     this.setState(newState, this.lazyLoadWords());
@@ -314,33 +306,11 @@ class App extends Component {
     newState.game.started = true;
     newState.game.reset = false;
     newState.game.restart = true;
-    // newState.timerTime = this.state.timerStart;
 
     this.getWordAnagrams();
 
     return this.setState(newState);
   }
-
-  // startTimer() {
-  //   this.setState({
-  //     timerOn: true,
-  //     timerTime: this.state.timerTime,
-  //     timerStart: this.state.timerTime,
-  //   });
-  //   this.timer = setInterval(() => {
-  //     const newTime = this.state.timerTime - 1;
-  //     // Timer counts down:
-  //     if (newTime >= 0) {
-  //       this.setState({
-  //         timerTime: newTime,
-  //       });
-  //     } else {
-  //     // Time clears:
-  //       clearInterval(this.timer);
-  //       this.updateGameState();
-  //     }
-  //   }, 1000);
-  // }
 
   // Shuffle any unused letters
   updateShuffledState() {
@@ -397,17 +367,12 @@ class App extends Component {
                 player={this.state.player}
                 updateGameState={this.updateGameState}
                 updateShuffledState={this.updateShuffledState}
-                // startTimer={this.startTimer}
                 startGame={this.startGame}
                 restartGame={this.restartGame}
                 handleKeyPress={this.handleKeyPress}
                 handleBackspace={this.handleBackspace}
                 handleClear={this.handleClear}
                 handleLetterClick={this.handleLetterClick}
-                // seconds={this.state.seconds}
-                // timerTime={this.state.timerTime}
-                // timerOn={this.state.timerOn}
-                // timerStart={this.state.timerStart}
                 notification={this.state.notification}
                 notifications={Notifications}
                 setNotification={this.setNotification}
