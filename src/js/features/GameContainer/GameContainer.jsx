@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import GameStat from '../../components/GameStat/GameStat';
 import Timer from '../../components/Timer/Timer';
@@ -73,6 +73,18 @@ function GameContainer({
     setAnagrams((prevState) => ({ ...prevState, ...anagramsHash }));
   };
 
+  const DisplayWord = useCallback(() => (
+    (gameStatus === GameStates.paused) ? (
+      <GameWord
+        word={levelWordText}
+      />
+    ) : (
+      <GameWord
+        gameLetters={gameLetters}
+      />
+    )
+  ), [gameStatus, levelWordText, gameLetters]);
+
   useEffect(() => {
     getAnagrams();
   }, [levelWordText]);
@@ -89,9 +101,7 @@ function GameContainer({
           updateGameStatus={updateGameStatus}
           restartGame={restartGame}
         />
-        <GameWord
-          gameLetters={gameLetters}
-        />
+        <DisplayWord />
       </div>
       {/* <Notification /> */}
       <GameForm

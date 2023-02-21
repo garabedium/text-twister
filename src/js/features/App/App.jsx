@@ -77,9 +77,9 @@ function App() {
     getLevelWord();
   }, []);
 
-  // TODO: this gets called whenever a new word is added
   useEffect(() => {
-    if (currentWord?.word) {
+    // Don't shuffle the letters if when game state changes to paused:
+    if (currentWord?.word && gameStatus !== GameStates.paused) {
       const letters = shuffleLetters(currentWord.word).split('').map((char, index) => ({
         id: index + 1, char, used: false, updatedAt: BaseDate,
       }));
