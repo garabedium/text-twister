@@ -16,6 +16,7 @@ function GameWord({ gameLetters, word }) {
     ));
   }
   if (word) {
+    // TODO: duplicate key problem
     displayContent = word.split('').map((letter) => (
       <span className="letter text-uppercase" key={letter}>
         {letter}

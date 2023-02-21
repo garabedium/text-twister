@@ -5,13 +5,12 @@ import { BaseDate, MinimumGuessLength } from '../../utils/constants';
 import TextInput from '../TextInput/TextInput';
 
 function GameForm({
-  word, gameLetters, updateUsedLetters, usedLetters, unusedLetters, shuffleUnusedLetters, validateWord, anagrams,
+  levelWordText, gameLetters, updateUsedLetters, usedLetters, shuffleUnusedLetters, validateWord, anagrams,
 }) {
   const userGuess = usedLetters.sort((a, b) => a.updatedAt - b.updatedAt).map((result) => result.char).join('');
+  const solvedWords = Object.values(anagrams[levelWordText]).filter((anagram) => anagram.solved);
 
-  // TODO: checkDuplicate
-  const checkDuplicateSolve = () => {
-  };
+  const isDuplicateSolve = solvedWords.filter((word) => (word.anagram === userGuess)).length > 0;
 
   const handleKeypress = (event) => {
     const { key } = event;
@@ -32,9 +31,11 @@ function GameForm({
   const handleSubmit = (event) => {
     event.preventDefault();
     if (userGuess.length >= MinimumGuessLength) {
-      // check duplicate solve
-      // validate word:
-      validateWord(userGuess);
+      if (isDuplicateSolve) {
+        // clear, set notification
+      } else {
+        validateWord(userGuess);
+      }
     } else {
       // validate_min notification
     }
