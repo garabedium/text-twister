@@ -79,7 +79,7 @@ function App() {
 
   // TODO: this gets called whenever a new word is added
   useEffect(() => {
-    if (currentWord?.word) {
+    if (currentWord?.word && gameStatus !== GameStates.paused) {
       const letters = shuffleLetters(currentWord.word).split('').map((char, index) => ({
         id: index + 1, char, used: false, updatedAt: BaseDate,
       }));
