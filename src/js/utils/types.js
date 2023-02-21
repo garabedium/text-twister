@@ -17,6 +17,7 @@
 // type GameWord = {
 //   anagrams: [], // Anagram array
 //   current: string,
+//   status: 'current','used','next'
 //   letters: Letter[] // Letter array,
 // }
 
@@ -25,6 +26,7 @@
 //   used: boolean,
 //   word: string,
 //   zipf_value: number,
+//   solved: boolean
 // }
 
 // type Letter = {

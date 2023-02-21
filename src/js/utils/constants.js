@@ -15,7 +15,7 @@ export const LevelWordLength = 6;
 export const ZipfMin = 4.5;
 export const ZipfMax = 7;
 
-export const TimeDev = 90;
+export const TimeDev = 6;
 export const TimeProd = 60;
 
 export const BaseDate = Date.now();
@@ -23,9 +23,36 @@ export const BaseDate = Date.now();
 export const LogoText = 'Text Twister';
 
 export const IsDevEnv = (process.env.NODE_ENV === 'development');
+export const IsTestEnv = (process.env.NODE_ENV === 'test');
+
+export const MinimumGuessLength = 3;
 
 export const Icons = {
   score: 'ri-star-fill',
   level: 'ri-funds-line',
   play_fill: 'ri-play-fill',
+  timer_flash: 'ri-timer-flash-line',
+  funds: 'ri-funds-line',
+  warning: 'ri-error-warning-line',
+  spacebar: 'ri-space',
+  arrow_right: 'ri-arrow-right-line',
+};
+
+export const GameStates = {
+  inactive: 'inactive', // game hasn't started, still on StartPage component
+  active: 'active', // player is playing
+  paused: 'paused', // player is between levels
+  restart: 'restart', // player restarts from first level
+};
+
+export const WordStates = {
+  current: 'current',
+  next: 'next',
+  used: 'used',
+};
+
+export const ApiRoutes = {
+  baseUrl: IsTestEnv ? 'http://localhost:3000/api' : '/api',
+  levelWordRange: '/levelWord/range/4.5&7',
+  anagrams: '/levelWord/anagrams',
 };

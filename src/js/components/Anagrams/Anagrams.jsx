@@ -1,11 +1,10 @@
 import React from 'react';
 
+import { GameStates } from '../../utils/constants';
 import './Anagrams.scss';
 
-function Anagrams(props) {
-  const { game, anagrams } = props;
-
-  // Split anagrams into columns for UI purposes:
+function Anagrams({ gameStatus, anagrams, levelWordText }) {
+  // Splits anagrams into columns for UI purposes:
   const chunkAnagrams = (array, chunkSize) => {
     const result = [];
     while (array.length) {
@@ -14,19 +13,24 @@ function Anagrams(props) {
     return result;
   };
 
-  const anagramsList = anagrams.map((a) => {
+  const anagramsArray = Object.values(anagrams[levelWordText]);
+
+  const anagramsList = anagramsArray.map((a) => {
     // Show the solved anagram if users solves, or game round ends:
-    const showSolved = (a.solved || game.reset);
+    const showSolved = (a.solved || gameStatus === GameStates.paused);
 
     // Split word into individual chars:
-    const word = a.anagram.split('').map((char, i) => (
-      <span
-        key={i}
-        className="char"
-      >
-        {(showSolved) ? char : '-'}
-      </span>
-    ));
+    const word = a.anagram.split('').map((char, i) => {
+      const charKey = `${char}_${i}`;
+      return (
+        <span
+          key={charKey}
+          className="char"
+        >
+          {(showSolved) ? char : '-'}
+        </span>
+      );
+    });
 
     // Return word in list element:
     return (
@@ -41,8 +45,7 @@ function Anagrams(props) {
   });
 
   const anagramsCols = chunkAnagrams(anagramsList, 4).map((col, i) => (<ul key={i} className="anagram-column">{col}</ul>));
-
-  const showAnagrams = game.started && anagramsCols.length;
+  const showAnagrams = anagramsCols.length;
 
   return showAnagrams ? (
     <div className="anagrams-container">{anagramsCols}</div>

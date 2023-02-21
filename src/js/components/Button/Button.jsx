@@ -2,15 +2,17 @@ import React from 'react';
 
 import './Button.scss';
 
-function Button(props) {
+function Button({
+  cssClass, handleClick, text, icon,
+}) {
   return (
     <button
       type="button"
-      className={props.class}
-      onClick={props.handleClick}
+      className={cssClass}
+      onClick={handleClick}
     >
-      {props.text}
-      {props.icon && <i className={props.icon} />}
+      {text}
+      {icon && <i className={icon} />}
     </button>
   );
 }

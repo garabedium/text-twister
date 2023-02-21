@@ -15,3 +15,7 @@ export const AnagramData = [
   { id: 2, anagram: 'lorem', solved: false },
   { id: 3, anagram: 'ipsum', solved: false },
 ];
+
+export const LevelWordsData = [
+  { id: 1, word: 'texter' },
+];

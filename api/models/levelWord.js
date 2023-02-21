@@ -45,7 +45,7 @@ LevelWord.randomByRange = function (min, max, exclude, result) {
   WHERE zipf_value BETWEEN ? and ?
   AND word not in (?)
   ORDER BY RAND()
-  LIMIT 5`;
+  LIMIT 1`;
   sql.query(
     query,
     [min, max, exclude],
