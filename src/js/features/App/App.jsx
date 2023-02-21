@@ -16,9 +16,7 @@ function App() {
   const currentWord = levelWords.filter((word) => word.status === WordStates.current)[0];
   const usedLetters = gameLetters.filter((letter) => letter.used);
   const unusedLetters = gameLetters.filter((letter) => !letter.used);
-  // TODO: use currentWord check instead,
-  // also, combine check with anagrams (and that anagram matches the currentWord)
-  const hasLevelWord = levelWords.length > 0;
+  const hasLevelWord = currentWord?.word;
 
   // updates gameLetters:
   const updateUsedLetters = (letters) => {

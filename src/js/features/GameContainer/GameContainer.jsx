@@ -104,16 +104,18 @@ function GameContainer({
         <DisplayWord />
       </div>
       {/* <Notification /> */}
-      <GameForm
-        word={currentWord}
-        gameLetters={gameLetters}
-        usedLetters={usedLetters}
-        unusedLetters={unusedLetters}
-        updateUsedLetters={updateUsedLetters}
-        shuffleUnusedLetters={shuffleUnusedLetters}
-        validateWord={validateWord}
-        anagrams={anagrams}
-      />
+      {hasAnagrams ? (
+        <GameForm
+          levelWordText={levelWordText}
+          gameLetters={gameLetters}
+          usedLetters={usedLetters}
+          unusedLetters={unusedLetters}
+          updateUsedLetters={updateUsedLetters}
+          shuffleUnusedLetters={shuffleUnusedLetters}
+          validateWord={validateWord}
+          anagrams={anagrams}
+        />
+      ) : null}
       {/* TODO: disable Shuffle if unusedCount is < 3 */}
       <div className="buttons">
         <Button
