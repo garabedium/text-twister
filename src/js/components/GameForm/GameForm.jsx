@@ -5,7 +5,14 @@ import { BaseDate, MinimumGuessLength } from '../../utils/constants';
 import TextInput from '../TextInput/TextInput';
 
 function GameForm({
-  levelWordText, gameLetters, updateUsedLetters, usedLetters, shuffleUnusedLetters, validateWord, anagrams,
+  levelWordText,
+  gameLetters,
+  updateUsedLetters,
+  usedLetters,
+  shuffleUnusedLetters,
+  validateWord,
+  anagrams,
+  handleClear,
 }) {
   const userGuess = usedLetters.sort((a, b) => a.updatedAt - b.updatedAt).map((result) => result.char).join('');
   const solvedWords = Object.values(anagrams[levelWordText]).filter((anagram) => anagram.solved);
@@ -32,29 +39,17 @@ function GameForm({
     event.preventDefault();
     if (userGuess.length >= MinimumGuessLength) {
       if (isDuplicateSolve) {
-        // clear, set notification
+        // set dupe notification
+        // setNotification('validate_dupe')
       } else {
         validateWord(userGuess);
       }
+      handleClear();
     } else {
-      // validate_min notification
+      // set validate_min notification
+      // setNotification('validate_min')
     }
   };
-
-  // handleSubmit(event) {
-  //   // If guess meets minimum word length:
-  //   if (guess.length >= 3) {
-  //     if (this.isDuplicateWord()) {
-  //       this.props.handleClear();
-  //       this.props.setNotification('validate_dupe');
-  //     } else {
-  //       this.props.validateWord(guess);
-  //       this.props.handleClear();
-  //     }
-  //   } else {
-  //     this.props.setNotification('validate_min');
-  //   }
-  // }
 
   const handleBackspace = () => {
     const letters = [...gameLetters];

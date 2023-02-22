@@ -18,7 +18,6 @@ function App() {
   const unusedLetters = gameLetters.filter((letter) => !letter.used);
   const hasLevelWord = currentWord?.word;
 
-  // updates gameLetters:
   const updateUsedLetters = (letters) => {
     setGameLetters(letters);
   };
@@ -66,6 +65,11 @@ function App() {
 
     updateUsedLetters(letters);
   };
+
+  const handleClear = () => {
+    const letters = gameLetters.map((letter) => ({ ...letter, used: false, updatedAt: BaseDate }))
+    setGameLetters(letters)
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -116,6 +120,7 @@ function App() {
               updateUsedLetters={updateUsedLetters}
               shuffleUnusedLetters={shuffleUnusedLetters}
               selectNextWord={selectNextWord}
+              handleClear={handleClear}
             />
           )}
       </div>
