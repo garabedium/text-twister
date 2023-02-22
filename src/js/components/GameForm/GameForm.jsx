@@ -83,6 +83,7 @@ function GameForm({
 
   return (
     <form
+      id="game-form"
       className="game-form"
       spellCheck="false"
       onSubmit={handleSubmit}
