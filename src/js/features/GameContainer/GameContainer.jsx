@@ -5,13 +5,22 @@ import Timer from '../../components/Timer/Timer';
 import GameWord from '../../components/GameWord/GameWord';
 import GameForm from '../../components/GameForm/GameForm';
 import Anagrams from '../../components/Anagrams/Anagrams';
-import { GameStates, LevelWordLength } from '../../utils/constants';
+import { Icons, GameStates, LevelWordLength } from '../../utils/constants';
 import Button from '../../components/Button/Button';
 import LevelWordApi from '../../api/services/LevelWordApi';
 import { calcWordScore } from '../../utils/utils';
 
 function GameContainer({
-  gameStatus, updateGameStatus, currentWord, updateUsedLetters, gameLetters, usedLetters, unusedLetters, shuffleUnusedLetters, selectNextWord,
+  gameStatus,
+  updateGameStatus,
+  currentWord,
+  updateUsedLetters,
+  gameLetters,
+  usedLetters,
+  unusedLetters,
+  shuffleUnusedLetters,
+  selectNextWord,
+  handleClear,
 }) {
   const [player, setPlayer] = useState({
     score: 0,
@@ -114,6 +123,7 @@ function GameContainer({
           shuffleUnusedLetters={shuffleUnusedLetters}
           validateWord={validateWord}
           anagrams={anagrams}
+          handleClear={handleClear}
         />
       ) : null}
       {/* TODO: disable Shuffle if unusedCount is < 3 */}
@@ -122,7 +132,7 @@ function GameContainer({
           text="Shuffle"
           handleClick={shuffleUnusedLetters}
           cssClass="btn--secondary"
-          icon="ri-space m-l5"
+          icon={`${Icons.space} m-l5`}
         />
       </div>
 
