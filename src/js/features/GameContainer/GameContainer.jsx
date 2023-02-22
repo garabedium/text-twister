@@ -134,6 +134,13 @@ function GameContainer({
           cssClass="btn--secondary"
           icon={`${Icons.space} m-l5`}
         />
+        <Button
+          text="Submit"
+          cssClass="btn--secondary"
+          icon={`${Icons.arrow_right} m-l5`}
+          form="game-form"
+          type="submit"
+        />
       </div>
 
       {hasAnagrams ? (
