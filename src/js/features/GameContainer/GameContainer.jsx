@@ -33,6 +33,7 @@ function GameContainer({
   const { score, level, levelUp } = player;
   const { word: levelWordText } = currentWord;
   const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText] !== undefined;
+  const isGameActive = (gameStatus === GameStates.active);
 
   const restartGame = () => {
     selectNextWord();
@@ -113,7 +114,7 @@ function GameContainer({
         <DisplayWord />
       </div>
       {/* <Notification /> */}
-      {hasAnagrams ? (
+      {hasAnagrams && isGameActive ? (
         <GameForm
           levelWordText={levelWordText}
           gameLetters={gameLetters}
@@ -132,7 +133,7 @@ function GameContainer({
           text="Shuffle"
           handleClick={shuffleUnusedLetters}
           cssClass="btn--secondary"
-          icon={`${Icons.space} m-l5`}
+          icon={`${Icons.spacebar} m-l5`}
         />
         <Button
           text="Submit"

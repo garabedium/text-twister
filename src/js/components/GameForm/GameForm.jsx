@@ -89,7 +89,7 @@ function GameForm({
       onSubmit={handleSubmit}
     >
       <TextInput
-        placeholder="Guess.."
+        placeholder="Guess a word..."
         name="guess"
         content={userGuess}
         handleChange={handleInput}
