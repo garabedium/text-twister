@@ -29,8 +29,6 @@ function App() {
   const getLevelWord = async () => {
     // TODO: params - zipfMin, zipfMax, exclude (array)
     const levelWord = await LevelWordApi.getByRange().then((response) => response.data[0]);
-    // eventually set current bool when user solves level word
-
     // If no levelWords exist, the first one is automatically current:
     levelWord.status = (!levelWords.length) ? WordStates.current : WordStates.next;
 
