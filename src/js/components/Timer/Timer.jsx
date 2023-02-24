@@ -24,7 +24,6 @@ function Timer({ gameStatus, updateGameStatus, restartGame }) {
       }, 1000);
     } else {
       clearInterval(interval);
-      // updateGameState();
       updateGameStatus(GameStates.paused);
     }
 
@@ -42,7 +41,7 @@ function Timer({ gameStatus, updateGameStatus, restartGame }) {
       {isGamePaused ? (
         <Button
           icon={`${Icons.play_fill} ri-2x`}
-          handleClick={() => restartGame()}
+          onClick={() => restartGame()}
         />
       ) : <span>{seconds}</span>}
     </div>

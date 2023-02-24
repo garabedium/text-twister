@@ -3,14 +3,13 @@ import React from 'react';
 import './Button.scss';
 
 function Button({
-  cssClass, handleClick, text, icon, form, type = 'button',
+  cssClass, text, icon, type = 'button', ...props
 }) {
   return (
     <button
       type={type}
       className={cssClass}
-      onClick={handleClick}
-      form={form}
+      {...props}
     >
       {text}
       {icon && <i className={icon} />}
