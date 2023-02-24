@@ -57,7 +57,7 @@ function StartPage({ updateGameStatus, hasLevelWord }) {
           && (
           <Button
             icon="ri-play-fill ri-2x"
-            handleClick={() => updateGameStatus(GameStates.active)}
+            onClick={() => updateGameStatus(GameStates.active)}
           />
           )}
       </div>

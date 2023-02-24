@@ -733,3 +733,18 @@ body {
 .anagram.--solved .char {
   background-color: yellow;
 }
+/*!***********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Notification/Notification.scss ***!
+  \***********************************************************************************************************************************************************************/
+.notification {
+  margin: 15px auto;
+  width: 100%;
+  max-width: 450px;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 4px;
+  color: #ff4904;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}

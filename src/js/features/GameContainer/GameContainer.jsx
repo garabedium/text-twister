@@ -5,7 +5,11 @@ import Timer from '../../components/Timer/Timer';
 import GameWord from '../../components/GameWord/GameWord';
 import GameForm from '../../components/GameForm/GameForm';
 import Anagrams from '../../components/Anagrams/Anagrams';
-import { Icons, GameStates, LevelWordLength } from '../../utils/constants';
+import Notification from '../../components/Notification/Notification';
+import {
+  Icons, GameStates, LevelWordLength, MinimumGuessLength,
+  Notifications,
+} from '../../utils/constants';
 import Button from '../../components/Button/Button';
 import LevelWordApi from '../../api/services/LevelWordApi';
 import { calcWordScore } from '../../utils/utils';
@@ -29,16 +33,20 @@ function GameContainer({
   });
 
   const [anagrams, setAnagrams] = useState({});
+  const [notification, setNotification] = useState(Notifications.default);
 
   const { score, level, levelUp } = player;
   const { word: levelWordText } = currentWord;
   const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText] !== undefined;
   const isGameActive = (gameStatus === GameStates.active);
 
+  const updateGameNotification = (notification) => {
+    setNotification(notification);
+  };
+
   const restartGame = () => {
     selectNextWord();
 
-    // update player score, level
     const playerState = {
       score: levelUp ? score : 0,
       level: levelUp ? level + 1 : 1,
@@ -46,10 +54,8 @@ function GameContainer({
     };
 
     setPlayer(playerState);
-
     updateGameStatus(GameStates.active);
-    // set notification
-    // console.log('restart game...');
+    updateGameNotification(Notifications.default);
   };
 
   const validateWord = (word) => {
@@ -66,7 +72,7 @@ function GameContainer({
           [word]: { ...anagrams[levelWordText][word], solved: true },
         },
       };
-
+      updateGameNotification(Notifications.points);
       setPlayer((prevState) => ({ ...prevState, ...playerState }));
       setAnagrams((prevState) => ({ ...prevState, ...anagramsState }));
     }
@@ -99,6 +105,14 @@ function GameContainer({
     getAnagrams();
   }, [levelWordText]);
 
+  // when game is paused
+  useEffect(() => {
+    if (gameStatus === GameStates.paused) {
+      const pauseNotification = (levelUp) ? Notifications.solved_level : Notifications.game_over;
+      updateGameNotification(pauseNotification);
+    }
+  }, [gameStatus]);
+
   return (
     <>
       <div className="game-stats">
@@ -113,7 +127,7 @@ function GameContainer({
         />
         <DisplayWord />
       </div>
-      {/* <Notification /> */}
+
       {hasAnagrams && isGameActive ? (
         <GameForm
           levelWordText={levelWordText}
@@ -121,17 +135,21 @@ function GameContainer({
           usedLetters={usedLetters}
           unusedLetters={unusedLetters}
           updateUsedLetters={updateUsedLetters}
+          updateGameNotification={updateGameNotification}
           shuffleUnusedLetters={shuffleUnusedLetters}
           validateWord={validateWord}
           anagrams={anagrams}
           handleClear={handleClear}
         />
       ) : null}
+
+      <Notification text={notification.text} />
+
       {/* TODO: disable Shuffle if unusedCount is < 3 */}
       <div className="buttons">
         <Button
           text="Shuffle"
-          handleClick={shuffleUnusedLetters}
+          onClick={() => shuffleUnusedLetters()}
           cssClass="btn--secondary"
           icon={`${Icons.spacebar} m-l5`}
         />
@@ -152,8 +170,6 @@ function GameContainer({
         />
       ) : null}
     </>
-    // Notification
-    // Reset Button
   );
 }
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import './Notification.scss';
 
-function Notification(props) {
-  const { text } = props;
+function Notification({ text }) {
   return (
     <div className="notification">
       {text}

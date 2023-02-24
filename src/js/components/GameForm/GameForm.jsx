@@ -1,13 +1,14 @@
 import React from 'react';
 import './GameForm.scss';
 
-import { BaseDate, MinimumGuessLength } from '../../utils/constants';
+import { BaseDate, MinimumGuessLength, Notifications } from '../../utils/constants';
 import TextInput from '../TextInput/TextInput';
 
 function GameForm({
   levelWordText,
   gameLetters,
   updateUsedLetters,
+  updateGameNotification,
   usedLetters,
   shuffleUnusedLetters,
   validateWord,
@@ -39,13 +40,13 @@ function GameForm({
     event.preventDefault();
     if (userGuess.length >= MinimumGuessLength) {
       if (isDuplicateSolve) {
-        // set dupe notification
-        // setNotification('validate_dupe')
+        updateGameNotification(Notifications.validate_dupe);
       } else {
         validateWord(userGuess);
       }
       handleClear();
     } else {
+      updateGameNotification(Notifications.validate_min);
       // set validate_min notification
       // setNotification('validate_min')
     }
