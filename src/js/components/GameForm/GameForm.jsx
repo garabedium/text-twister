@@ -90,11 +90,15 @@ function GameForm({
       onSubmit={handleSubmit}
     >
       <TextInput
+        autoFocus
+        autoComplete="off"
         placeholder="Guess a word..."
         name="guess"
-        content={userGuess}
-        handleChange={handleInput}
-        class="game-guess"
+        value={userGuess}
+        onKeyPress={handleInput}
+        onKeyDown={handleInput}
+        onChange={handleInput}
+        className="game-guess"
       />
     </form>
   );
