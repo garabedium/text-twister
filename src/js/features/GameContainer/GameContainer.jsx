@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+import './GameContainer.scss';
+
 import GameStat from '../../components/GameStat/GameStat';
 import Timer from '../../components/Timer/Timer';
 import GameWord from '../../components/GameWord/GameWord';
@@ -39,6 +41,7 @@ function GameContainer({
   const { word: levelWordText } = currentWord;
   const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText] !== undefined;
   const isGameActive = (gameStatus === GameStates.active);
+  const restartButtonText = player.levelup ? 'Next Level' : 'New Game';
 
   const updateGameNotification = (notification) => {
     setNotification(notification);
@@ -146,20 +149,32 @@ function GameContainer({
       <Notification text={notification.text} />
 
       {/* TODO: disable Shuffle if unusedCount is < 3 */}
-      <div className="buttons">
-        <Button
-          text="Shuffle"
-          onClick={() => shuffleUnusedLetters()}
-          cssClass="btn--secondary"
-          icon={`${Icons.spacebar} m-l5`}
-        />
-        <Button
-          text="Submit"
-          cssClass="btn--secondary"
-          icon={`${Icons.arrow_right} m-l5`}
-          form="game-form"
-          type="submit"
-        />
+      <div className="game-controls">
+        {isGameActive ? (
+          <>
+            <Button
+              text="Shuffle"
+              onClick={() => shuffleUnusedLetters()}
+              className="btn--secondary"
+              icon={`${Icons.spacebar} m-l5`}
+            />
+            <Button
+              text="Submit"
+              className="btn--secondary"
+              icon={`${Icons.arrow_right} m-l5`}
+              form="game-form"
+              type="submit"
+              disabled={usedLetters.length < MinimumGuessLength}
+            />
+          </>
+        ) : (
+          <Button
+            onClick={() => restartGame()}
+            className="btn m-auto"
+            text={restartButtonText}
+            icon="ri-play-fill ri-lg m-l5"
+          />
+        )}
       </div>
 
       {hasAnagrams ? (

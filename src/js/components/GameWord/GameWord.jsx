@@ -9,7 +9,7 @@ function GameWord({ gameLetters, word }) {
   if (gameLetters) {
     displayContent = gameLetters.map((letter) => (
       <Button
-        cssClass={`letter ${letter.used ? '--used' : ''}`}
+        className={`letter ${letter.used ? '--used' : ''}`}
         key={letter.id}
         text={letter.char}
       />
