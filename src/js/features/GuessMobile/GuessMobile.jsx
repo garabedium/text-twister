@@ -14,7 +14,7 @@ function GuessMobile(props) {
       </div>
 
       <Button
-        class={buttonClass}
+        className={buttonClass}
         handleClick={() => handleBackspace()}
         icon="ri-delete-back-2-line ri-3x"
       />
