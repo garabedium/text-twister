@@ -23,11 +23,11 @@ function GameForm({
   const handleKeypress = (event) => {
     const { key } = event;
     const letters = [...gameLetters];
-    const foundLetter = letters.filter((letter) => key === letter.char && !letter.used);
-    // TODO: rewrite this:
-    if (key !== 'Enter' && foundLetter.length) {
-      foundLetter[0].used = true;
-      foundLetter[0].updatedAt = Date.now();
+    const foundLetter = letters.find((letter) => key === letter.char && !letter.used);
+
+    if (key !== 'Enter' && foundLetter !== undefined) {
+      foundLetter.used = true;
+      foundLetter.updatedAt = Date.now();
       updateUsedLetters(letters);
     }
 
@@ -47,8 +47,6 @@ function GameForm({
       handleClear();
     } else {
       updateGameNotification(Notifications.validate_min);
-      // set validate_min notification
-      // setNotification('validate_min')
     }
   };
 

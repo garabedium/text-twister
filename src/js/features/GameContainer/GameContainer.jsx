@@ -41,7 +41,7 @@ function GameContainer({
   const { word: levelWordText } = currentWord;
   const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText] !== undefined;
   const isGameActive = (gameStatus === GameStates.active);
-  const restartButtonText = player.levelup ? 'Next Level' : 'New Game';
+  const restartButtonText = player.levelUp ? 'Next Level' : 'New Game';
 
   const updateGameNotification = (notification) => {
     setNotification(notification);
@@ -78,6 +78,8 @@ function GameContainer({
       updateGameNotification(Notifications.points);
       setPlayer((prevState) => ({ ...prevState, ...playerState }));
       setAnagrams((prevState) => ({ ...prevState, ...anagramsState }));
+    } else {
+      updateGameNotification(Notifications.validate_invalid);
     }
   };
 
@@ -100,6 +102,7 @@ function GameContainer({
     ) : (
       <GameWord
         gameLetters={gameLetters}
+        updateUsedLetters={updateUsedLetters}
       />
     )
   ), [gameStatus, levelWordText, gameLetters]);
@@ -148,7 +151,6 @@ function GameContainer({
 
       <Notification text={notification.text} />
 
-      {/* TODO: disable Shuffle if unusedCount is < 3 */}
       <div className="game-controls">
         {isGameActive ? (
           <>
@@ -157,6 +159,7 @@ function GameContainer({
               onClick={() => shuffleUnusedLetters()}
               className="btn--secondary"
               icon={`${Icons.spacebar} m-l5`}
+              disabled={unusedLetters.length < MinimumGuessLength}
             />
             <Button
               text="Submit"
