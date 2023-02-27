@@ -3,30 +3,44 @@ import Button from '../Button/Button';
 
 import './GameWord.scss';
 
-function GameWord({ gameLetters, word }) {
-  let displayContent = null;
+function GameWord({ gameLetters, updateUsedLetters, word }) {
+  let content = null;
+
+  const handleLetterClick = (clickedLetter) => {
+    const letters = [...gameLetters];
+    const foundLetter = letters.find((letter) => letter.id === clickedLetter.id);
+
+    if (foundLetter !== undefined) {
+      foundLetter.used = true;
+      foundLetter.updatedAt = Date.now();
+      updateUsedLetters(letters);
+    }
+  };
 
   if (gameLetters) {
-    displayContent = gameLetters.map((letter) => (
+    content = gameLetters.map((letter) => (
       <Button
         className={`letter ${letter.used ? '--used' : ''}`}
         key={letter.id}
         text={letter.char}
+        disabled={letter.used}
+        onClick={() => handleLetterClick(letter)}
       />
     ));
   }
   if (word) {
-    // TODO: duplicate key problem
-    displayContent = word.split('').map((letter) => (
-      <span className="letter text-uppercase" key={letter}>
-        {letter}
+    // Create letter object array to avoid duplicate key error with repeating letters:
+    const wordArray = word.split('').map((char, i) => ({ char, id: i }));
+    content = wordArray.map((letter) => (
+      <span className="letter text-uppercase" key={letter.id}>
+        {letter.char}
       </span>
     ));
   }
 
   return (
     <div className="word">
-      {displayContent}
+      {content}
     </div>
   );
 }
