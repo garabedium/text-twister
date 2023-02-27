@@ -3,6 +3,7 @@ import './GameForm.scss';
 
 import { BaseDate, MinimumGuessLength, Notifications } from '../../utils/constants';
 import TextInput from '../TextInput/TextInput';
+import GuessMobile from '../../features/GuessMobile/GuessMobile';
 
 function GameForm({
   levelWordText,
@@ -14,6 +15,7 @@ function GameForm({
   validateWord,
   anagrams,
   handleClear,
+  isMobileDevice,
 }) {
   const userGuess = usedLetters.sort((a, b) => a.updatedAt - b.updatedAt).map((result) => result.char).join('');
   const solvedWords = Object.values(anagrams[levelWordText]).filter((anagram) => anagram.solved);
@@ -87,17 +89,26 @@ function GameForm({
       spellCheck="false"
       onSubmit={handleSubmit}
     >
-      <TextInput
-        autoFocus
-        autoComplete="off"
-        placeholder="Guess a word..."
-        name="guess"
-        value={userGuess}
-        onKeyPress={handleInput}
-        onKeyDown={handleInput}
-        onChange={handleInput}
-        className="game-guess"
-      />
+      {isMobileDevice
+        ? (
+          <GuessMobile
+            userGuess={userGuess}
+            handleBackspace={handleBackspace}
+          />
+        ) : (
+          <TextInput
+            autoFocus
+            autoComplete="off"
+            placeholder="Guess a word..."
+            name="guess"
+            value={userGuess}
+            onKeyPress={handleInput}
+            onKeyDown={handleInput}
+            onChange={handleInput}
+            className="game-guess"
+          />
+        )}
+
     </form>
   );
 }
