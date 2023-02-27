@@ -1,6 +1,6 @@
 export const Notifications = {
   default: { text: 'Press Spacebar to shuffle. Press Enter to submit.' },
-  default_mobile: { text: 'Tap letters to use.' },
+  default_mobile: { text: 'Tap letter to use.' },
   points: { text: 'Woohoo! Points! Keep Solving!', icon: 'star' },
   validate_dupe: { text: 'You already solved that word!', icon: 'x' },
   validate_min: { text: 'Words must be at least 3 letters!', icon: 'x' },
@@ -15,7 +15,7 @@ export const LevelWordLength = 6;
 export const ZipfMin = 4.5;
 export const ZipfMax = 7;
 
-export const TimeDev = 30;
+export const TimeDev = 60;
 export const TimeProd = 60;
 
 export const BaseDate = Date.now();
@@ -36,6 +36,7 @@ export const Icons = {
   warning: 'ri-error-warning-line',
   spacebar: 'ri-space',
   arrow_right: 'ri-arrow-right-line',
+  delete: 'ri-delete-back-2-line',
 };
 
 export const GameStates = {

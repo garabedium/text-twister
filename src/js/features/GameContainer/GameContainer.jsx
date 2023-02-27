@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import isTouchDevice from 'is-touch-device';
 
 import './GameContainer.scss';
 
@@ -28,6 +29,9 @@ function GameContainer({
   selectNextWord,
   handleClear,
 }) {
+  const isMobileDevice = isTouchDevice();
+  const defaultNotification = Notifications[isMobileDevice ? 'default_mobile' : 'default'];
+
   const [player, setPlayer] = useState({
     score: 0,
     level: 1,
@@ -35,7 +39,7 @@ function GameContainer({
   });
 
   const [anagrams, setAnagrams] = useState({});
-  const [notification, setNotification] = useState(Notifications.default);
+  const [notification, setNotification] = useState(defaultNotification);
 
   const { score, level, levelUp } = player;
   const { word: levelWordText } = currentWord;
@@ -43,8 +47,8 @@ function GameContainer({
   const isGameActive = (gameStatus === GameStates.active);
   const restartButtonText = player.levelUp ? 'Next Level' : 'New Game';
 
-  const updateGameNotification = (notification) => {
-    setNotification(notification);
+  const updateGameNotification = (gameNotification) => {
+    setNotification(gameNotification);
   };
 
   const restartGame = () => {
@@ -58,7 +62,7 @@ function GameContainer({
 
     setPlayer(playerState);
     updateGameStatus(GameStates.active);
-    updateGameNotification(Notifications.default);
+    updateGameNotification(defaultNotification);
   };
 
   const validateWord = (word) => {
@@ -146,6 +150,7 @@ function GameContainer({
           validateWord={validateWord}
           anagrams={anagrams}
           handleClear={handleClear}
+          isMobileDevice={isMobileDevice}
         />
       ) : null}
 

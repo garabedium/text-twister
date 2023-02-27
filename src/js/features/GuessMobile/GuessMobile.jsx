@@ -2,21 +2,20 @@ import React from 'react';
 
 import './GuessMobile.scss';
 import Button from '../../components/Button/Button';
+import { Icons } from '../../utils/constants';
 
-function GuessMobile(props) {
-  const { guess, handleBackspace } = props;
-  const buttonClass = `btn--backspace ${guess.length === 0 ? 'disabled' : ''}`;
-
+function GuessMobile({ userGuess, handleBackspace }) {
   return (
     <div className="mobile-guess">
       <div className="mobile-letters">
-        {guess}
+        {userGuess}
       </div>
 
       <Button
-        className={buttonClass}
-        handleClick={() => handleBackspace()}
-        icon="ri-delete-back-2-line ri-3x"
+        className="btn--backspace"
+        onClick={() => handleBackspace()}
+        icon={`${Icons.delete} ri-3x`}
+        disabled={userGuess?.length === 0}
       />
     </div>
   );
