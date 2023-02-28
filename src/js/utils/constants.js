@@ -57,3 +57,11 @@ export const ApiRoutes = {
   levelWordRange: '/levelWord/range/4.5&7',
   anagrams: '/levelWord/anagrams',
 };
+
+export const InstructionsContent = [
+  { text: 'Solve words before time runs out', icon: `${Icons.timer_flash} ri-3x` },
+  { text: 'Solve the 6 letter word to go to the next level', icon: `${Icons.funds} ri-3x` },
+  { text: 'Words must be a minimum of 3 letters', icon: `${Icons.warning} ri-3x` },
+  { text: 'Spacebar to shuffle words', icon: `${Icons.spacebar} ri-3x` },
+  { text: 'Enter to solve word', icon: `${Icons.arrow_right} ri-3x` },
+];
