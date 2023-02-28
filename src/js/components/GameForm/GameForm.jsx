@@ -60,7 +60,6 @@ function GameForm({
     updateUsedLetters(letters);
   };
 
-  // eslint-disable-next-line consistent-return
   const handleInput = (event) => {
     if (event.type === 'keypress') {
       return handleKeypress(event);
@@ -76,10 +75,10 @@ function GameForm({
 
     // Prevents cursor from moving left within the TextInput
     if (event.type === 'keydown' && event.key === 'ArrowLeft') {
-      event.preventDefault();
+      return event.preventDefault();
     }
-    // TODO: returning false or null here will cause problems with spacebar shuffle
-    // return false;
+
+    return null;
   };
 
   return (

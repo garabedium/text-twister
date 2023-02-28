@@ -494,13 +494,14 @@ body {
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/features/StartPage/StartPage.scss ***!
   \***************************************************************************************************************************************************************/
 .start-page {
-  margin-top: 58px;
+  position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 650px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   border-bottom: solid 10px #df744a;
+  margin: 58px auto 0 auto;
 }
 .start-page .word {
   width: 100%;
@@ -685,6 +686,25 @@ body {
   outline: 0;
   border: solid 3px #df744a;
   border-radius: 4px;
+}
+/*!*******************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/features/GuessMobile/GuessMobile.scss ***!
+  \*******************************************************************************************************************************************************************/
+.mobile-guess {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 15px 0;
+  background-color: #ffffff;
+  padding: 10px 0;
+  box-shadow: inset 0 12px 5px -12px #424242, inset 0 -12px 5px -12px #424242;
+}
+
+.mobile-letters {
+  flex-grow: 1;
+  font-size: 26px;
+  letter-spacing: 2px;
+  margin-left: 32px;
 }
 /*!***************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Anagrams/Anagrams.scss ***!

@@ -72,7 +72,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       document.body.classList.add('--react-loaded');
-    }, 100);
+    }, 250);
 
     getLevelWord();
   }, []);
@@ -104,7 +104,6 @@ function App() {
               hasLevelWord={hasLevelWord}
             />
           )}
-        {/* move anagrams up. only load the game container  */}
         {gameStatus !== GameStates.inactive && hasLevelWord
           && (
             <GameContainer
