@@ -12,10 +12,10 @@ export const Notifications = {
 
 export const LevelWordLength = 6;
 
-export const ZipfMin = 4.5;
-export const ZipfMax = 7;
+export const ZipfDefaultMin = 4.5;
+export const ZipfDefaultMax = 6.5;
 
-export const TimeDev = 60;
+export const TimeDev = 30;
 export const TimeProd = 60;
 
 export const BaseDate = Date.now();
@@ -54,7 +54,7 @@ export const WordStates = {
 
 export const ApiRoutes = {
   baseUrl: IsTestEnv ? 'http://localhost:3000/api' : '/api',
-  levelWordRange: '/levelWord/range/4.5&7',
+  levelWordRange: '/levelWord/range',
   anagrams: '/levelWord/anagrams',
 };
 

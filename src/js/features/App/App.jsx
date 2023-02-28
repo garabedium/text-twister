@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../../scss/app.scss';
 
-import { GameStates, WordStates, BaseDate } from '../../utils/constants';
+import { GameStates, WordStates, BaseDate, ZipfDefaultMin, ZipfDefaultMax } from '../../utils/constants';
 import { shuffleLetters } from '../../utils/utils';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
@@ -27,8 +27,8 @@ function App() {
   };
 
   const getLevelWord = async () => {
-    // TODO: params - zipfMin, zipfMax, exclude (array)
-    const levelWord = await LevelWordApi.getByRange().then((response) => response.data[0]);
+    const usedWords = levelWords.filter((word) => word.status !== WordStates.next).map((word) => `&exclude=${word.word}`).join('');
+    const levelWord = await LevelWordApi.getByRange(ZipfDefaultMin, ZipfDefaultMax, usedWords).then((response) => response.data[0]);
     // If no levelWords exist, the first one is automatically current:
     levelWord.status = (!levelWords.length) ? WordStates.current : WordStates.next;
 
@@ -37,10 +37,10 @@ function App() {
 
   const selectNextWord = () => {
     const words = levelWords.map((word) => {
-      if (word.status === 'current') {
-        word.status = 'used'
-      } else if (word.status === 'next'){
-        word.status = 'current'
+      if (word.status === WordStates.current) {
+        word.status = WordStates.used
+      } else if (word.status === WordStates.next){
+        word.status = WordStates.current
       }
       return word
     });
