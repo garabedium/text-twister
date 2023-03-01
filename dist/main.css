@@ -509,27 +509,6 @@ body {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
-
-.instructions-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 24px;
-  background-color: #ffffff;
-  padding: 20px;
-  flex-grow: 1;
-}
-.instructions-list li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.instructions-list li i {
-  margin-right: 10px;
-}
-.instructions-list li:last-child {
-  margin-bottom: 0;
-}
 /*!***********************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Button/Button.scss ***!
   \***********************************************************************************************************************************************************/
@@ -614,6 +593,29 @@ body {
 .letter:focus {
   outline: none;
   box-shadow: 0px 0px 0px 2px #df744a;
+}
+/*!***********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Instructions/Instructions.scss ***!
+  \***********************************************************************************************************************************************************************/
+.instructions-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 24px;
+  background-color: #ffffff;
+  padding: 20px;
+  flex-grow: 1;
+}
+.instructions-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.instructions-list li i {
+  margin-right: 10px;
+}
+.instructions-list li:last-child {
+  margin-bottom: 0;
 }
 /*!***********************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/features/GameContainer/GameContainer.scss ***!

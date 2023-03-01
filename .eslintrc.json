@@ -3,5 +3,8 @@
   "env":{
     "jest": true,
     "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
   }
 }
