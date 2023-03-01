@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../../../scss/app.scss';
 
-import { GameStates, WordStates, BaseDate, ZipfDefaultMin, ZipfDefaultMax } from '../../utils/constants';
+import {
+  GameStates, WordStates, BaseDate, ZipfDefaultMin, ZipfDefaultMax,
+} from '../../utils/constants';
 import { shuffleLetters } from '../../utils/utils';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
@@ -9,6 +11,8 @@ import LevelWordApi from '../../api/services/LevelWordApi';
 import GameContainer from '../GameContainer/GameContainer';
 
 function App() {
+  // STATE
+  /// ////////////////////
   const [gameStatus, setGameStatus] = useState(GameStates.inactive);
   const [levelWords, setLevelWords] = useState([]);
   const [gameLetters, setGameLetters] = useState([]);
@@ -18,6 +22,8 @@ function App() {
   const unusedLetters = gameLetters.filter((letter) => !letter.used);
   const hasLevelWord = currentWord?.word;
 
+  // FUNCTIONS
+  /// ////////////////////
   const updateUsedLetters = (letters) => {
     setGameLetters(letters);
   };
@@ -28,7 +34,8 @@ function App() {
 
   const getLevelWord = async () => {
     const usedWords = levelWords.filter((word) => word.status !== WordStates.next).map((word) => `&exclude=${word.word}`).join('');
-    const levelWord = await LevelWordApi.getByRange(ZipfDefaultMin, ZipfDefaultMax, usedWords).then((response) => response.data[0]);
+    const levelWord = await LevelWordApi.getByRange(ZipfDefaultMin, ZipfDefaultMax, usedWords)
+      .then((response) => response.data[0]);
     // If no levelWords exist, the first one is automatically current:
     levelWord.status = (!levelWords.length) ? WordStates.current : WordStates.next;
 
@@ -38,14 +45,14 @@ function App() {
   const selectNextWord = () => {
     const words = levelWords.map((word) => {
       if (word.status === WordStates.current) {
-        word.status = WordStates.used
-      } else if (word.status === WordStates.next){
-        word.status = WordStates.current
+        word.status = WordStates.used;
+      } else if (word.status === WordStates.next) {
+        word.status = WordStates.current;
       }
-      return word
+      return word;
     });
     setLevelWords(words);
-  }
+  };
 
   // Shuffle the unused letters:
   // TODO: only run the shuffle if unused.length > 2
@@ -65,10 +72,12 @@ function App() {
   };
 
   const handleClear = () => {
-    const letters = gameLetters.map((letter) => ({ ...letter, used: false, updatedAt: BaseDate }))
-    setGameLetters(letters)
-  }
+    const letters = gameLetters.map((letter) => ({ ...letter, used: false, updatedAt: BaseDate }));
+    setGameLetters(letters);
+  };
 
+  // EFFECTS
+  /// ////////////////////
   useEffect(() => {
     setTimeout(() => {
       document.body.classList.add('--react-loaded');
@@ -88,7 +97,7 @@ function App() {
   }, [levelWords.length, currentWord]);
 
   useEffect(() => {
-    if (gameStatus === GameStates.paused){
+    if (gameStatus === GameStates.paused) {
       getLevelWord();
     }
   }, [gameStatus]);

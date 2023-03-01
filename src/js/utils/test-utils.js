@@ -1,3 +1,6 @@
+import nock from 'nock';
+import { ApiRoutes } from './constants';
+
 export const ActiveGame = {
   active: true,
   reset: false,
@@ -19,3 +22,13 @@ export const AnagramData = [
 export const LevelWordsData = [
   { id: 1, word: 'texter' },
 ];
+
+export const nockGetRequest = (url, response) => {
+  nock(ApiRoutes.baseUrl)
+    .defaultReplyHeaders({
+      'access-control-allow-origin': '*',
+      'access-control-allow-credentials': 'true',
+    })
+    .get(url)
+    .reply(200, response);
+};
