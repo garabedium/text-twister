@@ -1,7 +1,9 @@
 import React from 'react';
 
 import './StartPage.scss';
-import { GameStates, InstructionsContent } from '../../utils/constants';
+import {
+  GameStates, Icons, PlayButtonText, PlayText,
+} from '../../utils/constants';
 import Button from '../../components/Button/Button';
 import GameWord from '../../components/GameWord/GameWord';
 import Instructions from '../../components/Instructions/Instructions';
@@ -10,16 +12,15 @@ function StartPage({ updateGameStatus, hasLevelWord }) {
   return (
     <div className="start-page">
       <div className="game-timer">
-        {hasLevelWord
-          && (
-          <Button
-            icon="ri-play-fill ri-2x"
-            onClick={() => updateGameStatus(GameStates.active)}
-          />
-          )}
+        <Button
+          icon={`${Icons.play_fill} ri-2x`}
+          onClick={() => updateGameStatus(GameStates.active)}
+          disabled={!hasLevelWord}
+          aria-label={PlayButtonText}
+        />
       </div>
       <GameWord
-        word="play"
+        word={PlayText}
       />
       <Instructions />
     </div>

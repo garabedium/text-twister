@@ -21,6 +21,8 @@ export const TimeProd = 60;
 export const BaseDate = Date.now();
 
 export const LogoText = 'Text Twister';
+export const PlayButtonText = 'Start game';
+export const PlayText = 'play';
 
 export const IsDevEnv = (process.env.NODE_ENV === 'development');
 export const IsTestEnv = (process.env.NODE_ENV === 'test');
