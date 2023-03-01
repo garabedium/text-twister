@@ -23,6 +23,7 @@ export const BaseDate = Date.now();
 export const LogoText = 'Text Twister';
 export const PlayButtonText = 'Start game';
 export const PlayText = 'play';
+export const BackspaceButtonText = 'Backspace';
 
 export const IsDevEnv = (process.env.NODE_ENV === 'development');
 export const IsTestEnv = (process.env.NODE_ENV === 'test');
