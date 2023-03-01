@@ -4,16 +4,7 @@ import './StartPage.scss';
 import { GameStates, InstructionsContent } from '../../utils/constants';
 import Button from '../../components/Button/Button';
 import GameWord from '../../components/GameWord/GameWord';
-
-function Instructions() {
-  const list = InstructionsContent.map((item) => (
-    <li key={item.icon}>
-      <i className={item.icon} />
-      {item.text}
-    </li>
-  ));
-  return <ul className="instructions-list">{list}</ul>;
-}
+import Instructions from '../../components/Instructions/Instructions';
 
 function StartPage({ updateGameStatus, hasLevelWord }) {
   return (
