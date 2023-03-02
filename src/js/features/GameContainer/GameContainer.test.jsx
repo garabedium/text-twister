@@ -5,7 +5,7 @@ import { GameStates, Notifications, ApiRoutes } from '../../utils/constants';
 import { LevelWordsData, AnagramsData, nockGetRequest } from '../../utils/test-utils';
 import GameContainer from './GameContainer';
 
-describe('GameContainer comopnent', () => {
+describe('GameContainer component', () => {
   const renderGameContainer = () => render(<GameContainer
     gameStatus={GameStates.active}
     currentWord={LevelWordsData[0]}
@@ -25,5 +25,15 @@ describe('GameContainer comopnent', () => {
     renderGameContainer();
     const defaultNotification = screen.getByText(Notifications.default.text);
     expect(defaultNotification).toBeInTheDocument();
+  });
+
+  it('should fetch the level word anagrams', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${LevelWordsData[0].word}`, AnagramsData);
+    const { container } = renderGameContainer();
+
+    await waitFor(() => {
+      const anagramsCount = container.getElementsByClassName('anagram');
+      expect(anagramsCount.length).toEqual(AnagramsData.length);
+    });
   });
 });
