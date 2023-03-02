@@ -8,7 +8,7 @@ import GuessMobile from '../../features/GuessMobile/GuessMobile';
 function GameForm({
   levelWordText,
   gameLetters,
-  updateUsedLetters,
+  updateGameLetters,
   updateGameNotification,
   usedLetters,
   shuffleUnusedLetters,
@@ -30,7 +30,7 @@ function GameForm({
     if (key !== 'Enter' && foundLetter !== undefined) {
       foundLetter.used = true;
       foundLetter.updatedAt = Date.now();
-      updateUsedLetters(letters);
+      updateGameLetters(letters);
     }
 
     if (key !== 'Enter') {
@@ -57,7 +57,7 @@ function GameForm({
     const lastLetter = letters.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b));
     lastLetter.used = false;
     lastLetter.updatedAt = BaseDate;
-    updateUsedLetters(letters);
+    updateGameLetters(letters);
   };
 
   const handleInput = (event) => {

@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 
 import './GameWord.scss';
 
-function GameWord({ gameLetters, updateUsedLetters, word }) {
+function GameWord({ gameLetters, updateGameLetters, word }) {
   let content = null;
 
   const handleLetterClick = (clickedLetter) => {
@@ -13,7 +13,7 @@ function GameWord({ gameLetters, updateUsedLetters, word }) {
     if (foundLetter !== undefined) {
       foundLetter.used = true;
       foundLetter.updatedAt = Date.now();
-      updateUsedLetters(letters);
+      updateGameLetters(letters);
     }
   };
 
