@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import nock from 'nock';
 import { ApiRoutes } from './constants';
 
@@ -13,10 +14,10 @@ export const ResetGame = {
   started: true,
 };
 
-export const AnagramData = [
-  { id: 1, anagram: 'test', solved: false },
-  { id: 2, anagram: 'lorem', solved: false },
-  { id: 3, anagram: 'ipsum', solved: false },
+export const AnagramsData = [
+  { anagram: 'texter', id: 3, level_word: 'texter' },
+  { anagram: 'text', id: 4, level_word: 'texter' },
+  { anagram: 'rex', id: 5, level_word: 'texter' },
 ];
 
 export const LevelWordsData = [
