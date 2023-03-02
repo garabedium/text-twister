@@ -4,7 +4,7 @@ import { render, waitFor, screen } from '@testing-library/react';
 import {
   ApiRoutes, ZipfDefaultMin, ZipfDefaultMax, PlayButtonText,
 } from '../../utils/constants';
-import { nockGetRequest, LevelWordsData } from '../../utils/test-utils';
+import { nockGetRequest } from '../../utils/test-utils';
 import App from './App';
 
 describe('App component', () => {
@@ -12,7 +12,7 @@ describe('App component', () => {
   const levelWordRequest = `${ApiRoutes.levelWordRange}/${ZipfDefaultMin}&${ZipfDefaultMax}`;
 
   it('should load the play button', async () => {
-    nockGetRequest(levelWordRequest, LevelWordsData);
+    nockGetRequest(levelWordRequest, [{ word: 'texter' }]);
     render(<App />);
 
     expect(playButton()).toBeDisabled();

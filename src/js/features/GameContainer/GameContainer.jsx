@@ -11,17 +11,23 @@ import Anagrams from '../../components/Anagrams/Anagrams';
 import Notification from '../../components/Notification/Notification';
 import {
   Icons, GameStates, LevelWordLength, MinimumGuessLength,
-  Notifications, BaseDate,
+  Notifications,
 } from '../../utils/constants';
-import { shuffleLetters, calcWordScore } from '../../utils/utils';
 import Button from '../../components/Button/Button';
 import LevelWordApi from '../../api/services/LevelWordApi';
+import { calcWordScore } from '../../utils/utils';
 
 function GameContainer({
   gameStatus,
   updateGameStatus,
   currentWord,
+  updateUsedLetters,
+  gameLetters,
+  usedLetters,
+  unusedLetters,
+  shuffleUnusedLetters,
   selectNextWord,
+  handleClear,
 }) {
   const isMobileDevice = isTouchDevice();
   const defaultNotification = Notifications[isMobileDevice ? 'default_mobile' : 'default'];
@@ -32,7 +38,6 @@ function GameContainer({
     levelUp: false,
   });
 
-  const [gameLetters, setGameLetters] = useState([]);
   const [anagrams, setAnagrams] = useState({});
   const [notification, setNotification] = useState(defaultNotification);
 
@@ -41,14 +46,6 @@ function GameContainer({
   const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText] !== undefined;
   const isGameActive = (gameStatus === GameStates.active);
   const restartButtonText = player.levelUp ? 'Next Level' : 'New Game';
-  const usedLetters = gameLetters.filter((letter) => letter.used);
-  const unusedLetters = gameLetters.filter((letter) => !letter.used);
-
-  // FUNCTIONS
-  /// ////////////////////
-  const updateGameLetters = (letters) => {
-    setGameLetters(letters);
-  };
 
   const updateGameNotification = (gameNotification) => {
     setNotification(gameNotification);
@@ -90,26 +87,6 @@ function GameContainer({
     }
   };
 
-  const shuffleUnusedLetters = () => {
-    const unused = unusedLetters.map((letter) => letter.char).join('');
-    const shuffled = shuffleLetters(unused).split('').map((char) => ({ char, used: false }));
-    const used = usedLetters.map((letter) => ({ ...letter, updatedAt: letter.updatedAt }));
-
-    const letters = used.concat(shuffled).map((obj, i) => {
-      const updatedAt = obj.updatedAt || BaseDate;
-      return {
-        id: i + 1, char: obj.char, used: obj.used, updatedAt,
-      };
-    });
-
-    updateGameLetters(letters);
-  };
-
-  const handleClear = () => {
-    const letters = gameLetters.map((letter) => ({ ...letter, used: false, updatedAt: BaseDate }));
-    updateGameLetters(letters);
-  };
-
   const getAnagrams = async () => {
     const result = await LevelWordApi.getAnagrams(levelWordText).then((response) => response.data);
     const anagramsHash = { [levelWordText]: {} };
@@ -129,28 +106,16 @@ function GameContainer({
     ) : (
       <GameWord
         gameLetters={gameLetters}
-        updateGameLetters={updateGameLetters}
+        updateUsedLetters={updateUsedLetters}
       />
     )
   ), [gameStatus, levelWordText, gameLetters]);
 
-  // EFFECTS
-  /// ////////////////////
-
-  // Effects when levelWord changes
   useEffect(() => {
-    // Don't shuffle the letters if when game state changes to paused:
-    if (gameStatus !== GameStates.paused) {
-      const letters = shuffleLetters(levelWordText).split('').map((char, index) => ({
-        id: index + 1, char, used: false, updatedAt: BaseDate,
-      }));
-      setGameLetters(letters);
-    }
-    // Fetch anagrams for current level word
     getAnagrams();
   }, [levelWordText]);
 
-  // Effects when gameStatus changes
+  // when game is paused
   useEffect(() => {
     if (gameStatus === GameStates.paused) {
       const pauseNotification = (levelUp) ? Notifications.solved_level : Notifications.game_over;
@@ -161,8 +126,8 @@ function GameContainer({
   return (
     <>
       <div className="game-stats">
-        <GameStat icon="score" stat={score} label="Game score" />
-        <GameStat icon="level" stat={level} label="Game level" />
+        <GameStat icon="score" stat={score} />
+        <GameStat icon="level" stat={level} />
       </div>
       <div className="word-row">
         <Timer
@@ -179,7 +144,7 @@ function GameContainer({
           gameLetters={gameLetters}
           usedLetters={usedLetters}
           unusedLetters={unusedLetters}
-          updateGameLetters={updateGameLetters}
+          updateUsedLetters={updateUsedLetters}
           updateGameNotification={updateGameNotification}
           shuffleUnusedLetters={shuffleUnusedLetters}
           validateWord={validateWord}
