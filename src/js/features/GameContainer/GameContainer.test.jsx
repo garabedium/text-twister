@@ -32,8 +32,8 @@ describe('GameContainer component', () => {
     const { container } = renderGameContainer();
 
     await waitFor(() => {
-      const anagramsCount = container.getElementsByClassName('anagram');
-      expect(anagramsCount.length).toEqual(AnagramsData.length);
+      const anagrams = container.getElementsByClassName('anagram');
+      expect(anagrams.length).toEqual(AnagramsData.length);
     });
   });
 });
