@@ -20,10 +20,13 @@ export const TimeProd = 60;
 
 export const BaseDate = Date.now();
 
+// TODO: I18n localization
 export const LogoText = 'Text Twister';
 export const PlayButtonText = 'Start game';
 export const PlayText = 'play';
 export const BackspaceButtonText = 'Backspace';
+export const ScoreLabel = 'Game score';
+export const LevelLabel = 'Game level';
 
 export const IsDevEnv = (process.env.NODE_ENV === 'development');
 export const IsTestEnv = (process.env.NODE_ENV === 'test');
