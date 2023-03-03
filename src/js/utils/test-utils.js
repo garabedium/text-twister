@@ -24,6 +24,15 @@ export const LevelWordsData = [
   { id: 1, word: 'texter' },
 ];
 
+export const AnagramsByLevelWord = (anagrams) => {
+  const { word } = LevelWordsData[0];
+  const result = { [word]: {} };
+  anagrams.forEach((anagram) => {
+    result[word] = { ...result[word], [anagram.anagram]: anagram };
+  });
+  return result;
+};
+
 export const nockGetRequest = (url, response) => {
   nock(ApiRoutes.baseUrl)
     .defaultReplyHeaders({

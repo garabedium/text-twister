@@ -1,22 +1,39 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { ActiveGame, AnagramData, ResetGame } from '../../utils/test-utils';
+import { GameStates } from '../../utils/constants';
+import {
+  AnagramsByLevelWord, LevelWordsData, AnagramsData,
+} from '../../utils/test-utils';
 import Anagrams from './Anagrams';
 
 describe('Register Anagrams component', () => {
-  it('should not show the anagram if the word is unsolved and the game is active', () => {
-    render(<Anagrams game={ActiveGame} anagrams={AnagramData} />);
+  const levelWordText = LevelWordsData[0].word;
 
-    for (let i = 0; i < AnagramData.length; i += 1) {
-      const text = screen.getByTestId(`anagram-${AnagramData[i].id}`).textContent;
-      expect(text).not.toBe(AnagramData[i].anagram);
+  it('should not show the anagram if the word is unsolved and the game is active', () => {
+    render(
+      <Anagrams
+        gameStatus={GameStates.active}
+        anagrams={AnagramsByLevelWord(AnagramsData)}
+        levelWordText={levelWordText}
+      />,
+    );
+
+    for (let i = 0; i < AnagramsData.length; i += 1) {
+      const text = screen.getByTestId(`anagram-${AnagramsData[i].id}`).textContent;
+      expect(text).not.toBe(AnagramsData[i].anagram);
     }
   });
 
   it('should show the anagrams if the word is solved and the game is active', () => {
-    const solvedAnagrams = AnagramData.map((anagram) => ({ ...anagram, solved: true }));
-    render(<Anagrams game={ActiveGame} anagrams={solvedAnagrams} />);
+    const solvedAnagrams = AnagramsData.map((anagram) => ({ ...anagram, solved: true }));
+    render(
+      <Anagrams
+        gameStatus={GameStates.active}
+        anagrams={AnagramsByLevelWord(solvedAnagrams)}
+        levelWordText={levelWordText}
+      />,
+    );
 
     for (let i = 0; i < solvedAnagrams.length; i += 1) {
       const text = screen.getByTestId(`anagram-${solvedAnagrams[i].id}`).textContent;
@@ -24,12 +41,18 @@ describe('Register Anagrams component', () => {
     }
   });
 
-  it('should show the anagrams if the game is reset', () => {
-    render(<Anagrams game={ResetGame} anagrams={AnagramData} />);
+  it('should show the anagrams if the game is paused', () => {
+    render(
+      <Anagrams
+        gameStatus={GameStates.paused}
+        anagrams={AnagramsByLevelWord(AnagramsData)}
+        levelWordText={levelWordText}
+      />,
+    );
 
-    for (let i = 0; i < AnagramData.length; i += 1) {
-      const text = screen.getByTestId(`anagram-${AnagramData[i].id}`).textContent;
-      expect(text).toBe(AnagramData[i].anagram);
+    for (let i = 0; i < AnagramsData.length; i += 1) {
+      const text = screen.getByTestId(`anagram-${AnagramsData[i].id}`).textContent;
+      expect(text).toBe(AnagramsData[i].anagram);
     }
   });
 });
