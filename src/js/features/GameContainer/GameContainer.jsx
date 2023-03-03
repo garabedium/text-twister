@@ -11,7 +11,7 @@ import Anagrams from '../../components/Anagrams/Anagrams';
 import Notification from '../../components/Notification/Notification';
 import {
   Icons, GameStates, LevelWordLength, MinimumGuessLength,
-  Notifications, BaseDate,
+  Notifications, BaseDate, ScoreLabel, LevelLabel,
 } from '../../utils/constants';
 import { shuffleLetters, calcWordScore } from '../../utils/utils';
 import Button from '../../components/Button/Button';
@@ -161,8 +161,8 @@ function GameContainer({
   return (
     <>
       <div className="game-stats">
-        <GameStat icon="score" stat={score} label="Game score" />
-        <GameStat icon="level" stat={level} label="Game level" />
+        <GameStat icon="score" stat={score} label={ScoreLabel} />
+        <GameStat icon="level" stat={level} label={LevelLabel} />
       </div>
       <div className="word-row">
         <Timer
