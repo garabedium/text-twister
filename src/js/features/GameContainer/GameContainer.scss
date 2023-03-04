@@ -4,3 +4,9 @@
   display: flex;
   justify-content: center;
 }
+
+.game-container {
+  width: 100%;
+  max-width: $game-max-width;
+  margin: 0 auto;
+}

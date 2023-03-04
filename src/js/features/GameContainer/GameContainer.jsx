@@ -160,64 +160,67 @@ function GameContainer({
 
   return (
     <>
-      <div className="game-stats">
-        <GameStat icon="score" stat={score} label={ScoreLabel} />
-        <GameStat icon="level" stat={level} label={LevelLabel} />
-      </div>
-      <div className="word-row">
+      <div className="game-container">
+
+        <div className="game-stats">
+          <GameStat icon="score" stat={score} label={ScoreLabel} />
+          <GameStat icon="level" stat={level} label={LevelLabel} />
+        </div>
+
         <Timer
           gameStatus={gameStatus}
           updateGameStatus={updateGameStatus}
           restartGame={restartGame}
         />
         <DisplayWord />
-      </div>
 
-      {hasAnagrams && isGameActive ? (
-        <GameForm
-          levelWordText={levelWordText}
-          gameLetters={gameLetters}
-          usedLetters={usedLetters}
-          unusedLetters={unusedLetters}
-          updateGameLetters={updateGameLetters}
-          updateGameNotification={updateGameNotification}
-          shuffleUnusedLetters={shuffleUnusedLetters}
-          validateWord={validateWord}
-          anagrams={anagrams}
-          handleClear={handleClear}
-          isMobileDevice={isMobileDevice}
-        />
-      ) : null}
-
-      <Notification text={notification.text} />
-
-      <div className="game-controls">
-        {isGameActive ? (
-          <>
-            <Button
-              text="Shuffle"
-              onClick={() => shuffleUnusedLetters()}
-              className="btn--secondary"
-              icon={`${Icons.spacebar} m-l5`}
-              disabled={unusedLetters.length < MinimumGuessLength}
-            />
-            <Button
-              text="Submit"
-              className="btn--secondary"
-              icon={`${Icons.arrow_right} m-l5`}
-              form="game-form"
-              type="submit"
-              disabled={usedLetters.length < MinimumGuessLength}
-            />
-          </>
-        ) : (
-          <Button
-            onClick={() => restartGame()}
-            className="btn m-auto"
-            text={restartButtonText}
-            icon="ri-play-fill ri-lg m-l5"
+        {hasAnagrams && isGameActive ? (
+          <GameForm
+            levelWordText={levelWordText}
+            gameLetters={gameLetters}
+            usedLetters={usedLetters}
+            unusedLetters={unusedLetters}
+            updateGameLetters={updateGameLetters}
+            updateGameNotification={updateGameNotification}
+            shuffleUnusedLetters={shuffleUnusedLetters}
+            validateWord={validateWord}
+            anagrams={anagrams}
+            handleClear={handleClear}
+            isMobileDevice={isMobileDevice}
           />
-        )}
+        ) : null}
+
+        <Notification text={notification.text} />
+
+        <div className="game-controls">
+          {isGameActive ? (
+            <>
+              <Button
+                text="Shuffle"
+                onClick={() => shuffleUnusedLetters()}
+                className="btn--secondary"
+                icon={`${Icons.spacebar} m-l5`}
+                disabled={unusedLetters.length < MinimumGuessLength}
+              />
+              <Button
+                text="Submit"
+                className="btn--secondary"
+                icon={`${Icons.arrow_right} m-l5`}
+                form="game-form"
+                type="submit"
+                disabled={usedLetters.length < MinimumGuessLength}
+              />
+            </>
+          ) : (
+            <Button
+              onClick={() => restartGame()}
+              className="btn m-auto"
+              text={restartButtonText}
+              icon="ri-play-fill ri-lg m-l5"
+            />
+          )}
+        </div>
+
       </div>
 
       {hasAnagrams ? (

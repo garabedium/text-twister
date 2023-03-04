@@ -1,5 +1,9 @@
 @import '../../../scss/utils/utils';
 
+.game-timer-row {
+  position: relative;
+}
+
 .game-timer {
   box-sizing: content-box;
   width: 50px;

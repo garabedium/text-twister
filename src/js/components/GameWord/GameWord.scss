@@ -1,19 +1,6 @@
 @import '../../../scss/utils/utils';
 
-.word-row {
-  position: relative;
-  width: 100%;
-  max-width: $game-max-width;
-  margin: 0 auto;
-
-  &.--reset {
-    .letter {
-      text-transform: uppercase;
-    }
-  }
-}
-
-.word {
+.letters {
   display: flex;
   padding: 0;
   margin: 0;
