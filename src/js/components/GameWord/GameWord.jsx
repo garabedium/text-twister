@@ -39,7 +39,7 @@ function GameWord({ gameLetters, updateGameLetters, word }) {
   }
 
   return (
-    <div className="word">
+    <div className="letters">
       {content}
     </div>
   );

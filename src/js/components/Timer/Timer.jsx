@@ -36,14 +36,16 @@ function Timer({ gameStatus, updateGameStatus, restartGame }) {
   }, [isGamePaused]);
 
   return (
-    <div className="game-timer">
-      {isGamePaused ? (
-        <Button
-          icon={`${Icons.play_fill} ri-2x`}
-          onClick={() => restartGame()}
-          aria-label={PlayButtonText}
-        />
-      ) : <span>{seconds}</span>}
+    <div className="game-timer-row">
+      <div className="game-timer">
+        {isGamePaused ? (
+          <Button
+            icon={`${Icons.play_fill} ri-2x`}
+            onClick={() => restartGame()}
+            aria-label={PlayButtonText}
+          />
+        ) : <span>{seconds}</span>}
+      </div>
     </div>
   );
 }
