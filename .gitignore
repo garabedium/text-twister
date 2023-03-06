@@ -18,3 +18,4 @@ dist/main.js
 .vscode/
 _data/
 jsconfig.json
+dist/main.css

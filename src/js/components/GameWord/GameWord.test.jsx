@@ -3,10 +3,10 @@
 // import '@testing-library/jest-dom';
 // import { render, screen } from '@testing-library/react';
 // import Button from '../Button/Button';
-// import GameWord from './GameWord';
+// import GameLettersDisplay from './GameLettersDisplay';
 
-// describe('GameWord component', () => {
-//   it('should render the GameWord component', () => {
+// describe('GameLettersDisplay component', () => {
+//   it('should render the GameLettersDisplay component', () => {
 //     const word = 'xylaphone';
 //     const letters = word.split('').map((letter) => (
 //       <Button
@@ -14,7 +14,7 @@
 //         key={letter}
 //       />
 //     ));
-//     render(<GameWord word={letters} />);
+//     render(<GameLettersDisplay word={letters} />);
 
 //     for (let i = 0; i < letters.length; i += 1) {
 //       const button = screen.getByText(word[i], { selector: 'button' });

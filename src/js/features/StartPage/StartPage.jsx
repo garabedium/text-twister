@@ -5,7 +5,7 @@ import {
   GameStates, Icons, PlayButtonText, PlayText,
 } from '../../utils/constants';
 import Button from '../../components/Button/Button';
-import GameWord from '../../components/GameWord/GameWord';
+import GameLettersDisplay from '../../components/GameLettersDisplay/GameLettersDisplay';
 import Instructions from '../../components/Instructions/Instructions';
 
 function StartPage({ updateGameStatus, hasLevelWord }) {
@@ -19,7 +19,7 @@ function StartPage({ updateGameStatus, hasLevelWord }) {
           aria-label={PlayButtonText}
         />
       </div>
-      <GameWord
+      <GameLettersDisplay
         word={PlayText}
       />
       <Instructions />
