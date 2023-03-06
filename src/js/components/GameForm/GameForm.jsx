@@ -1,7 +1,9 @@
 import React from 'react';
 import './GameForm.scss';
 
-import { BaseDate, MinimumGuessLength, Notifications } from '../../utils/constants';
+import {
+  BaseDate, MinimumGuessLength, Notifications, GameInputLabel,
+} from '../../utils/constants';
 import TextInput from '../TextInput/TextInput';
 import GuessMobile from '../../features/GuessMobile/GuessMobile';
 
@@ -98,13 +100,14 @@ function GameForm({
           <TextInput
             autoFocus
             autoComplete="off"
-            placeholder="Guess a word..."
+            placeholder={GameInputLabel}
             name="guess"
             value={userGuess}
             onKeyPress={handleInput}
             onKeyDown={handleInput}
             onChange={handleInput}
             className="game-guess"
+            aria-label={GameInputLabel}
           />
         )}
 
