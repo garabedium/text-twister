@@ -16,6 +16,6 @@ describe('StartPage component', () => {
   });
   it('displays the game word: play', () => {
     const { container } = render(<StartPage hasLevelWord updateGameStatus={() => null} />);
-    expect(container.getElementsByClassName('word')[0].textContent).toBe(PlayText);
+    expect(container.getElementsByClassName('letters')[0].textContent).toBe(PlayText);
   });
 });
