@@ -1,9 +1,11 @@
 import React from 'react';
 import Button from '../Button/Button';
 
-import './GameWord.scss';
+import './GameLettersDisplay.scss';
 
-function GameWord({ gameLetters, updateGameLetters, word }) {
+function GameLettersDisplay({
+  gameLetters, word, isGameActive, updateGameLetters,
+}) {
   let content = null;
 
   const handleLetterClick = (clickedLetter) => {
@@ -17,7 +19,7 @@ function GameWord({ gameLetters, updateGameLetters, word }) {
     }
   };
 
-  if (gameLetters) {
+  if (gameLetters && isGameActive) {
     content = gameLetters.map((letter) => (
       <Button
         className={`letter ${letter.used ? '--used' : ''}`}
@@ -25,10 +27,10 @@ function GameWord({ gameLetters, updateGameLetters, word }) {
         text={letter.char}
         disabled={letter.used}
         onClick={() => handleLetterClick(letter)}
+        data-testid={`game-letter-${letter.id}`}
       />
     ));
-  }
-  if (word) {
+  } else if (word && !isGameActive) {
     // Create letter object array to avoid duplicate key error with repeating letters:
     const wordArray = word.split('').map((char, i) => ({ char, id: i }));
     content = wordArray.map((letter) => (
@@ -45,4 +47,4 @@ function GameWord({ gameLetters, updateGameLetters, word }) {
   );
 }
 
-export default GameWord;
+export default GameLettersDisplay;

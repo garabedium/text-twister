@@ -33,6 +33,12 @@ export const AnagramsByLevelWord = (anagrams) => {
   return result;
 };
 
+export const GameLettersData = () => {
+  const { word } = LevelWordsData[0];
+  const letters = word.split('').map((letter, i) => ({ id: i + 1, char: letter, used: false }));
+  return letters;
+};
+
 export const nockGetRequest = (url, response) => {
   nock(ApiRoutes.baseUrl)
     .defaultReplyHeaders({

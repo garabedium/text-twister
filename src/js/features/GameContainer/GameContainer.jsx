@@ -5,7 +5,7 @@ import './GameContainer.scss';
 
 import GameStat from '../../components/GameStat/GameStat';
 import Timer from '../../components/Timer/Timer';
-import GameWord from '../../components/GameWord/GameWord';
+import GameLettersDisplay from '../../components/GameLettersDisplay/GameLettersDisplay';
 import GameForm from '../../components/GameForm/GameForm';
 import Anagrams from '../../components/Anagrams/Anagrams';
 import Notification from '../../components/Notification/Notification';
@@ -121,19 +121,6 @@ function GameContainer({
     setAnagrams((prevState) => ({ ...prevState, ...anagramsHash }));
   };
 
-  const DisplayWord = useCallback(() => (
-    (gameStatus === GameStates.paused) ? (
-      <GameWord
-        word={levelWordText}
-      />
-    ) : (
-      <GameWord
-        gameLetters={gameLetters}
-        updateGameLetters={updateGameLetters}
-      />
-    )
-  ), [gameStatus, levelWordText, gameLetters]);
-
   // EFFECTS
   /// ////////////////////
 
@@ -172,7 +159,13 @@ function GameContainer({
           updateGameStatus={updateGameStatus}
           restartGame={restartGame}
         />
-        <DisplayWord />
+
+        <GameLettersDisplay
+          word={levelWordText}
+          gameLetters={gameLetters}
+          isGameActive={isGameActive}
+          updateGameLetters={updateGameLetters}
+        />
 
         {hasAnagrams && isGameActive ? (
           <GameForm
