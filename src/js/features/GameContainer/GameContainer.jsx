@@ -121,19 +121,6 @@ function GameContainer({
     setAnagrams((prevState) => ({ ...prevState, ...anagramsHash }));
   };
 
-  // const DisplayWord = useCallback(() => (
-  //   (gameStatus === GameStates.paused) ? (
-  //     <GameLettersDisplay
-  //       word={levelWordText}
-  //     />
-  //   ) : (
-  //     <GameLettersDisplay
-  //       gameLetters={gameLetters}
-  //       updateGameLetters={updateGameLetters}
-  //     />
-  //   )
-  // ), [gameStatus, levelWordText, gameLetters]);
-
   // EFFECTS
   /// ////////////////////
 
@@ -179,7 +166,6 @@ function GameContainer({
           isGameActive={isGameActive}
           updateGameLetters={updateGameLetters}
         />
-        {/* <DisplayWord /> */}
 
         {hasAnagrams && isGameActive ? (
           <GameForm
