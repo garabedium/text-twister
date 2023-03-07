@@ -1,7 +1,13 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, waitFor, screen } from '@testing-library/react';
-import { GameStates, Notifications, ApiRoutes } from '../../utils/constants';
+import {
+  render, waitFor, screen,
+} from '@testing-library/react';
+import user from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
+import {
+  GameStates, Notifications, ApiRoutes, GameInputLabel,
+} from '../../utils/constants';
 import { LevelWordsData, AnagramsData, nockGetRequest } from '../../utils/test-utils';
 import GameContainer from './GameContainer';
 
@@ -34,6 +40,39 @@ describe('GameContainer component', () => {
     await waitFor(() => {
       const anagrams = container.getElementsByClassName('anagram');
       expect(anagrams.length).toEqual(AnagramsData.length);
+    });
+  });
+
+  it('should not display the solved level word to the user', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${LevelWordsData[0].word}`, AnagramsData);
+    const { container } = renderGameContainer();
+    const { word } = LevelWordsData[0];
+    const letters = container.getElementsByClassName('letters')[0].textContent;
+    expect(letters).not.toEqual(word);
+
+    const shuffleBtn = screen.getByText('Shuffle', { selector: 'button' });
+    await act(async () => user.click(shuffleBtn));
+    const shuffledLetters = container.getElementsByClassName('letters')[0].textContent;
+    expect(shuffledLetters).not.toEqual(letters);
+  });
+
+  it('should display letters in the game word that the user types', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${LevelWordsData[0].word}`, AnagramsData);
+    renderGameContainer();
+
+    const guess = 'real';
+
+    await waitFor(() => {
+      const input = screen.getByLabelText(GameInputLabel);
+      user.type(input, guess);
+      expect(input).toHaveValue(guess);
+
+      const letters = document.getElementsByClassName('letter --used');
+
+      for (let index = 0; index < letters.length; index += 1) {
+        const testId = letters[index].getAttribute('data-testid');
+        expect(screen.getByTestId(testId)).toBeDisabled();
+      }
     });
   });
 });

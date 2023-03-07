@@ -1,5 +1,3 @@
-// const esModules = ['ky'];
-
 const config = {
   verbose: true,
   moduleNameMapper: {
@@ -9,6 +7,8 @@ const config = {
   testEnvironmentOptions: {
     url: 'http://localhost:3000',
   },
+  collectCoverage: true,
+  coveragePathIgnorePatterns: ['src/js/utils/test-utils.js'],
 };
 
 module.exports = config;

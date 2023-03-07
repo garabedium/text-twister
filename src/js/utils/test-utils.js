@@ -14,14 +14,14 @@ export const ResetGame = {
   started: true,
 };
 
-export const AnagramsData = [
-  { anagram: 'texter', id: 3, level_word: 'texter' },
-  { anagram: 'text', id: 4, level_word: 'texter' },
-  { anagram: 'rex', id: 5, level_word: 'texter' },
+export const LevelWordsData = [
+  { id: 1, word: 'really' },
 ];
 
-export const LevelWordsData = [
-  { id: 1, word: 'texter' },
+export const AnagramsData = [
+  { anagram: 'really', id: 3, level_word: LevelWordsData[0].word },
+  { anagram: 'real', id: 4, level_word: LevelWordsData[0].word },
+  { anagram: 'are', id: 5, level_word: LevelWordsData[0].word },
 ];
 
 export const AnagramsByLevelWord = (anagrams) => {
