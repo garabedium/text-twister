@@ -56,7 +56,7 @@ describe('GameContainer component', () => {
     expect(shuffledLetters).not.toEqual(letters);
   });
 
-  it('should display letters in the game word that the user types', async () => {
+  it('should disable unused letters that the user types', async () => {
     nockGetRequest(`${ApiRoutes.anagrams}/${LevelWordsData[0].word}`, AnagramsData);
     renderGameContainer();
 
@@ -74,5 +74,16 @@ describe('GameContainer component', () => {
         expect(screen.getByTestId(testId)).toBeDisabled();
       }
     });
+  });
+
+  it('should disable an unused letter that the user clicks', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${LevelWordsData[0].word}`, AnagramsData);
+    renderGameContainer();
+
+    const letterButton = screen.getByText(LevelWordsData[0].word[0], { selector: 'button' });
+
+    user.click(letterButton);
+    await act(async () => user.click(letterButton));
+    expect(letterButton).toBeDisabled();
   });
 });
