@@ -108,6 +108,24 @@ describe('GameContainer component', () => {
     });
   });
 
+  it('should display a notification if the user submits a guess that is an invalid word', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    renderGameContainer();
+
+    const guess = levelWord.substring(3, 6);
+
+    await waitFor(() => {
+      const input = screen.getByLabelText(GameInputLabel);
+      user.type(input, guess[0]);
+      user.type(input, guess[1]);
+      user.type(input, guess[2]);
+      user.keyboard('{enter}');
+
+      expect(input).toHaveValue(guess);
+      expect(screen.getByText(Notifications.validate_invalid.text)).toBeInTheDocument();
+    });
+  });
+
   it('should display a notification if the user solves a valid word', async () => {
     nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
     renderGameContainer();

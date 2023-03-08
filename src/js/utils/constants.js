@@ -15,7 +15,7 @@ export const LevelWordLength = 6;
 export const ZipfDefaultMin = 4.5;
 export const ZipfDefaultMax = 6.5;
 
-export const TimeDev = 630;
+export const TimeDev = 30;
 export const TimeProd = 60;
 
 export const BaseDate = Date.now();
@@ -47,7 +47,7 @@ export const Icons = {
 };
 
 export const GameStates = {
-  inactive: 'inactive', // game hasn't started, still on StartPage component
+  inactive: 'inactive', // game hasn't started yet
   active: 'active', // player is playing
   paused: 'paused', // player is between levels
   restart: 'restart', // player restarts from first level

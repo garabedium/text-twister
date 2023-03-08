@@ -21,7 +21,6 @@ function App() {
 
   // FUNCTIONS
   /// ////////////////////
-
   const updateGameStatus = (status) => {
     setGameStatus(status);
   };
