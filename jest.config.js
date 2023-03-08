@@ -9,6 +9,7 @@ const config = {
   },
   collectCoverage: true,
   coveragePathIgnorePatterns: ['src/js/utils/test-utils.js'],
+  coverageReporters: ['html', 'text'],
 };
 
 module.exports = config;

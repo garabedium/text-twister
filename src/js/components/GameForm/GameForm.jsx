@@ -75,6 +75,10 @@ function GameForm({
       return shuffleUnusedLetters();
     }
 
+    if (event.type === 'keydown' && event.key === 'Enter') {
+      return handleSubmit(event);
+    }
+
     // Prevents cursor from moving left within the TextInput
     if (event.type === 'keydown' && event.key === 'ArrowLeft') {
       return event.preventDefault();

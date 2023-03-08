@@ -6,17 +6,21 @@ import {
 import user from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
-  GameStates, Notifications, ApiRoutes, GameInputLabel,
+  GameStates, Notifications, ApiRoutes, GameInputLabel, BackspaceButtonText,
 } from '../../utils/constants';
 import { LevelWordsData, AnagramsData, nockGetRequest } from '../../utils/test-utils';
 import GameContainer from './GameContainer';
 
 describe('GameContainer component', () => {
+  const levelWord = LevelWordsData[0].word;
+  let mobileDevice = false;
+
   const renderGameContainer = () => render(<GameContainer
     gameStatus={GameStates.active}
     currentWord={LevelWordsData[0]}
     selectNextWord={() => null}
     updateGameStatus={() => null}
+    isMobileDevice={mobileDevice}
   />);
 
   it('should display the game controls', () => {
@@ -34,7 +38,7 @@ describe('GameContainer component', () => {
   });
 
   it('should fetch the level word anagrams', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${LevelWordsData[0].word}`, AnagramsData);
+    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
     const { container } = renderGameContainer();
 
     await waitFor(() => {
@@ -44,7 +48,7 @@ describe('GameContainer component', () => {
   });
 
   it('should not display the solved level word to the user', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${LevelWordsData[0].word}`, AnagramsData);
+    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
     const { container } = renderGameContainer();
     const { word } = LevelWordsData[0];
     const letters = container.getElementsByClassName('letters')[0].textContent;
@@ -56,8 +60,8 @@ describe('GameContainer component', () => {
     expect(shuffledLetters).not.toEqual(letters);
   });
 
-  it('should display letters in the game word that the user types', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${LevelWordsData[0].word}`, AnagramsData);
+  it('should disable unused letters that the user types', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
     renderGameContainer();
 
     const guess = 'real';
@@ -73,6 +77,78 @@ describe('GameContainer component', () => {
         const testId = letters[index].getAttribute('data-testid');
         expect(screen.getByTestId(testId)).toBeDisabled();
       }
+    });
+  });
+
+  it('should disable an unused letter that the user clicks', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    renderGameContainer();
+
+    const letterButton = screen.getByText(levelWord[0], { selector: 'button' });
+
+    user.click(letterButton);
+    await act(async () => user.click(letterButton));
+    expect(letterButton).toBeDisabled();
+  });
+
+  it('should display a notification if the user submits a guess that does not meet the minimum required length', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    renderGameContainer();
+
+    const guess = levelWord.substring(0, 2);
+
+    await waitFor(() => {
+      const input = screen.getByLabelText(GameInputLabel);
+      user.type(input, levelWord.substring(0, 1));
+      user.type(input, levelWord.substring(1, 2));
+      user.keyboard('{enter}');
+
+      expect(input).toHaveValue(guess);
+      expect(screen.getByText(Notifications.validate_min.text)).toBeInTheDocument();
+    });
+  });
+
+  it('should display a notification if the user solves a valid word', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    renderGameContainer();
+
+    const guess = 'are';
+
+    await waitFor(async () => {
+      const input = screen.getByLabelText(GameInputLabel);
+      const submit = screen.getByText('Submit', { selector: 'button' });
+
+      user.type(input, guess[0]);
+      user.type(input, guess[1]);
+      user.type(input, guess[2]);
+
+      expect(input).toHaveValue(guess);
+      user.click(submit);
+      expect(screen.getByText(Notifications.points.text)).toBeInTheDocument();
+    });
+  });
+
+  it('should hide the input on a mobile device and display a backspace button', async () => {
+    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    mobileDevice = true;
+    renderGameContainer();
+
+    const guess = 'are';
+
+    await waitFor(async () => {
+      const input = screen.queryByLabelText(GameInputLabel);
+      const backspace = screen.getByLabelText(BackspaceButtonText);
+      expect(input).not.toBeInTheDocument();
+      expect(backspace).toBeInTheDocument();
+
+      user.click(screen.getByText(guess[0], { selector: 'button' }));
+      user.click(screen.getByText(guess[1], { selector: 'button' }));
+      user.click(screen.getByText(guess[2], { selector: 'button' }));
+
+      expect(screen.getByText(guess)).toBeInTheDocument();
+
+      user.click(backspace);
+      expect(await screen.findByText(guess.substring(0, 2))).toBeInTheDocument();
     });
   });
 });

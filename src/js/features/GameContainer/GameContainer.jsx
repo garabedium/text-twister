@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import isTouchDevice from 'is-touch-device';
-
 import './GameContainer.scss';
 
 import GameStat from '../../components/GameStat/GameStat';
@@ -22,8 +20,8 @@ function GameContainer({
   updateGameStatus,
   currentWord,
   selectNextWord,
+  isMobileDevice,
 }) {
-  const isMobileDevice = isTouchDevice();
   const defaultNotification = Notifications[isMobileDevice ? 'default_mobile' : 'default'];
 
   const [player, setPlayer] = useState({
