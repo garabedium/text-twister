@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../../scss/app.scss';
+import isTouchDevice from 'is-touch-device';
 
 import {
   GameStates, WordStates, ZipfDefaultMin, ZipfDefaultMax,
@@ -81,6 +82,7 @@ function App() {
               currentWord={currentWord}
               selectNextWord={selectNextWord}
               updateGameStatus={updateGameStatus}
+              isMobileDevice={isTouchDevice()}
             />
           )}
       </div>

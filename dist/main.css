@@ -544,23 +544,12 @@ body {
   display: flex;
   margin-right: 5px;
 }
-/*!***************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/GameWord/GameWord.scss ***!
-  \***************************************************************************************************************************************************************/
-.word-row {
-  position: relative;
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/GameLettersDisplay/GameLettersDisplay.scss ***!
+  \***********************************************************************************************************************************************************************************/
+.letters {
   width: 100%;
-  max-width: 450px;
-  margin: 0 auto;
-}
-.word-row.--reset .letter {
-  text-transform: uppercase;
-}
-
-.word {
   display: flex;
-  padding: 0;
-  margin: 0;
   font-size: 50px;
   align-items: center;
   justify-content: center;
@@ -624,14 +613,17 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.game-container {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
 /*!***************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/GameStat/GameStat.scss ***!
   \***************************************************************************************************************************************************************/
 .game-stats {
   display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 450px;
   margin: 15px auto 10px auto;
 }
 .game-stats .game-stat {
@@ -646,6 +638,10 @@ body {
 /*!*********************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/js/components/Timer/Timer.scss ***!
   \*********************************************************************************************************************************************************/
+.game-timer-row {
+  position: relative;
+}
+
 .game-timer {
   box-sizing: content-box;
   width: 50px;
@@ -671,8 +667,6 @@ body {
   \***************************************************************************************************************************************************************/
 .game-form {
   text-align: center;
-  width: 100%;
-  max-width: 450px;
   margin: 0 auto;
 }
 /*!*****************************************************************************************************************************************************************!*\
@@ -767,8 +761,6 @@ body {
   \***********************************************************************************************************************************************************************/
 .notification {
   margin: 15px auto;
-  width: 100%;
-  max-width: 450px;
   background-color: #ffffff;
   padding: 15px;
   border-radius: 4px;

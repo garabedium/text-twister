@@ -22,6 +22,7 @@ export const AnagramsData = [
   { anagram: 'really', id: 3, level_word: LevelWordsData[0].word },
   { anagram: 'real', id: 4, level_word: LevelWordsData[0].word },
   { anagram: 'are', id: 5, level_word: LevelWordsData[0].word },
+  { anagram: 'lay', id: 6, level_word: LevelWordsData[0].word },
 ];
 
 export const AnagramsByLevelWord = (anagrams) => {
