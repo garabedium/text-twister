@@ -15,7 +15,7 @@ export const ResetGame = {
 };
 
 export const LevelWordsData = [
-  { id: 1, word: 'really' },
+  { id: 1, word: 'really', used: false },
 ];
 
 export const AnagramsData = [
