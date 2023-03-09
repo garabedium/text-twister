@@ -3,7 +3,7 @@ import '../../../scss/app.scss';
 import isTouchDevice from 'is-touch-device';
 
 import {
-  GameStates, WordStates, ZipfDefaultMin, ZipfDefaultMax,
+  GameStates, WordStates, NextWordStates, ZipfDefaultMin, ZipfDefaultMax,
 } from '../../utils/constants';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
@@ -36,14 +36,9 @@ function App() {
   };
 
   const selectNextWord = () => {
-    const words = levelWords.map((word) => {
-      if (word.status === WordStates.current) {
-        word.status = WordStates.used;
-      } else if (word.status === WordStates.next) {
-        word.status = WordStates.current;
-      }
-      return word;
-    });
+    const words = levelWords.map((word) => ({
+      ...word, status: NextWordStates[word.status],
+    }));
     setLevelWords(words);
   };
 
