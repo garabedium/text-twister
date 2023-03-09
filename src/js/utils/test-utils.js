@@ -16,6 +16,7 @@ export const ResetGame = {
 
 export const LevelWordsData = [
   { id: 1, word: 'really', used: false },
+  { id: 2, word: 'broken', used: false },
 ];
 
 export const AnagramsData = [
@@ -23,6 +24,8 @@ export const AnagramsData = [
   { anagram: 'real', id: 4, level_word: LevelWordsData[0].word },
   { anagram: 'are', id: 5, level_word: LevelWordsData[0].word },
   { anagram: 'lay', id: 6, level_word: LevelWordsData[0].word },
+  { anagram: 'broken', id: 7, level_word: LevelWordsData[1].word },
+  { anagram: 'broke', id: 8, level_word: LevelWordsData[1].word },
 ];
 
 export const AnagramsByLevelWord = (anagrams) => {
