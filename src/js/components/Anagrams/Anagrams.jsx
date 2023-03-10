@@ -44,7 +44,10 @@ function Anagrams({ gameStatus, anagrams, levelWordText }) {
     );
   });
 
-  const anagramsCols = chunkAnagrams(anagramsList, 4).map((col, i) => (<ul key={i} className="anagram-column">{col}</ul>));
+  const anagramsCols = chunkAnagrams(anagramsList, 4).map((col, i) => {
+    const colKey = i;
+    return <ul key={colKey} className="anagram-column">{col}</ul>;
+  });
   const showAnagrams = anagramsCols.length;
 
   return showAnagrams ? (

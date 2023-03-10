@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import {
-  render, waitFor, screen, act, findByLabelText,
+  render, waitFor, screen, act,
 } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import {
