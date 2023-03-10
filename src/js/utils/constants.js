@@ -15,7 +15,7 @@ export const LevelWordLength = 6;
 export const ZipfDefaultMin = 4.5;
 export const ZipfDefaultMax = 6.5;
 
-export const TimeDev = 5;
+export const TimeDev = 10;
 export const TimeProd = 60;
 
 export const BaseDate = Date.now();
@@ -53,9 +53,18 @@ export const GameStates = {
   restart: 'restart', // player restarts from first level
 };
 
+// Available states for a Level Word:
 export const WordStates = {
   current: 'current',
   next: 'next',
+  used: 'used',
+};
+
+// Update word status based on current status
+// Left side is current status, right side is updated status
+export const NextWordStates = {
+  current: 'used',
+  next: 'current',
   used: 'used',
 };
 
