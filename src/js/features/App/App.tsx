@@ -20,7 +20,7 @@ function App() {
 
   const currentWord: LevelWord = levelWords
     .filter((word: LevelWord) => word.status === wordStates.current)[0];
-  const hasLevelWord = currentWord?.word;
+  const hasLevelWord = currentWord?.word !== undefined;
 
   // FUNCTIONS
   /// ////////////////////

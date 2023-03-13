@@ -31,6 +31,17 @@ export type NotificationType = {
   icon?: string,
 };
 
+export type ButtonProps = {
+  className?: string,
+  text?: string,
+  icon?: string
+};
+
+export type StartPageProps = {
+  updateGameStatus: (status: GameStatus) => void,
+  hasLevelWord: boolean
+};
+
 // type Player = {
 //   level: number,
 //   levelup: boolean,

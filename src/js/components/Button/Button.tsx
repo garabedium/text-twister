@@ -1,27 +1,25 @@
 import React, { ButtonHTMLAttributes } from 'react';
+import { ButtonProps } from '../../utils/types';
 
 import './Button.scss';
 
-type ButtonProps = {
-  className?: string, 
-  text?: string, 
-  icon?: string
-}
-
 function Button(props: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
-  
   const {
     text,
     className,
     icon,
     type = 'button',
-    ...moreProps
+    ...buttonProps
   } = props;
 
   return (
     <button
+      // https://github.com/jsx-eslint/eslint-plugin-react/issues/1846
+      // eslint-disable-next-line react/button-has-type
+      type={type}
       className={className}
-      {...moreProps}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...buttonProps}
     >
       {text}
       {icon && <i className={icon} />}
