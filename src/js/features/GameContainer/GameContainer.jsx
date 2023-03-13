@@ -8,8 +8,8 @@ import GameForm from '../../components/GameForm/GameForm';
 import Anagrams from '../../components/Anagrams/Anagrams';
 import Notification from '../../components/Notification/Notification';
 import {
-  Icons, GameStates, LevelWordLength, MinimumGuessLength,
-  Notifications, BaseDate, ScoreLabel, LevelLabel,
+  icons, gameStates, levelWordLength, minimumGuessLength,
+  notifications, baseDate, scoreLabel, levelLabel,
 } from '../../utils/constants';
 import { shuffleLetters, calcWordScore } from '../../utils/utils';
 import Button from '../../components/Button/Button';
@@ -22,7 +22,7 @@ function GameContainer({
   selectNextWord,
   isMobileDevice,
 }) {
-  const defaultNotification = Notifications[isMobileDevice ? 'default_mobile' : 'default'];
+  const defaultNotification = notifications[isMobileDevice ? 'default_mobile' : 'default'];
 
   const [player, setPlayer] = useState({
     score: 0,
@@ -37,7 +37,7 @@ function GameContainer({
   const { score, level, levelUp } = player;
   const { word: levelWordText } = currentWord;
   const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText] !== undefined;
-  const isGameActive = (gameStatus === GameStates.active);
+  const isGameActive = (gameStatus === gameStates.active);
   const restartButtonText = player.levelUp ? 'Next Level' : 'New Game';
   const usedLetters = gameLetters.filter((letter) => letter.used);
   const unusedLetters = gameLetters.filter((letter) => !letter.used);
@@ -62,7 +62,7 @@ function GameContainer({
     };
 
     setPlayer(playerState);
-    updateGameStatus(GameStates.active);
+    updateGameStatus(gameStates.active);
     updateGameNotification(defaultNotification);
   };
 
@@ -71,7 +71,7 @@ function GameContainer({
     if (isValid) {
       const playerState = {
         score: calcWordScore(word.length, score),
-        levelUp: (word.length === LevelWordLength || levelUp) ? true : levelUp,
+        levelUp: (word.length === levelWordLength || levelUp) ? true : levelUp,
       };
 
       const anagramsState = {
@@ -80,11 +80,11 @@ function GameContainer({
           [word]: { ...anagrams[levelWordText][word], solved: true },
         },
       };
-      updateGameNotification(Notifications.points);
+      updateGameNotification(notifications.points);
       setPlayer((prevState) => ({ ...prevState, ...playerState }));
       setAnagrams((prevState) => ({ ...prevState, ...anagramsState }));
     } else {
-      updateGameNotification(Notifications.validate_invalid);
+      updateGameNotification(notifications.validate_invalid);
     }
   };
 
@@ -94,7 +94,7 @@ function GameContainer({
     const used = usedLetters.map((letter) => ({ ...letter, updatedAt: letter.updatedAt }));
 
     const letters = used.concat(shuffled).map((obj, i) => {
-      const updatedAt = obj.updatedAt || BaseDate;
+      const updatedAt = obj.updatedAt || baseDate;
       return {
         id: i + 1, char: obj.char, used: obj.used, updatedAt,
       };
@@ -104,7 +104,7 @@ function GameContainer({
   };
 
   const handleClear = () => {
-    const letters = gameLetters.map((letter) => ({ ...letter, used: false, updatedAt: BaseDate }));
+    const letters = gameLetters.map((letter) => ({ ...letter, used: false, updatedAt: baseDate }));
     updateGameLetters(letters);
   };
 
@@ -125,9 +125,9 @@ function GameContainer({
   // Effects when levelWord changes
   useEffect(() => {
     // Don't shuffle the letters if when game state changes to paused:
-    if (gameStatus !== GameStates.paused) {
+    if (gameStatus !== gameStates.paused) {
       const letters = shuffleLetters(levelWordText).split('').map((char, index) => ({
-        id: index + 1, char, used: false, updatedAt: BaseDate,
+        id: index + 1, char, used: false, updatedAt: baseDate,
       }));
       setGameLetters(letters);
     }
@@ -137,8 +137,8 @@ function GameContainer({
 
   // Effects when gameStatus changes
   useEffect(() => {
-    if (gameStatus === GameStates.paused) {
-      const pauseNotification = (levelUp) ? Notifications.solved_level : Notifications.game_over;
+    if (gameStatus === gameStates.paused) {
+      const pauseNotification = (levelUp) ? notifications.solved_level : notifications.game_over;
       updateGameNotification(pauseNotification);
     }
   }, [gameStatus]);
@@ -148,8 +148,8 @@ function GameContainer({
       <div className="game-container">
 
         <div className="game-stats">
-          <GameStat icon="score" stat={score} label={ScoreLabel} />
-          <GameStat icon="level" stat={level} label={LevelLabel} />
+          <GameStat icon="score" stat={score} label={scoreLabel} />
+          <GameStat icon="level" stat={level} label={levelLabel} />
         </div>
 
         <Timer
@@ -190,16 +190,16 @@ function GameContainer({
                 text="Shuffle"
                 onClick={() => shuffleUnusedLetters()}
                 className="btn--secondary"
-                icon={`${Icons.spacebar} m-l5`}
-                disabled={unusedLetters.length < MinimumGuessLength}
+                icon={`${icons.spacebar} m-l5`}
+                disabled={unusedLetters.length < minimumGuessLength}
               />
               <Button
                 text="Submit"
                 className="btn--secondary"
-                icon={`${Icons.arrow_right} m-l5`}
+                icon={`${icons.arrow_right} m-l5`}
                 form="game-form"
                 type="submit"
-                disabled={usedLetters.length < MinimumGuessLength}
+                disabled={usedLetters.length < minimumGuessLength}
               />
             </>
           ) : (

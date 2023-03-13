@@ -2,7 +2,7 @@ import React from 'react';
 
 import './GuessMobile.scss';
 import Button from '../../components/Button/Button';
-import { Icons, BackspaceButtonText } from '../../utils/constants';
+import { icons, backspaceButtonText } from '../../utils/constants';
 
 function GuessMobile({ userGuess, handleBackspace }) {
   return (
@@ -14,9 +14,9 @@ function GuessMobile({ userGuess, handleBackspace }) {
       <Button
         className="btn--backspace"
         onClick={() => handleBackspace()}
-        icon={`${Icons.delete} ri-3x`}
+        icon={`${icons.delete} ri-3x`}
         disabled={userGuess?.length === 0}
-        aria-label={BackspaceButtonText}
+        aria-label={backspaceButtonText}
       />
     </div>
   );

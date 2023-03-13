@@ -1,8 +1,19 @@
-// type GameStates = {
-//   active: boolean,
-//   reset: boolean,
-//   started: boolean,
-// }
+export type GameStatus = 'inactive' | 'active' | 'paused' | 'restart';
+export type WordStatus = 'current' | 'next' | 'used';
+
+export type LevelWord = {
+  id: number,
+  word: string,
+  zipf_value: number,
+  status: WordStatus
+}
+
+export type Anagram = {
+  id: number,
+  anagram: string,
+  level_word: string,
+  solved: boolean,
+}
 
 // // type Notification = {} // should be a string
 
@@ -21,13 +32,6 @@
 //   letters: Letter[] // Letter array,
 // }
 
-// type Word = {
-//   id: number,
-//   used: boolean,
-//   word: string,
-//   zipf_value: number,
-//   solved: boolean
-// }
 
 // type Letter = {
 //   id: number,

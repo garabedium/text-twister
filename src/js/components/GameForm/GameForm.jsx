@@ -2,7 +2,7 @@ import React from 'react';
 import './GameForm.scss';
 
 import {
-  BaseDate, MinimumGuessLength, Notifications, GameInputLabel,
+  baseDate, minimumGuessLength, notifications, gameInputLabel,
 } from '../../utils/constants';
 import TextInput from '../TextInput/TextInput';
 import GuessMobile from '../../features/GuessMobile/GuessMobile';
@@ -42,15 +42,15 @@ function GameForm({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (userGuess.length >= MinimumGuessLength) {
+    if (userGuess.length >= minimumGuessLength) {
       if (isDuplicateSolve) {
-        updateGameNotification(Notifications.validate_dupe);
+        updateGameNotification(notifications.validate_dupe);
       } else {
         validateWord(userGuess);
       }
       handleClear();
     } else {
-      updateGameNotification(Notifications.validate_min);
+      updateGameNotification(notifications.validate_min);
     }
   };
 
@@ -58,7 +58,7 @@ function GameForm({
     const letters = [...gameLetters];
     const lastLetter = letters.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b));
     lastLetter.used = false;
-    lastLetter.updatedAt = BaseDate;
+    lastLetter.updatedAt = baseDate;
     updateGameLetters(letters);
   };
 
@@ -104,14 +104,14 @@ function GameForm({
           <TextInput
             autoFocus
             autoComplete="off"
-            placeholder={GameInputLabel}
+            placeholder={gameInputLabel}
             name="guess"
             value={userGuess}
             onKeyPress={handleInput}
             onKeyDown={handleInput}
             onChange={handleInput}
             className="game-guess"
-            aria-label={GameInputLabel}
+            aria-label={gameInputLabel}
           />
         )}
 

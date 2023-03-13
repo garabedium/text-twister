@@ -1,9 +1,9 @@
 import React from 'react';
 import './Instructions.scss';
-import { InstructionsContent } from '../../utils/constants';
+import { instructionsContent } from '../../utils/constants';
 
 function Instructions() {
-  const list = InstructionsContent.map((item) => (
+  const list = instructionsContent.map((item) => (
     <li key={item.icon}>
       <i className={item.icon} />
       {item.text}

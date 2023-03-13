@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GameStates } from '../../utils/constants';
+import { gameStates } from '../../utils/constants';
 import './Anagrams.scss';
 
 function Anagrams({ gameStatus, anagrams, levelWordText }) {
@@ -17,7 +17,7 @@ function Anagrams({ gameStatus, anagrams, levelWordText }) {
 
   const anagramsList = anagramsArray.map((a) => {
     // Show the solved anagram if users solves, or game round ends:
-    const showSolved = (a.solved || gameStatus === GameStates.paused);
+    const showSolved = (a.solved || gameStatus === gameStates.paused);
 
     // Split word into individual chars:
     const word = a.anagram.split('').map((char, i) => {

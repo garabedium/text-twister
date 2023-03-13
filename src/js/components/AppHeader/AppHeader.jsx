@@ -1,11 +1,11 @@
 import React from 'react';
-import { LogoText } from '../../utils/constants';
+import { logoText } from '../../utils/constants';
 import './AppHeader.scss';
 
 function AppHeader() {
   return (
     <header className="app-header">
-      <h1 className="app-logo">{LogoText}</h1>
+      <h1 className="app-logo">{logoText}</h1>
     </header>
   );
 }
