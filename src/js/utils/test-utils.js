@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import nock from 'nock';
-import { ApiRoutes } from './constants';
+import { apiRoutes } from './constants';
 
 export const ActiveGame = {
   active: true,
@@ -15,8 +15,8 @@ export const ResetGame = {
 };
 
 export const LevelWordsData = [
-  { id: 1, word: 'really', used: false },
-  { id: 2, word: 'broken', used: false },
+  { id: 1, word: 'really' },
+  { id: 2, word: 'broken' },
 ];
 
 export const AnagramsData = [
@@ -44,7 +44,7 @@ export const GameLettersData = () => {
 };
 
 export const nockGetRequest = (url, response) => {
-  nock(ApiRoutes.baseUrl)
+  nock(apiRoutes.baseUrl)
     .defaultReplyHeaders({
       'access-control-allow-origin': '*',
       'access-control-allow-credentials': 'true',

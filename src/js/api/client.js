@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { ApiRoutes } from '../utils/constants';
+import { apiRoutes } from '../utils/constants';
 
 const client = axios.create({
-  baseURL: ApiRoutes.baseUrl,
+  baseURL: apiRoutes.baseUrl,
 });
 
 export default client;

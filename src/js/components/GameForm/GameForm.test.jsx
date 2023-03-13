@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { GameInputLabel, BackspaceButtonText } from '../../utils/constants';
+import { gameInputLabel, backspaceButtonText } from '../../utils/constants';
 import {
   LevelWordsData, GameLettersData, AnagramsData, AnagramsByLevelWord,
 } from '../../utils/test-utils';
@@ -25,14 +25,14 @@ describe('Register component', () => {
 
   it('should show a text input if not on a mobile device', () => {
     renderGameForm();
-    const input = screen.getByLabelText(GameInputLabel);
+    const input = screen.getByLabelText(gameInputLabel);
     expect(input).toBeInTheDocument();
   });
 
   it('should load the guess mobile component if using a mobile device', () => {
     mobileDevice = true;
     renderGameForm();
-    const backspaceButton = screen.getByLabelText(BackspaceButtonText);
+    const backspaceButton = screen.getByLabelText(backspaceButtonText);
     expect(backspaceButton).toBeInTheDocument();
   });
 });

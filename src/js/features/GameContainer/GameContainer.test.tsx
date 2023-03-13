@@ -6,7 +6,7 @@ import {
 import user from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
-  GameStates, Notifications, ApiRoutes, GameInputLabel, BackspaceButtonText,
+  gameStates, notifications, apiRoutes, gameInputLabel, backspaceButtonText,
 } from '../../utils/constants';
 import { LevelWordsData, AnagramsData, nockGetRequest } from '../../utils/test-utils';
 import GameContainer from './GameContainer';
@@ -16,7 +16,7 @@ describe('GameContainer component', () => {
   let mobileDevice = false;
 
   const renderGameContainer = () => render(<GameContainer
-    gameStatus={GameStates.active}
+    gameStatus={gameStates.active}
     currentWord={LevelWordsData[0]}
     selectNextWord={() => null}
     updateGameStatus={() => null}
@@ -33,12 +33,12 @@ describe('GameContainer component', () => {
 
   it('should display the default notification', () => {
     renderGameContainer();
-    const defaultNotification = screen.getByText(Notifications.default.text);
+    const defaultNotification = screen.getByText(notifications.default.text);
     expect(defaultNotification).toBeInTheDocument();
   });
 
   it('should fetch the level word anagrams', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     const { container } = renderGameContainer();
 
     await waitFor(() => {
@@ -48,7 +48,7 @@ describe('GameContainer component', () => {
   });
 
   it('should not display the solved level word to the user', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     const { container } = renderGameContainer();
     const { word } = LevelWordsData[0];
     const letters = container.getElementsByClassName('letters')[0].textContent;
@@ -61,13 +61,13 @@ describe('GameContainer component', () => {
   });
 
   it('should disable unused letters that the user types', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     renderGameContainer();
 
     const guess = 'real';
 
     await waitFor(() => {
-      const input = screen.getByLabelText(GameInputLabel);
+      const input = screen.getByLabelText(gameInputLabel);
       user.type(input, guess);
       expect(input).toHaveValue(guess);
 
@@ -81,7 +81,7 @@ describe('GameContainer component', () => {
   });
 
   it('should disable an unused letter that the user clicks', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     renderGameContainer();
 
     const letterButton = screen.getByText(levelWord[0], { selector: 'button' });
@@ -92,48 +92,48 @@ describe('GameContainer component', () => {
   });
 
   it('should display a notification if the user submits a guess that does not meet the minimum required length', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     renderGameContainer();
 
     const guess = levelWord.substring(0, 2);
 
     await waitFor(() => {
-      const input = screen.getByLabelText(GameInputLabel);
+      const input = screen.getByLabelText(gameInputLabel);
       user.type(input, levelWord.substring(0, 1));
       user.type(input, levelWord.substring(1, 2));
       user.keyboard('{enter}');
 
       expect(input).toHaveValue(guess);
-      expect(screen.getByText(Notifications.validate_min.text)).toBeInTheDocument();
+      expect(screen.getByText(notifications.validate_min.text)).toBeInTheDocument();
     });
   });
 
   it('should display a notification if the user submits a guess that is an invalid word', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     renderGameContainer();
 
     const guess = levelWord.substring(3, 6);
 
     await waitFor(() => {
-      const input = screen.getByLabelText(GameInputLabel);
+      const input = screen.getByLabelText(gameInputLabel);
       user.type(input, guess[0]);
       user.type(input, guess[1]);
       user.type(input, guess[2]);
       user.keyboard('{enter}');
 
       expect(input).toHaveValue(guess);
-      expect(screen.getByText(Notifications.validate_invalid.text)).toBeInTheDocument();
+      expect(screen.getByText(notifications.validate_invalid.text)).toBeInTheDocument();
     });
   });
 
   it('should display a notification if the user solves a valid word', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     renderGameContainer();
 
     const guess = 'are';
 
     await waitFor(async () => {
-      const input = screen.getByLabelText(GameInputLabel);
+      const input = screen.getByLabelText(gameInputLabel);
       const submit = screen.getByText('Submit', { selector: 'button' });
 
       user.type(input, guess[0]);
@@ -142,20 +142,20 @@ describe('GameContainer component', () => {
 
       expect(input).toHaveValue(guess);
       user.click(submit);
-      expect(screen.getByText(Notifications.points.text)).toBeInTheDocument();
+      expect(screen.getByText(notifications.points.text)).toBeInTheDocument();
     });
   });
 
   it('should hide the input on a mobile device and display a backspace button', async () => {
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     mobileDevice = true;
     renderGameContainer();
 
     const guess = 'are';
 
     await waitFor(async () => {
-      const input = screen.queryByLabelText(GameInputLabel);
-      const backspace = screen.getByLabelText(BackspaceButtonText);
+      const input = screen.queryByLabelText(gameInputLabel);
+      const backspace = screen.getByLabelText(backspaceButtonText);
       expect(input).not.toBeInTheDocument();
       expect(backspace).toBeInTheDocument();
 
