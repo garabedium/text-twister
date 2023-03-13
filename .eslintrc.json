@@ -5,6 +5,7 @@
     "browser": true
   },
   "parserOptions": {
-    "ecmaVersion": 2020
+    "ecmaVersion": 2020,
+    "project": ["./tsconfig.json"]
   }
 }

@@ -18,7 +18,7 @@ export const zipfDefaultMax = 6.5;
 export const timeDev = 30;
 export const timeProd = 60;
 
-export const baseDate = Date.now();
+export const baseDate = new Date(Date.now());
 
 // TODO: I18n localization
 export const logoText = 'Text Twister';

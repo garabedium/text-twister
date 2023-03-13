@@ -6,16 +6,30 @@ export type LevelWord = {
   word: string,
   zipf_value: number,
   status: WordStatus
-}
+};
 
 export type Anagram = {
   id: number,
   anagram: string,
   level_word: string,
   solved: boolean,
-}
+};
 
-// // type Notification = {} // should be a string
+export type Letter = {
+  id: number,
+  char: string,
+  updatedAt: Date,
+  used: boolean,
+};
+
+export type AnagramsType = {
+  [key: string]: { [key: string]: Anagram }
+};
+
+export type NotificationType = {
+  text: string,
+  icon?: string,
+};
 
 // type Player = {
 //   level: number,
@@ -24,20 +38,3 @@ export type Anagram = {
 //   solved: [], //// Word array
 //   solvedAll: boolean,
 // }
-
-// type GameWord = {
-//   anagrams: [], // Anagram array
-//   current: string,
-//   status: 'current','used','next'
-//   letters: Letter[] // Letter array,
-// }
-
-
-// type Letter = {
-//   id: number,
-//   char: string,
-//   updatedAt: Date,
-//   used: boolean,
-// }
-
-// // type Words - Word array

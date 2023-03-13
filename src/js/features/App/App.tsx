@@ -18,7 +18,8 @@ function App() {
   const [gameStatus, setGameStatus] = useState(gameStates.inactive as GameStatus);
   const [levelWords, setLevelWords] = useState([] as LevelWord[]);
 
-  const currentWord: LevelWord = levelWords.filter((word: LevelWord) => word.status === wordStates.current)[0];
+  const currentWord: LevelWord = levelWords
+    .filter((word: LevelWord) => word.status === wordStates.current)[0];
   const hasLevelWord = currentWord?.word;
 
   // FUNCTIONS
@@ -38,7 +39,7 @@ function App() {
   };
 
   const selectNextWord = () => {
-    const words: LevelWord[] = levelWords.map((word: LevelWord) =>({
+    const words: LevelWord[] = levelWords.map((word: LevelWord) => ({
       ...word, status: nextwordStates[word.status] as WordStatus,
     }));
     setLevelWords(words);
