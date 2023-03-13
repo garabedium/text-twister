@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 
 import './Button.scss';
 
@@ -8,7 +8,8 @@ type ButtonProps = {
   icon?: string
 }
 
-function Button(props: ButtonProps & HTMLButtonElement) {
+function Button(props: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
+  
   const {
     text,
     className,
