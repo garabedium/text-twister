@@ -175,7 +175,6 @@ function GameContainer(props: GameContainerProps) {
             levelWordText={levelWordText}
             gameLetters={gameLetters}
             usedLetters={usedLetters}
-            unusedLetters={unusedLetters}
             updateGameLetters={updateGameLetters}
             updateGameNotification={updateGameNotification}
             shuffleUnusedLetters={shuffleUnusedLetters}
