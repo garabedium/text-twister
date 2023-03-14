@@ -3,8 +3,14 @@ import React from 'react';
 import './GuessMobile.scss';
 import Button from '../../components/Button/Button';
 import { icons, backspaceButtonText } from '../../utils/constants';
+import { GuessMobileProps } from '../../utils/types';
 
-function GuessMobile({ userGuess, handleBackspace }) {
+function GuessMobile(props: GuessMobileProps) {
+  const {
+    userGuess,
+    handleBackspace,
+  } = props;
+
   return (
     <div className="mobile-guess">
       <div className="mobile-letters">

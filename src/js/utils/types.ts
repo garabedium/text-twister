@@ -42,6 +42,17 @@ export type StartPageProps = {
   hasLevelWord: boolean
 };
 
+export type GuessMobileProps = {
+  userGuess: string,
+  handleBackspace: () => void;
+};
+
+export type AnagramsProps = {
+  gameStatus: GameStatus,
+  anagrams: AnagramsType,
+  levelWordText: string,
+};
+
 // type Player = {
 //   level: number,
 //   levelup: boolean,
