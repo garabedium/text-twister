@@ -1,4 +1,5 @@
 import React from 'react';
+import { GameFormProps, Letter } from '../../utils/types';
 import './GameForm.scss';
 
 import {
@@ -7,24 +8,26 @@ import {
 import TextInput from '../TextInput/TextInput';
 import GuessMobile from '../../features/GuessMobile/GuessMobile';
 
-function GameForm({
-  levelWordText,
-  gameLetters,
-  updateGameLetters,
-  updateGameNotification,
-  usedLetters,
-  shuffleUnusedLetters,
-  validateWord,
-  anagrams,
-  handleClear,
-  isMobileDevice,
-}) {
-  const userGuess = usedLetters.sort((a, b) => a.updatedAt - b.updatedAt).map((result) => result.char).join('');
+function GameForm(props: GameFormProps) {
+  const {
+    levelWordText,
+    gameLetters,
+    updateGameLetters,
+    updateGameNotification,
+    usedLetters,
+    shuffleUnusedLetters,
+    validateWord,
+    anagrams,
+    handleClear,
+    isMobileDevice,
+  } = props;
+
+  const userGuess = usedLetters.sort((a: Letter, b: Letter) => a.updatedAt - b.updatedAt).map((result) => result.char).join('');
   const solvedWords = Object.values(anagrams[levelWordText]).filter((anagram) => anagram.solved);
 
   const isDuplicateSolve = solvedWords.filter((word) => (word.anagram === userGuess)).length > 0;
 
-  const handleKeypress = (event) => {
+  const handleKeypress = (event: KeyboardEvent) => {
     const { key } = event;
     const letters = [...gameLetters];
     const foundLetter = letters.find((letter) => key === letter.char && !letter.used);
@@ -40,8 +43,10 @@ function GameForm({
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (event?: React.FormEvent) => {
+    // Event needed when form submitted from Submit button:
+    event?.preventDefault();
+
     if (userGuess.length >= minimumGuessLength) {
       if (isDuplicateSolve) {
         updateGameNotification(notifications.validate_dupe);
@@ -62,7 +67,7 @@ function GameForm({
     updateGameLetters(letters);
   };
 
-  const handleInput = (event) => {
+  const handleInput = (event: KeyboardEvent) => {
     if (event.type === 'keypress') {
       return handleKeypress(event);
     }
@@ -76,7 +81,7 @@ function GameForm({
     }
 
     if (event.type === 'keydown' && event.key === 'Enter') {
-      return handleSubmit(event);
+      return handleSubmit();
     }
 
     // Prevents cursor from moving left within the TextInput

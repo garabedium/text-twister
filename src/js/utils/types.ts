@@ -18,7 +18,7 @@ export type Anagram = {
 export type Letter = {
   id: number,
   char: string,
-  updatedAt: Date,
+  updatedAt: number,
   used: boolean,
 };
 
@@ -51,6 +51,19 @@ export type AnagramsProps = {
   gameStatus: GameStatus,
   anagrams: AnagramsType,
   levelWordText: string,
+};
+
+export type GameFormProps = {
+  levelWordText: string,
+  gameLetters: Letter[],
+  updateGameLetters: (letters: Letter[]) => void,
+  updateGameNotification: (notification: NotificationType) => void,
+  usedLetters: Letter[],
+  shuffleUnusedLetters: () => void,
+  validateWord: (word: string) => void,
+  anagrams: AnagramsType,
+  handleClear: () => void,
+  isMobileDevice: boolean,
 };
 
 // type Player = {

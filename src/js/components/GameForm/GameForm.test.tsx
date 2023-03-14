@@ -5,21 +5,26 @@ import { gameInputLabel, backspaceButtonText } from '../../utils/constants';
 import {
   LevelWordsData, GameLettersData, AnagramsData, AnagramsByLevelWord,
 } from '../../utils/test-utils';
+import { Letter } from '../../utils/types';
 import GameForm from './GameForm';
 
 describe('Register component', () => {
-  const gameLetters = GameLettersData();
+  const gameLetters = GameLettersData() as Letter[];
   const usedLetters = gameLetters.filter((letter) => letter.used);
-  const unusedLetters = gameLetters.filter((letter) => !letter.used);
+
   let mobileDevice = false;
   const renderGameForm = () => render(
     <GameForm
       levelWordText={LevelWordsData[0].word}
       gameLetters={gameLetters}
       usedLetters={usedLetters}
-      unusedLetters={unusedLetters}
       anagrams={AnagramsByLevelWord(AnagramsData)}
       isMobileDevice={mobileDevice}
+      updateGameLetters={() => null}
+      handleClear={() => null}
+      validateWord={() => null}
+      updateGameNotification={() => null}
+      shuffleUnusedLetters={() => null}
     />,
   );
 
