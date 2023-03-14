@@ -31,6 +31,14 @@ export type NotificationType = {
   icon?: string,
 };
 
+export type GameContainerProps = {
+  gameStatus: GameStatus,
+  currentWord: LevelWord,
+  updateGameStatus: (status: GameStatus) => GameStatus,
+  selectNextWord: () => LevelWord[],
+  isMobileDevice: boolean,
+};
+
 export type ButtonProps = {
   className?: string,
   text?: string,
@@ -64,6 +72,13 @@ export type GameFormProps = {
   anagrams: AnagramsType,
   handleClear: () => void,
   isMobileDevice: boolean,
+};
+
+export type GameLettersDisplayProps = {
+  isGameActive: boolean,
+  gameLetters?: Letter[],
+  word?: string,
+  updateGameLetters?: (letters: Letter[]) => void,
 };
 
 // type Player = {

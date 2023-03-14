@@ -15,8 +15,12 @@ export const ResetGame = {
 };
 
 export const LevelWordsData = [
-  { id: 1, word: 'really' },
-  { id: 2, word: 'broken' },
+  {
+    id: 1, word: 'really', zipf_value: 5.9, status: 'current',
+  },
+  {
+    id: 2, word: 'broken', zipf_value: 5.8, status: 'next',
+  },
 ];
 
 export const AnagramsData = [
