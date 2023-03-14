@@ -1,14 +1,20 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { gameStates, playText } from '../../utils/constants';
+import { playText } from '../../utils/constants';
 import { LevelWordsData, GameLettersData } from '../../utils/test-utils';
 import GameLettersDisplay from './GameLettersDisplay';
+import { Letter } from '../../utils/types';
 
 describe('Register component', () => {
+  const gameLetters = GameLettersData() as Letter[];
+
   it('should render the word', () => {
     const { container } = render(
-      <GameLettersDisplay word={playText} />,
+      <GameLettersDisplay
+        word={playText}
+        isGameActive={false}
+      />,
     );
     const letters = container.getElementsByClassName('letters')[0];
     expect(letters.textContent).toEqual(playText);
@@ -16,8 +22,9 @@ describe('Register component', () => {
   it('should render the game letters', () => {
     render(
       <GameLettersDisplay
-        gameLetters={GameLettersData()}
-        isGameActive={gameStates.active}
+        gameLetters={gameLetters}
+        isGameActive
+        updateGameLetters={() => null}
       />,
     );
     const { word } = LevelWordsData[0];
@@ -31,7 +38,7 @@ describe('Register component', () => {
     const { container } = render(
       <GameLettersDisplay
         word={playText}
-        gameLetters={GameLettersData()}
+        gameLetters={gameLetters}
         isGameActive={false}
       />,
     );

@@ -15,16 +15,8 @@ import { shuffleLetters, calcWordScore } from '../../utils/utils';
 import Button from '../../components/Button/Button';
 import LevelWordApi from '../../api/services/LevelWordApi';
 import {
-  AnagramsType, Anagram, GameStatus, LevelWord, Letter, NotificationType,
+  AnagramsType, Anagram, GameStatus, GameContainerProps, Letter, NotificationType,
 } from '../../utils/types';
-
-type GameContainerProps = {
-  gameStatus: GameStatus,
-  currentWord: LevelWord,
-  updateGameStatus: (status: GameStatus) => GameStatus,
-  selectNextWord: () => LevelWord[],
-  isMobileDevice: boolean,
-};
 
 function GameContainer(props: GameContainerProps) {
   const {

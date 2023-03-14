@@ -10,18 +10,21 @@ import {
 } from '../../utils/constants';
 import { LevelWordsData, AnagramsData, nockGetRequest } from '../../utils/test-utils';
 import GameContainer from './GameContainer';
+import { GameStatus, LevelWord } from '../../utils/types';
 
 describe('GameContainer component', () => {
   const levelWord = LevelWordsData[0].word;
   let mobileDevice = false;
 
-  const renderGameContainer = () => render(<GameContainer
-    gameStatus={gameStates.active}
-    currentWord={LevelWordsData[0]}
-    selectNextWord={() => null}
-    updateGameStatus={() => null}
-    isMobileDevice={mobileDevice}
-  />);
+  const renderGameContainer = () => render(
+    <GameContainer
+      gameStatus={gameStates.active as GameStatus}
+      currentWord={LevelWordsData[0] as LevelWord}
+      selectNextWord={jest.fn()}
+      updateGameStatus={jest.fn()}
+      isMobileDevice={mobileDevice}
+    />,
+  );
 
   it('should display the game controls', () => {
     renderGameContainer();
