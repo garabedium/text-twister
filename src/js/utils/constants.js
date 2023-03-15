@@ -1,13 +1,13 @@
 export const notifications = {
-  default: { text: 'Press Spacebar to shuffle. Press Enter to submit.' },
-  default_mobile: { text: 'Tap letter to use.' },
-  points: { text: 'Woohoo! Points! Keep Solving!', icon: 'star' },
-  validate_dupe: { text: 'You already solved that word!', icon: 'x' },
-  validate_min: { text: 'Words must be at least 3 letters!', icon: 'x' },
-  validate_invalid: { text: "That's not in our dictionary!", icon: 'x' },
-  solved_level: { text: 'You solved the 6 letter word! Next level solve!', icon: 'x' },
-  solved_all: { text: 'You solved all the words! Genius!' },
-  game_over: { text: 'Game Over' },
+  default: 'Press Spacebar to shuffle. Press Enter to submit.',
+  default_mobile: 'Tap letter to use.',
+  points: 'Woohoo! Points! Keep Solving!',
+  validate_dupe: 'You already solved that word!',
+  validate_min: 'Words must be at least 3 letters!',
+  validate_invalid: "That's not in our dictionary!",
+  solved_level: 'You solved the 6 letter word! Next level solve!',
+  solved_all: 'You solved all the words! Genius!',
+  game_over: 'Game Over',
 };
 
 export const levelWordLength = 6;

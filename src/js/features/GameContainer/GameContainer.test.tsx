@@ -36,7 +36,7 @@ describe('GameContainer component', () => {
 
   it('should display the default notification', () => {
     renderGameContainer();
-    const defaultNotification = screen.getByText(notifications.default.text);
+    const defaultNotification = screen.getByText(notifications.default);
     expect(defaultNotification).toBeInTheDocument();
   });
 
@@ -107,7 +107,7 @@ describe('GameContainer component', () => {
       user.keyboard('{enter}');
 
       expect(input).toHaveValue(guess);
-      expect(screen.getByText(notifications.validate_min.text)).toBeInTheDocument();
+      expect(screen.getByText(notifications.validate_min)).toBeInTheDocument();
     });
   });
 
@@ -125,7 +125,7 @@ describe('GameContainer component', () => {
       expect(input).toHaveValue(guess);
       user.click(submit);
 
-      expect(screen.getByText(notifications.validate_invalid.text)).toBeVisible();
+      expect(screen.getByText(notifications.validate_invalid)).toBeVisible();
     });
   });
 
@@ -143,7 +143,7 @@ describe('GameContainer component', () => {
 
       expect(input).toHaveValue(guess);
       user.click(submit);
-      expect(screen.getByText(notifications.points.text)).toBeInTheDocument();
+      expect(screen.getByText(notifications.points)).toBeInTheDocument();
     });
   });
 

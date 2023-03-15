@@ -47,9 +47,9 @@ describe('App component', () => {
       await user.click(playButton());
     });
 
-    expect(await screen.findByText(notifications.default.text)).toBeInTheDocument();
+    expect(await screen.findByText(notifications.default)).toBeInTheDocument();
     act(() => jest.advanceTimersByTime((timeDev + 1) * 1000));
-    expect(await screen.findByText(notifications.game_over.text)).toBeInTheDocument();
+    expect(await screen.findByText(notifications.game_over)).toBeInTheDocument();
   });
 
   it('should prompt the user to continue to the next level when the user solves the current level word', async () => {
@@ -72,11 +72,11 @@ describe('App component', () => {
 
       expect(input).toHaveValue(levelWord);
       user.click(submit);
-      expect(await screen.findByText(notifications.points.text)).toBeInTheDocument();
+      expect(await screen.findByText(notifications.points)).toBeInTheDocument();
     });
 
     act(() => jest.advanceTimersByTime((timeDev + 1) * 1000));
-    expect(await screen.findByText(notifications.solved_level.text)).toBeInTheDocument();
+    expect(await screen.findByText(notifications.solved_level)).toBeInTheDocument();
     expect(await screen.findByText('Next Level', { selector: 'button' })).toBeInTheDocument();
   });
 });

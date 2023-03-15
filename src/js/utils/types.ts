@@ -26,9 +26,8 @@ export type AnagramsType = {
   [key: string]: { [key: string]: Anagram }
 };
 
-export type NotificationType = {
-  text: string,
-  icon?: string,
+export type NotificationProps = {
+  text: string
 };
 
 export type GameContainerProps = {

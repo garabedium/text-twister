@@ -35,9 +35,9 @@ function GameContainer(props: GameContainerProps) {
     levelUp: false,
   });
 
-  const [gameLetters, setGameLetters] = useState([] as Letter[]);
-  const [anagrams, setAnagrams] = useState({} as AnagramsType);
-  const [notification, setNotification] = useState(defaultNotification as NotificationType);
+  const [gameLetters, setGameLetters] = useState<Letter[]>([]);
+  const [anagrams, setAnagrams] = useState<AnagramsType>({});
+  const [notification, setNotification] = useState<String>(defaultNotification);
 
   const { score, level, levelUp } = player;
   const { word: levelWordText } = currentWord;
@@ -185,7 +185,7 @@ function GameContainer(props: GameContainerProps) {
           />
         ) : null}
 
-        <Notification text={notification.text} />
+        <Notification text={notification} />
 
         <div className="game-controls">
           {isGameActive ? (
