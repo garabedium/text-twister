@@ -81,6 +81,24 @@ export type GameLettersDisplayProps = {
   updateGameLetters?: (letters: Letter[]) => void,
 };
 
+export type IconKeys = {
+  score: string,
+  level: string,
+  play_fill: string,
+  timer_flash: string,
+  funds: string,
+  warning: string,
+  spacebar: string,
+  arrow_right: string,
+  delete: string,
+};
+
+export type GameStatProps = {
+  icon: keyof IconKeys,
+  stat: number,
+  label: string,
+};
+
 // type Player = {
 //   level: number,
 //   levelup: boolean,
