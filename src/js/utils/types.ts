@@ -26,10 +26,6 @@ export type AnagramsType = {
   [key: string]: { [key: string]: Anagram }
 };
 
-// export type NotificationProps = {
-//   text: string
-// };
-
 export type NotificationKeys = {
   default: string,
   default_mobile: string,
@@ -42,8 +38,10 @@ export type NotificationKeys = {
   game_over: string,
 };
 
+export type NotificationKey = keyof NotificationKeys;
+
 export type NotificationProps = {
-  name: keyof NotificationKeys;
+  name: NotificationKey;
 };
 
 export type GameContainerProps = {
