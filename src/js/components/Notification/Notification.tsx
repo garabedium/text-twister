@@ -1,13 +1,16 @@
 import React from 'react';
 import { NotificationProps } from '../../utils/types';
+import { notifications } from '../../utils/constants';
+
 import './Notification.scss';
 
 function Notification(props: NotificationProps) {
-  const { text } = props;
+  const { name } = props;
+  const notification = notifications[name];
 
   return (
     <div className="notification">
-      {text}
+      {notification}
     </div>
   );
 }

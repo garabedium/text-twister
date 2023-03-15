@@ -8,14 +8,14 @@ import GameForm from '../../components/GameForm/GameForm';
 import Anagrams from '../../components/Anagrams/Anagrams';
 import Notification from '../../components/Notification/Notification';
 import {
-  icons, gameStates, levelWordLength, minimumGuessLength,
-  notifications, baseDate, scoreLabel, levelLabel,
+  icons, gameStates, levelWordLength, minimumGuessLength, 
+  baseDate, scoreLabel, levelLabel,
 } from '../../utils/constants';
 import { shuffleLetters, calcWordScore } from '../../utils/utils';
 import Button from '../../components/Button/Button';
 import LevelWordApi from '../../api/services/LevelWordApi';
 import {
-  AnagramsType, Anagram, GameStatus, GameContainerProps, Letter,
+  AnagramsType, Anagram, GameStatus, GameContainerProps, Letter, NotificationKeys
 } from '../../utils/types';
 
 function GameContainer(props: GameContainerProps) {
@@ -27,7 +27,7 @@ function GameContainer(props: GameContainerProps) {
     isMobileDevice,
   } = props;
 
-  const defaultNotification = notifications[isMobileDevice ? 'default_mobile' : 'default'];
+  const defaultNotification = isMobileDevice ? 'default_mobile' : 'default';
 
   const [player, setPlayer] = useState({
     score: 0,
@@ -37,7 +37,7 @@ function GameContainer(props: GameContainerProps) {
 
   const [gameLetters, setGameLetters] = useState<Letter[]>([]);
   const [anagrams, setAnagrams] = useState<AnagramsType>({});
-  const [notification, setNotification] = useState<string>(defaultNotification);
+  const [notification, setNotification] = useState<keyof NotificationKeys>(defaultNotification);
 
   const { score, level, levelUp } = player;
   const { word: levelWordText } = currentWord;
@@ -85,11 +85,11 @@ function GameContainer(props: GameContainerProps) {
           [word]: { ...anagrams[levelWordText][word], solved: true },
         },
       };
-      updateGameNotification(notifications.points);
+      updateGameNotification('points');
       setPlayer((prevState) => ({ ...prevState, ...playerState }));
       setAnagrams((prevState) => ({ ...prevState, ...anagramsState }));
     } else {
-      updateGameNotification(notifications.validate_invalid);
+      updateGameNotification('validate_invalid');
     }
   };
 
@@ -143,7 +143,7 @@ function GameContainer(props: GameContainerProps) {
   // Effects when gameStatus changes
   useEffect(() => {
     if (gameStatus === gameStates.paused) {
-      const pauseNotification = (levelUp) ? notifications.solved_level : notifications.game_over;
+      const pauseNotification = (levelUp) ? 'solved_level' : 'game_over';
       updateGameNotification(pauseNotification);
     }
   }, [gameStatus]);
@@ -185,7 +185,7 @@ function GameContainer(props: GameContainerProps) {
           />
         ) : null}
 
-        <Notification text={notification} />
+        <Notification name={notification} />
 
         <div className="game-controls">
           {isGameActive ? (

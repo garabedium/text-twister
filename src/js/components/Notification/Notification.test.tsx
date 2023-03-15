@@ -6,9 +6,7 @@ import Notification from './Notification';
 
 describe('Register Notification component', () => {
   it('should render the Notification text', () => {
-    const text = notifications.default;
-    render(<Notification text={text} />);
-    const notification = screen.getByText(text);
-    expect(notification).toBeInTheDocument();
+    render(<Notification name="default" />);
+    expect(screen.getByText(notifications.default)).toBeInTheDocument();
   });
 });
