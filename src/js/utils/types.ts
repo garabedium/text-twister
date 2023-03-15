@@ -33,7 +33,7 @@ export type NotificationProps = {
 export type GameContainerProps = {
   gameStatus: GameStatus,
   currentWord: LevelWord,
-  updateGameStatus: (status: GameStatus) => GameStatus,
+  updateGameStatus: (status: GameStatus) => void,
   selectNextWord: () => LevelWord[],
   isMobileDevice: boolean,
 };
@@ -42,6 +42,16 @@ export type ButtonProps = {
   className?: string,
   text?: string,
   icon?: string
+};
+
+export type TextInputProps = {
+  className?: string,
+};
+
+export type TimerProps = {
+  gameStatus: GameStatus,
+  updateGameStatus: (status: GameStatus) => void,
+  restartGame: () => void,
 };
 
 export type StartPageProps = {
@@ -97,6 +107,8 @@ export type GameStatProps = {
   stat: number,
   label: string,
 };
+
+export type TimerInterval = ReturnType<typeof setInterval> | undefined;
 
 // type Player = {
 //   level: number,
