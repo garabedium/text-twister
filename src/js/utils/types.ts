@@ -26,15 +26,28 @@ export type AnagramsType = {
   [key: string]: { [key: string]: Anagram }
 };
 
-export type NotificationType = {
-  text: string,
-  icon?: string,
+export type NotificationKeys = {
+  default: string,
+  default_mobile: string,
+  points: string,
+  validate_dupe: string,
+  validate_min: string,
+  validate_invalid: string,
+  solved_level: string,
+  solved_all: string,
+  game_over: string,
+};
+
+export type NotificationKey = keyof NotificationKeys;
+
+export type NotificationProps = {
+  name: NotificationKey;
 };
 
 export type GameContainerProps = {
   gameStatus: GameStatus,
   currentWord: LevelWord,
-  updateGameStatus: (status: GameStatus) => GameStatus,
+  updateGameStatus: (status: GameStatus) => void,
   selectNextWord: () => LevelWord[],
   isMobileDevice: boolean,
 };
@@ -43,6 +56,16 @@ export type ButtonProps = {
   className?: string,
   text?: string,
   icon?: string
+};
+
+export type TextInputProps = {
+  className?: string,
+};
+
+export type TimerProps = {
+  gameStatus: GameStatus,
+  updateGameStatus: (status: GameStatus) => void,
+  restartGame: () => void,
 };
 
 export type StartPageProps = {
@@ -81,10 +104,22 @@ export type GameLettersDisplayProps = {
   updateGameLetters?: (letters: Letter[]) => void,
 };
 
-// type Player = {
-//   level: number,
-//   levelup: boolean,
-//   score: number,
-//   solved: [], //// Word array
-//   solvedAll: boolean,
-// }
+export type IconKeys = {
+  score: string,
+  level: string,
+  play_fill: string,
+  timer_flash: string,
+  funds: string,
+  warning: string,
+  spacebar: string,
+  arrow_right: string,
+  delete: string,
+};
+
+export type GameStatProps = {
+  icon: keyof IconKeys,
+  stat: number,
+  label: string,
+};
+
+export type TimerInterval = ReturnType<typeof setInterval> | undefined;

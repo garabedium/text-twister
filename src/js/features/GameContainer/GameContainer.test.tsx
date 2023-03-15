@@ -36,7 +36,7 @@ describe('GameContainer component', () => {
 
   it('should display the default notification', () => {
     renderGameContainer();
-    const defaultNotification = screen.getByText(notifications.default.text);
+    const defaultNotification = screen.getByText(notifications.default);
     expect(defaultNotification).toBeInTheDocument();
   });
 
@@ -107,25 +107,25 @@ describe('GameContainer component', () => {
       user.keyboard('{enter}');
 
       expect(input).toHaveValue(guess);
-      expect(screen.getByText(notifications.validate_min.text)).toBeInTheDocument();
+      expect(screen.getByText(notifications.validate_min)).toBeInTheDocument();
     });
   });
 
-  it('should display a notification if the user submits a guess that is an invalid word', async () => {
+  it('should display a notification if the user submits an invalid word', async () => {
     nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     renderGameContainer();
 
-    const guess = levelWord.substring(3, 6);
+    const guess = 'lly';
 
-    await waitFor(() => {
+    await waitFor(async () => {
       const input = screen.getByLabelText(gameInputLabel);
-      user.type(input, guess[0]);
-      user.type(input, guess[1]);
-      user.type(input, guess[2]);
-      user.keyboard('{enter}');
+      const submit = screen.getByText('Submit', { selector: 'button' });
 
+      await user.type(input, guess);
       expect(input).toHaveValue(guess);
-      expect(screen.getByText(notifications.validate_invalid.text)).toBeInTheDocument();
+      user.click(submit);
+
+      expect(screen.getByText(notifications.validate_invalid)).toBeVisible();
     });
   });
 
@@ -139,13 +139,11 @@ describe('GameContainer component', () => {
       const input = screen.getByLabelText(gameInputLabel);
       const submit = screen.getByText('Submit', { selector: 'button' });
 
-      user.type(input, guess[0]);
-      user.type(input, guess[1]);
-      user.type(input, guess[2]);
+      await user.type(input, guess);
 
       expect(input).toHaveValue(guess);
       user.click(submit);
-      expect(screen.getByText(notifications.points.text)).toBeInTheDocument();
+      expect(screen.getByText(notifications.points)).toBeInTheDocument();
     });
   });
 

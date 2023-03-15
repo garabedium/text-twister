@@ -7,5 +7,8 @@
   "parserOptions": {
     "ecmaVersion": 2020,
     "project": ["./tsconfig.json"]
+  },
+  "rules": {
+    "import/named": "error"
   }
 }

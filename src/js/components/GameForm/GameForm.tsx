@@ -3,7 +3,7 @@ import { GameFormProps, Letter } from '../../utils/types';
 import './GameForm.scss';
 
 import {
-  baseDate, minimumGuessLength, notifications, gameInputLabel,
+  baseDate, minimumGuessLength, gameInputLabel,
 } from '../../utils/constants';
 import TextInput from '../TextInput/TextInput';
 import GuessMobile from '../../features/GuessMobile/GuessMobile';
@@ -49,13 +49,13 @@ function GameForm(props: GameFormProps) {
 
     if (userGuess.length >= minimumGuessLength) {
       if (isDuplicateSolve) {
-        updateGameNotification(notifications.validate_dupe);
+        updateGameNotification('validate_dupe');
       } else {
         validateWord(userGuess);
       }
       handleClear();
     } else {
-      updateGameNotification(notifications.validate_min);
+      updateGameNotification('validate_min');
     }
   };
 

@@ -1,8 +1,11 @@
 import React from 'react';
 import { icons } from '../../utils/constants';
+import { GameStatProps } from '../../utils/types';
 import './GameStat.scss';
 
-function GameStat({ icon, stat, label }) {
+function GameStat(props: GameStatProps) {
+  const { icon, stat, label } = props;
+
   const iconClass = `game-stat-icon ri-3x ${icons[icon]}`;
 
   return (
