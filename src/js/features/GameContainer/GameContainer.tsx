@@ -15,7 +15,7 @@ import { shuffleLetters, calcWordScore } from '../../utils/utils';
 import Button from '../../components/Button/Button';
 import LevelWordApi from '../../api/services/LevelWordApi';
 import {
-  AnagramsType, Anagram, GameStatus, GameContainerProps, Letter, NotificationType,
+  AnagramsType, Anagram, GameStatus, GameContainerProps, Letter,
 } from '../../utils/types';
 
 function GameContainer(props: GameContainerProps) {
@@ -37,7 +37,7 @@ function GameContainer(props: GameContainerProps) {
 
   const [gameLetters, setGameLetters] = useState<Letter[]>([]);
   const [anagrams, setAnagrams] = useState<AnagramsType>({});
-  const [notification, setNotification] = useState<String>(defaultNotification);
+  const [notification, setNotification] = useState<string>(defaultNotification);
 
   const { score, level, levelUp } = player;
   const { word: levelWordText } = currentWord;
@@ -53,7 +53,7 @@ function GameContainer(props: GameContainerProps) {
     setGameLetters(letters);
   };
 
-  const updateGameNotification = (gameNotification: NotificationType) => {
+  const updateGameNotification = (gameNotification: string) => {
     setNotification(gameNotification);
   };
 

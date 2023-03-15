@@ -109,11 +109,3 @@ export type GameStatProps = {
 };
 
 export type TimerInterval = ReturnType<typeof setInterval> | undefined;
-
-// type Player = {
-//   level: number,
-//   levelup: boolean,
-//   score: number,
-//   solved: [], //// Word array
-//   solvedAll: boolean,
-// }
