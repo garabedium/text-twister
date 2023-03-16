@@ -5,7 +5,7 @@ import {
   gameStates, icons, playButtonText, playText,
 } from '../../utils/constants';
 import Button from '../../components/Button/Button';
-import GameLettersDisplay from '../../components/GameLettersDisplay/GameLettersDisplay';
+import GameLetters from '../../components/GameLetters/GameLetters';
 import Instructions from '../../components/Instructions/Instructions';
 import { StartPageProps, GameStatus } from '../../utils/types';
 
@@ -25,7 +25,7 @@ function StartPage(props: StartPageProps) {
           aria-label={playButtonText}
         />
       </div>
-      <GameLettersDisplay
+      <GameLetters
         word={playText}
       />
       <Instructions />

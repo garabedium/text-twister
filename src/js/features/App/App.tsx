@@ -16,7 +16,7 @@ function App() {
   // STATE
   /// ////////////////////
   const [gameStatus, setGameStatus] = useState(gameStates.inactive as GameStatus);
-  const [levelWords, setLevelWords] = useState([] as LevelWord[]);
+  const [levelWords, setLevelWords] = useState<LevelWord[]>([]);
 
   const currentWord: LevelWord = levelWords
     .filter((word: LevelWord) => word.status === wordStates.current)[0];

@@ -48,7 +48,7 @@ export type GameContainerProps = {
   gameStatus: GameStatus,
   currentWord: LevelWord,
   updateGameStatus: (status: GameStatus) => void,
-  selectNextWord: () => LevelWord[],
+  selectNextWord: () => void,
   isMobileDevice: boolean,
 };
 
@@ -97,7 +97,7 @@ export type GameFormProps = {
   isMobileDevice: boolean,
 };
 
-export type GameLettersDisplayProps = {
+export type GameLettersProps = {
   isGameActive: boolean,
   gameLetters?: Letter[],
   word?: string,

@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { playText } from '../../utils/constants';
 import { LevelWordsData, GameLettersData } from '../../utils/test-utils';
-import GameLettersDisplay from './GameLettersDisplay';
+import GameLetters from './GameLetters';
 import { Letter } from '../../utils/types';
 
 describe('Register component', () => {
@@ -11,7 +11,7 @@ describe('Register component', () => {
 
   it('should render the word', () => {
     const { container } = render(
-      <GameLettersDisplay
+      <GameLetters
         word={playText}
         isGameActive={false}
       />,
@@ -21,7 +21,7 @@ describe('Register component', () => {
   });
   it('should render the game letters', () => {
     render(
-      <GameLettersDisplay
+      <GameLetters
         gameLetters={gameLetters}
         isGameActive
         updateGameLetters={() => null}
@@ -36,7 +36,7 @@ describe('Register component', () => {
   });
   it('should render the solved word if game is not active', () => {
     const { container } = render(
-      <GameLettersDisplay
+      <GameLetters
         word={playText}
         gameLetters={gameLetters}
         isGameActive={false}
