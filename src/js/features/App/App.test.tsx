@@ -5,15 +5,15 @@ import {
 } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import {
-  ApiRoutes, ZipfDefaultMin, ZipfDefaultMax, PlayButtonText, Notifications, TimeDev, GameInputLabel,
+  apiRoutes, zipfDefaultMin, zipfDefaultMax, playButtonText, notifications, timeDev, gameInputLabel,
 } from '../../utils/constants';
 import { nockGetRequest, LevelWordsData, AnagramsData } from '../../utils/test-utils';
 import App from './App';
 
 describe('App component', () => {
-  const playButton = () => screen.getByLabelText(PlayButtonText);
+  const playButton = () => screen.getByLabelText(playButtonText);
   const levelWord = LevelWordsData[0].word;
-  const levelWordRequest = `${ApiRoutes.levelWordRange}/${ZipfDefaultMin}&${ZipfDefaultMax}`;
+  const levelWordRequest = `${apiRoutes.levelWordRange}/${zipfDefaultMin}&${zipfDefaultMax}`;
   const levelWordRequestExclude = `${levelWordRequest}?&exclude=${levelWord}`;
 
   it('should load the play button', async () => {
@@ -39,7 +39,7 @@ describe('App component', () => {
   it('should show a Game Over notification if the user does not solve the level word', async () => {
     jest.useFakeTimers();
     nockGetRequest(levelWordRequest, LevelWordsData);
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     render(<App />);
 
     await waitFor(async () => {
@@ -47,16 +47,16 @@ describe('App component', () => {
       await user.click(playButton());
     });
 
-    expect(await screen.findByText(Notifications.default.text)).toBeInTheDocument();
-    act(() => jest.advanceTimersByTime((TimeDev + 1) * 1000));
-    expect(await screen.findByText(Notifications.game_over.text)).toBeInTheDocument();
+    expect(await screen.findByText(notifications.default)).toBeInTheDocument();
+    act(() => jest.advanceTimersByTime((timeDev + 1) * 1000));
+    expect(await screen.findByText(notifications.game_over)).toBeInTheDocument();
   });
 
   it('should prompt the user to continue to the next level when the user solves the current level word', async () => {
     jest.useFakeTimers();
     nockGetRequest(levelWordRequest, [LevelWordsData[0]]);
     nockGetRequest(levelWordRequestExclude, [LevelWordsData[1]]);
-    nockGetRequest(`${ApiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
     render(<App />);
 
     await waitFor(async () => {
@@ -65,18 +65,18 @@ describe('App component', () => {
     });
 
     await waitFor(async () => {
-      const input = screen.getByLabelText(GameInputLabel);
+      const input = screen.getByLabelText(gameInputLabel);
       const submit = screen.getByText('Submit', { selector: 'button' });
 
       await user.type(input, levelWord);
 
       expect(input).toHaveValue(levelWord);
       user.click(submit);
-      expect(await screen.findByText(Notifications.points.text)).toBeInTheDocument();
+      expect(await screen.findByText(notifications.points)).toBeInTheDocument();
     });
 
-    act(() => jest.advanceTimersByTime((TimeDev + 1) * 1000));
-    expect(await screen.findByText(Notifications.solved_level.text)).toBeInTheDocument();
+    act(() => jest.advanceTimersByTime((timeDev + 1) * 1000));
+    expect(await screen.findByText(notifications.solved_level)).toBeInTheDocument();
     expect(await screen.findByText('Next Level', { selector: 'button' })).toBeInTheDocument();
   });
 });

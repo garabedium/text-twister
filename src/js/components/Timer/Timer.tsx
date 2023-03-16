@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import {
-  TimeDev, TimeProd, IsDevEnv, IsTestEnv, Icons,
-  GameStates, PlayButtonText,
+  timeDev, timeProd, isDevEnv, isTestEnv, icons,
+  gameStates, playButtonText,
 } from '../../utils/constants';
 import './Timer.scss';
+import { TimerProps, GameStatus, TimerInterval } from '../../utils/types';
 import Button from '../Button/Button';
 
-function Timer({ gameStatus, updateGameStatus, restartGame }) {
-  const startTime = (IsDevEnv || IsTestEnv) ? TimeDev : TimeProd;
+function Timer(props: TimerProps) {
+  const { gameStatus, updateGameStatus, restartGame } = props;
+
+  const startTime = (isDevEnv || isTestEnv) ? timeDev : timeProd;
   const [seconds, setSeconds] = useState(startTime);
 
-  const isGameActive = (gameStatus === GameStates.active);
-  const isGamePaused = (gameStatus === GameStates.paused);
+  const isGameActive = (gameStatus === gameStates.active);
+  const isGamePaused = (gameStatus === gameStates.paused);
 
   // TODO: player.solvedAll, reset timer.
   useEffect(() => {
-    let interval = null;
+    let interval: TimerInterval;
 
     if (isGameActive && seconds >= 0) {
       interval = setInterval(() => {
@@ -23,7 +26,7 @@ function Timer({ gameStatus, updateGameStatus, restartGame }) {
       }, 1000);
     } else {
       clearInterval(interval);
-      updateGameStatus(GameStates.paused);
+      updateGameStatus(gameStates.paused as GameStatus);
     }
 
     return () => clearInterval(interval);
@@ -40,9 +43,9 @@ function Timer({ gameStatus, updateGameStatus, restartGame }) {
       <div className="game-timer">
         {isGamePaused ? (
           <Button
-            icon={`${Icons.play_fill} ri-2x`}
+            icon={`${icons.play_fill} ri-2x`}
             onClick={() => restartGame()}
-            aria-label={PlayButtonText}
+            aria-label={playButtonText}
           />
         ) : <span>{seconds}</span>}
       </div>

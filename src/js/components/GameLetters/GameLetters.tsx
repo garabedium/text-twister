@@ -1,21 +1,28 @@
 import React from 'react';
 import Button from '../Button/Button';
+import { GameLettersProps, Letter } from '../../utils/types';
+import './GameLetters.scss';
 
-import './GameLettersDisplay.scss';
+function GameLetters(props: GameLettersProps) {
+  const {
+    gameLetters,
+    word,
+    isGameActive,
+    updateGameLetters,
+  } = props;
 
-function GameLettersDisplay({
-  gameLetters, word, isGameActive, updateGameLetters,
-}) {
   let content = null;
 
-  const handleLetterClick = (clickedLetter) => {
-    const letters = [...gameLetters];
-    const foundLetter = letters.find((letter) => letter.id === clickedLetter.id);
+  const handleLetterClick = (clickedLetter: Letter) => {
+    if (gameLetters?.length && updateGameLetters) {
+      const letters = [...gameLetters];
+      const foundLetter = letters.find((letter) => letter.id === clickedLetter.id);
 
-    if (foundLetter !== undefined) {
-      foundLetter.used = true;
-      foundLetter.updatedAt = Date.now();
-      updateGameLetters(letters);
+      if (foundLetter !== undefined) {
+        foundLetter.used = true;
+        foundLetter.updatedAt = Date.now();
+        updateGameLetters(letters);
+      }
     }
   };
 
@@ -47,4 +54,4 @@ function GameLettersDisplay({
   );
 }
 
-export default GameLettersDisplay;
+export default GameLetters;

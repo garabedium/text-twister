@@ -1,11 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { PlayButtonText, PlayText } from '../../utils/constants';
+import { playButtonText, playText } from '../../utils/constants';
 import StartPage from './StartPage';
 
 describe('StartPage component', () => {
-  const playButton = () => screen.getByLabelText(PlayButtonText);
+  const playButton = () => screen.getByLabelText(playButtonText);
   it('displays a disabled start game button if no level word is present', () => {
     render(<StartPage hasLevelWord={false} updateGameStatus={() => null} />);
     expect(playButton()).toBeDisabled();
@@ -16,6 +16,6 @@ describe('StartPage component', () => {
   });
   it('displays the game word: play', () => {
     const { container } = render(<StartPage hasLevelWord updateGameStatus={() => null} />);
-    expect(container.getElementsByClassName('letters')[0].textContent).toBe(PlayText);
+    expect(container.getElementsByClassName('letters')[0].textContent).toBe(playText);
   });
 });

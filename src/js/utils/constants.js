@@ -1,40 +1,40 @@
-export const Notifications = {
-  default: { text: 'Press Spacebar to shuffle. Press Enter to submit.' },
-  default_mobile: { text: 'Tap letter to use.' },
-  points: { text: 'Woohoo! Points! Keep Solving!', icon: 'star' },
-  validate_dupe: { text: 'You already solved that word!', icon: 'x' },
-  validate_min: { text: 'Words must be at least 3 letters!', icon: 'x' },
-  validate_invalid: { text: "That's not in our dictionary!", icon: 'x' },
-  solved_level: { text: 'You solved the 6 letter word! Next level solve!', icon: 'x' },
-  solved_all: { text: 'You solved all the words! Genius!' },
-  game_over: { text: 'Game Over' },
+export const notifications = {
+  default: 'Press Spacebar to shuffle. Press Enter to submit.',
+  default_mobile: 'Tap letter to use.',
+  points: 'Woohoo! Points! Keep Solving!',
+  validate_dupe: 'You already solved that word!',
+  validate_min: 'Words must be at least 3 letters!',
+  validate_invalid: "That's not in our dictionary!",
+  solved_level: 'You solved the 6 letter word! Next level solve!',
+  solved_all: 'You solved all the words! Genius!',
+  game_over: 'Game Over',
 };
 
-export const LevelWordLength = 6;
+export const levelWordLength = 6;
 
-export const ZipfDefaultMin = 4.5;
-export const ZipfDefaultMax = 6.5;
+export const zipfDefaultMin = 4.5;
+export const zipfDefaultMax = 6.5;
 
-export const TimeDev = 10;
-export const TimeProd = 60;
+export const timeDev = 30;
+export const timeProd = 60;
 
-export const BaseDate = Date.now();
+export const baseDate = Date.now();
 
 // TODO: I18n localization
-export const LogoText = 'Text Twister';
-export const PlayButtonText = 'Start game';
-export const PlayText = 'play';
-export const BackspaceButtonText = 'Backspace';
-export const ScoreLabel = 'Game score';
-export const LevelLabel = 'Game level';
-export const GameInputLabel = 'Guess a word...';
+export const logoText = 'Text Twister';
+export const playButtonText = 'Start game';
+export const playText = 'play';
+export const backspaceButtonText = 'Backspace';
+export const scoreLabel = 'Game score';
+export const levelLabel = 'Game level';
+export const gameInputLabel = 'Guess a word...';
 
-export const IsDevEnv = (process.env.NODE_ENV === 'development');
-export const IsTestEnv = (process.env.NODE_ENV === 'test');
+export const isDevEnv = (process.env.NODE_ENV === 'development');
+export const isTestEnv = (process.env.NODE_ENV === 'test');
 
-export const MinimumGuessLength = 3;
+export const minimumGuessLength = 3;
 
-export const Icons = {
+export const icons = {
   score: 'ri-star-fill',
   level: 'ri-funds-line',
   play_fill: 'ri-play-fill',
@@ -46,7 +46,7 @@ export const Icons = {
   delete: 'ri-delete-back-2-line',
 };
 
-export const GameStates = {
+export const gameStates = {
   inactive: 'inactive', // game hasn't started yet
   active: 'active', // player is playing
   paused: 'paused', // player is between levels
@@ -54,7 +54,7 @@ export const GameStates = {
 };
 
 // Available states for a Level Word:
-export const WordStates = {
+export const wordStates = {
   current: 'current',
   next: 'next',
   used: 'used',
@@ -62,22 +62,22 @@ export const WordStates = {
 
 // Update word status based on current status
 // Left side is current status, right side is updated status
-export const NextWordStates = {
+export const nextwordStates = {
   current: 'used',
   next: 'current',
   used: 'used',
 };
 
-export const ApiRoutes = {
-  baseUrl: IsTestEnv ? 'http://localhost:3000/api' : '/api',
+export const apiRoutes = {
+  baseUrl: isTestEnv ? 'http://localhost:3000/api' : '/api',
   levelWordRange: '/levelWord/range',
   anagrams: '/levelWord/anagrams',
 };
 
-export const InstructionsContent = [
-  { text: 'Solve words before time runs out', icon: `${Icons.timer_flash} ri-3x` },
-  { text: 'Solve the 6 letter word to go to the next level', icon: `${Icons.funds} ri-3x` },
-  { text: 'Words must be a minimum of 3 letters', icon: `${Icons.warning} ri-3x` },
-  { text: 'Spacebar to shuffle words', icon: `${Icons.spacebar} ri-3x` },
-  { text: 'Enter to solve word', icon: `${Icons.arrow_right} ri-3x` },
+export const instructionsContent = [
+  { text: 'Solve words before time runs out', icon: `${icons.timer_flash} ri-3x` },
+  { text: 'Solve the 6 letter word to go to the next level', icon: `${icons.funds} ri-3x` },
+  { text: 'Words must be a minimum of 3 letters', icon: `${icons.warning} ri-3x` },
+  { text: 'Spacebar to shuffle words', icon: `${icons.spacebar} ri-3x` },
+  { text: 'Enter to solve word', icon: `${icons.arrow_right} ri-3x` },
 ];

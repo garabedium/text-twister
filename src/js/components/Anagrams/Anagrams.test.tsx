@@ -1,10 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { GameStates } from '../../utils/constants';
+import { gameStates } from '../../utils/constants';
 import {
   AnagramsByLevelWord, LevelWordsData, AnagramsData,
 } from '../../utils/test-utils';
+import { GameStatus } from '../../utils/types';
 import Anagrams from './Anagrams';
 
 describe('Register Anagrams component', () => {
@@ -13,7 +14,7 @@ describe('Register Anagrams component', () => {
   it('should not show the anagram if the word is unsolved and the game is active', () => {
     render(
       <Anagrams
-        gameStatus={GameStates.active}
+        gameStatus={gameStates.active as GameStatus}
         anagrams={AnagramsByLevelWord(AnagramsData)}
         levelWordText={levelWordText}
       />,
@@ -29,7 +30,7 @@ describe('Register Anagrams component', () => {
     const solvedAnagrams = AnagramsData.map((anagram) => ({ ...anagram, solved: true }));
     render(
       <Anagrams
-        gameStatus={GameStates.active}
+        gameStatus={gameStates.active as GameStatus}
         anagrams={AnagramsByLevelWord(solvedAnagrams)}
         levelWordText={levelWordText}
       />,
@@ -44,7 +45,7 @@ describe('Register Anagrams component', () => {
   it('should show the anagrams if the game is paused', () => {
     render(
       <Anagrams
-        gameStatus={GameStates.paused}
+        gameStatus={gameStates.paused as GameStatus}
         anagrams={AnagramsByLevelWord(AnagramsData)}
         levelWordText={levelWordText}
       />,
