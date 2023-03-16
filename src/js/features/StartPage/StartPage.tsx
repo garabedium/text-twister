@@ -27,6 +27,7 @@ function StartPage(props: StartPageProps) {
       </div>
       <GameLetters
         word={playText}
+        isGameActive={false}
       />
       <Instructions />
     </div>
