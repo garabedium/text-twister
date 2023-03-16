@@ -1,3 +1,5 @@
+import { notifications, scoreMultiples } from './constants';
+
 export type GameStatus = 'inactive' | 'active' | 'paused' | 'restart';
 export type WordStatus = 'current' | 'next' | 'used';
 
@@ -26,19 +28,7 @@ export type AnagramsType = {
   [key: string]: { [key: string]: Anagram }
 };
 
-export type NotificationKeys = {
-  default: string,
-  default_mobile: string,
-  points: string,
-  validate_dupe: string,
-  validate_min: string,
-  validate_invalid: string,
-  solved_level: string,
-  solved_all: string,
-  game_over: string,
-};
-
-export type NotificationKey = keyof NotificationKeys;
+export type NotificationKey = keyof typeof notifications;
 
 export type NotificationProps = {
   name: NotificationKey;
@@ -123,3 +113,7 @@ export type GameStatProps = {
 };
 
 export type TimerInterval = ReturnType<typeof setInterval> | undefined;
+
+export type ShuffleLetters = () => ShuffleLetters | string;
+
+export type ScoreWordLengthKey = keyof typeof scoreMultiples;

@@ -8,15 +8,17 @@ export const notifications = {
   solved_level: 'You solved the 6 letter word! Next level solve!',
   solved_all: 'You solved all the words! Genius!',
   game_over: 'Game Over',
-};
+} as const;
 
-export const levelWordLength = 6;
+export const levelWordLength = 6 as const;
 
-export const zipfDefaultMin = 4.5;
-export const zipfDefaultMax = 6.5;
+export const zipfDefaultMin = 4.5 as const;
+export const zipfDefaultMax = 6.5 as const;
 
-export const timeDev = 30;
-export const timeProd = 60;
+export const timeDev = 30 as const;
+export const timeProd = 60 as const;
+
+export const minimumGuessLength = 3 as const;
 
 export const baseDate = Date.now();
 
@@ -32,8 +34,6 @@ export const gameInputLabel = 'Guess a word...';
 export const isDevEnv = (process.env.NODE_ENV === 'development');
 export const isTestEnv = (process.env.NODE_ENV === 'test');
 
-export const minimumGuessLength = 3;
-
 export const icons = {
   score: 'ri-star-fill',
   level: 'ri-funds-line',
@@ -44,14 +44,14 @@ export const icons = {
   spacebar: 'ri-space',
   arrow_right: 'ri-arrow-right-line',
   delete: 'ri-delete-back-2-line',
-};
+} as const;
 
 export const gameStates = {
   inactive: 'inactive', // game hasn't started yet
   active: 'active', // player is playing
   paused: 'paused', // player is between levels
   restart: 'restart', // player restarts from first level
-};
+} as const;
 
 // Available states for a Level Word:
 export const wordStates = {
@@ -81,3 +81,10 @@ export const instructionsContent = [
   { text: 'Spacebar to shuffle words', icon: `${icons.spacebar} ri-3x` },
   { text: 'Enter to solve word', icon: `${icons.arrow_right} ri-3x` },
 ];
+
+export const scoreMultiples = {
+  3: 10,
+  4: 15,
+  5: 20,
+  6: 50,
+} as const;

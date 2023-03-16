@@ -95,7 +95,7 @@ function GameContainer(props: GameContainerProps) {
 
   const shuffleUnusedLetters = () => {
     const unused = unusedLetters.map((letter) => letter.char).join('');
-    const shuffled = shuffleLetters(unused).split('').map((char: string) => ({ char, used: false }));
+    const shuffled = shuffleLetters(unused, levelWordText).split('').map((char: string) => ({ char, used: false }));
     const used = usedLetters.map((letter) => ({ ...letter, updatedAt: letter.updatedAt }));
 
     const letters = used.concat(shuffled).map((obj, i) => {
