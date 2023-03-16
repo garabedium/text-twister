@@ -16,7 +16,7 @@ function App() {
   // STATE
   /// ////////////////////
   const [gameStatus, setGameStatus] = useState(gameStates.inactive as GameStatus);
-  const [levelWords, setLevelWords] = useState([] as LevelWord[]);
+  const [levelWords, setLevelWords] = useState<LevelWord[]>([]);
 
   const currentWord: LevelWord = levelWords
     .filter((word: LevelWord) => word.status === wordStates.current)[0];
@@ -32,6 +32,7 @@ function App() {
     const usedWords = levelWords.filter((word: LevelWord) => word.status !== wordStates.next).map((word: LevelWord) => `&exclude=${word.word}`).join('');
     const levelWord = await LevelWordApi.getByRange(zipfDefaultMin, zipfDefaultMax, usedWords)
       .then((response) => response.data[0]);
+
     // If no levelWords exist, the first one is automatically current:
     levelWord.status = (!levelWords.length) ? wordStates.current : wordStates.next;
 

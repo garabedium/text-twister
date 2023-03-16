@@ -3,7 +3,7 @@ import './GameContainer.scss';
 
 import GameStat from '../../components/GameStat/GameStat';
 import Timer from '../../components/Timer/Timer';
-import GameLettersDisplay from '../../components/GameLettersDisplay/GameLettersDisplay';
+import GameLetters from '../../components/GameLetters/GameLetters';
 import GameForm from '../../components/GameForm/GameForm';
 import Anagrams from '../../components/Anagrams/Anagrams';
 import Notification from '../../components/Notification/Notification';
@@ -163,7 +163,7 @@ function GameContainer(props: GameContainerProps) {
           restartGame={restartGame}
         />
 
-        <GameLettersDisplay
+        <GameLetters
           word={levelWordText}
           gameLetters={gameLetters}
           isGameActive={isGameActive}

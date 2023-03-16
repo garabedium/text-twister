@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '../Button/Button';
-import { GameLettersDisplayProps, Letter } from '../../utils/types';
-import './GameLettersDisplay.scss';
+import { GameLettersProps, Letter } from '../../utils/types';
+import './GameLetters.scss';
 
-function GameLettersDisplay(props: GameLettersDisplayProps) {
+function GameLetters(props: GameLettersProps) {
   const {
     gameLetters,
     word,
@@ -54,4 +54,4 @@ function GameLettersDisplay(props: GameLettersDisplayProps) {
   );
 }
 
-export default GameLettersDisplay;
+export default GameLetters;
