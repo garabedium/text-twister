@@ -1,12 +1,18 @@
 {
-  "extends": ["airbnb", "airbnb-typescript"],
+  "extends": [
+    "airbnb", 
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
   "env":{
     "jest": true,
     "browser": true
   },
   "parserOptions": {
     "ecmaVersion": 2020,
-    "project": ["./tsconfig.json"]
+    "project": ["./tsconfig.eslint.json"]
   },
   "rules": {
     "import/named": "error"
