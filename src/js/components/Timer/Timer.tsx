@@ -30,13 +30,13 @@ function Timer(props: TimerProps) {
     }
 
     return () => clearInterval(interval);
-  }, [seconds, isGameActive]);
+  }, [seconds, isGameActive, updateGameStatus]);
 
   useEffect(() => {
     if (isGamePaused) {
       setSeconds(startTime);
     }
-  }, [isGamePaused]);
+  }, [isGamePaused, setSeconds, startTime]);
 
   return (
     <div className="game-timer-row">

@@ -1,13 +1,15 @@
-import { notifications, scoreMultiples } from './constants';
+import {
+  notifications, scoreMultiples, icons, wordStates, gameStates,
+} from './constants';
 
-export type GameStatus = 'inactive' | 'active' | 'paused' | 'restart';
-export type WordStatus = 'current' | 'next' | 'used';
+export type GameStatus = keyof typeof gameStates;
+export type LevelWordStatus = keyof typeof wordStates;
 
 export type LevelWord = {
   id: number,
   word: string,
   zipf_value: number,
-  status: WordStatus
+  status: LevelWordStatus
 };
 
 export type Anagram = {
@@ -94,20 +96,8 @@ export type GameLettersProps = {
   updateGameLetters?: (letters: Letter[]) => void,
 };
 
-export type IconKeys = {
-  score: string,
-  level: string,
-  play_fill: string,
-  timer_flash: string,
-  funds: string,
-  warning: string,
-  spacebar: string,
-  arrow_right: string,
-  delete: string,
-};
-
 export type GameStatProps = {
-  icon: keyof IconKeys,
+  icon: keyof typeof icons,
   stat: number,
   label: string,
 };

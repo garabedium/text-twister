@@ -15,7 +15,7 @@ export const levelWordLength = 6 as const;
 export const zipfDefaultMin = 4.5 as const;
 export const zipfDefaultMax = 6.5 as const;
 
-export const timeDev = 30 as const;
+export const timeDev = 5 as const;
 export const timeProd = 60 as const;
 
 export const minimumGuessLength = 3 as const;

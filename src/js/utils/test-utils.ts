@@ -1,18 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import nock from 'nock';
 import { apiRoutes } from './constants';
-
-export const ActiveGame = {
-  active: true,
-  reset: false,
-  started: true,
-};
-
-export const ResetGame = {
-  active: false,
-  reset: true,
-  started: true,
-};
+import { Anagram, LevelWord } from './types';
 
 export const LevelWordsData = [
   {
@@ -32,7 +21,7 @@ export const AnagramsData = [
   { anagram: 'broke', id: 8, level_word: LevelWordsData[1].word },
 ];
 
-export const AnagramsByLevelWord = (anagrams) => {
+export const AnagramsByLevelWord = (anagrams: Anagram[]) => {
   const { word } = LevelWordsData[0];
   const result = { [word]: {} };
   anagrams.forEach((anagram) => {
@@ -47,7 +36,7 @@ export const GameLettersData = () => {
   return letters;
 };
 
-export const nockGetRequest = (url, response) => {
+export const nockGetRequest = (url: string, response: [LevelWord[]]) => {
   nock(apiRoutes.baseUrl)
     .defaultReplyHeaders({
       'access-control-allow-origin': '*',

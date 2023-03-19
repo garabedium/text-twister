@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState, useEffect,
+} from 'react';
 import '../../../scss/app.scss';
 import isTouchDevice from 'is-touch-device';
 
@@ -10,7 +12,7 @@ import StartPage from '../StartPage/StartPage';
 import LevelWordApi from '../../api/services/LevelWordApi';
 import GameContainer from '../GameContainer/GameContainer';
 
-import { GameStatus, LevelWord, WordStatus } from '../../utils/types';
+import { GameStatus, LevelWord, LevelWordStatus } from '../../utils/types';
 
 function App() {
   // STATE
@@ -21,6 +23,7 @@ function App() {
   const currentWord: LevelWord = levelWords
     .filter((word: LevelWord) => word.status === wordStates.current)[0];
   const hasLevelWord = currentWord?.word !== undefined;
+  const usedLevelWords = levelWords.filter((word: LevelWord) => word.status !== wordStates.next);
 
   // FUNCTIONS
   /// ////////////////////
@@ -28,38 +31,45 @@ function App() {
     setGameStatus(status);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getLevelWord = async () => {
-    const usedWords = levelWords.filter((word: LevelWord) => word.status !== wordStates.next).map((word: LevelWord) => `&exclude=${word.word}`).join('');
-    const levelWord = await LevelWordApi.getByRange(zipfDefaultMin, zipfDefaultMax, usedWords)
-      .then((response) => response.data[0]);
+    const excludedWords = usedLevelWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
+    const levelWord = await LevelWordApi.getByRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
 
     // If no levelWords exist, the first one is automatically current:
-    levelWord.status = (!levelWords.length) ? wordStates.current : wordStates.next;
+    const status = (!levelWords.length) ? wordStates.current : wordStates.next;
+    levelWord.status = status as LevelWordStatus;
 
     setLevelWords((prevState) => [...prevState, levelWord]);
   };
 
   const selectNextWord = () => {
     const words: LevelWord[] = levelWords.map((word: LevelWord) => ({
-      ...word, status: nextwordStates[word.status] as WordStatus,
+      ...word, status: nextwordStates[word.status] as LevelWordStatus,
     }));
     setLevelWords(words);
   };
 
-  // EFFECTS
-  /// ////////////////////
-  useEffect(() => {
+  const loadBodyClass = () => {
     setTimeout(() => {
       document.body.classList.add('--react-loaded');
     }, 250);
+  };
 
-    getLevelWord();
-  }, []);
+  // EFFECTS
+  /// ////////////////////
 
   useEffect(() => {
-    if (gameStatus === gameStates.paused) {
+    if (gameStatus === gameStates.inactive) {
+      loadBodyClass();
+    }
+    if (
+      gameStatus === gameStates.paused
+      || gameStatus === gameStates.inactive
+    ) {
       getLevelWord();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameStatus]);
 
   return (
