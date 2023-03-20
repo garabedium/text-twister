@@ -1,13 +1,18 @@
 import client from '../client';
 import { apiRoutes } from '../../utils/constants';
-import { LevelWord } from '../../utils/types';
+import { LevelWord, Anagram } from '../../utils/types';
 
-type ApiResponse<Arg> = Promise<Arg>;
+type ApiResponse<T> = Promise<T>;
 const LevelWordApi = {
-  getByRange: (min: number, max: number, usedWords: string) => client
-    .get<ApiResponse<LevelWord>>(`${apiRoutes.levelWordRange}/${min}&${max}?${usedWords}`)
+  getByRange: (min: number, max: number, excludeWords: string) => client
+  // Gets LevelWord by word frequency (zipf_value) min, max:
+    .get<ApiResponse<LevelWord>>(`${apiRoutes.levelWordRange}/${min}&${max}?${excludeWords}`)
     .then((response) => response.data),
-  getAnagrams: (word: string) => client.get(`${apiRoutes.anagrams}/${word}`),
+
+  // Gets Anagrams by LevelWord
+  getAnagrams: (word: string) => client
+    .get<ApiResponse<Anagram[]>>(`${apiRoutes.anagrams}/${word}`)
+    .then((response) => response.data),
 };
 
 export default LevelWordApi;

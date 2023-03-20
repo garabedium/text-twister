@@ -2,7 +2,7 @@ import { ShuffleLetters, ScoreWordLengthKey } from './types';
 import { scoreMultiples } from './constants';
 
 // Take in a word and shuffle the letters via Fisher-Yates algorithm
-export function shuffleLetters(letters: string, solvedWord?: string): ShuffleLetters | string {
+export function shuffleLetters(letters: string, solvedWord?: string): ShuffleLetters | string[] {
   const lettersArr = letters.split('');
   let shuffled = '';
 
@@ -20,7 +20,7 @@ export function shuffleLetters(letters: string, solvedWord?: string): ShuffleLet
     return shuffleLetters(letters);
   }
 
-  return shuffled;
+  return shuffled.split('');
 }
 
 export function calcWordScore(wordLength: number, score: number) {

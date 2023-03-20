@@ -36,7 +36,8 @@ function App() {
   const getLevelWord = async () => {
     // Avoid fetching words that have already been used:
     const excludedWords = usedLevelWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
-    const levelWord = await LevelWordApi.getByRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
+    const levelWord = await LevelWordApi
+      .getByRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
 
     // If no levelWords exist, the first one is automatically current:
     const status = (!levelWords.length) ? wordStates.current : wordStates.next;
@@ -69,7 +70,7 @@ function App() {
       getLevelWord();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameStatus]);
+  }, [isGamePaused, isGameInactive]);
 
   return (
     <>
