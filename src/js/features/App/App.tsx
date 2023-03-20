@@ -24,6 +24,8 @@ function App() {
     .filter((word: LevelWord) => word.status === wordStates.current)[0];
   const hasLevelWord = currentWord?.word !== undefined;
   const usedLevelWords = levelWords.filter((word: LevelWord) => word.status !== wordStates.next);
+  const isGameInactive = gameStatus === gameStates.inactive;
+  const isGamePaused = gameStatus === gameStates.paused;
 
   // FUNCTIONS
   /// ////////////////////
@@ -31,8 +33,8 @@ function App() {
     setGameStatus(status);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getLevelWord = async () => {
+    // Avoid fetching words that have already been used:
     const excludedWords = usedLevelWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
     const levelWord = await LevelWordApi.getByRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
 
@@ -60,13 +62,10 @@ function App() {
   /// ////////////////////
 
   useEffect(() => {
-    if (gameStatus === gameStates.inactive) {
+    if (isGameInactive) {
       loadBodyClass();
     }
-    if (
-      gameStatus === gameStates.paused
-      || gameStatus === gameStates.inactive
-    ) {
+    if (isGamePaused || isGameInactive) {
       getLevelWord();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,14 +75,14 @@ function App() {
     <>
       <AppHeader />
       <div className="app-container">
-        {gameStatus === gameStates.inactive
+        {isGameInactive
           && (
             <StartPage
               updateGameStatus={updateGameStatus}
               hasLevelWord={hasLevelWord}
             />
           )}
-        {gameStatus !== gameStates.inactive && hasLevelWord
+        {!isGameInactive && hasLevelWord
           && (
             <GameContainer
               gameStatus={gameStatus}
