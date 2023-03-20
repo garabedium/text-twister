@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './GameContainer.scss';
 
 import GameStat from '../../components/GameStat/GameStat';
@@ -95,7 +95,9 @@ function GameContainer(props: GameContainerProps) {
 
   const shuffleUnusedLetters = () => {
     const unused = unusedLetters.map((letter) => letter.char).join('');
-    const shuffled = shuffleLetters(unused).split('').map((char: string) => ({ char, used: false }));
+    const shuffledLetters = shuffleLetters(unused, levelWordText) as string[];
+    const shuffled = shuffledLetters.map((char: string) => ({ char, used: false })) as Letter[];
+
     const used = usedLetters.map((letter) => ({ ...letter, updatedAt: letter.updatedAt }));
 
     const letters = used.concat(shuffled).map((obj, i) => {
@@ -113,8 +115,8 @@ function GameContainer(props: GameContainerProps) {
     updateGameLetters(letters);
   };
 
-  const getAnagrams = async () => {
-    const result = await LevelWordApi.getAnagrams(levelWordText).then((response) => response.data);
+  const getAnagrams = useCallback(async () => {
+    const result: Anagram[] = await LevelWordApi.getAnagrams(levelWordText);
     const anagramsHash = { [levelWordText]: {} };
 
     result.forEach((anagram: Anagram) => {
@@ -122,31 +124,31 @@ function GameContainer(props: GameContainerProps) {
     });
 
     setAnagrams((prevState) => ({ ...prevState, ...anagramsHash }));
-  };
+  }, [levelWordText]);
 
   // EFFECTS
   /// ////////////////////
 
-  // Effects when levelWord changes
+  // When levelWord changes, set game letters and fetch anagrams:
   useEffect(() => {
-    // Don't shuffle the letters if when game state changes to paused:
+    // Only shuffle when the game is active (not paused):
     if (gameStatus !== gameStates.paused) {
-      const letters = shuffleLetters(levelWordText).split('').map((char: string, i: number) => ({
+      const shuffled = shuffleLetters(levelWordText) as string[];
+      const letters = shuffled.map((char: string, i: number) => ({
         id: i + 1, char, used: false, updatedAt: baseDate,
-      }));
+      })) as Letter[];
       setGameLetters(letters);
     }
-    // Fetch anagrams for current level word
     getAnagrams();
-  }, [levelWordText]);
+  }, [gameStatus, levelWordText, getAnagrams]);
 
-  // Effects when gameStatus changes
+  // When gameStatus changes, update Notification:
   useEffect(() => {
     if (gameStatus === gameStates.paused) {
       const pauseNotification = (levelUp) ? 'solved_level' : 'game_over';
       updateGameNotification(pauseNotification);
     }
-  }, [gameStatus]);
+  }, [gameStatus, levelUp]);
 
   return (
     <>
