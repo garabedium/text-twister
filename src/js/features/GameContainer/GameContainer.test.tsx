@@ -10,7 +10,7 @@ import {
 } from '../../utils/constants';
 import { LevelWordsData, AnagramsData, nockGetRequest } from '../../utils/test-utils';
 import GameContainer from './GameContainer';
-import { GameStatus, LevelWord } from '../../utils/types';
+import { Anagram, GameStatus, LevelWord } from '../../utils/types';
 
 describe('GameContainer component', () => {
   const levelWord = LevelWordsData[0].word;
@@ -69,9 +69,9 @@ describe('GameContainer component', () => {
 
     const guess = 'real';
 
-    await waitFor(() => {
+    await waitFor(async () => {
       const input = screen.getByLabelText(gameInputLabel);
-      user.type(input, guess);
+      await user.type(input, guess);
       expect(input).toHaveValue(guess);
 
       const letters = document.getElementsByClassName('letter --used');
@@ -84,27 +84,28 @@ describe('GameContainer component', () => {
   });
 
   it('should disable an unused letter that the user clicks', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData as Anagram[]);
     renderGameContainer();
 
     const letterButton = screen.getByText(levelWord[0], { selector: 'button' });
 
-    user.click(letterButton);
+    await user.click(letterButton);
     await act(async () => user.click(letterButton));
     expect(letterButton).toBeDisabled();
   });
 
   it('should display a notification if the user submits a guess that does not meet the minimum required length', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData as Anagram[]);
     renderGameContainer();
 
     const guess = levelWord.substring(0, 2);
 
-    await waitFor(() => {
+    await waitFor(async () => {
       const input = screen.getByLabelText(gameInputLabel);
-      user.type(input, levelWord.substring(0, 1));
-      user.type(input, levelWord.substring(1, 2));
-      user.keyboard('{enter}');
+
+      await user.type(input, levelWord.substring(0, 1));
+      await user.type(input, levelWord.substring(1, 2));
+      await user.keyboard('{enter}');
 
       expect(input).toHaveValue(guess);
       expect(screen.getByText(notifications.validate_min)).toBeInTheDocument();
@@ -112,7 +113,7 @@ describe('GameContainer component', () => {
   });
 
   it('should display a notification if the user submits an invalid word', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData as Anagram[]);
     renderGameContainer();
 
     const guess = 'lly';
@@ -123,7 +124,7 @@ describe('GameContainer component', () => {
 
       await user.type(input, guess);
       expect(input).toHaveValue(guess);
-      user.click(submit);
+      await user.click(submit);
 
       expect(screen.getByText(notifications.validate_invalid)).toBeVisible();
     });
@@ -140,9 +141,9 @@ describe('GameContainer component', () => {
       const submit = screen.getByText('Submit', { selector: 'button' });
 
       await user.type(input, guess);
-
       expect(input).toHaveValue(guess);
-      user.click(submit);
+
+      await user.click(submit);
       expect(screen.getByText(notifications.points)).toBeInTheDocument();
     });
   });
@@ -160,13 +161,13 @@ describe('GameContainer component', () => {
       expect(input).not.toBeInTheDocument();
       expect(backspace).toBeInTheDocument();
 
-      user.click(screen.getByText(guess[0], { selector: 'button' }));
-      user.click(screen.getByText(guess[1], { selector: 'button' }));
-      user.click(screen.getByText(guess[2], { selector: 'button' }));
+      await user.click(screen.getByText(guess[0], { selector: 'button' }));
+      await user.click(screen.getByText(guess[1], { selector: 'button' }));
+      await user.click(screen.getByText(guess[2], { selector: 'button' }));
 
       expect(screen.getByText(guess)).toBeInTheDocument();
 
-      user.click(backspace);
+      await user.click(backspace);
       expect(await screen.findByText(guess.substring(0, 2))).toBeInTheDocument();
     });
   });

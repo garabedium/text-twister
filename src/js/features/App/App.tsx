@@ -36,13 +36,11 @@ function App() {
   const getLevelWord = async () => {
     // Avoid fetching words that have already been used:
     const excludedWords = usedLevelWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
-    const levelWord = await LevelWordApi
-      .getByRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
+    const levelWord = await LevelWordApi.getByRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
 
     // If no levelWords exist, the first one is automatically current:
     const status = (!levelWords.length) ? wordStates.current : wordStates.next;
     levelWord.status = status as LevelWordStatus;
-
     setLevelWords((prevState) => [...prevState, levelWord]);
   };
 
@@ -66,6 +64,7 @@ function App() {
     if (isGameInactive) {
       loadBodyClass();
     }
+    // Fetch new level word on App init (gameInactive), and every time game pauses
     if (isGamePaused || isGameInactive) {
       getLevelWord();
     }

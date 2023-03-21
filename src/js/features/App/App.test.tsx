@@ -69,9 +69,9 @@ describe('App component', () => {
       const submit = screen.getByText('Submit', { selector: 'button' });
 
       await user.type(input, levelWord);
-
       expect(input).toHaveValue(levelWord);
-      user.click(submit);
+
+      await user.click(submit);
       expect(await screen.findByText(notifications.points)).toBeInTheDocument();
     });
 
