@@ -36,7 +36,7 @@ export const GameLettersData = () => {
   return letters;
 };
 
-export const nockGetRequest = (url: string, response: [LevelWord[]]) => {
+export const nockGetRequest = (url: string, response: LevelWord | Anagram[]) => {
   nock(apiRoutes.baseUrl)
     .defaultReplyHeaders({
       'access-control-allow-origin': '*',
