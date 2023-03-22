@@ -7,17 +7,17 @@ import user from '@testing-library/user-event';
 import {
   apiRoutes, zipfDefaultMin, zipfDefaultMax, playButtonText, notifications, timeDev, gameInputLabel,
 } from '../../utils/constants';
-import { nockGetRequest, LevelWordsData, AnagramsData } from '../../utils/test-utils';
+import { nockGetRequest, levelWordsData, anagramsData } from '../../utils/test-utils';
 import App from './App';
 
 describe('App component', () => {
   const playButton = () => screen.getByLabelText(playButtonText);
-  const levelWord = LevelWordsData[0].word;
+  const levelWord = levelWordsData[0].word;
   const levelWordRequest = `${apiRoutes.levelWordRange}/${zipfDefaultMin}&${zipfDefaultMax}`;
   const levelWordRequestExclude = `${levelWordRequest}?&exclude=${levelWord}`;
 
   it('should load the play button', async () => {
-    nockGetRequest(levelWordRequest, LevelWordsData[0]);
+    nockGetRequest(levelWordRequest, levelWordsData[0]);
     render(<App />);
 
     expect(playButton()).toBeDisabled();
@@ -38,8 +38,8 @@ describe('App component', () => {
 
   it('should show a Game Over notification if the user does not solve the level word', async () => {
     jest.useFakeTimers();
-    nockGetRequest(levelWordRequest, LevelWordsData[0]);
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(levelWordRequest, levelWordsData[0]);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData);
     render(<App />);
 
     await waitFor(async () => {
@@ -54,9 +54,9 @@ describe('App component', () => {
 
   it('should prompt the user to continue to the next level when the user solves the current level word', async () => {
     jest.useFakeTimers();
-    nockGetRequest(levelWordRequest, LevelWordsData[0]);
-    nockGetRequest(levelWordRequestExclude, LevelWordsData[1]);
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(levelWordRequest, levelWordsData[0]);
+    nockGetRequest(levelWordRequestExclude, levelWordsData[1]);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData);
     render(<App />);
 
     await waitFor(async () => {

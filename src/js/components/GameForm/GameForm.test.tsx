@@ -3,22 +3,23 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { gameInputLabel, backspaceButtonText } from '../../utils/constants';
 import {
-  LevelWordsData, GameLettersData, AnagramsData, AnagramsByLevelWord,
+  levelWordsData, gameLettersData, anagramsData,
 } from '../../utils/test-utils';
+import { anagramsByLevelWord } from '../../utils/utils';
 import { Letter } from '../../utils/types';
 import GameForm from './GameForm';
 
 describe('Register component', () => {
-  const gameLetters = GameLettersData() as Letter[];
+  const gameLetters = gameLettersData() as Letter[];
   const usedLetters = gameLetters.filter((letter) => letter.used);
 
   let mobileDevice = false;
   const renderGameForm = () => render(
     <GameForm
-      levelWordText={LevelWordsData[0].word}
+      levelWordText={levelWordsData[0].word}
       gameLetters={gameLetters}
       usedLetters={usedLetters}
-      anagrams={AnagramsByLevelWord(AnagramsData)}
+      anagrams={anagramsByLevelWord(anagramsData, levelWordsData[0].word)}
       isMobileDevice={mobileDevice}
       updateGameLetters={() => null}
       handleClear={() => null}
