@@ -11,7 +11,7 @@ import {
   icons, gameStates, levelWordLength, minimumGuessLength,
   baseDate, scoreLabel, levelLabel,
 } from '../../utils/constants';
-import { shuffleLetters, calcWordScore } from '../../utils/utils';
+import { shuffleLetters, calcWordScore, anagramsByLevelWord } from '../../utils/utils';
 import Button from '../../components/Button/Button';
 import LevelWordApi from '../../api/services/LevelWordApi';
 import {
@@ -117,12 +117,7 @@ function GameContainer(props: GameContainerProps) {
 
   const getAnagrams = useCallback(async () => {
     const result: Anagram[] = await LevelWordApi.getAnagrams(levelWordText);
-    const anagramsHash = { [levelWordText]: {} };
-
-    result.forEach((anagram: Anagram) => {
-      anagramsHash[levelWordText] = { ...anagramsHash[levelWordText], [anagram.anagram]: anagram };
-    });
-
+    const anagramsHash = anagramsByLevelWord(result, levelWordText);
     setAnagrams((prevState) => ({ ...prevState, ...anagramsHash }));
   }, [levelWordText]);
 

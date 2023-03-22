@@ -1,4 +1,4 @@
-import { ShuffleLetters, ScoreWordLengthKey } from './types';
+import { Anagram, ShuffleLetters, ScoreWordLengthKey } from './types';
 import { scoreMultiples } from './constants';
 
 // Take in a word and shuffle the letters via Fisher-Yates algorithm
@@ -25,4 +25,14 @@ export function shuffleLetters(letters: string, solvedWord?: string): ShuffleLet
 
 export function calcWordScore(wordLength: number, score: number) {
   return score + (wordLength * scoreMultiples[wordLength as ScoreWordLengthKey]);
+}
+
+export function anagramsByLevelWord(anagrams: Anagram[], levelWord: string) {
+  const levelWordAnagrams = { [levelWord]: {} };
+
+  anagrams.forEach((anagram: Anagram) => {
+    levelWordAnagrams[levelWord] = { ...levelWordAnagrams[levelWord], [anagram.anagram]: anagram };
+  });
+
+  return levelWordAnagrams;
 }

@@ -3,7 +3,7 @@ import nock from 'nock';
 import { apiRoutes } from './constants';
 import { Anagram, LevelWord } from './types';
 
-export const LevelWordsData = [
+export const levelWordsData = [
   {
     id: 1, word: 'really', zipf_value: 5.9, status: 'current',
   },
@@ -12,26 +12,29 @@ export const LevelWordsData = [
   },
 ];
 
-export const AnagramsData = [
-  { anagram: 'really', id: 3, level_word: LevelWordsData[0].word },
-  { anagram: 'real', id: 4, level_word: LevelWordsData[0].word },
-  { anagram: 'are', id: 5, level_word: LevelWordsData[0].word },
-  { anagram: 'lay', id: 6, level_word: LevelWordsData[0].word },
-  { anagram: 'broken', id: 7, level_word: LevelWordsData[1].word },
-  { anagram: 'broke', id: 8, level_word: LevelWordsData[1].word },
+export const anagramsData = [
+  {
+    anagram: 'really', id: 3, level_word: levelWordsData[0].word, solved: false,
+  },
+  {
+    anagram: 'real', id: 4, level_word: levelWordsData[0].word, solved: false,
+  },
+  {
+    anagram: 'are', id: 5, level_word: levelWordsData[0].word, solved: false,
+  },
+  {
+    anagram: 'lay', id: 6, level_word: levelWordsData[0].word, solved: false,
+  },
+  {
+    anagram: 'broken', id: 7, level_word: levelWordsData[1].word, solved: false,
+  },
+  {
+    anagram: 'broke', id: 8, level_word: levelWordsData[1].word, solved: false,
+  },
 ];
 
-export const AnagramsByLevelWord = (anagrams: Anagram[]) => {
-  const { word } = LevelWordsData[0];
-  const result = { [word]: {} };
-  anagrams.forEach((anagram) => {
-    result[word] = { ...result[word], [anagram.anagram]: anagram };
-  });
-  return result;
-};
-
-export const GameLettersData = () => {
-  const { word } = LevelWordsData[0];
+export const gameLettersData = () => {
+  const { word } = levelWordsData[0];
   const letters = word.split('').map((letter, i) => ({ id: i + 1, char: letter, used: false }));
   return letters;
 };

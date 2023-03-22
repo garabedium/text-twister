@@ -2,12 +2,12 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { playText } from '../../utils/constants';
-import { LevelWordsData, GameLettersData } from '../../utils/test-utils';
+import { levelWordsData, gameLettersData } from '../../utils/test-utils';
 import GameLetters from './GameLetters';
 import { Letter } from '../../utils/types';
 
 describe('Register component', () => {
-  const gameLetters = GameLettersData() as Letter[];
+  const gameLetters = gameLettersData() as Letter[];
 
   it('should render the word', () => {
     const { container } = render(
@@ -27,8 +27,8 @@ describe('Register component', () => {
         updateGameLetters={() => null}
       />,
     );
-    const { word } = LevelWordsData[0];
-    for (let i = 0; i < GameLettersData().length; i += 1) {
+    const { word } = levelWordsData[0];
+    for (let i = 0; i < gameLettersData().length; i += 1) {
       const letter = screen.getByTestId(`game-letter-${i + 1}`);
       expect(letter.textContent).toBe(word[i]);
       expect(letter).toBeEnabled();

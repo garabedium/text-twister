@@ -8,18 +8,18 @@ import { act } from 'react-dom/test-utils';
 import {
   gameStates, notifications, apiRoutes, gameInputLabel, backspaceButtonText,
 } from '../../utils/constants';
-import { LevelWordsData, AnagramsData, nockGetRequest } from '../../utils/test-utils';
+import { levelWordsData, anagramsData, nockGetRequest } from '../../utils/test-utils';
 import GameContainer from './GameContainer';
 import { Anagram, GameStatus, LevelWord } from '../../utils/types';
 
 describe('GameContainer component', () => {
-  const levelWord = LevelWordsData[0].word;
+  const levelWord = levelWordsData[0].word;
   let mobileDevice = false;
 
   const renderGameContainer = () => render(
     <GameContainer
       gameStatus={gameStates.active as GameStatus}
-      currentWord={LevelWordsData[0] as LevelWord}
+      currentWord={levelWordsData[0] as LevelWord}
       selectNextWord={jest.fn()}
       updateGameStatus={jest.fn()}
       isMobileDevice={mobileDevice}
@@ -41,19 +41,19 @@ describe('GameContainer component', () => {
   });
 
   it('should fetch the level word anagrams', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData);
     const { container } = renderGameContainer();
 
     await waitFor(() => {
       const anagrams = container.getElementsByClassName('anagram');
-      expect(anagrams.length).toEqual(AnagramsData.length);
+      expect(anagrams.length).toEqual(anagramsData.length);
     });
   });
 
   it('should not display the solved level word to the user', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData);
     const { container } = renderGameContainer();
-    const { word } = LevelWordsData[0];
+    const { word } = levelWordsData[0];
     const letters = container.getElementsByClassName('letters')[0].textContent;
     expect(letters).not.toEqual(word);
 
@@ -64,7 +64,7 @@ describe('GameContainer component', () => {
   });
 
   it('should disable unused letters that the user types', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData);
     renderGameContainer();
 
     const guess = 'real';
@@ -84,7 +84,7 @@ describe('GameContainer component', () => {
   });
 
   it('should disable an unused letter that the user clicks', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData as Anagram[]);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData as Anagram[]);
     renderGameContainer();
 
     const letterButton = screen.getByText(levelWord[0], { selector: 'button' });
@@ -95,7 +95,7 @@ describe('GameContainer component', () => {
   });
 
   it('should display a notification if the user submits a guess that does not meet the minimum required length', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData as Anagram[]);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData as Anagram[]);
     renderGameContainer();
 
     const guess = levelWord.substring(0, 2);
@@ -113,7 +113,7 @@ describe('GameContainer component', () => {
   });
 
   it('should display a notification if the user submits an invalid word', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData as Anagram[]);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData as Anagram[]);
     renderGameContainer();
 
     const guess = 'lly';
@@ -131,7 +131,7 @@ describe('GameContainer component', () => {
   });
 
   it('should display a notification if the user solves a valid word', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData);
     renderGameContainer();
 
     const guess = 'are';
@@ -149,7 +149,7 @@ describe('GameContainer component', () => {
   });
 
   it('should hide the input on a mobile device and display a backspace button', async () => {
-    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, AnagramsData);
+    nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData);
     mobileDevice = true;
     renderGameContainer();
 
