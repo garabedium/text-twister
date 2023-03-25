@@ -58,7 +58,7 @@ export const wordStates = {
   current: 'current',
   next: 'next',
   used: 'used',
-};
+} as const;
 
 // Update word status based on current status
 // Left side is current status, right side is updated status
@@ -66,13 +66,13 @@ export const nextwordStates = {
   current: 'used',
   next: 'current',
   used: 'used',
-};
+} as const;
 
 export const apiRoutes = {
   baseUrl: isTestEnv ? 'http://localhost:3000/api' : '/api',
   levelWordRange: '/levelWord/range',
   anagrams: '/levelWord/anagrams',
-};
+} as const;
 
 export const instructionsContent = [
   { text: 'Solve words before time runs out', icon: `${icons.timer_flash} ri-3x` },
@@ -80,7 +80,7 @@ export const instructionsContent = [
   { text: 'Words must be a minimum of 3 letters', icon: `${icons.warning} ri-3x` },
   { text: 'Spacebar to shuffle words', icon: `${icons.spacebar} ri-3x` },
   { text: 'Enter to solve word', icon: `${icons.arrow_right} ri-3x` },
-];
+] as const;
 
 export const scoreMultiples = {
   3: 10,
