@@ -13,7 +13,7 @@ import {
 } from '../../utils/constants';
 import { shuffleLetters, calcWordScore, anagramsByLevelWord } from '../../utils/utils';
 import Button from '../../components/Button/Button';
-import LevelWordApi from '../../api/services/LevelWordApi';
+import AnagramsApi from '../../api/services/AnagramsApi';
 import {
   AnagramsType, Anagram, GameStatus, GameContainerProps, Letter, NotificationKey,
 } from '../../utils/types';
@@ -115,10 +115,15 @@ function GameContainer(props: GameContainerProps) {
     updateGameLetters(letters);
   };
 
-  const getAnagrams = useCallback(async () => {
-    const result: Anagram[] = await LevelWordApi.getAnagrams(levelWordText);
-    const anagramsHash = anagramsByLevelWord(result, levelWordText);
-    setAnagrams((prevState) => ({ ...prevState, ...anagramsHash }));
+  const getAnagrams = useCallback(async (): Promise<void> => {
+    if (levelWordText) {
+      const result: Anagram[] | void = await AnagramsApi.getAnagrams(levelWordText);
+
+      if (result?.length) {
+        const anagramsHash = anagramsByLevelWord(result, levelWordText);
+        setAnagrams((prevState) => ({ ...prevState, ...anagramsHash }));
+      }
+    }
   }, [levelWordText]);
 
   // EFFECTS
@@ -134,6 +139,8 @@ function GameContainer(props: GameContainerProps) {
       })) as Letter[];
       setGameLetters(letters);
     }
+    // Promises resolved in service layer
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getAnagrams();
   }, [gameStatus, levelWordText, getAnagrams]);
 

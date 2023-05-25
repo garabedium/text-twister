@@ -80,7 +80,7 @@ export type GameFormProps = {
   levelWordText: string,
   gameLetters: Letter[],
   updateGameLetters: (letters: Letter[]) => void,
-  updateGameNotification: (notification: NotificationType) => void,
+  updateGameNotification: (notification: NotificationKey) => void,
   usedLetters: Letter[],
   shuffleUnusedLetters: () => void,
   validateWord: (word: string) => void,
@@ -107,3 +107,5 @@ export type TimerInterval = ReturnType<typeof setInterval> | undefined;
 export type ShuffleLetters = () => ShuffleLetters | string;
 
 export type ScoreWordLengthKey = keyof typeof scoreMultiples;
+
+export type ApiResponse<T> = Promise<T>;
