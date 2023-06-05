@@ -1,0 +1,66 @@
+@import '../../scss/utils/utils';
+
+.anagrams-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px auto 10px auto;
+  width: 90%;
+
+  .anagram-column {
+    margin: 0 15px 10px 0;
+    list-style: none;
+    padding: 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.anagram {
+  margin-bottom: 5px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .char {
+    background-color: rgba(255, 255, 255, .7);
+    margin: 0 1px 0 0;
+    display: inline-block;
+    font-size: 18px;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+    width: 25px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: transparent;
+    text-transform: uppercase;
+
+    &::selection {
+      color: transparent;
+    }
+  }
+
+  &.--show {
+    .char {
+      background-color: $white;
+      color: $black;
+
+      &::selection {
+        color: inherit;
+      }
+
+      &::transparent {
+        color: $black;
+      }
+    }
+  }
+
+  &.--solved {
+    .char {
+      background-color: yellow;
+    }
+  }
+}

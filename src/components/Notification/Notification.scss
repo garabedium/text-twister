@@ -1,0 +1,12 @@
+@import '../../scss/utils/utils';
+
+.notification {
+  margin: 15px auto;
+  background-color: $white;
+  padding: 15px;
+  border-radius: 4px;
+  color: $secondary-red;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
