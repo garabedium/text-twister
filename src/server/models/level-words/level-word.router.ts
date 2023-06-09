@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { LevelWord } from './level-word.interface';
+import { BaseLevelWord } from '../../../types/level-word.interface';
 import * as LevelWordModel from './level-word.model';
 
 const levelWordRouter = express.Router();
@@ -8,7 +8,7 @@ const levelWordRouter = express.Router();
 levelWordRouter.get('/:id', async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
   try {
-    const levelWord = await LevelWordModel.find(id) as LevelWord[];
+    const levelWord = await LevelWordModel.find(id) as BaseLevelWord[];
     res.status(200).send(levelWord);
   } catch (error) {
     if (error instanceof Error) {

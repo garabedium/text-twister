@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import express from 'express';
 import config from './src/config';
 import levelWordRouter from './src/server/models/level-words/level-word.router';
+import anagramRouter from './src/server/models/anagrams/anagram.router';
 /**
  * App Variables
  */
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/level-words', levelWordRouter);
+app.use('/api/anagrams', anagramRouter);
 
 /**
  * Activate Server
