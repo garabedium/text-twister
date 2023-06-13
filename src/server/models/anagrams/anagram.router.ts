@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { BaseAnagram } from '../../../types/anagram.interface';
-import anagramsByWord from './anagram.model';
+import * as AnagramModel from './anagram.model';
 
 const anagramRouter = express.Router();
 
@@ -8,7 +8,7 @@ const anagramRouter = express.Router();
 anagramRouter.get('/:word', async (req: Request, res: Response) => {
   const { word } = req.params;
   try {
-    const anagrams = await anagramsByWord(word) as BaseAnagram[];
+    const anagrams = await AnagramModel.findAllByLevelWord(word) as BaseAnagram[];
     res.status(200).send(anagrams);
   } catch (error) {
     if (error instanceof Error) {

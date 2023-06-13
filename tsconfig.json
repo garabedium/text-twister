@@ -25,15 +25,15 @@
     "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
     "noFallthroughCasesInSwitch": true // Report errors for fallthrough cases in switch statement
   },
+  // *** The files TypeScript should type check ***
   "include": [
-    "src/**/*" // *** The files TypeScript should type check ***
-  ],
+    "src/**/*"],
   "exclude": [
     "node_modules",
     "build"
   ], // *** The files to not type check ***
   "ts-node": {
     "esm": true,
-    "experimentalSpecifierResolution": "node"
+    "experimentalSpecifierResolution": "node",
   },
 }

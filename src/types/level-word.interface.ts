@@ -7,3 +7,11 @@ export interface BaseLevelWord {
 export interface LevelWord extends BaseLevelWord {
   status: string,
 }
+
+export type LevelWordRequestZipfRange = {
+  zipf: {
+    gte: string,
+    lte: string
+  },
+  exclude?: string,
+};
