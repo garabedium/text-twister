@@ -4,5 +4,6 @@
     "src/**/*.tsx",
     "src/**/*.ts",
     "src/**/*.js",
+    "server.ts",
   ]
 }
