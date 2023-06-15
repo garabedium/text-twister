@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { icons, scoreLabel, levelLabel } from '../../utils/constants';
+import { icons, scoreLabel, levelLabel } from '../../utils/constants.util';
 import GameStat from './GameStat';
 
 describe('Register GameStat component', () => {

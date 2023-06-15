@@ -1,13 +1,11 @@
 import client from './services.client';
-import { apiRoutes } from '../utils/constants';
-import { LevelWord, ApiResponse } from '../utils/types';
+import { apiRoutes } from '../utils/constants.util';
+import { LevelWord, ApiResponse } from '../utils/types.util';
 
 const LevelWordService = {
   // Gets LevelWord by its frequency (zipf_value):
-  getByZipfRange: (gte: number, lte: number, excludedWords: string) => client
-    .get<ApiResponse<LevelWord>>(
-    `${apiRoutes.levelWordRange}?zipf=[${gte}]&zipf=[${lte}]${excludedWords}`,
-  )
+  getByZipfRange: (query: string) => client
+    .get<ApiResponse<LevelWord>>(`${apiRoutes.levelWordRange}${query}`)
     .then((response) => response.data),
 };
 

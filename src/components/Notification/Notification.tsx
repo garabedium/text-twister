@@ -1,6 +1,6 @@
 import React from 'react';
-import { NotificationProps } from '../../utils/types';
-import { notifications } from '../../utils/constants';
+import { NotificationProps } from '../../utils/types.util';
+import { notifications } from '../../utils/constants.util';
 
 import './Notification.scss';
 

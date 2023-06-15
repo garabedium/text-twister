@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import {
   screen, render, act,
 } from '@testing-library/react';
-import { gameStates, playButtonText, timeDev } from '../../utils/constants';
+import { gameStates, playButtonText, timeDev } from '../../utils/constants.util';
 import Timer from './Timer';
 
 describe('Timer component', () => {

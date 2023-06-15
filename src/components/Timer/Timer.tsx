@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import {
   timeDev, timeProd, isDevEnv, isTestEnv, icons,
   gameStates, playButtonText,
-} from '../../utils/constants';
+} from '../../utils/constants.util';
 import './Timer.scss';
-import { TimerProps, GameStatus, TimerInterval } from '../../utils/types';
+import { TimerProps, GameStatus, TimerInterval } from '../../utils/types.util';
 import Button from '../Button/Button';
 
 function Timer(props: TimerProps) {

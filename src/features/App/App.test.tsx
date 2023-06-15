@@ -5,19 +5,21 @@ import {
 } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import {
-  apiRoutes, zipfDefaultMin, zipfDefaultMax, playButtonText, notifications, timeDev, gameInputLabel,
-} from '../../utils/constants';
-import { nockGetRequest, levelWordsData, anagramsData } from '../../utils/test-utils';
+  apiRoutes, playButtonText, notifications, timeDev, gameInputLabel, wordStates,
+} from '../../utils/constants.util';
+import { nockGetRequest, levelWordsData, anagramsData } from '../../utils/test.util';
 import App from './App';
+import { buildLevelWordZipfQuery } from '../../utils/methods.util';
+import { LevelWord } from '../../utils/types.util';
 
 describe('App component', () => {
   const playButton = () => screen.getByLabelText(playButtonText);
   const levelWord = levelWordsData[0].word;
-  const levelWordRequest = `${apiRoutes.levelWordRange}?zipf=[${zipfDefaultMin}]&zipf=[${zipfDefaultMax}]`;
-  const levelWordRequestExclude = `${levelWordRequest}&exclude=${levelWord}`;
+  const usedLevelWords = levelWordsData.filter((word) => word.status !== wordStates.next);
+  const levelWordRequest = (excludedWords = [] as LevelWord[]) => `${apiRoutes.levelWordRange}${buildLevelWordZipfQuery(excludedWords)}`;
 
   it('should load the play button', async () => {
-    nockGetRequest(levelWordRequest, levelWordsData[0]);
+    nockGetRequest(levelWordRequest(), levelWordsData[0]);
     render(<App />);
 
     expect(playButton()).toBeDisabled();
@@ -28,7 +30,7 @@ describe('App component', () => {
   });
 
   it('should not load the play button', async () => {
-    nockGetRequest(levelWordRequest, {
+    nockGetRequest(levelWordRequest(), {
       id: 1, word: '', zipf_value: 4, status: 'current',
     });
     render(<App />);
@@ -40,7 +42,7 @@ describe('App component', () => {
 
   it('should show a Game Over notification if the user does not solve the level word', async () => {
     jest.useFakeTimers();
-    nockGetRequest(levelWordRequest, levelWordsData[0]);
+    nockGetRequest(levelWordRequest(), levelWordsData[0]);
     nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData);
     render(<App />);
 
@@ -56,8 +58,8 @@ describe('App component', () => {
 
   it('should prompt the user to continue to the next level when the user solves the current level word', async () => {
     jest.useFakeTimers();
-    nockGetRequest(levelWordRequest, levelWordsData[0]);
-    nockGetRequest(levelWordRequestExclude, levelWordsData[1]);
+    nockGetRequest(levelWordRequest(), levelWordsData[0]);
+    nockGetRequest(levelWordRequest(usedLevelWords), levelWordsData[1]);
     nockGetRequest(`${apiRoutes.anagrams}/${levelWord}`, anagramsData);
     render(<App />);
 

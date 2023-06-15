@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes } from 'react';
-import { ButtonProps } from '../../utils/types';
+import { ButtonProps } from '../../utils/types.util';
 
 import './Button.scss';
 

@@ -7,10 +7,10 @@ import user from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
   gameStates, notifications, apiRoutes, gameInputLabel, backspaceButtonText,
-} from '../../utils/constants';
-import { levelWordsData, anagramsData, nockGetRequest } from '../../utils/test-utils';
+} from '../../utils/constants.util';
+import { levelWordsData, anagramsData, nockGetRequest } from '../../utils/test.util';
 import GameContainer from './GameContainer';
-import { Anagram, GameStatus, LevelWord } from '../../utils/types';
+import { Anagram, GameStatus, LevelWord } from '../../utils/types.util';
 
 describe('GameContainer component', () => {
   const levelWord = levelWordsData[0].word;

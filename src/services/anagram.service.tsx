@@ -1,6 +1,6 @@
 import client from './services.client';
-import { apiRoutes } from '../utils/constants';
-import { Anagram, ApiResponse } from '../utils/types';
+import { apiRoutes } from '../utils/constants.util';
+import { Anagram, ApiResponse } from '../utils/types.util';
 
 // TODO: log error to DB
 const AnagramService = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { notifications } from '../../utils/constants';
+import { notifications } from '../../utils/constants.util';
 import Notification from './Notification';
 
 describe('Register Notification component', () => {
