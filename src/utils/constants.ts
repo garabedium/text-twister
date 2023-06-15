@@ -71,7 +71,7 @@ export const nextwordStates = {
 export const apiRoutes = {
   baseUrl: isTestEnv ? 'http://localhost:3000/api' : '/api',
   levelWordRange: '/level-words/zipf-range',
-  anagrams: '/level-word/anagrams',
+  anagrams: '/anagrams',
 } as const;
 
 export const instructionsContent = [

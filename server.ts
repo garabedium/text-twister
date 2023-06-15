@@ -7,6 +7,7 @@ import path from 'path';
 import config from './src/config';
 import levelWordRouter from './src/server/models/level-words/level-word.router';
 import anagramRouter from './src/server/models/anagrams/anagram.router';
+
 /**
  * App Variables
  */
