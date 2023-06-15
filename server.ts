@@ -1,6 +1,5 @@
-// https://stackoverflow.com/questions/64721803/csp-error-while-serving-with-express-with-helmet-an-app-created-with-create-re
-// import cors from 'cors';
-// import helmet from 'helmet';
+import cors from 'cors';
+import helmet from 'helmet';
 
 import express, { Request, Response } from 'express';
 import path from 'path';
@@ -20,8 +19,8 @@ const appIndex = path.join(distDirPath, 'index.html');
  * App Config
  */
 
-// app.use(helmet());
-// app.use(cors());
+app.use(cors());
+app.use(helmet());
 
 // Parse requests as application/json:
 app.use(express.json());

@@ -51,6 +51,6 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin(['NODE_ENV']),
   ],
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
   mode: process.env.NODE_ENV,
 };
