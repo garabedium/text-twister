@@ -33,7 +33,7 @@ levelWordRouter.get('/zipf-range', async (
 
   try {
     const levelWord = await LevelWordModel
-      .findByZipfRange(zipfGte, zipfLte, excludeWords) as BaseLevelWord[];
+      .findByZipfRange(zipfGte, zipfLte, excludeWords) as BaseLevelWord;
 
     res.status(200).send(levelWord);
   } catch (error) {
@@ -55,10 +55,5 @@ levelWordRouter.get('/:id', async (req: Request, res: Response) => {
     }
   }
 });
-
-// range
-// /level-words/zipf-range/:start-:end
-// /level-words/zipf[gte]=1.2&zipf[lte]=4
-// levelWordRouter.get('')
 
 export default levelWordRouter;

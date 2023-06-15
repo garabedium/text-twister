@@ -15,3 +15,5 @@ export type LevelWordRequestZipfRange = {
   },
   exclude?: string,
 };
+
+export type EmptyObjectRecord = object;

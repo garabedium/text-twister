@@ -13,7 +13,7 @@ import {
 } from '../../utils/constants';
 import { shuffleLetters, calcWordScore, anagramsByLevelWord } from '../../utils/utils';
 import Button from '../../components/Button/Button';
-import AnagramsApi from '../../api/services/AnagramsApi';
+import AnagramService from '../../services/anagram.service';
 import {
   AnagramsType, Anagram, GameStatus, GameContainerProps, Letter, NotificationKey,
 } from '../../utils/types';
@@ -115,9 +115,9 @@ function GameContainer(props: GameContainerProps) {
     updateGameLetters(letters);
   };
 
-  const getAnagrams = useCallback(async (): Promise<void> => {
+  const getAllByLevelWord = useCallback(async (): Promise<void> => {
     if (levelWordText) {
-      const result: Anagram[] | void = await AnagramsApi.getAnagrams(levelWordText);
+      const result: Anagram[] | void = await AnagramService.getAllByLevelWord(levelWordText);
 
       if (result?.length) {
         const anagramsHash = anagramsByLevelWord(result, levelWordText);
@@ -141,8 +141,8 @@ function GameContainer(props: GameContainerProps) {
     }
     // Promises resolved in service layer
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getAnagrams();
-  }, [gameStatus, levelWordText, getAnagrams]);
+    getAllByLevelWord();
+  }, [gameStatus, levelWordText, getAllByLevelWord]);
 
   // When gameStatus changes, update Notification:
   useEffect(() => {

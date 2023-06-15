@@ -13,8 +13,8 @@ import App from './App';
 describe('App component', () => {
   const playButton = () => screen.getByLabelText(playButtonText);
   const levelWord = levelWordsData[0].word;
-  const levelWordRequest = `${apiRoutes.levelWordRange}/${zipfDefaultMin}&${zipfDefaultMax}`;
-  const levelWordRequestExclude = `${levelWordRequest}?&exclude=${levelWord}`;
+  const levelWordRequest = `${apiRoutes.levelWordRange}?zipf=[${zipfDefaultMin}]&zipf=[${zipfDefaultMax}]`;
+  const levelWordRequestExclude = `${levelWordRequest}&exclude=${levelWord}`;
 
   it('should load the play button', async () => {
     nockGetRequest(levelWordRequest, levelWordsData[0]);
@@ -28,7 +28,9 @@ describe('App component', () => {
   });
 
   it('should not load the play button', async () => {
-    nockGetRequest(levelWordRequest, { word: '' });
+    nockGetRequest(levelWordRequest, {
+      id: 1, word: '', zipf_value: 4, status: 'current',
+    });
     render(<App />);
 
     await waitFor(() => {
