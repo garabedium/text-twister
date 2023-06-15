@@ -9,7 +9,7 @@ import {
 } from '../../utils/constants';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
-import LevelWordApi from '../../api/services/LevelWordApi';
+import LevelWordService from '../../services/level-word.service';
 import GameContainer from '../GameContainer/GameContainer';
 
 import { GameStatus, LevelWord, LevelWordStatus } from '../../utils/types';
@@ -36,7 +36,8 @@ function App() {
   const getLevelWord = async () => {
     // Avoid fetching words that have already been used:
     const excludedWords = usedLevelWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
-    const levelWord = await LevelWordApi.getByRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
+    const levelWord = await LevelWordService
+      .getByZipfRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
 
     // If no levelWords exist, the first one is automatically current:
     const status = (!levelWords.length) ? wordStates.current : wordStates.next;
@@ -66,6 +67,7 @@ function App() {
     }
     // Fetch new level word on App init (gameInactive), and every time game pauses
     if (isGamePaused || isGameInactive) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       getLevelWord();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

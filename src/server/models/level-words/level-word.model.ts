@@ -1,5 +1,6 @@
+import { RowDataPacket } from 'mysql2';
 import db from '../../../config/database';
-import { BaseLevelWord } from '../../../types/level-word.interface';
+import { BaseLevelWord, EmptyObjectRecord } from '../../../types/level-word.interface';
 
 // eslint-disable-next-line import/prefer-default-export
 export const find = async (id: number) => new Promise((resolve, reject) => {
@@ -22,7 +23,12 @@ export const findByZipfRange = async (gte: number, lte: number, exclude: string)
 
     db.query(query, [gte, lte, exclude], (error, result) => {
       if (error) { reject(error); }
-      resolve(result as BaseLevelWord[]);
+      let record: BaseLevelWord | EmptyObjectRecord = {};
+
+      if (Array.isArray(result) && result.length > 0) {
+        record = result[0] as RowDataPacket[];
+      }
+      resolve(record);
     });
   },
 );
