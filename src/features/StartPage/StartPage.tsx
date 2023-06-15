@@ -3,11 +3,11 @@ import React from 'react';
 import './StartPage.scss';
 import {
   gameStates, icons, playButtonText, playText,
-} from '../../utils/constants';
+} from '../../utils/constants.util';
 import Button from '../../components/Button/Button';
 import GameLetters from '../../components/GameLetters/GameLetters';
 import Instructions from '../../components/Instructions/Instructions';
-import { StartPageProps, GameStatus } from '../../utils/types';
+import { StartPageProps, GameStatus } from '../../utils/types.util';
 
 function StartPage(props: StartPageProps) {
   const {

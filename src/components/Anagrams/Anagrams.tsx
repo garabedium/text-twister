@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { gameStates } from '../../utils/constants';
-import { AnagramsProps } from '../../utils/types';
+import { gameStates } from '../../utils/constants.util';
+import { AnagramsProps } from '../../utils/types.util';
 import './Anagrams.scss';
 
 function Anagrams(props: AnagramsProps) {
