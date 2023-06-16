@@ -11,8 +11,8 @@ import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
 import LevelWordService from '../../services/level-word.service';
 import GameContainer from '../GameContainer/GameContainer';
-
-import { GameStatus, LevelWord, LevelWordStatus } from '../../utils/types.util';
+import { GameStatus } from '../../types/game.interface';
+import { LevelWord, LevelWordStatus } from '../../types/level-word.interface';
 import { buildLevelWordZipfQuery } from '../../utils/methods.util';
 
 function App() {

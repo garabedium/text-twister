@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { gameStates } from '../../utils/constants.util';
 import { levelWordsData, anagramsData } from '../../utils/test.util';
 import { anagramsByLevelWord } from '../../utils/methods.util';
-import { GameStatus } from '../../utils/types.util';
+import { GameStatus } from '../../types/game.interface';
 import Anagrams from './Anagrams';
 
 describe('Register Anagrams component', () => {

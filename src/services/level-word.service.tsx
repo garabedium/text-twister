@@ -1,6 +1,7 @@
 import client from './services.client';
 import { apiRoutes } from '../utils/constants.util';
-import { LevelWord, ApiResponse } from '../utils/types.util';
+import { LevelWord } from '../types/level-word.interface';
+import { ApiResponse } from '../types/api.interface';
 
 const LevelWordService = {
   // Gets LevelWord by its frequency (zipf_value):

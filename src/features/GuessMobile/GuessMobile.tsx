@@ -3,7 +3,7 @@ import React from 'react';
 import './GuessMobile.scss';
 import Button from '../../components/Button/Button';
 import { icons, backspaceButtonText } from '../../utils/constants.util';
-import { GuessMobileProps } from '../../utils/types.util';
+import { GuessMobileProps } from '../../types/misc.types';
 
 function GuessMobile(props: GuessMobileProps) {
   const {

@@ -1,3 +1,7 @@
+import { wordStates } from '../utils/constants.util';
+
+export type LevelWordStatus = keyof typeof wordStates;
+
 export interface BaseLevelWord {
   id: number,
   word: string,
@@ -5,7 +9,7 @@ export interface BaseLevelWord {
 }
 
 export interface LevelWord extends BaseLevelWord {
-  status: string,
+  status: LevelWordStatus,
 }
 
 export type LevelWordRequestZipfRange = {

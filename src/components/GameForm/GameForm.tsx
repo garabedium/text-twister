@@ -1,5 +1,6 @@
 import React from 'react';
-import { GameFormProps, Letter } from '../../utils/types.util';
+import { GameFormProps } from '../../types/game-form.interface';
+import { Letter } from '../../types/letter.interface';
 import './GameForm.scss';
 
 import {
