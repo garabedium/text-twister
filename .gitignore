@@ -8,6 +8,7 @@ dist/index.html
 dist/path.js
 dist/main.css.map
 dist/main.js.map
+dist/main.js.LICENSE.txt
 /dist/path.js
 /dev.html
 /validate-json.js
