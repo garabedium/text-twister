@@ -4,7 +4,8 @@ import {
   gameStates, playButtonText,
 } from '../../utils/constants.util';
 import './Timer.scss';
-import { TimerProps, GameStatus, TimerInterval } from '../../utils/types.util';
+import { GameStatus } from '../../types/game.interface';
+import { TimerProps, TimerInterval } from '../../types/timer.interface';
 import Button from '../Button/Button';
 
 function Timer(props: TimerProps) {

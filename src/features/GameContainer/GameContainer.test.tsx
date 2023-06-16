@@ -10,7 +10,8 @@ import {
 } from '../../utils/constants.util';
 import { levelWordsData, anagramsData, nockGetRequest } from '../../utils/test.util';
 import GameContainer from './GameContainer';
-import { Anagram, GameStatus, LevelWord } from '../../utils/types.util';
+import { GameStatus } from '../../types/game.interface';
+import { Anagram } from '../../types/anagram.interface';
 
 describe('GameContainer component', () => {
   const levelWord = levelWordsData[0].word;
@@ -19,7 +20,7 @@ describe('GameContainer component', () => {
   const renderGameContainer = () => render(
     <GameContainer
       gameStatus={gameStates.active as GameStatus}
-      currentWord={levelWordsData[0] as LevelWord}
+      currentWord={levelWordsData[0]}
       selectNextWord={jest.fn()}
       updateGameStatus={jest.fn()}
       isMobileDevice={mobileDevice}

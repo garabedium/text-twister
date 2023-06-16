@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { TypedRequestQuery } from '../../../types/express/express.interface';
+import { TypedRequestQuery } from '../../../types/api.interface';
 import { BaseLevelWord, LevelWordRequestZipfRange } from '../../../types/level-word.interface';
 import { zipfDefaultMin, zipfDefaultMax } from '../../../utils/constants.util';
 import * as LevelWordModel from './level-word.model';

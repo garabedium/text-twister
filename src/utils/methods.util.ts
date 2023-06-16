@@ -1,6 +1,8 @@
 import {
-  Anagram, LevelWord, ShuffleLetters, ScoreWordLengthKey,
-} from './types.util';
+  ShuffleLetters, ScoreWordLengthKey,
+} from '../types/misc.types';
+import { Anagram } from '../types/anagram.interface';
+import { LevelWord } from '../types/level-word.interface';
 import { scoreMultiples, zipfDefaultMin, zipfDefaultMax } from './constants.util';
 
 // Take in a word and shuffle the letters via Fisher-Yates algorithm

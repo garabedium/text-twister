@@ -10,7 +10,7 @@ import {
 import { nockGetRequest, levelWordsData, anagramsData } from '../../utils/test.util';
 import App from './App';
 import { buildLevelWordZipfQuery } from '../../utils/methods.util';
-import { LevelWord } from '../../utils/types.util';
+import { LevelWord } from '../../types/level-word.interface';
 
 describe('App component', () => {
   const playButton = () => screen.getByLabelText(playButtonText);
