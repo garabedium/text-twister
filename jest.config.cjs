@@ -8,7 +8,7 @@ const config = {
     url: 'http://localhost:3000',
   },
   collectCoverage: true,
-  coveragePathIgnorePatterns: ['src/js/utils/test-utils.js'],
+  coveragePathIgnorePatterns: ['src/utils/test.utils.ts'],
   coverageReporters: ['html', 'text'],
 };
 
