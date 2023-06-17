@@ -1,7 +1,6 @@
-babel.config.js
-webpack.config.js
-config.js
-jest.config.js
+babel.config.cjs
+webpack.config.cjs
+jest.config.cjs
 coverage/
 _data/
 migrations/
