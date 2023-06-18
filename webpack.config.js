@@ -11,7 +11,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 module.exports = {
   entry: [
-    './src/js/react.tsx',
+    './src/react.tsx',
   ],
   output: {
     path: path.join(__dirname, 'dist'),
