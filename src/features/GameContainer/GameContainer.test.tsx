@@ -78,7 +78,9 @@ describe('GameContainer component', () => {
 
       for (let index = 0; index < letters.length; index += 1) {
         const testId = letters[index].getAttribute('data-testid');
-        expect(screen.getByTestId(testId)).toBeDisabled();
+        if (testId) {
+          expect(screen.getByTestId(testId)).toBeDisabled();
+        }
       }
     });
   });
