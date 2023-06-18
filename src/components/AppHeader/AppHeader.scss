@@ -1,0 +1,16 @@
+@import '../../scss/utils/utils';
+
+.app-header {
+  background-color: $primary-red;
+  padding: 10px 0;
+}
+
+.app-logo {
+  font-family: 'Merienda';
+  color: $white;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 1px 2px $black;
+  font-size: 1.75rem;
+  text-align: center;
+}
