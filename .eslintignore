@@ -5,3 +5,5 @@ coverage/
 _data/
 migrations/
 dist/
+__api/
+server_old.js

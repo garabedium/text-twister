@@ -12,7 +12,7 @@ function Timer(props: TimerProps) {
   const { gameStatus, updateGameStatus, restartGame } = props;
 
   const startTime = (isDevEnv || isTestEnv) ? timeDev : timeProd;
-  const [seconds, setSeconds] = useState(startTime);
+  const [seconds, setSeconds] = useState<number>(startTime);
 
   const isGameActive = (gameStatus === gameStates.active);
   const isGamePaused = (gameStatus === gameStates.paused);

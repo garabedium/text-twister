@@ -33,7 +33,13 @@ describe('Timer component', () => {
 
   it('should count down from a specific number to zero', async () => {
     jest.useFakeTimers();
-    render(<Timer gameStatus={gameStates.active} />);
+    render(
+      <Timer
+        gameStatus={gameStates.active}
+        updateGameStatus={() => null}
+        restartGame={() => null}
+      />,
+    );
 
     expect(screen.getByText(timeDev)).toBeInTheDocument();
     act(() => jest.advanceTimersByTime(timeDev * 1000));
