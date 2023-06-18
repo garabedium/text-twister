@@ -28,7 +28,7 @@ function GameForm(props: GameFormProps) {
 
   const isDuplicateSolve = solvedWords.filter((word) => (word.anagram === userGuess)).length > 0;
 
-  const handleKeypress = (event: KeyboardEvent) => {
+  const handleKeypress = (event: React.KeyboardEvent<HTMLElement>) => {
     const { key } = event;
     const letters = [...gameLetters];
     const foundLetter = letters.find((letter) => key === letter.char && !letter.used);
@@ -68,11 +68,7 @@ function GameForm(props: GameFormProps) {
     updateGameLetters(letters);
   };
 
-  const handleInput = (event: KeyboardEvent) => {
-    if (event.type === 'keypress') {
-      return handleKeypress(event);
-    }
-
+  const handleInput = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.type === 'keydown' && event.key === 'Backspace') {
       return handleBackspace();
     }
@@ -90,7 +86,7 @@ function GameForm(props: GameFormProps) {
       return event.preventDefault();
     }
 
-    return null;
+    return handleKeypress(event);
   };
 
   return (
@@ -109,13 +105,13 @@ function GameForm(props: GameFormProps) {
         ) : (
           <TextInput
             autoFocus
-            autoComplete="off"
             placeholder={gameInputLabel}
             name="guess"
-            value={userGuess}
-            onKeyPress={handleInput}
+            value={userGuess || ''}
             onKeyDown={handleInput}
-            onChange={handleInput}
+            // Used to supress console error about missing onChange event
+            // TODO: refactor to use event listeners, useEffect
+            onChange={() => {}}
             className="game-guess"
             aria-label={gameInputLabel}
           />

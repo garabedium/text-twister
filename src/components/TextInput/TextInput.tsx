@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInputProps } from '../../types/misc.types';
+import { TextInputProps } from '../../types/text-input.interface';
 import './TextInput.scss';
 
 function TextInput(props: TextInputProps) {

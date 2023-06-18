@@ -8,10 +8,6 @@ export type ButtonProps = {
   icon?: string
 };
 
-export type TextInputProps = {
-  className?: string,
-};
-
 export type GuessMobileProps = {
   userGuess: string,
   handleBackspace: () => void;
