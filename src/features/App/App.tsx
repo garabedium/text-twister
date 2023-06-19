@@ -5,7 +5,7 @@ import '../../scss/app.scss';
 import isTouchDevice from 'is-touch-device';
 
 import {
-  gameStates, wordStates, nextwordStates, zipfDefaultMin, zipfDefaultMax,
+  gameStates, wordStates, nextwordStates,
 } from '../../utils/constants.util';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
