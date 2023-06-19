@@ -1,4 +1,5 @@
-import { Anagram, ShuffleLetters, ScoreWordLengthKey } from '../types/types';
+import { Anagram } from '../types/anagram.interface';
+import { ShuffleLetters, ScoreWordLengthKey } from '../types/types';
 import { scoreMultiples } from './constants.util';
 
 // Take in a word and shuffle the letters via Fisher-Yates algorithm

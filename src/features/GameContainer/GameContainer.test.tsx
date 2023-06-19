@@ -10,7 +10,8 @@ import {
 } from '../../utils/constants.util';
 import { levelWordsData, anagramsData, nockGetRequest } from '../../utils/tests.util';
 import GameContainer from './GameContainer';
-import { Anagram, GameStatus, LevelWord } from '../../types/types';
+import { Anagram } from '../../types/anagram.interface';
+import { GameStatus, LevelWord } from '../../types/types';
 
 describe('GameContainer component', () => {
   const levelWord = levelWordsData[0].word;

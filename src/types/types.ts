@@ -1,3 +1,4 @@
+import { AnagramsHashMap } from './anagram.interface';
 import {
   notifications, scoreMultiples, icons, wordStates, gameStates,
 } from '../utils/constants.util';
@@ -12,22 +13,11 @@ export type LevelWord = {
   status: LevelWordStatus
 };
 
-export type Anagram = {
-  id: number,
-  anagram: string,
-  level_word: string,
-  solved: boolean,
-};
-
 export type Letter = {
   id: number,
   char: string,
   updatedAt: number,
   used: boolean,
-};
-
-export type AnagramsType = {
-  [key: string]: { [key: string]: Anagram }
 };
 
 export type NotificationKey = keyof typeof notifications;
@@ -72,7 +62,7 @@ export type GuessMobileProps = {
 
 export type AnagramsProps = {
   gameStatus: GameStatus,
-  anagrams: AnagramsType,
+  anagrams: AnagramsHashMap,
   levelWordText: string,
 };
 
@@ -84,7 +74,7 @@ export type GameFormProps = {
   usedLetters: Letter[],
   shuffleUnusedLetters: () => void,
   validateWord: (word: string) => void,
-  anagrams: AnagramsType,
+  anagrams: AnagramsHashMap,
   handleClear: () => void,
   isMobileDevice: boolean,
 };

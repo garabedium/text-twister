@@ -14,8 +14,9 @@ import {
 import { shuffleLetters, calcWordScore, anagramsByLevelWord } from '../../utils/utils';
 import Button from '../../components/Button/Button';
 import AnagramService from '../../services/anagram.service';
+import { Anagram, AnagramsHashMap } from '../../types/anagram.interface';
 import {
-  AnagramsType, Anagram, GameStatus, GameContainerProps, Letter, NotificationKey,
+  GameStatus, GameContainerProps, Letter, NotificationKey,
 } from '../../types/types';
 
 function GameContainer(props: GameContainerProps) {
@@ -36,7 +37,7 @@ function GameContainer(props: GameContainerProps) {
   });
 
   const [gameLetters, setGameLetters] = useState<Letter[]>([]);
-  const [anagrams, setAnagrams] = useState<AnagramsType>({});
+  const [anagrams, setAnagrams] = useState<AnagramsHashMap>({});
   const [notification, setNotification] = useState<NotificationKey>(defaultNotification);
 
   const { score, level, levelUp } = player;
