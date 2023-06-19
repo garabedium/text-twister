@@ -1,10 +1,10 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { playText } from '../../utils/constants';
-import { levelWordsData, gameLettersData } from '../../utils/test-utils';
+import { playText } from '../../utils/constants.util';
+import { levelWordsData, gameLettersData } from '../../utils/tests.util';
 import GameLetters from './GameLetters';
-import { Letter } from '../../utils/types';
+import { Letter } from '../../types/types';
 
 describe('Register component', () => {
   const gameLetters = gameLettersData() as Letter[];

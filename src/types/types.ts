@@ -1,6 +1,6 @@
 import {
   notifications, scoreMultiples, icons, wordStates, gameStates,
-} from './constants';
+} from '../utils/constants.util';
 
 export type GameStatus = keyof typeof gameStates;
 export type LevelWordStatus = keyof typeof wordStates;

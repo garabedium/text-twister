@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import AppHeader from './AppHeader';
-import { logoText } from '../../utils/constants';
+import { logoText } from '../../utils/constants.util';
 
 describe('Register component', () => {
   it('should render the AppHeader component', () => {

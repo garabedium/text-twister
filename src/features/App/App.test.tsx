@@ -6,8 +6,8 @@ import {
 import user from '@testing-library/user-event';
 import {
   apiRoutes, zipfDefaultMin, zipfDefaultMax, playButtonText, notifications, timeDev, gameInputLabel,
-} from '../../utils/constants';
-import { nockGetRequest, levelWordsData, anagramsData } from '../../utils/test-utils';
+} from '../../utils/constants.util';
+import { nockGetRequest, levelWordsData, anagramsData } from '../../utils/tests.util';
 import App from './App';
 
 describe('App component', () => {

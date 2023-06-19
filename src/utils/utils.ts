@@ -1,5 +1,5 @@
-import { Anagram, ShuffleLetters, ScoreWordLengthKey } from './types';
-import { scoreMultiples } from './constants';
+import { Anagram, ShuffleLetters, ScoreWordLengthKey } from '../types/types';
+import { scoreMultiples } from './constants.util';
 
 // Take in a word and shuffle the letters via Fisher-Yates algorithm
 export function shuffleLetters(letters: string, solvedWord?: string): ShuffleLetters | string[] {

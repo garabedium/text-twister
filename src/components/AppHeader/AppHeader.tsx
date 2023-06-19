@@ -1,5 +1,5 @@
 import React from 'react';
-import { logoText } from '../../utils/constants';
+import { logoText } from '../../utils/constants.util';
 import './AppHeader.scss';
 
 function AppHeader() {

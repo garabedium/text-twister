@@ -6,13 +6,13 @@ import isTouchDevice from 'is-touch-device';
 
 import {
   gameStates, wordStates, nextwordStates, zipfDefaultMin, zipfDefaultMax,
-} from '../../utils/constants';
+} from '../../utils/constants.util';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
 import LevelWordService from '../../services/level-word.service';
 import GameContainer from '../GameContainer/GameContainer';
 
-import { GameStatus, LevelWord, LevelWordStatus } from '../../utils/types';
+import { GameStatus, LevelWord, LevelWordStatus } from '../../types/types';
 
 function App() {
   // STATE

@@ -1,10 +1,10 @@
 import React from 'react';
-import { GameFormProps, Letter } from '../../utils/types';
+import { GameFormProps, Letter } from '../../types/types';
 import './GameForm.scss';
 
 import {
   baseDate, minimumGuessLength, gameInputLabel,
-} from '../../utils/constants';
+} from '../../utils/constants.util';
 import TextInput from '../TextInput/TextInput';
 import GuessMobile from '../../features/GuessMobile/GuessMobile';
 

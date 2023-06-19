@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { backspaceButtonText } from '../../utils/constants';
+import { backspaceButtonText } from '../../utils/constants.util';
 import GuessMobile from './GuessMobile';
 
 describe('GuessMobile component', () => {

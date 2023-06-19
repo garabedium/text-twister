@@ -1,6 +1,6 @@
 import React from 'react';
-import { icons } from '../../utils/constants';
-import { GameStatProps } from '../../utils/types';
+import { icons } from '../../utils/constants.util';
+import { GameStatProps } from '../../types/types';
 import './GameStat.scss';
 
 function GameStat(props: GameStatProps) {

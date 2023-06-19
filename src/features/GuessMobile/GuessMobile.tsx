@@ -2,8 +2,8 @@ import React from 'react';
 
 import './GuessMobile.scss';
 import Button from '../../components/Button/Button';
-import { icons, backspaceButtonText } from '../../utils/constants';
-import { GuessMobileProps } from '../../utils/types';
+import { icons, backspaceButtonText } from '../../utils/constants.util';
+import { GuessMobileProps } from '../../types/types';
 
 function GuessMobile(props: GuessMobileProps) {
   const {

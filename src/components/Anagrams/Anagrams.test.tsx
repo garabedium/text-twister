@@ -1,10 +1,10 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { gameStates } from '../../utils/constants';
-import { levelWordsData, anagramsData } from '../../utils/test-utils';
+import { gameStates } from '../../utils/constants.util';
+import { levelWordsData, anagramsData } from '../../utils/tests.util';
 import { anagramsByLevelWord } from '../../utils/utils';
-import { GameStatus } from '../../utils/types';
+import { GameStatus } from '../../types/types';
 import Anagrams from './Anagrams';
 
 describe('Register Anagrams component', () => {

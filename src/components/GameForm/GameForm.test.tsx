@@ -1,12 +1,12 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { gameInputLabel, backspaceButtonText } from '../../utils/constants';
+import { gameInputLabel, backspaceButtonText } from '../../utils/constants.util';
 import {
   levelWordsData, gameLettersData, anagramsData,
-} from '../../utils/test-utils';
+} from '../../utils/tests.util';
 import { anagramsByLevelWord } from '../../utils/utils';
-import { Letter } from '../../utils/types';
+import { Letter } from '../../types/types';
 import GameForm from './GameForm';
 
 describe('Register component', () => {
