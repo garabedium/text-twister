@@ -4,14 +4,15 @@ import {
   gameStates, playButtonText,
 } from '../../utils/constants.util';
 import './Timer.scss';
-import { TimerProps, GameStatus, TimerInterval } from '../../types/types';
+import { GameStatus } from '../../types/game.interface';
+import { TimerProps, TimerInterval } from '../../types/timer.interface';
 import Button from '../Button/Button';
 
 function Timer(props: TimerProps) {
   const { gameStatus, updateGameStatus, restartGame } = props;
 
   const startTime = (isDevEnv || isTestEnv) ? timeDev : timeProd;
-  const [seconds, setSeconds] = useState(startTime);
+  const [seconds, setSeconds] = useState<number>(startTime);
 
   const isGameActive = (gameStatus === gameStates.active);
   const isGamePaused = (gameStatus === gameStates.paused);

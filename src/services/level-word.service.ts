@@ -1,6 +1,7 @@
 import client from './services.client';
 import { apiRoutes } from '../utils/constants.util';
-import { LevelWord, ApiResponse } from '../types/types';
+import { LevelWord } from '../types/level-word.interface';
+import { ApiResponse } from '../types/types';
 
 const LevelWordService = {
   getByZipfRange: (min: number, max: number, excludeWords: string) => client

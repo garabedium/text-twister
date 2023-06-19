@@ -7,7 +7,8 @@ import {
 import Button from '../../components/Button/Button';
 import GameLetters from '../../components/GameLetters/GameLetters';
 import Instructions from '../../components/Instructions/Instructions';
-import { StartPageProps, GameStatus } from '../../types/types';
+import { GameStatus } from '../../types/game.interface';
+import { StartPageProps } from '../../types/start-page.interface';
 
 function StartPage(props: StartPageProps) {
   const {

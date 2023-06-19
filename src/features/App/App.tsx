@@ -11,8 +11,8 @@ import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
 import LevelWordService from '../../services/level-word.service';
 import GameContainer from '../GameContainer/GameContainer';
-
-import { GameStatus, LevelWord, LevelWordStatus } from '../../types/types';
+import { GameStatus } from '../../types/game.interface';
+import { LevelWord, LevelWordStatus } from '../../types/level-word.interface';
 
 function App() {
   // STATE
@@ -36,7 +36,7 @@ function App() {
   const getLevelWord = async () => {
     // Avoid fetching words that have already been used:
     const excludedWords = usedLevelWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
-    const levelWord = await LevelWordService
+    const levelWord: LevelWord = await LevelWordService
       .getByZipfRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
 
     // If no levelWords exist, the first one is automatically current:

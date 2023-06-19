@@ -1,5 +1,5 @@
 import React from 'react';
-import { NotificationProps } from '../../types/types';
+import { NotificationProps } from '../../types/notification.interface';
 import { notifications } from '../../utils/constants.util';
 
 import './Notification.scss';
