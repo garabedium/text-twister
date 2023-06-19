@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { gameStates } from '../../utils/constants.util';
 import { levelWordsData, anagramsData } from '../../utils/tests.util';
-import { anagramsByLevelWord } from '../../utils/utils';
+import { anagramsByLevelWord } from '../../utils/methods.util';
 import { GameStatus } from '../../types/game.interface';
 import Anagrams from './Anagrams';
 
