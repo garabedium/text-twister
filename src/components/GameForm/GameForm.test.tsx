@@ -6,7 +6,7 @@ import {
   levelWordsData, gameLettersData, anagramsData,
 } from '../../utils/tests.util';
 import { anagramsByLevelWord } from '../../utils/utils';
-import { Letter } from '../../types/types';
+import { Letter } from '../../types/letter.interface';
 import GameForm from './GameForm';
 
 describe('Register component', () => {

@@ -15,9 +15,9 @@ import { shuffleLetters, calcWordScore, anagramsByLevelWord } from '../../utils/
 import Button from '../../components/Button/Button';
 import AnagramService from '../../services/anagram.service';
 import { Anagram, AnagramsHashMap } from '../../types/anagram.interface';
-import {
-  GameStatus, GameContainerProps, Letter, NotificationKey,
-} from '../../types/types';
+import { GameStatus, GameContainerProps } from '../../types/game.interface';
+import { Letter } from '../../types/letter.interface';
+import { NotificationKey } from '../../types/notification.interface';
 
 function GameContainer(props: GameContainerProps) {
   const {

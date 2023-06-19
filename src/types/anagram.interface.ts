@@ -1,3 +1,5 @@
+import { GameStatus } from './game.interface';
+
 export interface BaseAnagram {
   id: number,
   anagram: string,
@@ -14,5 +16,8 @@ export interface AnagramsHashMap {
   }
 }
 
-// export interface AnagramProps {
-// }
+export interface AnagramsProps {
+  gameStatus: GameStatus,
+  anagrams: AnagramsHashMap,
+  levelWordText: string,
+}

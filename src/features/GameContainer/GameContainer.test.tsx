@@ -11,7 +11,8 @@ import {
 import { levelWordsData, anagramsData, nockGetRequest } from '../../utils/tests.util';
 import GameContainer from './GameContainer';
 import { Anagram } from '../../types/anagram.interface';
-import { GameStatus, LevelWord } from '../../types/types';
+import { GameStatus } from '../../types/game.interface';
+import { LevelWord } from '../../types/level-word.interface';
 
 describe('GameContainer component', () => {
   const levelWord = levelWordsData[0].word;
