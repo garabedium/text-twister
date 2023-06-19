@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import nock from 'nock';
-import { apiRoutes } from './constants';
-import { Anagram, LevelWord } from './types';
+import { apiRoutes } from './constants.util';
+import { Anagram, LevelWord } from '../types/types';
 
 export const levelWordsData = [
   {

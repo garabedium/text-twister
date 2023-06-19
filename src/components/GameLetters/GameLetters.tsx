@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../Button/Button';
-import { GameLettersProps, Letter } from '../../utils/types';
+import { GameLettersProps, Letter } from '../../types/types';
 import './GameLetters.scss';
 
 function GameLetters(props: GameLettersProps) {

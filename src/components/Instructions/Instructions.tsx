@@ -1,6 +1,6 @@
 import React from 'react';
 import './Instructions.scss';
-import { instructionsContent } from '../../utils/constants';
+import { instructionsContent } from '../../utils/constants.util';
 
 function Instructions() {
   const list = instructionsContent.map((item) => (
