@@ -8,10 +8,6 @@ export type ButtonProps = {
   icon?: string
 };
 
-export type TextInputProps = {
-  className?: string,
-};
-
 export type GuessMobileProps = {
   userGuess: string,
   handleBackspace: () => void;
@@ -20,5 +16,3 @@ export type GuessMobileProps = {
 export type ShuffleLetters = () => ShuffleLetters | string;
 
 export type ScoreWordLengthKey = keyof typeof scoreMultiples;
-
-export type ApiResponse<T> = Promise<T>;
