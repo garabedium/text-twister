@@ -1,6 +1,7 @@
 import { Anagram } from '../types/anagram.interface';
 import { ShuffleLetters, ScoreWordLengthKey } from '../types/types';
-import { scoreMultiples } from './constants.util';
+import { scoreMultiples, zipfDefaultMin, zipfDefaultMax } from './constants.util';
+import { LevelWord } from '../types/level-word.interface';
 
 // Take in a word and shuffle the letters via Fisher-Yates algorithm
 export function shuffleLetters(letters: string, solvedWord?: string): ShuffleLetters | string[] {
@@ -36,4 +37,15 @@ export function anagramsByLevelWord(anagrams: Anagram[], levelWord: string) {
   });
 
   return levelWordAnagrams;
+}
+
+export function buildLevelWordZipfQuery(
+  usedWords: LevelWord[] | [],
+  zipfMin: number = zipfDefaultMin,
+  zipfMax: number = zipfDefaultMax,
+) {
+  const excludedWords = usedWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
+  const query = `${zipfMin}&${zipfMax}?${excludedWords}`;
+
+  return query;
 }

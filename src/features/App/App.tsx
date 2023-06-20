@@ -5,7 +5,7 @@ import '../../scss/app.scss';
 import isTouchDevice from 'is-touch-device';
 
 import {
-  gameStates, wordStates, nextwordStates, zipfDefaultMin, zipfDefaultMax,
+  gameStates, wordStates, nextwordStates,
 } from '../../utils/constants.util';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
@@ -13,6 +13,7 @@ import LevelWordService from '../../services/level-word.service';
 import GameContainer from '../GameContainer/GameContainer';
 import { GameStatus } from '../../types/game.interface';
 import { LevelWord, LevelWordStatus } from '../../types/level-word.interface';
+import { buildLevelWordZipfQuery } from '../../utils/methods.util';
 
 function App() {
   // STATE
@@ -34,11 +35,8 @@ function App() {
   };
 
   const getLevelWord = async () => {
-    // Avoid fetching words that have already been used:
-    const excludedWords = usedLevelWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
-    const levelWord: LevelWord = await LevelWordService
-      .getByZipfRange(zipfDefaultMin, zipfDefaultMax, excludedWords);
-
+    const query = buildLevelWordZipfQuery(usedLevelWords);
+    const levelWord = await LevelWordService.getByZipfRange(query);
     // If no levelWords exist, the first one is automatically current:
     const status = (!levelWords.length) ? wordStates.current : wordStates.next;
     levelWord.status = status as LevelWordStatus;

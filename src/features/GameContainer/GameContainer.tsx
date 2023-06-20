@@ -11,7 +11,7 @@ import {
   icons, gameStates, levelWordLength, minimumGuessLength,
   baseDate, scoreLabel, levelLabel,
 } from '../../utils/constants.util';
-import { shuffleLetters, calcWordScore, anagramsByLevelWord } from '../../utils/utils';
+import { shuffleLetters, calcWordScore, anagramsByLevelWord } from '../../utils/methods.util';
 import Button from '../../components/Button/Button';
 import AnagramService from '../../services/anagram.service';
 import { Anagram, AnagramsHashMap } from '../../types/anagram.interface';

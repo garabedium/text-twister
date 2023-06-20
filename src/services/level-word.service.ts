@@ -4,9 +4,9 @@ import { LevelWord } from '../types/level-word.interface';
 import { ApiResponse } from '../types/types';
 
 const LevelWordService = {
-  getByZipfRange: (min: number, max: number, excludeWords: string) => client
+  getByZipfRange: (query: string) => client
   // Gets LevelWord by word frequency (zipf_value) min, max:
-    .get<ApiResponse<LevelWord>>(`${apiRoutes.levelWordRange}/${min}&${max}?${excludeWords}`)
+    .get<ApiResponse<LevelWord>>(`${apiRoutes.levelWordRange}/${query}`)
     .then((response) => response.data),
 };
 

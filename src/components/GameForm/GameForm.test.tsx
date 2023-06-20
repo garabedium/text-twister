@@ -5,7 +5,7 @@ import { gameInputLabel, backspaceButtonText } from '../../utils/constants.util'
 import {
   levelWordsData, gameLettersData, anagramsData,
 } from '../../utils/tests.util';
-import { anagramsByLevelWord } from '../../utils/utils';
+import { anagramsByLevelWord } from '../../utils/methods.util';
 import { Letter } from '../../types/letter.interface';
 import GameForm from './GameForm';
 
