@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import client from './services.client';
 import { apiRoutes } from '../utils/constants.util';
 import { Anagram } from '../types/anagram.interface';
-import { ApiResponse } from '../types/types';
+import { ApiResponse } from '../types/api.interface';
 
 // TODO: log error to DB
 const AnagramService = {
