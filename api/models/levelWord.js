@@ -1,4 +1,3 @@
-const fs = require('fs');
 const sql = require('./db.js');
 
 const LevelWord = function (word) {

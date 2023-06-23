@@ -30,6 +30,7 @@
   ],
   "exclude": [
     "node_modules",
-    "build"
+    "build",
+    "api/**"
   ] // *** The files to not type check ***
 }
