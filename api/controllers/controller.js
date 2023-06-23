@@ -1,6 +1,8 @@
 'use strict';
 const Word = require('../models/word');
 const LevelWord = require('../models/levelWord');
+const zipfDefaultMin = 4.5;
+const zipfDefaultMax = 6.5;
 
 // Word APIs:
 exports.getWord = function(req, res) {
@@ -37,9 +39,27 @@ exports.getRandomLevelWord = function(req, res) {
 }
 
 exports.getLevelWordsByRange = function(req, res) {
-  let exclude = req.query.exclude || ''
+  const { 
+    query: {
+      zipf: { min, max },
+      exclude,
+    },
+  } = req;
 
-  LevelWord.randomByRange(req.params.min, req.params.max, exclude, function(err, word) {
+  let zipfMin = zipfDefaultMin;
+  let zipfMax = zipfDefaultMax;
+
+  if (parseFloat(min)){
+    zipfMin = parseFloat(min);
+  }
+
+  if (parseFloat(max)){
+    zipfMax = parseFloat(max);
+  }
+
+  let excludeWords = exclude || '';
+
+  LevelWord.randomByRange(zipfMin, zipfMax, excludeWords, function(err, word) {
     if (err)
       res.send(err);
     res.json(word);

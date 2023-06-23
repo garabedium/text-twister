@@ -25,7 +25,7 @@ module.exports = function(app) {
   .get(controller.getRandomLevelWord)
 
   // Get random LevelWords based on zipf value:
-  app.route('/api/levelWord/range/:min&:max')
+  app.route('/api/levelWord/zipf-range')
   .get(controller.getLevelWordsByRange)
 
   // Gets LevelWords anagram:

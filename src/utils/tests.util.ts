@@ -2,9 +2,9 @@
 import nock from 'nock';
 import { apiRoutes } from './constants.util';
 import { Anagram } from '../types/anagram.interface';
-import { LevelWord } from '../types/types';
+import { LevelWord } from '../types/level-word.interface';
 
-export const levelWordsData = [
+export const levelWordsData: LevelWord[] = [
   {
     id: 1, word: 'really', zipf_value: 5.9, status: 'current',
   },

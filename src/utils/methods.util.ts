@@ -44,8 +44,9 @@ export function buildLevelWordZipfQuery(
   zipfMin: number = zipfDefaultMin,
   zipfMax: number = zipfDefaultMax,
 ) {
+  let query = `?zipf=[${zipfMin}]&zipf=[${zipfMax}]`;
   const excludedWords = usedWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
-  const query = `${zipfMin}&${zipfMax}?${excludedWords}`;
+  query += excludedWords;
 
   return query;
 }
