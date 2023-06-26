@@ -9,7 +9,6 @@ function TextInput(props: TextInputProps) {
     <input
       type="text"
       className={className}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...inputProps}
     />
   );
