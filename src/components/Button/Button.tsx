@@ -18,7 +18,6 @@ function Button(props: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
       // eslint-disable-next-line react/button-has-type
       type={type}
       className={className}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...buttonProps}
     >
       {text}
