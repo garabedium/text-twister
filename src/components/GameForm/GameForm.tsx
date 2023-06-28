@@ -29,18 +29,16 @@ function GameForm(props: GameFormProps) {
   const isDuplicateSolve = solvedWords.filter((word) => (word.anagram === userGuess)).length > 0;
 
   const handleKeypress = (event: React.KeyboardEvent<HTMLElement>) => {
+    event.preventDefault();
+
     const { key } = event;
     const letters = [...gameLetters];
     const foundLetter = letters.find((letter) => key === letter.char && !letter.used);
 
-    if (key !== 'Enter' && foundLetter !== undefined) {
+    if (foundLetter !== undefined) {
       foundLetter.used = true;
       foundLetter.updatedAt = Date.now();
       updateGameLetters(letters);
-    }
-
-    if (key !== 'Enter') {
-      event.preventDefault();
     }
   };
 
