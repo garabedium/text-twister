@@ -29,8 +29,6 @@ function GameForm(props: GameFormProps) {
   const isDuplicateSolve = solvedWords.filter((word) => (word.anagram === userGuess)).length > 0;
 
   const handleKeydown = (event: React.KeyboardEvent<HTMLElement>) => {
-    event.preventDefault();
-
     const { key } = event;
     const letters = [...gameLetters];
     const foundLetter = letters.find((letter) => key === letter.char && !letter.used);
@@ -40,6 +38,8 @@ function GameForm(props: GameFormProps) {
       foundLetter.updatedAt = Date.now();
       updateGameLetters(letters);
     }
+
+    event.preventDefault();
   };
 
   const handleSubmit = (event?: React.FormEvent) => {
