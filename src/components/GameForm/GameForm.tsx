@@ -69,21 +69,18 @@ function GameForm(props: GameFormProps) {
   };
 
   const handleInput = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (event.type === 'keydown' && event.key === 'Backspace') {
+    const { key } = event;
+
+    if (key === 'Backspace') {
       return handleBackspace();
     }
 
-    if (event.type === 'keydown' && event.key === ' ') {
+    if (key === ' ') {
       return shuffleUnusedLetters();
     }
 
-    if (event.type === 'keydown' && event.key === 'Enter') {
+    if (key === 'Enter') {
       return handleSubmit();
-    }
-
-    // Prevents cursor from moving left within the TextInput
-    if (event.type === 'keydown' && event.key === 'ArrowLeft') {
-      return event.preventDefault();
     }
 
     return handleKeypress(event);
