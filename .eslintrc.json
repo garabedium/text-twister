@@ -14,8 +14,20 @@
     "ecmaVersion": 2020,
     "project": ["./tsconfig.eslint.json"]
   },
-  "rules": {
-    "import/named": "error",
-    "react/jsx-props-no-spreading": false
-  }
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js"
+      ],
+      "rules": {
+        "import/named": "error",
+        "react/jsx-props-no-spreading": "off"
+      },
+      "parserOptions": {
+        "project": "tsconfig.json"
+      }      
+    }
+  ]
 }

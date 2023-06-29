@@ -65,8 +65,7 @@ function App() {
     }
     // Fetch new level word on App init (gameInactive), and every time game pauses
     if (isGamePaused || isGameInactive) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      getLevelWord();
+      getLevelWord().catch(() => {});
     }
   // TODO: useCallback
   // eslint-disable-next-line react-hooks/exhaustive-deps
