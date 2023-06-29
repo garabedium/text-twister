@@ -69,17 +69,14 @@ function GameForm(props: GameFormProps) {
   const handleInput = (event: React.KeyboardEvent<HTMLElement>) => {
     const { key } = event;
 
-    if (key === 'Backspace') {
+    if (key === 'Backspace')
       return handleBackspace();
-    }
-
-    if (key === ' ') {
+    if (key === ' ')
       return shuffleUnusedLetters();
-    }
-
-    if (key === 'Enter') {
+    if (key === 'Enter')
       return handleSubmit();
-    }
+    if (key === 'Tab')
+      return
 
     return handleKeydown(event);
   };
@@ -105,8 +102,7 @@ function GameForm(props: GameFormProps) {
             name="guess"
             value={userGuess}
             onKeyDown={handleInput}
-            // Used to supress console error about missing onChange event
-            // TODO: refactor to use event listeners, useEffect
+            // Handle console error about missing onChange event
             onChange={() => null}
             className="game-guess"
             aria-label={gameInputLabel}
