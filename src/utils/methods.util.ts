@@ -40,13 +40,14 @@ export function anagramsByLevelWord(anagrams: Anagram[], levelWord: string) {
 }
 
 export function buildLevelWordZipfQuery(
-  usedWords: LevelWord[] | [],
+  usedWords?: LevelWord[] | [],
   zipfMin: number = zipfDefaultMin,
   zipfMax: number = zipfDefaultMax,
 ) {
   let query = `?zipf=[${zipfMin}]&zipf=[${zipfMax}]`;
-  const excludedWords = usedWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
-  query += excludedWords;
-
+  if (usedWords) {
+    const excludedWords = usedWords.map((word: LevelWord) => `&exclude=${word.word}`).join('');
+    query += excludedWords;
+  }
   return query;
 }
