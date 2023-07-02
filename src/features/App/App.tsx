@@ -35,9 +35,8 @@ function App() {
   // const isGameInactive = gameStatus === gameStates.inactive;
   // const isGamePaused = gameStatus === gameStates.paused;
 
-  // const [levelWords, setLevelWords] = useState<LevelWord[]>([]);
   const [levelWords] = useLevelWords(gameStatus);
-  // console.log(levelWords);
+  console.log(levelWords);
   /* REQUIREMENTS
     custom hook that fetches a word under two conditions:
     1.) gameStatus is inactive (happens once)
@@ -185,8 +184,12 @@ function App() {
             />
           )} */}
         <Button
-          text="Press me hard"
+          text="Pause"
           onClick={() => updateGameStatus(gameStates.paused as GameStatus)}
+        />
+        <Button
+          text="Play"
+          onClick={() => updateGameStatus(gameStates.active as GameStatus)}
         />
       </div>
     </>

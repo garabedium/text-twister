@@ -1,40 +1,35 @@
 import {
-  useState, useEffect, useCallback, useReducer,
+  useEffect, useReducer,
 } from 'react';
 import { GameStatus } from '../types/game.interface';
-import { gameStates } from '../utils/constants.util';
+import { gameStates, wordStates } from '../utils/constants.util';
 import { LevelWord } from '../types/level-word.interface';
 import { buildLevelWordZipfQuery } from '../utils/methods.util';
 import LevelWordService from '../services/level-word.service';
 
-// export interface UseLevelWords {
-//   gameStatus: GameStatus
-// }
+function levelWordReducer(state: LevelWord[], action: { type: string, result: LevelWord }) {
+  switch (action.type) {
+    case 'level_word': {
+      const { result } = action;
+      result.status = !state.length ? wordStates.current : wordStates.next;
+      return [...state, result];
+    }
+    default: {
+      throw new Error(`Undefined type: ${action.type}`);
+    }
+  }
+}
 
 function useLevelWords(gameStatus: GameStatus) {
-  // const { gameStatus } = props;
-  const [levelWords, setLevelWords] = useState<LevelWord[]>([]);
+  const [levelWords, dispatch] = useReducer(levelWordReducer, []);
 
-  // const doThing = useCallback(
-  //   (result: LevelWord) => {
-  //     setLevelWords((prevState) => [...prevState, result]);
-  //   },
-  //   [],
-  // );
-
-  // to try: using prevState for unused
+  const getLevelWord = async () => {
+    const query = buildLevelWordZipfQuery();
+    const result = await LevelWordService.getByZipfRange(query);
+    dispatch({ type: 'level_word', result });
+  };
 
   useEffect(() => {
-    const getLevelWord = async () => {
-      const query = buildLevelWordZipfQuery();
-      const result = await LevelWordService.getByZipfRange(query);
-
-      setLevelWords((prevState) => {
-        const status = !prevState.length ? 'current' : 'next';
-        result.status = status;
-        return [...prevState, result];
-      });
-    };
     if (gameStatus === gameStates.inactive || gameStatus === gameStates.paused) {
       getLevelWord().catch(() => {});
     }
