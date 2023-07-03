@@ -21,3 +21,23 @@ export interface AnagramsProps {
   anagrams: AnagramsHashMap,
   levelWordText: string,
 }
+
+export interface AddAnagramsAction {
+  type: 'added',
+  payload: AnagramsHashMap
+}
+
+export interface UpdateSolvedAnagramAction {
+  type: 'solved_updated',
+  payload: AnagramsHashMap
+}
+
+// export interface UpdateAnagramsAction {
+//   type: 'status_updated',
+// }
+
+// export type AnagramsReducerState = (AnagramsHashMap | Record<string, never>);
+
+export type AnagramsReducerAction = (
+  AddAnagramsAction | UpdateSolvedAnagramAction
+);
