@@ -7,6 +7,7 @@ function GameStart() {
   return (
     <>
       <h1>Hello world...</h1>
+      <p>Game Status: </p>
       {/* <StartPage
         updateGameStatus={updateGameStatus}
         hasLevelWord={hasLevelWord}
