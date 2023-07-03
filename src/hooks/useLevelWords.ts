@@ -23,6 +23,7 @@ function levelWordReducer(state: LevelWord[], action: LevelWordsReducerAction) {
       return updatedStatuses;
     }
     default: {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`Unknown action type: ${action.type}`);
     }
   }
