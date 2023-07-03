@@ -1,53 +1,32 @@
-import React, {
-  useState, useEffect,
-} from 'react';
+import React, { useState } from 'react';
 import '../../scss/app.scss';
 import isTouchDevice from 'is-touch-device';
 
 import {
-  gameStates, wordStates, nextwordStates,
+  gameStates, wordStates,
 } from '../../utils/constants.util';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
-import LevelWordService from '../../services/level-word.service';
 import GameContainer from '../GameContainer/GameContainer';
 import { GameStatus } from '../../types/game.interface';
-import { LevelWord, LevelWordStatus } from '../../types/level-word.interface';
-import { buildLevelWordZipfQuery } from '../../utils/methods.util';
+import { LevelWord } from '../../types/level-word.interface';
+import useLevelWords from '../../hooks/useLevelWords';
 
 function App() {
   // STATE
   /// ////////////////////
   const [gameStatus, setGameStatus] = useState(gameStates.inactive as GameStatus);
-  const [levelWords, setLevelWords] = useState<LevelWord[]>([]);
+  const isGameInactive = (gameStatus === gameStates.inactive);
 
-  const currentWord: LevelWord = levelWords
+  const { levelWords, updateLevelWordStatuses } = useLevelWords(gameStatus);
+  const currentWord = levelWords
     .filter((word: LevelWord) => word.status === wordStates.current)[0];
   const hasLevelWord = currentWord?.word !== undefined;
-  const usedLevelWords = levelWords.filter((word: LevelWord) => word.status !== wordStates.next);
-  const isGameInactive = gameStatus === gameStates.inactive;
-  const isGamePaused = gameStatus === gameStates.paused;
 
   // FUNCTIONS
   /// ////////////////////
   const updateGameStatus = (status: GameStatus) => {
     setGameStatus(status);
-  };
-
-  const getLevelWord = async () => {
-    const query = buildLevelWordZipfQuery(usedLevelWords);
-    const levelWord = await LevelWordService.getByZipfRange(query);
-    // If no levelWords exist, the first one is automatically current:
-    const status = (!levelWords.length) ? wordStates.current : wordStates.next;
-    levelWord.status = status as LevelWordStatus;
-    setLevelWords((prevState) => [...prevState, levelWord]);
-  };
-
-  const selectNextWord = () => {
-    const words: LevelWord[] = levelWords.map((word: LevelWord) => ({
-      ...word, status: nextwordStates[word.status] as LevelWordStatus,
-    }));
-    setLevelWords(words);
   };
 
   const loadBodyClass = () => {
@@ -56,20 +35,9 @@ function App() {
     }, 250);
   };
 
-  // EFFECTS
-  /// ////////////////////
-
-  useEffect(() => {
-    if (isGameInactive) {
-      loadBodyClass();
-    }
-    // Fetch new level word on App init (gameInactive), and every time game pauses
-    if (isGamePaused || isGameInactive) {
-      getLevelWord().catch(() => {});
-    }
-  // TODO: useCallback
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isGamePaused, isGameInactive]);
+  if (isGameInactive) {
+    loadBodyClass();
+  }
 
   return (
     <>
@@ -87,8 +55,8 @@ function App() {
             <GameContainer
               gameStatus={gameStatus}
               currentWord={currentWord}
-              selectNextWord={selectNextWord}
               updateGameStatus={updateGameStatus}
+              selectNextWord={updateLevelWordStatuses}
               isMobileDevice={isTouchDevice()}
             />
           )}
