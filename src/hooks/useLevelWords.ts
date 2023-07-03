@@ -2,31 +2,43 @@ import {
   useEffect, useReducer,
 } from 'react';
 import { GameStatus } from '../types/game.interface';
-import { gameStates, wordStates } from '../utils/constants.util';
-import { LevelWord } from '../types/level-word.interface';
+import { gameStates, nextwordStates, wordStates } from '../utils/constants.util';
+import { LevelWord, LevelWordStatus, LevelWordsReducerAction } from '../types/level-word.interface';
 import { buildLevelWordZipfQuery } from '../utils/methods.util';
 import LevelWordService from '../services/level-word.service';
 
-function levelWordReducer(state: LevelWord[], action: { type: string, result: LevelWord }) {
+function levelWordReducer(state: LevelWord[], action: LevelWordsReducerAction) {
   switch (action.type) {
-    case 'level_word': {
-      const { result } = action;
-      result.status = !state.length ? wordStates.current : wordStates.next;
-      return [...state, result];
+    // Adds new LevelWord to state. First added word has status 'current'.
+    case 'added': {
+      const { payload } = action;
+      payload.status = !state.length ? wordStates.current : wordStates.next;
+      return [...state, payload];
+    }
+    // Updates status based on word's current status.
+    case 'status_updated': {
+      const updatedStatuses = state.map((word: LevelWord) => ({
+        ...word, status: nextwordStates[word.status] as LevelWordStatus,
+      }));
+      return updatedStatuses;
     }
     default: {
-      throw new Error(`Undefined type: ${action.type}`);
+      throw new Error(`Unknown action type: ${action.type}`);
     }
   }
 }
 
-function useLevelWords(gameStatus: GameStatus) {
+function useLevelWords(gameStatus?: GameStatus) {
   const [levelWords, dispatch] = useReducer(levelWordReducer, []);
 
   const getLevelWord = async () => {
     const query = buildLevelWordZipfQuery();
     const result = await LevelWordService.getByZipfRange(query);
-    dispatch({ type: 'level_word', result });
+    dispatch({ type: 'added', payload: result });
+  };
+
+  const updateLevelWordStatuses = () => {
+    dispatch({ type: 'status_updated' });
   };
 
   useEffect(() => {
@@ -35,7 +47,7 @@ function useLevelWords(gameStatus: GameStatus) {
     }
   }, [gameStatus]);
 
-  return [levelWords];
+  return { levelWords, updateLevelWordStatuses };
 }
 
 export default useLevelWords;

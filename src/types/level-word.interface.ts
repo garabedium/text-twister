@@ -11,3 +11,16 @@ export interface BaseLevelWord {
 export interface LevelWord extends BaseLevelWord {
   status: LevelWordStatus,
 }
+
+export interface AddLevelWordAction {
+  type: 'added',
+  payload: LevelWord
+}
+
+export interface UpdateLevelWordStatusesAction {
+  type: 'status_updated',
+}
+
+export type LevelWordsReducerAction = (
+  AddLevelWordAction | UpdateLevelWordStatusesAction
+);
