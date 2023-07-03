@@ -109,21 +109,10 @@ function GameContainer(props: GameContainerProps) {
     updateGameLetters(letters);
   };
 
-  // const getAnagrams = useCallback(async (): Promise<void> => {
-  //   if (levelWordText) {
-  //     const result: Anagram[] | void = await AnagramService.getAllByLevelWord(levelWordText);
-
-  //     if (result?.length) {
-  //       const anagramsHash = anagramsByLevelWord(result, levelWordText);
-  //       setAnagrams((prevState) => ({ ...prevState, ...anagramsHash }));
-  //     }
-  //   }
-  // }, [levelWordText]);
-
   // EFFECTS
   /// ////////////////////
 
-  // When levelWord changes, set game letters and fetch anagrams:
+  // When levelWord changes, set game letters:
   useEffect(() => {
     // Only shuffle when the game is active (not paused):
     if (gameStatus !== gameStates.paused) {
@@ -133,8 +122,6 @@ function GameContainer(props: GameContainerProps) {
       })) as Letter[];
       setGameLetters(letters);
     }
-    // Promises resolved in service layer
-    // getAnagrams().catch(() => {});
   }, [gameStatus, levelWordText]);
 
   // When gameStatus changes, update Notification:
