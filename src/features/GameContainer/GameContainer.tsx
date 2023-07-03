@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './GameContainer.scss';
 
 import GameStat from '../../components/GameStat/GameStat';
@@ -11,13 +11,12 @@ import {
   icons, gameStates, levelWordLength, minimumGuessLength,
   baseDate, scoreLabel, levelLabel,
 } from '../../utils/constants.util';
-import { shuffleLetters, calcWordScore, anagramsByLevelWord } from '../../utils/methods.util';
+import { shuffleLetters, calcWordScore } from '../../utils/methods.util';
 import Button from '../../components/Button/Button';
-import AnagramService from '../../services/anagram.service';
-import { Anagram, AnagramsHashMap } from '../../types/anagram.interface';
 import { GameStatus, GameContainerProps } from '../../types/game.interface';
 import { Letter } from '../../types/letter.interface';
 import { NotificationKey } from '../../types/notification.interface';
+import useAnagrams from '../../hooks/useAnagrams';
 
 function GameContainer(props: GameContainerProps) {
   const {
@@ -37,11 +36,12 @@ function GameContainer(props: GameContainerProps) {
   });
 
   const [gameLetters, setGameLetters] = useState<Letter[]>([]);
-  const [anagrams, setAnagrams] = useState<AnagramsHashMap>({});
+  const { word: levelWordText } = currentWord;
+  const { anagrams, isValidAnagram, updateSolvedWord } = useAnagrams(levelWordText);
   const [notification, setNotification] = useState<NotificationKey>(defaultNotification);
 
   const { score, level, levelUp } = player;
-  const { word: levelWordText } = currentWord;
+
   const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText] !== undefined;
   const isGameActive = (gameStatus === gameStates.active);
   const restartButtonText = player.levelUp ? 'Next Level' : 'New Game';
@@ -73,22 +73,15 @@ function GameContainer(props: GameContainerProps) {
   };
 
   const validateWord = (word: string) => {
-    const isValid = anagrams[levelWordText][word] !== undefined;
-    if (isValid) {
+    if (isValidAnagram(word)) {
       const playerState = {
         score: calcWordScore(word.length, score),
         levelUp: (word.length === levelWordLength || levelUp) ? true : levelUp,
       };
 
-      const anagramsState = {
-        [levelWordText]: {
-          ...anagrams[levelWordText],
-          [word]: { ...anagrams[levelWordText][word], solved: true },
-        },
-      };
       updateGameNotification('points');
       setPlayer((prevState) => ({ ...prevState, ...playerState }));
-      setAnagrams((prevState) => ({ ...prevState, ...anagramsState }));
+      updateSolvedWord(word);
     } else {
       updateGameNotification('validate_invalid');
     }
@@ -116,21 +109,10 @@ function GameContainer(props: GameContainerProps) {
     updateGameLetters(letters);
   };
 
-  const getAnagrams = useCallback(async (): Promise<void> => {
-    if (levelWordText) {
-      const result: Anagram[] | void = await AnagramService.getAllByLevelWord(levelWordText);
-
-      if (result?.length) {
-        const anagramsHash = anagramsByLevelWord(result, levelWordText);
-        setAnagrams((prevState) => ({ ...prevState, ...anagramsHash }));
-      }
-    }
-  }, [levelWordText]);
-
   // EFFECTS
   /// ////////////////////
 
-  // When levelWord changes, set game letters and fetch anagrams:
+  // When levelWord changes, set game letters:
   useEffect(() => {
     // Only shuffle when the game is active (not paused):
     if (gameStatus !== gameStates.paused) {
@@ -140,10 +122,7 @@ function GameContainer(props: GameContainerProps) {
       })) as Letter[];
       setGameLetters(letters);
     }
-    // Promises resolved in service layer
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getAnagrams();
-  }, [gameStatus, levelWordText, getAnagrams]);
+  }, [gameStatus, levelWordText]);
 
   // When gameStatus changes, update Notification:
   useEffect(() => {
