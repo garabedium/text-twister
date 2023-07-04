@@ -28,7 +28,8 @@ function GameContainer(props: GameContainerProps) {
 
   const { gameStatus, updateGameStatus, isGameActive } = useGameStatus();
   const defaultNotification = isMobileDevice ? 'default_mobile' : 'default';
-
+  console.log('game_status: ', gameStatus);
+  console.log('currentWord: ', currentWord);
   const [player, setPlayer] = useState({
     score: 0,
     level: 1,

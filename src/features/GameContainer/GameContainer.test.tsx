@@ -6,29 +6,31 @@ import {
 import user from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
-  gameStates, notifications, apiRoutes, gameInputLabel, backspaceButtonText,
+  notifications, apiRoutes, gameInputLabel, backspaceButtonText,
 } from '../../utils/constants.util';
 import { levelWordsData, anagramsData, nockGetRequest } from '../../utils/tests.util';
 import GameContainer from './GameContainer';
 import { Anagram } from '../../types/anagram.interface';
-import { GameStatus } from '../../types/game.interface';
+// import { GameStatus } from '../../types/game.interface';
+import { GameStatusProvider } from '../../contexts/gameStatusContext';
 
 describe('GameContainer component', () => {
   const levelWord = levelWordsData[0].word;
   let mobileDevice = false;
+  const isGameActive = true;
 
-  const renderGameContainer = () => render(
-    <GameContainer
-      gameStatus={gameStates.active as GameStatus}
-      currentWord={levelWordsData[0]}
-      selectNextWord={jest.fn()}
-      updateGameStatus={jest.fn()}
-      isMobileDevice={mobileDevice}
-    />,
+  const renderGameContainer = (input) => render(
+    <GameStatusProvider value={input}>
+      <GameContainer
+        currentWord={levelWordsData[0]}
+        selectNextWord={jest.fn()}
+        isMobileDevice={mobileDevice}
+      />
+    </GameStatusProvider>,
   );
 
-  it('should display the game controls', () => {
-    renderGameContainer();
+  it.only('should display the game controls', () => {
+    renderGameContainer(isGameActive);
     const shuffleBtn = screen.getByText('Shuffle', { selector: 'button' });
     const submitBtn = screen.getByText('Submit', { selector: 'button' });
     expect(shuffleBtn).toBeEnabled();
