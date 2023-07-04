@@ -9,12 +9,11 @@ import GameLetters from '../../components/GameLetters/GameLetters';
 import Instructions from '../../components/Instructions/Instructions';
 import { GameStatus } from '../../types/game.interface';
 import { StartPageProps } from '../../types/start-page.interface';
+import { useGameStatus } from '../../contexts/gameStatusContext';
 
 function StartPage(props: StartPageProps) {
-  const {
-    updateGameStatus,
-    hasLevelWord,
-  } = props;
+  const { hasLevelWord } = props;
+  const { updateGameStatus } = useGameStatus();
 
   return (
     <div className="start-page">
@@ -28,7 +27,6 @@ function StartPage(props: StartPageProps) {
       </div>
       <GameLetters
         word={playText}
-        isGameActive={false}
       />
       <Instructions />
     </div>

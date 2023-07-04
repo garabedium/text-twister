@@ -13,20 +13,20 @@ import {
 } from '../../utils/constants.util';
 import { shuffleLetters, calcWordScore } from '../../utils/methods.util';
 import Button from '../../components/Button/Button';
-import { GameStatus, GameContainerProps } from '../../types/game.interface';
+import { GameContainerProps } from '../../types/game.interface';
 import { Letter } from '../../types/letter.interface';
 import { NotificationKey } from '../../types/notification.interface';
 import useAnagrams from '../../hooks/useAnagrams';
+import { useGameStatus } from '../../contexts/gameStatusContext';
 
 function GameContainer(props: GameContainerProps) {
   const {
-    gameStatus,
     currentWord,
-    updateGameStatus,
     selectNextWord,
     isMobileDevice,
   } = props;
 
+  const { gameStatus, updateGameStatus, isGameActive } = useGameStatus();
   const defaultNotification = isMobileDevice ? 'default_mobile' : 'default';
 
   const [player, setPlayer] = useState({
@@ -41,9 +41,8 @@ function GameContainer(props: GameContainerProps) {
   const [notification, setNotification] = useState<NotificationKey>(defaultNotification);
 
   const { score, level, levelUp } = player;
-
+  // TODO: move to useAnagrams custom hook:
   const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText] !== undefined;
-  const isGameActive = (gameStatus === gameStates.active);
   const restartButtonText = player.levelUp ? 'Next Level' : 'New Game';
   const usedLetters = gameLetters.filter((letter) => letter.used);
   const unusedLetters = gameLetters.filter((letter) => !letter.used);
@@ -68,7 +67,7 @@ function GameContainer(props: GameContainerProps) {
     };
 
     setPlayer(playerState);
-    updateGameStatus(gameStates.active as GameStatus);
+    updateGameStatus(gameStates.active);
     updateGameNotification(defaultNotification);
   };
 
@@ -142,15 +141,12 @@ function GameContainer(props: GameContainerProps) {
         </div>
 
         <Timer
-          gameStatus={gameStatus}
-          updateGameStatus={updateGameStatus}
           restartGame={restartGame}
         />
 
         <GameLetters
           word={levelWordText}
           gameLetters={gameLetters}
-          isGameActive={isGameActive}
           updateGameLetters={updateGameLetters}
         />
 
