@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import '../../scss/app.scss';
 import isTouchDevice from 'is-touch-device';
 
-import {
-  gameStates, wordStates,
-} from '../../utils/constants.util';
+import { gameStates } from '../../utils/constants.util';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import StartPage from '../StartPage/StartPage';
 import GameContainer from '../GameContainer/GameContainer';
 import { GameStatus } from '../../types/game.interface';
-import { LevelWord } from '../../types/level-word.interface';
 import useLevelWords from '../../hooks/useLevelWords';
 
 function App() {
@@ -18,10 +15,9 @@ function App() {
   const [gameStatus, setGameStatus] = useState(gameStates.inactive as GameStatus);
   const isGameInactive = (gameStatus === gameStates.inactive);
 
-  const { levelWords, updateLevelWordStatuses } = useLevelWords(gameStatus);
-  const currentWord = levelWords
-    .filter((word: LevelWord) => word.status === wordStates.current)[0];
-  const hasLevelWord = currentWord?.word !== undefined;
+  const {
+    hasLevelWord, currentWord, updateLevelWordStatuses,
+  } = useLevelWords(gameStatus);
 
   // FUNCTIONS
   /// ////////////////////
