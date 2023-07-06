@@ -11,6 +11,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@axe-core/react": "^4.7.3",
     "@types/is-touch-device": "^1.0.0",
     "axios": "^1.2.4",
     "babel-polyfill": "^6.23.0",
