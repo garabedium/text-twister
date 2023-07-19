@@ -2,19 +2,13 @@ import React, {
   createContext, useState, useContext, useMemo, useCallback,
 } from 'react';
 import { gameStates } from '../utils/constants.util';
-import { GameStatus } from '../types/game.interface';
-
-interface GameStatusContextInterface {
-  gameStatus: GameStatus,
-  updateGameStatus: (status: GameStatus) => void,
-  isGameInactive: boolean,
-  isGameActive: boolean,
-  isGamePaused: boolean
-}
+import {
+  GameStatus,
+  GameStatusContextInterface,
+  GameStatusProviderProps,
+} from '../types/game.interface';
 
 const GameStatusContext = createContext<GameStatusContextInterface | undefined>(undefined);
-
-type GameStatusProviderProps = { children: React.ReactNode };
 
 function GameStatusProvider(props: GameStatusProviderProps) {
   const { children } = props;
@@ -40,8 +34,10 @@ function GameStatusProvider(props: GameStatusProviderProps) {
   );
 }
 
+// inject context
 function useGameStatus() {
   const context = useContext(GameStatusContext);
+
   if (context === undefined) {
     throw new Error('Incorrect provider...');
   }

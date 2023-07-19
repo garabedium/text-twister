@@ -31,6 +31,8 @@ function levelWordReducer(state: LevelWord[], action: LevelWordsReducerAction) {
 
 function useLevelWords(gameStatus?: GameStatus) {
   const [levelWords, dispatch] = useReducer(levelWordReducer, []);
+  const currentWord = levelWords.filter((word) => word.status === wordStates.current)[0];
+  const hasLevelWord = currentWord?.word !== undefined;
 
   const getLevelWord = async () => {
     const query = buildLevelWordZipfQuery();
@@ -48,7 +50,9 @@ function useLevelWords(gameStatus?: GameStatus) {
     }
   }, [gameStatus]);
 
-  return { levelWords, updateLevelWordStatuses };
+  return {
+    levelWords, currentWord, hasLevelWord, updateLevelWordStatuses,
+  };
 }
 
 export default useLevelWords;

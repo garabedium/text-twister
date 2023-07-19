@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import '../../scss/app.scss';
-
-import AppHeader from '../../components/AppHeader/AppHeader';
 import GameStart from '../GameStart/GameStart';
 import { GameStatusProvider } from '../../contexts/gameStatusContext';
+import AppHeader from '../../components/AppHeader/AppHeader';
 
 function App() {
   const loadBodyClass = () => {
