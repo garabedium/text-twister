@@ -6,7 +6,7 @@ import {
 import user from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
-  notifications, apiRoutes, gameInputLabel, backspaceButtonText, gameStates,
+  notifications, apiRoutes, gameInputLabel, backspaceButtonText,
 } from '../../utils/constants.util';
 import {
   levelWordsData, anagramsData, nockGetRequest, activeGameState,

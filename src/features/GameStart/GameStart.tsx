@@ -9,7 +9,6 @@ import GameContainer from '../GameContainer/GameContainer';
 
 function GameStart() {
   const { gameStatus, isGameInactive } = useGameStatus();
-
   const { levelWords, updateLevelWordStatuses } = useLevelWords(gameStatus);
   // todo: abstract currentWord to custom hook...
   const currentWord = levelWords
