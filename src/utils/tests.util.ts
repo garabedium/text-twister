@@ -1,8 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import nock from 'nock';
-import { apiRoutes } from './constants.util';
+import { apiRoutes, gameStates } from './constants.util';
 import { Anagram } from '../types/anagram.interface';
 import { LevelWord } from '../types/level-word.interface';
+import { GameStatusContextInterface } from '../types/game.interface';
 
 export const levelWordsData: LevelWord[] = [
   {
@@ -49,3 +50,21 @@ export const nockGetRequest = (url: string, response: LevelWord | Anagram[]) => 
     .get(url)
     .reply(200, response);
 };
+
+// GameStatus context provider states:
+// TODO: DRY this up
+export const inactiveGameState: GameStatusContextInterface = {
+  gameStatus: gameStates.inactive,
+  isGameActive: false,
+  isGameInactive: true,
+  isGamePaused: false,
+  updateGameStatus: jest.fn(),
+} as const;
+
+export const activeGameState: GameStatusContextInterface = {
+  gameStatus: gameStates.active,
+  isGameActive: true,
+  isGameInactive: false,
+  isGamePaused: false,
+  updateGameStatus: jest.fn(),
+} as const;

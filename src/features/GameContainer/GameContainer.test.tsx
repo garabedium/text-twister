@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '@testing-library/jest-dom';
 import {
   render, waitFor, screen,
@@ -6,38 +6,27 @@ import {
 import user from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
-  notifications, apiRoutes, gameInputLabel, backspaceButtonText,
+  notifications, apiRoutes, gameInputLabel, backspaceButtonText, gameStates,
 } from '../../utils/constants.util';
-import { levelWordsData, anagramsData, nockGetRequest } from '../../utils/tests.util';
+import {
+  levelWordsData, anagramsData, nockGetRequest, activeGameState,
+} from '../../utils/tests.util';
 import GameContainer from './GameContainer';
 import { Anagram } from '../../types/anagram.interface';
-import { GameStatusProviderProps } from '../../types/game.interface';
-import { GameStatusProvider, useGameStatus } from '../../contexts/gameStatusContext';
-
-const GameStatusTestWrapper = (props: GameStatusProviderProps) => {
-  const { children } = props;
-  const { updateGameStatus } = useGameStatus();
-  useEffect(() => {
-    updateGameStatus('active');
-  }, [updateGameStatus]);
-
-  return children;
-};
+import { GameStatusContext } from '../../contexts/gameStatusContext';
 
 describe('GameContainer component', () => {
   const levelWord = levelWordsData[0].word;
   let mobileDevice = false;
 
   const renderGameContainer = () => render(
-    <GameStatusProvider>
-      <GameStatusTestWrapper>
-        <GameContainer
-          currentWord={levelWordsData[0]}
-          selectNextWord={jest.fn()}
-          isMobileDevice={mobileDevice}
-        />
-      </GameStatusTestWrapper>
-    </GameStatusProvider>,
+    <GameStatusContext.Provider value={activeGameState}>
+      <GameContainer
+        currentWord={levelWordsData[0]}
+        selectNextWord={jest.fn()}
+        isMobileDevice={mobileDevice}
+      />
+    </GameStatusContext.Provider>,
   );
 
   it('should display the game controls', () => {

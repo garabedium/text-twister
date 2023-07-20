@@ -8,7 +8,7 @@ import {
   GameStatusProviderProps,
 } from '../types/game.interface';
 
-const GameStatusContext = createContext<GameStatusContextInterface | undefined>(undefined);
+export const GameStatusContext = createContext<GameStatusContextInterface | undefined>(undefined);
 
 function GameStatusProvider(props: GameStatusProviderProps) {
   const { children } = props;
