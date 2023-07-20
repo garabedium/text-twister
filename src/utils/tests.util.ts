@@ -68,3 +68,11 @@ export const activeGameState: GameStatusContextInterface = {
   isGamePaused: false,
   updateGameStatus: jest.fn(),
 } as const;
+
+export const pausedGameState: GameStatusContextInterface = {
+  gameStatus: gameStates.active,
+  isGameActive: false,
+  isGameInactive: false,
+  isGamePaused: true,
+  updateGameStatus: jest.fn(),
+} as const;

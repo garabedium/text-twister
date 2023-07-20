@@ -34,7 +34,6 @@ function GameStatusProvider(props: GameStatusProviderProps) {
   );
 }
 
-// inject context
 function useGameStatus() {
   const context = useContext(GameStatusContext);
 
