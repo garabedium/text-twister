@@ -17,7 +17,7 @@ import { GameContainerProps } from '../../types/game.interface';
 import { Letter } from '../../types/letter.interface';
 import { NotificationKey } from '../../types/notification.interface';
 import useAnagrams from '../../hooks/useAnagrams';
-import { useGameStatus } from '../../contexts/gameStatusContext';
+import { useGameStatus } from '../../providers/gameStatusContext';
 
 function GameContainer(props: GameContainerProps) {
   const {

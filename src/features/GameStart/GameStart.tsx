@@ -2,7 +2,7 @@ import React from 'react';
 import isTouchDevice from 'is-touch-device';
 import { wordStates } from '../../utils/constants.util';
 import useLevelWords from '../../hooks/useLevelWords';
-import { useGameStatus } from '../../contexts/gameStatusContext';
+import { useGameStatus } from '../../providers/gameStatusContext';
 import { LevelWord } from '../../types/level-word.interface';
 import StartPage from '../StartPage/StartPage';
 import GameContainer from '../GameContainer/GameContainer';

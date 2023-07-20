@@ -9,7 +9,7 @@ import GameLetters from '../../components/GameLetters/GameLetters';
 import Instructions from '../../components/Instructions/Instructions';
 import { GameStatus } from '../../types/game.interface';
 import { StartPageProps } from '../../types/start-page.interface';
-import { useGameStatus } from '../../contexts/gameStatusContext';
+import { useGameStatus } from '../../providers/gameStatusContext';
 
 function StartPage(props: StartPageProps) {
   const { hasLevelWord } = props;

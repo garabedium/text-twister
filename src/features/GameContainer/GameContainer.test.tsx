@@ -13,7 +13,7 @@ import {
 } from '../../utils/tests.util';
 import GameContainer from './GameContainer';
 import { Anagram } from '../../types/anagram.interface';
-import { GameStatusContext } from '../../contexts/gameStatusContext';
+import { GameStatusContext } from '../../providers/gameStatusContext';
 
 describe('GameContainer component', () => {
   const levelWord = levelWordsData[0].word;

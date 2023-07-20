@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { GameStatusContext } from '../../contexts/gameStatusContext';
+import { GameStatusContext } from '../../providers/gameStatusContext';
 
 import GameStart from './GameStart';
 import { inactiveGameState } from '../../utils/tests.util';

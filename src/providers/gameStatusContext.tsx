@@ -38,7 +38,7 @@ function useGameStatus() {
   const context = useContext(GameStatusContext);
 
   if (context === undefined) {
-    throw new Error('Incorrect provider...');
+    throw new Error('useGameStatus must be used within GameStatusProvider');
   }
   return context;
 }

@@ -5,7 +5,7 @@ import user from '@testing-library/user-event';
 import { playButtonText, playText } from '../../utils/constants.util';
 import StartPage from './StartPage';
 import { StartPageProps } from '../../types/start-page.interface';
-import { GameStatusContext } from '../../contexts/gameStatusContext';
+import { GameStatusContext } from '../../providers/gameStatusContext';
 import { activeGameState, inactiveGameState } from '../../utils/tests.util';
 import { GameStatusContextInterface } from '../../types/game.interface';
 

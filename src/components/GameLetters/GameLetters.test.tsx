@@ -7,7 +7,7 @@ import {
 } from '../../utils/tests.util';
 import GameLetters from './GameLetters';
 import { Letter } from '../../types/letter.interface';
-import { GameStatusContext } from '../../contexts/gameStatusContext';
+import { GameStatusContext } from '../../providers/gameStatusContext';
 import { GameLettersProps, GameStatusContextInterface } from '../../types/game.interface';
 
 describe('Register component', () => {

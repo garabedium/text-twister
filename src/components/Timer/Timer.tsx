@@ -7,7 +7,7 @@ import './Timer.scss';
 import { GameStatus } from '../../types/game.interface';
 import { TimerProps, TimerInterval } from '../../types/timer.interface';
 import Button from '../Button/Button';
-import { useGameStatus } from '../../contexts/gameStatusContext';
+import { useGameStatus } from '../../providers/gameStatusContext';
 
 function Timer(props: TimerProps) {
   const { restartGame } = props;

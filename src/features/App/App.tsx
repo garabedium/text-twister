@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../../scss/app.scss';
 import GameStart from '../GameStart/GameStart';
-import { GameStatusProvider } from '../../contexts/gameStatusContext';
+import { GameStatusProvider } from '../../providers/gameStatusContext';
 import AppHeader from '../../components/AppHeader/AppHeader';
 
 function App() {

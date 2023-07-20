@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import { Letter } from '../../types/letter.interface';
 import { GameLettersProps } from '../../types/game.interface';
 import './GameLetters.scss';
-import { useGameStatus } from '../../contexts/gameStatusContext';
+import { useGameStatus } from '../../providers/gameStatusContext';
 
 function GameLetters(props: GameLettersProps) {
   const {

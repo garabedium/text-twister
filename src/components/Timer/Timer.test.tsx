@@ -5,7 +5,7 @@ import {
 } from '@testing-library/react';
 import { playButtonText, timeDev } from '../../utils/constants.util';
 import Timer from './Timer';
-import { GameStatusContext } from '../../contexts/gameStatusContext';
+import { GameStatusContext } from '../../providers/gameStatusContext';
 import { GameStatusContextInterface } from '../../types/game.interface';
 import { activeGameState, pausedGameState } from '../../utils/tests.util';
 
