@@ -51,3 +51,7 @@ export function buildLevelWordZipfQuery(
   }
   return query;
 }
+
+export function exhaustiveCheckError(_value: never): never {
+  throw new Error(`Error! Reached forbidden guard function with unexpected error: ${JSON.stringify(_value)}`);
+}

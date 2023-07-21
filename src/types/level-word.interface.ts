@@ -22,5 +22,5 @@ export interface UpdateLevelWordStatusesAction {
 }
 
 export type LevelWordsReducerAction = (
-  AddLevelWordAction | UpdateLevelWordStatusesAction
+  AddLevelWordAction | UpdateLevelWordStatusesAction | never
 );
