@@ -6,25 +6,27 @@ import {
 import user from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import {
-  gameStates, notifications, apiRoutes, gameInputLabel, backspaceButtonText,
+  notifications, apiRoutes, gameInputLabel, backspaceButtonText,
 } from '../../utils/constants.util';
-import { levelWordsData, anagramsData, nockGetRequest } from '../../utils/tests.util';
+import {
+  levelWordsData, anagramsData, nockGetRequest, activeGameState,
+} from '../../utils/tests.util';
 import GameContainer from './GameContainer';
 import { Anagram } from '../../types/anagram.interface';
-import { GameStatus } from '../../types/game.interface';
+import { GameStatusContext } from '../../providers/gameStatusContext';
 
 describe('GameContainer component', () => {
   const levelWord = levelWordsData[0].word;
   let mobileDevice = false;
 
   const renderGameContainer = () => render(
-    <GameContainer
-      gameStatus={gameStates.active as GameStatus}
-      currentWord={levelWordsData[0]}
-      selectNextWord={jest.fn()}
-      updateGameStatus={jest.fn()}
-      isMobileDevice={mobileDevice}
-    />,
+    <GameStatusContext.Provider value={activeGameState}>
+      <GameContainer
+        currentWord={levelWordsData[0]}
+        selectNextWord={jest.fn()}
+        isMobileDevice={mobileDevice}
+      />
+    </GameStatusContext.Provider>,
   );
 
   it('should display the game controls', () => {

@@ -7,15 +7,14 @@ import './Timer.scss';
 import { GameStatus } from '../../types/game.interface';
 import { TimerProps, TimerInterval } from '../../types/timer.interface';
 import Button from '../Button/Button';
+import { useGameStatus } from '../../providers/gameStatusContext';
 
 function Timer(props: TimerProps) {
-  const { gameStatus, updateGameStatus, restartGame } = props;
+  const { restartGame } = props;
+  const { isGameActive, isGamePaused, updateGameStatus } = useGameStatus();
 
   const startTime = (isDevEnv || isTestEnv) ? timeDev : timeProd;
   const [seconds, setSeconds] = useState<number>(startTime);
-
-  const isGameActive = (gameStatus === gameStates.active);
-  const isGamePaused = (gameStatus === gameStates.paused);
 
   // TODO: player.solvedAll, reset timer.
   useEffect(() => {

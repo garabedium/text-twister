@@ -1,61 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import '../../scss/app.scss';
-import isTouchDevice from 'is-touch-device';
-
-import { gameStates } from '../../utils/constants.util';
+import GameStart from '../GameStart/GameStart';
+import { GameStatusProvider } from '../../providers/gameStatusContext';
 import AppHeader from '../../components/AppHeader/AppHeader';
-import StartPage from '../StartPage/StartPage';
-import GameContainer from '../GameContainer/GameContainer';
-import { GameStatus } from '../../types/game.interface';
-import useLevelWords from '../../hooks/useLevelWords';
 
 function App() {
-  // STATE
-  /// ////////////////////
-  const [gameStatus, setGameStatus] = useState(gameStates.inactive as GameStatus);
-  const isGameInactive = (gameStatus === gameStates.inactive);
-
-  const {
-    hasLevelWord, currentWord, updateLevelWordStatuses,
-  } = useLevelWords(gameStatus);
-
-  // FUNCTIONS
-  /// ////////////////////
-  const updateGameStatus = (status: GameStatus) => {
-    setGameStatus(status);
-  };
-
   const loadBodyClass = () => {
     setTimeout(() => {
       document.body.classList.add('--react-loaded');
     }, 250);
   };
 
-  if (isGameInactive) {
+  useEffect(() => {
     loadBodyClass();
-  }
+  }, []);
 
   return (
     <>
       <AppHeader />
       <div className="app-container">
-        {isGameInactive
-          && (
-            <StartPage
-              updateGameStatus={updateGameStatus}
-              hasLevelWord={hasLevelWord}
-            />
-          )}
-        {!isGameInactive && hasLevelWord
-          && (
-            <GameContainer
-              gameStatus={gameStatus}
-              currentWord={currentWord}
-              updateGameStatus={updateGameStatus}
-              selectNextWord={updateLevelWordStatuses}
-              isMobileDevice={isTouchDevice()}
-            />
-          )}
+        <GameStatusProvider>
+          <GameStart />
+        </GameStatusProvider>
       </div>
     </>
   );

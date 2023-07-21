@@ -4,10 +4,13 @@ import {
 import { GameStatus } from '../types/game.interface';
 import { gameStates, nextwordStates, wordStates } from '../utils/constants.util';
 import { LevelWord, LevelWordStatus, LevelWordsReducerAction } from '../types/level-word.interface';
-import { buildLevelWordZipfQuery } from '../utils/methods.util';
+import { buildLevelWordZipfQuery, exhaustiveCheckError } from '../utils/methods.util';
 import LevelWordService from '../services/level-word.service';
 
-function levelWordReducer(state: LevelWord[], action: LevelWordsReducerAction) {
+function levelWordReducer(
+  state: LevelWord[],
+  action: LevelWordsReducerAction,
+): LevelWord[] {
   switch (action.type) {
     // Adds new LevelWord to state. First added word has status 'current'.
     case 'added': {
@@ -23,8 +26,7 @@ function levelWordReducer(state: LevelWord[], action: LevelWordsReducerAction) {
       return updatedStatuses;
     }
     default: {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      throw new Error(`Unknown action type: ${action.type}`);
+      return exhaustiveCheckError(action);
     }
   }
 }

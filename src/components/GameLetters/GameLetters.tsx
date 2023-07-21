@@ -3,16 +3,17 @@ import Button from '../Button/Button';
 import { Letter } from '../../types/letter.interface';
 import { GameLettersProps } from '../../types/game.interface';
 import './GameLetters.scss';
+import { useGameStatus } from '../../providers/gameStatusContext';
 
 function GameLetters(props: GameLettersProps) {
   const {
     gameLetters,
     word,
-    isGameActive,
     updateGameLetters,
   } = props;
 
   let content = null;
+  const { isGameActive } = useGameStatus();
 
   const handleLetterClick = (clickedLetter: Letter) => {
     if (gameLetters?.length && updateGameLetters) {
