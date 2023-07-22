@@ -37,12 +37,15 @@ function GameContainer(props: GameContainerProps) {
 
   const [gameLetters, setGameLetters] = useState<Letter[]>([]);
   const { word: levelWordText } = currentWord;
-  const { anagrams, isValidAnagram, updateSolvedWord } = useAnagrams(levelWordText);
+  const {
+    anagrams,
+    hasAnagrams,
+    isValidAnagram,
+    updateSolvedWord,
+  } = useAnagrams(levelWordText);
   const [notification, setNotification] = useState<NotificationKey>(defaultNotification);
 
   const { score, level, levelUp } = player;
-  // TODO: move to useAnagrams custom hook:
-  const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText] !== undefined;
   const restartButtonText = player.levelUp ? 'Next Level' : 'New Game';
   const usedLetters = gameLetters.filter((letter) => letter.used);
   const unusedLetters = gameLetters.filter((letter) => !letter.used);
