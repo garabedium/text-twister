@@ -3,9 +3,12 @@ import AnagramService from '../services/anagram.service';
 import {
   Anagram, AnagramsReducerAction, AnagramsHashMap,
 } from '../types/anagram.interface';
-import { anagramsByLevelWord } from '../utils/methods.util';
+import { anagramsByLevelWord, exhaustiveCheckError } from '../utils/methods.util';
 
-function anagramsReducer(state: AnagramsHashMap, action: AnagramsReducerAction) {
+function anagramsReducer(
+  state: AnagramsHashMap,
+  action: AnagramsReducerAction,
+): AnagramsHashMap | never {
   switch (action.type) {
     case 'added': {
       const { payload } = action;
@@ -16,14 +19,14 @@ function anagramsReducer(state: AnagramsHashMap, action: AnagramsReducerAction) 
       return { ...state, ...payload };
     }
     default: {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      throw new Error(`Unknown action type: ${action.type}`);
+      return exhaustiveCheckError(action);
     }
   }
 }
 
 function useAnagrams(levelWordText: string) {
   const [anagrams, dispatch] = useReducer(anagramsReducer, {});
+  const hasAnagrams = Object.keys(anagrams).length && anagrams[levelWordText];
 
   const getAnagrams = useCallback(async () => {
     const result: Anagram[] | void = await AnagramService.getAllByLevelWord(levelWordText);
@@ -49,7 +52,9 @@ function useAnagrams(levelWordText: string) {
     getAnagrams().catch(() => {});
   }, [levelWordText, getAnagrams]);
 
-  return { anagrams, isValidAnagram, updateSolvedWord };
+  return {
+    anagrams, hasAnagrams, isValidAnagram, updateSolvedWord,
+  };
 }
 
 export default useAnagrams;
