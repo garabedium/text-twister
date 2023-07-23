@@ -35,9 +35,10 @@ function useLevelWords(gameStatus?: GameStatus) {
   const [levelWords, dispatch] = useReducer(levelWordReducer, []);
   const currentWord = levelWords.filter((word) => word.status === wordStates.current)[0];
   const hasLevelWord = currentWord?.word !== undefined;
+  const usedLevelWords = levelWords.map((word) => word);
 
   const getLevelWord = async () => {
-    const query = buildLevelWordZipfQuery();
+    const query = buildLevelWordZipfQuery(usedLevelWords);
     const result = await LevelWordService.getByZipfRange(query);
     dispatch({ type: 'added', payload: result });
   };
@@ -50,6 +51,7 @@ function useLevelWords(gameStatus?: GameStatus) {
     if (gameStatus === gameStates.inactive || gameStatus === gameStates.paused) {
       getLevelWord().catch(() => {});
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameStatus]);
 
   return {
