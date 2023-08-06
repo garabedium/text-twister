@@ -3,8 +3,9 @@
     "airbnb", 
     "airbnb-typescript",
     "airbnb/hooks",
+    "plugin:jsx-a11y/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"    
+    "plugin:@typescript-eslint/recommended-requiring-type-checking" 
   ],
   "env":{
     "jest": true,
